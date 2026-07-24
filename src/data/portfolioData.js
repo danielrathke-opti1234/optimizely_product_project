@@ -493,10 +493,18 @@ export const customerSignals = [
   },
   {
     id: 'personalization',
-    quote: 'We struggle with personalization adoption.',
-    problem: 'Teams do not always know how personalization capabilities connect into a maturity path.',
-    pattern: 'Adoption gaps often come from unclear sequencing, missing readiness signals, and disconnected platform features.',
-    impact: 'Personalization remains aspirational instead of operational.',
+    quote: 'Personalization feels too daunting to start.',
+    problem: 'Teams have audiences, data, and ideas, but analyzing what matters and deciding where to begin feels overwhelming.',
+    pattern: 'Adoption gaps often come from unclear sequencing, missing readiness signals, and the desire for a guided next-best action instead of another feature list.',
+    impact: 'Personalization remains aspirational until the product tells teams what to build, why it matters, and how to validate it.',
+    patternId: 'adoption',
+  },
+  {
+    id: 'opal-guidance',
+    quote: 'We would rather be told what to build next.',
+    problem: 'Customers need help translating segment behavior, experiment history, and business goals into a concrete personalization plan.',
+    pattern: 'The more data a team has, the more valuable guided planning becomes. This is where Opal and Ava can turn analysis into action.',
+    impact: 'AI-assisted guidance can reduce decision paralysis and move teams from passive reporting into active campaign creation.',
     patternId: 'adoption',
   },
 ];
@@ -526,9 +534,9 @@ export const patterns = [
   {
     id: 'adoption',
     name: 'Personalization Adoption',
-    evidence: 'Teams wanted personalization but struggled to sequence capabilities and readiness.',
-    importance: 'Adoption requires a path from foundational targeting to AI-assisted adaptive experiences.',
-    gap: 'Feature lists do not help customers understand maturity, blockers, or next actions.',
+    evidence: 'Teams wanted personalization but struggled with where to start, how to analyze readiness, and what campaign to build next.',
+    importance: 'Adoption requires decision support: connect data, readiness, Opal guidance, and launch planning into one product motion.',
+    gap: 'Feature lists and dashboards do not answer the practical question customers ask most: what should we do next?',
   },
   {
     id: 'agent',

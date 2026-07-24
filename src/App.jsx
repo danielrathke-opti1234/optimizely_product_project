@@ -83,16 +83,16 @@ function Hero({ onBegin }) {
   return (
     <section id="top" className="relative flex min-h-screen items-center overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
       <div className="cinematic-orbit absolute inset-0" />
-      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 xl:grid-cols-[.88fr_1.12fr]">
+      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-8 xl:grid-cols-[.64fr_1.36fr]">
         <motion.div initial={{ opacity: 0, y: 26 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
           <ChapterLabel number="00" title="Enter the experience" />
-          <h1 className="max-w-5xl text-5xl font-semibold tracking-normal text-white sm:text-7xl lg:text-8xl">
+          <h1 className="max-w-4xl text-4xl font-semibold tracking-normal text-white sm:text-5xl xl:text-6xl">
             From Customer Conversations to Product Innovation
           </h1>
-          <p className="mt-7 max-w-3xl text-lg leading-8 text-slate-300">
+          <p className="mt-6 max-w-2xl text-base leading-7 text-slate-300">
             Over the last several years I have worked directly with enterprise experimentation teams, marketers, analysts, and digital leaders. Those conversations revealed recurring problems. This experience explores what happened next.
           </p>
-          <button onClick={onBegin} className="mt-9 inline-flex items-center gap-2 rounded-md bg-mint px-5 py-4 text-sm font-semibold text-ink transition hover:bg-mint/90">
+          <button onClick={onBegin} className="mt-7 inline-flex items-center gap-2 rounded-md bg-mint px-5 py-4 text-sm font-semibold text-ink transition hover:bg-mint/90">
             Begin Exploration <ArrowRight className="h-4 w-4" />
           </button>
         </motion.div>
@@ -179,7 +179,7 @@ function AgentLabBoot() {
         <div className="rounded-md border border-mint/25 bg-mint/10 px-3 py-2 text-xs font-semibold text-mint">Scene 0{active + 1}</div>
       </div>
 
-      <div className="relative z-10 mt-5 grid min-h-[25rem] gap-4 xl:grid-cols-[.72fr_1.28fr]">
+      <div className="relative z-10 mt-5 grid min-h-[23rem] gap-4 xl:grid-cols-[.58fr_1.42fr]">
         <div className="rounded-lg border border-white/10 bg-ink/55 p-4">
           <div className="mb-3 text-xs uppercase tracking-[.16em] text-slate-500">Customer signal archive</div>
           <div className="space-y-2">
@@ -190,7 +190,7 @@ function AgentLabBoot() {
                 initial={{ opacity: 0, x: -12 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.15, duration: 0.45 }}
-                className={`flex w-full items-center gap-2 rounded-md border px-3 py-2 text-left text-sm transition ${active === index ? 'border-mint/45 bg-mint/10 text-white' : 'border-white/10 bg-white/6 text-slate-400 hover:bg-white/10'}`}
+                className={`flex w-full items-center gap-2 rounded-md border px-3 py-2 text-left text-xs leading-5 transition ${active === index ? 'border-mint/45 bg-mint/10 text-white' : 'border-white/10 bg-white/6 text-slate-400 hover:bg-white/10'}`}
               >
                 <span className={`h-2 w-2 rounded-full ${active === index ? 'bg-mint shadow-[0_0_14px_rgba(69,211,167,.85)]' : 'bg-slate-600'}`} />
                 {item.signal}
@@ -200,14 +200,14 @@ function AgentLabBoot() {
         </div>
 
         <div className="agent-core rounded-lg border border-mint/20 bg-mint/5 p-4">
-          <div className="grid gap-4 xl:grid-cols-[.95fr_1.05fr]">
+          <div className="relative z-10 grid gap-4 xl:grid-cols-[.82fr_1.18fr]">
             <div className="relative flex min-h-72 flex-col justify-center gap-4 overflow-hidden rounded-lg border border-white/10 bg-ink/75 p-4">
               <div className="scene-vignette absolute inset-0" />
               <div className="relative z-10 flex items-center justify-center">
                 <motion.div key={scene.artifact} initial={{ opacity: 0, scale: 0.82, rotate: -3 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} className="agent-hologram flex min-h-40 w-full max-w-64 items-center justify-center rounded-lg border border-mint/30 bg-mint/10 p-6 text-center shadow-glow">
                   <div>
                     <div className="text-xs uppercase tracking-[.16em] text-mint">Artifact</div>
-                    <div className="mt-2 text-2xl font-semibold text-white">{scene.artifact}</div>
+                    <div className="mt-2 text-xl font-semibold text-white">{scene.artifact}</div>
                   </div>
                 </motion.div>
               </div>
@@ -220,7 +220,7 @@ function AgentLabBoot() {
             <div className="flex flex-col justify-between rounded-lg border border-white/10 bg-white/6 p-4">
               <div>
                 <div className="text-xs uppercase tracking-[.16em] text-slate-500">Transformation</div>
-                <motion.h3 key={scene.signal} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="mt-3 text-2xl font-semibold text-white">{scene.signal}</motion.h3>
+                <motion.h3 key={scene.signal} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="mt-3 text-xl font-semibold text-white">{scene.signal}</motion.h3>
                 <motion.p key={scene.line} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="mt-4 text-sm leading-6 text-slate-300">{scene.line}</motion.p>
               </div>
               <div className="mt-5 space-y-2">
@@ -253,9 +253,9 @@ function SignalsChapter({ exploredSignals, setExploredSignals }) {
         <ChapterLabel number="01" title="The signals" />
         <div className="grid gap-8 lg:grid-cols-[1fr_.9fr]">
           <div>
-            <h2 className="text-4xl font-semibold text-white sm:text-6xl">Recurring customer challenges begin to glow.</h2>
-            <p className="mt-5 max-w-2xl text-slate-400">Click the signals. Each one expands into the customer problem, observed pattern, and business impact behind the product work.</p>
-            <div className="relative mt-10 min-h-[34rem]">
+            <h2 className="max-w-4xl text-4xl font-semibold text-white sm:text-5xl">Recurring customer challenges begin to glow.</h2>
+            <p className="mt-5 max-w-2xl text-slate-400">Click the signals. Each one expands into the customer problem, observed pattern, and business impact behind the product work, with personalization now treated as a primary adoption challenge.</p>
+            <div className="relative mt-8 min-h-[31rem]">
               {customerSignals.map((signal, index) => (
                 <motion.button
                   key={signal.id}
@@ -264,8 +264,8 @@ function SignalsChapter({ exploredSignals, setExploredSignals }) {
                   transition={{ duration: 5 + index, repeat: Infinity }}
                   className={`absolute max-w-xs rounded-full border px-5 py-4 text-left text-sm shadow-soft backdrop-blur transition ${active.id === signal.id ? 'border-mint/50 bg-mint/15 text-white' : 'border-white/12 bg-white/8 text-slate-300 hover:bg-white/12'}`}
                   style={{
-                    left: `${[3, 44, 17, 58, 29][index]}%`,
-                    top: `${[4, 14, 42, 55, 75][index]}%`,
+                    left: `${[3, 44, 14, 58, 28, 49][index]}%`,
+                    top: `${[4, 15, 39, 49, 66, 74][index]}%`,
                   }}
                 >
                   <span className="mr-2 inline-block h-2 w-2 rounded-full bg-mint shadow-[0_0_16px_rgba(69,211,167,.9)]" />
@@ -284,7 +284,7 @@ function SignalsChapter({ exploredSignals, setExploredSignals }) {
 function SignalPanel({ signal, exploredCount }) {
   return (
     <motion.aside key={signal.id} initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} className="glass sticky top-8 self-start rounded-lg p-6">
-      <div className="mb-4 inline-flex rounded-md border border-mint/30 bg-mint/10 px-3 py-2 text-sm text-mint">{exploredCount}/5 signals explored</div>
+      <div className="mb-4 inline-flex rounded-md border border-mint/30 bg-mint/10 px-3 py-2 text-sm text-mint">{exploredCount}/{customerSignals.length} signals explored</div>
       <h3 className="text-2xl font-semibold text-white">{signal.quote}</h3>
       <InfoStack rows={[['Customer problem', signal.problem], ['Observed pattern', signal.pattern], ['Business impact', signal.impact]]} />
     </motion.aside>
@@ -790,35 +790,78 @@ function AvaControlRoom() {
 }
 
 function PersonalizationPrototype() {
-  const [stage, setStage] = useState(1);
-  const stages = ['Foundation', 'Segmentation', 'Orchestration', 'Adaptive'];
-  const capabilities = ['CMS Personalization', 'Web Experimentation', 'Audience Conditions', 'Behavior Targeting', 'Real Time Segmentation', 'ODP', 'Opal', 'CMAB'];
+  const [stage, setStage] = useState(0);
+  const stages = [
+    {
+      name: 'Diagnose',
+      label: 'Adoption blocker',
+      headline: 'Teams do not know where to start.',
+      body: 'Use Opal to interpret readiness signals across audiences, events, experiment history, and business goals instead of asking users to manually synthesize everything.',
+      outcome: 'Personalization readiness map',
+      capabilities: ['CMS Personalization', 'Audience Conditions', 'Behavior Targeting', 'ODP'],
+    },
+    {
+      name: 'Recommend',
+      label: 'Next best campaign',
+      headline: 'Turn analysis into a concrete recommendation.',
+      body: 'Opal should suggest the campaign worth building next, explain the evidence, show confidence, and call out setup gaps before work begins.',
+      outcome: 'Ranked campaign opportunity',
+      capabilities: ['Segment performance', 'Experiment learning', 'Business objective', 'Confidence rationale'],
+    },
+    {
+      name: 'Compose',
+      label: 'Opal-assisted brief',
+      headline: 'Generate the campaign brief, not just an idea.',
+      body: 'The PM opportunity is an interactive brief that drafts audience logic, hypothesis, content direction, activation method, and success metrics.',
+      outcome: 'Campaign brief canvas',
+      capabilities: ['Audience definition', 'Hypothesis', 'Content prompt', 'Measurement plan'],
+    },
+    {
+      name: 'Launch',
+      label: 'Human-gated activation',
+      headline: 'Move from recommendation to responsible launch.',
+      body: 'Ava and Opal can stage the workflow, but the product should preserve approval gates, QA, validation questions, and post-launch learning loops.',
+      outcome: 'Launch readiness plan',
+      capabilities: ['Web Experimentation', 'CMAB readiness', 'QA gate', 'Weekly intelligence'],
+    },
+  ];
+  const activeStage = stages[stage];
   return (
     <section id="personalization-prototype" className="border-y border-white/10 bg-white/[0.03] px-4 py-24 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
-        <ChapterLabel number="06A" title="Featured prototype" />
+        <ChapterLabel number="06A" title="Opal personalization concept" />
         <div className="grid gap-6 lg:grid-cols-[.75fr_1.25fr]">
           <div>
-            <h2 className="text-4xl font-semibold text-white">Personalization Adoption Journey</h2>
-            <p className="mt-4 text-slate-400">A contained concept showing how adoption challenges become a guided product prototype.</p>
+            <h2 className="text-4xl font-semibold text-white">Opal Personalization Innovation Studio</h2>
+            <p className="mt-4 text-slate-400">A product concept for the PM role: turn daunting personalization data into guided campaign decisions, then hand the workflow to Ava for operation.</p>
             <div className="mt-6 grid gap-2">
               {stages.map((item, index) => (
-                <button key={item} onClick={() => setStage(index)} className={`rounded-md border p-4 text-left transition ${stage === index ? 'border-gold/45 bg-gold/10 text-gold' : 'border-white/10 bg-white/6 text-slate-300 hover:bg-white/10'}`}>{item}</button>
+                <button key={item.name} onClick={() => setStage(index)} className={`rounded-md border p-4 text-left transition ${stage === index ? 'border-gold/45 bg-gold/10 text-gold' : 'border-white/10 bg-white/6 text-slate-300 hover:bg-white/10'}`}>
+                  <span className="text-xs uppercase tracking-[.16em] text-slate-500">{item.label}</span>
+                  <span className="mt-1 block text-lg font-semibold">{item.name}</span>
+                </button>
               ))}
             </div>
           </div>
           <div className="glass rounded-lg p-6">
             <div className="mb-5 flex items-center justify-between">
-              <h3 className="text-2xl font-semibold text-white">{stages[stage]} readiness</h3>
-              <span className="rounded-md border border-gold/25 bg-gold/10 px-3 py-2 text-sm text-gold">{(stage + 1) * 25}%</span>
+              <div>
+                <div className="text-xs uppercase tracking-[.16em] text-slate-500">Product innovation flow</div>
+                <h3 className="mt-2 text-2xl font-semibold text-white">{activeStage.headline}</h3>
+              </div>
+              <span className="rounded-md border border-gold/25 bg-gold/10 px-3 py-2 text-sm text-gold">Step {stage + 1}/4</span>
+            </div>
+            <p className="max-w-3xl text-base leading-7 text-slate-300">{activeStage.body}</p>
+            <div className="mt-5 rounded-md border border-mint/25 bg-mint/10 p-4">
+              <div className="text-xs uppercase tracking-[.16em] text-mint">Opal output</div>
+              <div className="mt-2 text-xl font-semibold text-white">{activeStage.outcome}</div>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
-              {capabilities.map((capability, index) => {
-                const active = stage >= Math.floor(index / 2);
+              {activeStage.capabilities.map((capability) => {
                 return (
-                  <div key={capability} className={`rounded-md border p-4 ${active ? 'border-mint/30 bg-mint/10' : 'border-white/10 bg-white/5 opacity-55'}`}>
+                  <div key={capability} className="rounded-md border border-white/10 bg-white/6 p-4">
                     <div className="flex items-center gap-2 text-sm font-semibold text-white">
-                      <CheckCircle2 className={`h-4 w-4 ${active ? 'text-mint' : 'text-slate-600'}`} />
+                      <CheckCircle2 className="h-4 w-4 text-mint" />
                       {capability}
                     </div>
                   </div>
@@ -894,7 +937,7 @@ const storyChapters = [
   { id: 'campaign-planner', label: 'Planner', icon: Zap },
   { id: 'ava-control-room', label: 'Ava', icon: Bot },
   { id: 'architecture', label: 'JSON', icon: Code2 },
-  { id: 'personalization-prototype', label: 'Maturity', icon: Sparkles },
+  { id: 'personalization-prototype', label: 'Opal Studio', icon: Sparkles },
   { id: 'clear', label: 'CLEAR', icon: Workflow },
   { id: 'why-product', label: 'PM Story', icon: Compass },
 ];

@@ -172,6 +172,12 @@ a {
   gap: 1rem;
 }
 
+.network-stage > button,
+.ecosystem-stage > button {
+  position: relative;
+  z-index: 1;
+}
+
 .agent-lab {
   background:
     radial-gradient(circle at 50% 50%, rgba(69, 211, 167, 0.16), transparent 13rem),
@@ -202,8 +208,10 @@ a {
   inset-inline: 12%;
   top: 50%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(69, 211, 167, 0.55), transparent);
+  z-index: 0;
+  background: linear-gradient(90deg, transparent, rgba(69, 211, 167, 0.16), transparent);
   animation: pulseLine 3s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .agent-core::after {
@@ -213,7 +221,7 @@ a {
   bottom: 18%;
   width: 1px;
   height: auto;
-  background: linear-gradient(180deg, transparent, rgba(103, 212, 255, 0.36), transparent);
+  background: linear-gradient(180deg, transparent, rgba(103, 212, 255, 0.14), transparent);
   animation-delay: 0.65s;
 }
 
@@ -409,8 +417,10 @@ a {
   right: 14%;
   top: 50%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(69, 211, 167, 0.7), rgba(103, 212, 255, 0.55), transparent);
+  z-index: 0;
+  background: linear-gradient(90deg, transparent, rgba(69, 211, 167, 0.18), rgba(103, 212, 255, 0.14), transparent);
   animation: pulseLine 3.2s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .experience-begun #top {

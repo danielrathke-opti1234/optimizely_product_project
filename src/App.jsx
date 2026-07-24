@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   ArrowRight,
@@ -44,6 +44,9 @@ const colors = {
 };
 
 function scrollToId(id) {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('portfolio:navigate', { detail: id }));
+  }
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
@@ -80,7 +83,7 @@ function Hero({ onBegin }) {
   return (
     <section id="top" className="relative flex min-h-screen items-center overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
       <div className="cinematic-orbit absolute inset-0" />
-      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1fr_.9fr]">
+      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 xl:grid-cols-[.88fr_1.12fr]">
         <motion.div initial={{ opacity: 0, y: 26 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
           <ChapterLabel number="00" title="Enter the experience" />
           <h1 className="max-w-5xl text-5xl font-semibold tracking-normal text-white sm:text-7xl lg:text-8xl">
@@ -93,7 +96,7 @@ function Hero({ onBegin }) {
             Begin Exploration <ArrowRight className="h-4 w-4" />
           </button>
         </motion.div>
-        <motion.div initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.15, duration: 0.8 }} className="glass relative min-h-[39rem] overflow-hidden rounded-lg p-6">
+        <motion.div initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.15, duration: 0.8 }} className="glass relative min-h-[34rem] overflow-hidden rounded-lg p-6">
           <div className="absolute inset-0 command-grid opacity-70" />
           <div className="relative z-10 flex h-full flex-col justify-between">
             <div className="flex items-center justify-between">
@@ -176,7 +179,7 @@ function AgentLabBoot() {
         <div className="rounded-md border border-mint/25 bg-mint/10 px-3 py-2 text-xs font-semibold text-mint">Scene 0{active + 1}</div>
       </div>
 
-      <div className="relative z-10 mt-5 grid min-h-[25rem] gap-4 lg:grid-cols-[.72fr_1.28fr]">
+      <div className="relative z-10 mt-5 grid min-h-[25rem] gap-4 xl:grid-cols-[.72fr_1.28fr]">
         <div className="rounded-lg border border-white/10 bg-ink/55 p-4">
           <div className="mb-3 text-xs uppercase tracking-[.16em] text-slate-500">Customer signal archive</div>
           <div className="space-y-2">
@@ -197,7 +200,7 @@ function AgentLabBoot() {
         </div>
 
         <div className="agent-core rounded-lg border border-mint/20 bg-mint/5 p-4">
-          <div className="grid gap-4 lg:grid-cols-[.95fr_1.05fr]">
+          <div className="grid gap-4 xl:grid-cols-[.95fr_1.05fr]">
             <div className="relative flex min-h-72 flex-col justify-center gap-4 overflow-hidden rounded-lg border border-white/10 bg-ink/75 p-4">
               <div className="scene-vignette absolute inset-0" />
               <div className="relative z-10 flex items-center justify-center">
@@ -883,54 +886,117 @@ function InfoStack({ rows }) {
   );
 }
 
-function FloatingNav() {
+const storyChapters = [
+  { id: 'top', label: 'Opening', icon: Eye },
+  { id: 'signals', label: 'Signals', icon: Radar },
+  { id: 'patterns', label: 'Patterns', icon: Network },
+  { id: 'artifacts', label: 'Agents', icon: Layers3 },
+  { id: 'campaign-planner', label: 'Planner', icon: Zap },
+  { id: 'ava-control-room', label: 'Ava', icon: Bot },
+  { id: 'architecture', label: 'JSON', icon: Code2 },
+  { id: 'personalization-prototype', label: 'Maturity', icon: Sparkles },
+  { id: 'clear', label: 'CLEAR', icon: Workflow },
+  { id: 'why-product', label: 'PM Story', icon: Compass },
+];
+
+function StoryNavigation({ activeIndex, onGo, onPrev, onNext }) {
+  const atStart = activeIndex === 0;
+  const atEnd = activeIndex === storyChapters.length - 1;
+
   return (
-    <div className="fixed bottom-5 left-1/2 z-40 hidden -translate-x-1/2 rounded-full border border-white/10 bg-ink/78 p-2 backdrop-blur-xl md:flex">
-      {[
-        ['Signals', 'signals', Eye],
-        ['Patterns', 'patterns', Network],
-        ['Artifacts', 'artifacts', Layers3],
-        ['CLEAR', 'clear', Workflow],
-        ['Architecture', 'architecture', Code2],
-        ['Concepts', 'concepts', Sparkles],
-        ['Planner', 'campaign-planner', Zap],
-        ['Ava', 'ava-control-room', Bot],
-        ['PM', 'why-product', Compass],
-      ].map(([label, id, Icon]) => (
-        <button key={id} onClick={() => scrollToId(id)} className="group relative rounded-full p-3 text-slate-400 transition hover:bg-white/10 hover:text-white">
-          <Icon className="h-4 w-4" />
-          <span className="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 rounded-md bg-white px-2 py-1 text-xs text-ink opacity-0 transition group-hover:opacity-100">{label}</span>
+    <>
+      <div className="story-rail fixed left-4 top-1/2 z-40 hidden -translate-y-1/2 rounded-full border border-white/10 bg-ink/78 p-2 backdrop-blur-xl xl:flex xl:flex-col">
+        {storyChapters.map(({ id, label, icon: Icon }, index) => (
+          <button
+            key={id}
+            onClick={() => onGo(index)}
+            className={`group relative rounded-full p-3 transition ${activeIndex === index ? 'bg-mint text-ink' : 'text-slate-400 hover:bg-white/10 hover:text-white'}`}
+            aria-label={label}
+          >
+            <Icon className="h-4 w-4" />
+            <span className="pointer-events-none absolute left-full top-1/2 ml-2 -translate-y-1/2 whitespace-nowrap rounded-md bg-white px-2 py-1 text-xs text-ink opacity-0 transition group-hover:opacity-100">{label}</span>
+          </button>
+        ))}
+      </div>
+
+      <div className="story-controls fixed bottom-5 left-1/2 z-40 flex w-[min(94vw,48rem)] -translate-x-1/2 items-center justify-between gap-3 rounded-full border border-white/10 bg-ink/82 p-2 backdrop-blur-xl">
+        <button onClick={onPrev} disabled={atStart} className="rounded-full border border-white/10 bg-white/7 px-4 py-3 text-sm font-semibold text-slate-300 transition hover:bg-white/12 disabled:cursor-not-allowed disabled:opacity-35">
+          Back
         </button>
-      ))}
-    </div>
+        <div className="min-w-0 text-center">
+          <div className="text-[0.65rem] uppercase tracking-[.18em] text-slate-500">Chapter {String(activeIndex + 1).padStart(2, '0')} / {String(storyChapters.length).padStart(2, '0')}</div>
+          <div className="truncate text-sm font-semibold text-white">{storyChapters[activeIndex].label}</div>
+        </div>
+        <button onClick={onNext} disabled={atEnd} className="inline-flex items-center gap-2 rounded-full bg-mint px-4 py-3 text-sm font-semibold text-ink transition hover:bg-mint/90 disabled:cursor-not-allowed disabled:opacity-35">
+          Next <ArrowRight className="h-4 w-4" />
+        </button>
+      </div>
+    </>
   );
 }
 
 function App() {
   const [begun, setBegun] = useState(false);
   const [exploredSignals, setExploredSignals] = useState([]);
+  const [activeChapter, setActiveChapter] = useState(0);
+
+  useEffect(() => {
+    function handleNavigate(event) {
+      const index = storyChapters.findIndex((chapter) => chapter.id === event.detail);
+      if (index >= 0) {
+        setBegun(true);
+        setActiveChapter(index);
+        requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'smooth' }));
+      }
+    }
+
+    window.addEventListener('portfolio:navigate', handleNavigate);
+    return () => window.removeEventListener('portfolio:navigate', handleNavigate);
+  }, []);
 
   function begin() {
     setBegun(true);
-    setTimeout(() => scrollToId('signals'), 220);
+    setActiveChapter(1);
+    requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  }
+
+  function goToChapter(index) {
+    setBegun(true);
+    setActiveChapter(Math.max(0, Math.min(storyChapters.length - 1, index)));
+    requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  }
+
+  function renderChapter() {
+    const id = storyChapters[activeChapter].id;
+    if (id === 'top') return <Hero onBegin={begin} />;
+    if (id === 'signals') return <SignalsChapter exploredSignals={exploredSignals} setExploredSignals={setExploredSignals} />;
+    if (id === 'patterns') return <PatternsChapter unlocked />;
+    if (id === 'artifacts') return <ArtifactsChapter />;
+    if (id === 'campaign-planner') return <CampaignPlannerSpotlight />;
+    if (id === 'ava-control-room') return <AvaControlRoom />;
+    if (id === 'architecture') return <ArchitectureChapter />;
+    if (id === 'personalization-prototype') return <PersonalizationPrototype />;
+    if (id === 'clear') return <ClearChapter />;
+    return <WhyProductChapter />;
   }
 
   return (
     <>
-      <main className={begun ? 'experience-begun' : ''}>
-        <Hero onBegin={begin} />
-        <SignalsChapter exploredSignals={exploredSignals} setExploredSignals={setExploredSignals} />
-        <PatternsChapter unlocked={exploredSignals.length >= 2} />
-        <ArtifactsChapter />
-        <ClearChapter />
-        <ArchitectureChapter />
-        <ConceptsChapter />
-        <CampaignPlannerSpotlight />
-        <PersonalizationPrototype />
-        <AvaControlRoom />
-        <WhyProductChapter />
+      <main className={`story-main ${begun ? 'experience-begun' : ''}`}>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={storyChapters[activeChapter].id}
+            className="story-scene"
+            initial={{ opacity: 0, y: 18, filter: 'blur(10px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, y: -12, filter: 'blur(8px)' }}
+            transition={{ duration: 0.32 }}
+          >
+            {renderChapter()}
+          </motion.div>
+        </AnimatePresence>
       </main>
-      <FloatingNav />
+      <StoryNavigation activeIndex={activeChapter} onGo={goToChapter} onPrev={() => goToChapter(activeChapter - 1)} onNext={() => goToChapter(activeChapter + 1)} />
       <footer className="border-t border-white/10 px-4 py-8 text-center text-sm text-slate-500">
         Interactive front-end prototype using sanitized local mock data. No confidential customer data included.
       </footer>

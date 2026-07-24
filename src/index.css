@@ -31,6 +31,24 @@ main {
   overflow: hidden;
 }
 
+.story-main {
+  min-height: 100svh;
+}
+
+.story-scene {
+  min-height: 100svh;
+}
+
+.story-scene > section {
+  min-height: 100svh;
+  padding-bottom: 7.5rem;
+}
+
+.story-controls,
+.story-rail {
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.42);
+}
+
 button,
 a {
   -webkit-tap-highlight-color: transparent;

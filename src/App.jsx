@@ -23,6 +23,8 @@ import {
   annotations,
   architectureFlow,
   artifacts,
+  avaDashboardMetrics,
+  avaPrimitives,
   clearStages,
   concepts,
   customerSignals,
@@ -334,7 +336,7 @@ function ArtifactsChapter() {
                 whileHover={{ scale: 1.04 }}
                 onClick={() => setActive(artifact)}
                 className={`absolute w-48 rounded-lg border p-4 text-left shadow-soft transition ${active.id === artifact.id ? 'border-mint/50 bg-mint/12' : 'border-white/12 bg-white/8 hover:bg-white/12'}`}
-                style={{ left: `${[8, 56, 35, 12, 64][index]}%`, top: `${[12, 15, 42, 68, 68][index]}%` }}
+                style={{ left: `${[8, 56, 35, 12, 64, 40][index]}%`, top: `${[12, 15, 42, 68, 68, 8][index]}%` }}
               >
                 <div className="text-xs uppercase tracking-[.16em] text-slate-500">{artifact.type}</div>
                 <div className="mt-2 text-base font-semibold text-white">{artifact.name}</div>
@@ -426,7 +428,7 @@ function ArchitectureChapter() {
         <ChapterLabel number="05" title="Agent architecture explorer" />
         <h2 className="max-w-4xl text-4xl font-semibold text-white sm:text-6xl">Explore the source code of product thinking.</h2>
         <div className="mt-8 flex flex-wrap gap-2">
-          {agents.filter((item) => ['roi', 'health', 'gap'].includes(item.id)).map((item) => (
+          {agents.filter((item) => ['roi', 'health', 'gap', 'ava'].includes(item.id)).map((item) => (
             <button key={item.id} onClick={() => setActiveId(item.id)} className={`rounded-md px-4 py-3 text-sm transition ${activeId === item.id ? 'bg-mint text-ink' : 'border border-white/10 bg-white/7 text-slate-300 hover:bg-white/12'}`}>{item.name}</button>
           ))}
         </div>
@@ -520,9 +522,128 @@ function ConceptsChapter() {
                 Explore Personalization Prototype <ArrowRight className="h-4 w-4" />
               </button>
             )}
+            {active.id === 'ava-virtual-teammate' && (
+              <button onClick={() => scrollToId('ava-control-room')} className="mt-6 inline-flex items-center gap-2 rounded-md bg-mint px-4 py-3 text-sm font-semibold text-ink">
+                Launch Ava Control Room <ArrowRight className="h-4 w-4" />
+              </button>
+            )}
           </div>
         </div>
       </div>
+    </section>
+  );
+}
+
+function AvaControlRoom() {
+  const [activeId, setActiveId] = useState('opportunity');
+  const [jsonOpen, setJsonOpen] = useState(false);
+  const active = avaPrimitives.find((item) => item.id === activeId) || avaPrimitives[0];
+  const avaAgent = agents.find((item) => item.id === 'ava');
+
+  return (
+    <section id="ava-control-room" className="relative overflow-hidden border-y border-white/10 bg-white/[0.03] px-4 py-24 sm:px-6 lg:px-8">
+      <div className="absolute inset-0 ava-field" />
+      <div className="relative z-10 mx-auto max-w-7xl">
+        <ChapterLabel number="06B" title="Virtual teammate system" />
+        <div className="grid gap-8 lg:grid-cols-[.82fr_1.18fr]">
+          <div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-mint/25 bg-mint/10 px-4 py-2 text-sm font-semibold text-mint">
+              <Bot className="h-4 w-4" />
+              Ava online
+            </div>
+            <h2 className="mt-5 text-4xl font-semibold text-white sm:text-6xl">Ava turns personalization work into a weekly operating system.</h2>
+            <p className="mt-5 max-w-2xl text-slate-400">A sanitized virtual teammate prototype inspired by the VAU export: segment discovery, campaign design, staged build, performance monitoring, and program intelligence.</p>
+            <div className="mt-8 grid gap-3">
+              {avaPrimitives.map((primitive, index) => (
+                <button
+                  key={primitive.id}
+                  onClick={() => setActiveId(primitive.id)}
+                  className={`group rounded-lg border p-4 text-left transition ${activeId === primitive.id ? 'border-mint/50 bg-mint/12 shadow-glow' : 'border-white/10 bg-white/6 hover:border-white/20 hover:bg-white/10'}`}
+                >
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="flex items-center gap-3">
+                      <span className={`flex h-9 w-9 items-center justify-center rounded-md border text-sm font-semibold ${activeId === primitive.id ? 'border-mint/40 bg-mint/15 text-mint' : 'border-white/10 bg-ink/60 text-slate-400'}`}>0{index + 1}</span>
+                      <span>
+                        <span className="block font-semibold text-white">{primitive.name}</span>
+                        <span className="mt-1 block text-xs uppercase tracking-[.16em] text-slate-500">{primitive.trigger}</span>
+                      </span>
+                    </span>
+                    <ChevronRight className={`h-4 w-4 transition ${activeId === primitive.id ? 'text-mint' : 'text-slate-600 group-hover:text-white'}`} />
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="ava-console glass rounded-lg p-5">
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div>
+                <div className="text-xs uppercase tracking-[.18em] text-slate-500">Active primitive</div>
+                <motion.h3 key={active.name} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-2 text-3xl font-semibold text-white">{active.name}</motion.h3>
+              </div>
+              <button onClick={() => setJsonOpen(true)} className="inline-flex items-center gap-2 rounded-md border border-sky/25 bg-sky/10 px-3 py-2 text-sm font-semibold text-sky transition hover:bg-sky/15">
+                <Code2 className="h-4 w-4" />
+                VAU JSON
+              </button>
+            </div>
+
+            <div className="mt-6 grid gap-4 lg:grid-cols-[.95fr_1.05fr]">
+              <div className="rounded-lg border border-white/10 bg-ink/72 p-4">
+                <div className="mb-4 text-xs uppercase tracking-[.16em] text-slate-500">Workflow chain</div>
+                <div className="space-y-3">
+                  {active.steps.map((step, index) => (
+                    <motion.div
+                      key={step}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.08 }}
+                      className="flex items-center gap-3 rounded-md border border-white/10 bg-white/6 p-3"
+                    >
+                      <span className="flex h-8 w-8 items-center justify-center rounded-md border border-mint/25 bg-mint/10 text-xs font-semibold text-mint">{index + 1}</span>
+                      <span className="text-sm font-semibold text-slate-200">{step}</span>
+                    </motion.div>
+                  ))}
+                </div>
+                <div className="mt-4 rounded-md border border-gold/20 bg-gold/10 p-3 text-sm text-gold">
+                  Output: {active.output}
+                </div>
+              </div>
+
+              <motion.div key={active.id} initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} className="rounded-lg border border-mint/20 bg-mint/7 p-4">
+                <div className="mb-4 flex items-center justify-between">
+                  <span className="text-xs uppercase tracking-[.16em] text-slate-500">Ava readout</span>
+                  <span className="rounded-md border border-mint/25 bg-mint/10 px-3 py-1 text-xs font-semibold text-mint">{active.artifact.signal}</span>
+                </div>
+                <h4 className="text-2xl font-semibold text-white">{active.artifact.headline}</h4>
+                <InfoStack rows={[['Decision support', active.description], ['Recommended action', active.artifact.recommendedAction], ['Confidence', active.artifact.confidence]]} />
+              </motion.div>
+            </div>
+
+            <div className="mt-5 grid gap-3 sm:grid-cols-4">
+              {avaDashboardMetrics.map((metric) => (
+                <div key={metric.label} className="rounded-md border border-white/10 bg-white/6 p-4">
+                  <div className="text-2xl font-semibold text-white">{metric.value}</div>
+                  <div className="mt-1 text-xs uppercase tracking-[.13em] text-slate-500">{metric.label}</div>
+                  <div className="mt-3 text-sm font-semibold text-mint">{metric.trend}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-5 rounded-lg border border-white/10 bg-ink/70 p-4">
+              <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-white">
+                <Radar className="h-4 w-4 text-sky" />
+                Weekly intelligence radar
+              </div>
+              <div className="ava-radar">
+                {['Segment fit', 'Campaign readiness', 'Experiment signal', 'Metric coverage', 'Roadmap learning'].map((item, index) => (
+                  <span key={item} style={{ '--i': index }}>{item}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <JsonDrawer open={jsonOpen} onClose={() => setJsonOpen(false)} agent={avaAgent} />
     </section>
   );
 }
@@ -634,6 +755,7 @@ function FloatingNav() {
         ['CLEAR', 'clear', Workflow],
         ['Architecture', 'architecture', Code2],
         ['Concepts', 'concepts', Sparkles],
+        ['Ava', 'ava-control-room', Bot],
         ['PM', 'why-product', Compass],
       ].map(([label, id, Icon]) => (
         <button key={id} onClick={() => scrollToId(id)} className="group relative rounded-full p-3 text-slate-400 transition hover:bg-white/10 hover:text-white">
@@ -665,6 +787,7 @@ function App() {
         <ArchitectureChapter />
         <ConceptsChapter />
         <PersonalizationPrototype />
+        <AvaControlRoom />
         <WhyProductChapter />
       </main>
       <FloatingNav />

@@ -82,6 +82,25 @@ export const agents = [
     metric: 'Maturity lift',
     color: 'gold',
   },
+  {
+    id: 'ava',
+    name: 'Ava Virtual Teammate',
+    tag: 'Personalization operations',
+    status: 'Virtual teammate system',
+    problem: 'Personalization teams need help moving from segment performance data to campaign decisions, build readiness, monitoring, and weekly program intelligence.',
+    insight: 'The product opportunity is not a single recommendation agent. It is an end-to-end teammate that can fetch context, analyze opportunities, design campaigns, stage builds, monitor outcomes, and explain what to do next.',
+    solution: 'Ava is a virtual teammate concept that coordinates specialized workflow agents across segment analysis, campaign design, human-gated campaign build, performance monitoring, and weekly intelligence reporting.',
+    capabilities: [
+      'Segment performance opportunity ranking',
+      'Campaign design canvas',
+      'Human-gated campaign build workflow',
+      'Experiment and personalization performance monitoring',
+      'Weekly program intelligence dashboard',
+    ],
+    skills: ['AI product strategy', 'Workflow orchestration', 'Personalization adoption', 'Analytics product thinking', 'Human-in-the-loop design'],
+    metric: 'Operationalized personalization',
+    color: 'mint',
+  },
 ];
 
 export const journeys = [
@@ -129,6 +148,18 @@ export const concepts = [
     cta: 'Explore Personalization Prototype',
     questions: ['Which maturity signals predict adoption?', 'Where should Opal assist versus automate?', 'What guidance belongs in-product?'],
     skills: ['Product strategy', 'Adoption design', 'AI personalization', 'Prototype development'],
+  },
+  {
+    id: 'ava-virtual-teammate',
+    title: 'Ava Virtual Teammate',
+    label: 'AI teammate concept',
+    focus: 'Turn segment performance, experimentation context, and campaign workflow friction into an AI-assisted operating model.',
+    opportunity: 'Move personalization from occasional ideation into a repeatable weekly system for discovery, campaign creation, monitoring, and program intelligence.',
+    prototype: 'Interactive virtual teammate control room with workflow primitives, campaign staging, performance monitoring, and sanitized VAU JSON.',
+    validation: 'Test whether teams trust the sequence, understand the human approval points, and can move from insight to campaign brief faster.',
+    cta: 'Launch Ava Control Room',
+    questions: ['Where should Ava recommend versus act?', 'Which outputs need approval gates?', 'What weekly intelligence actually changes decisions?'],
+    skills: ['AI product strategy', 'Workflow orchestration', 'Personalization adoption', 'Analytics product thinking'],
   },
   {
     id: 'opal-workflows',
@@ -265,6 +296,60 @@ export const jsonExamples = {
     },
     guardrails: ['recommend_sequence_not_shortcuts', 'explain_tradeoffs', 'no_customer_identifiers'],
   },
+  ava: {
+    schema_version: 'sanitized-1.0',
+    teammate_type: 'virtual_teammate_system',
+    name: 'Ava',
+    positioning: 'Personalization strategy and program intelligence teammate',
+    persona: {
+      traits: ['strategic', 'practical', 'customer-focused', 'analytical', 'evidence-driven', 'adoption-focused'],
+      operating_principles: [
+        'recommend the simplest campaign that can create meaningful learning',
+        'separate planning, preparation, execution, and monitoring',
+        'keep the user in control of strategy, approval, and launch',
+        'show assumptions, confidence, and missing setup requirements',
+      ],
+    },
+    primitives: [
+      {
+        slug: 'identify_personalization_opportunities',
+        trigger: 'scheduled_daily',
+        workflow_agent: 'segment_opportunity_workflow',
+        output: 'opportunity_board_canvas',
+      },
+      {
+        slug: 'design_personalization_campaign',
+        trigger: 'selected_opportunity',
+        workflow_agent: 'campaign_design_workflow',
+        output: 'campaign_design_canvas',
+      },
+      {
+        slug: 'stage_campaign_build',
+        trigger: 'human_approval',
+        workflow_agent: 'campaign_build_workflow',
+        output: 'paused_build_confirmation_canvas',
+      },
+      {
+        slug: 'monitor_campaign_performance',
+        trigger: 'scheduled_daily',
+        workflow_agent: 'performance_monitoring_workflow',
+        output: 'multi_campaign_performance_canvas',
+      },
+      {
+        slug: 'weekly_program_intelligence',
+        trigger: 'scheduled_weekly',
+        workflow_agent: 'program_intelligence_workflow',
+        output: 'weekly_dashboard_canvas',
+      },
+    ],
+    orchestration_model: {
+      workflow_type: 'deterministic',
+      common_steps: ['fetch_context', 'analyze_or_enrich', 'compose_canvas_and_message'],
+      approval_gates: ['campaign_design_review', 'manual_activation_required'],
+    },
+    tools: ['segment_data_reader', 'experiment_metadata_reader', 'campaign_payload_builder', 'performance_results_reader', 'html_canvas_renderer'],
+    guardrails: ['sanitized_mock_data_only', 'no_customer_identifiers', 'no_autonomous_launch', 'show_missing_setup_requirements'],
+  },
 };
 
 export const annotations = {
@@ -289,6 +374,12 @@ export const annotations = {
     ['Parameters', 'Current stage and available capabilities keep the recommendations grounded in adoption reality.'],
     ['Workflow', 'Readiness scoring comes before next-step guidance so the concept does not jump to advanced features too early.'],
     ['Output', 'The roadmap format positions personalization maturity as one product case study, not the whole portfolio.'],
+  ],
+  ava: [
+    ['Virtual teammate design', 'Ava is positioned as an operating model, not a chatbot. The system coordinates recurring workflows that move from signal to action.'],
+    ['Primitive structure', 'Each primitive has a trigger, workflow agent, specialized steps, and a canvas output so the experience is repeatable and explainable.'],
+    ['Human approval gates', 'Campaign build is intentionally staged as paused. Ava can prepare the work, but strategy, QA, and activation remain human-controlled.'],
+    ['Program intelligence', 'Weekly reporting turns individual campaign activity into a decision surface for segment strategy, experiment performance, and roadmap implications.'],
   ],
 };
 
@@ -379,6 +470,7 @@ export const artifacts = [
   { id: 'gap', name: 'Experimentation Gap Analysis Agent', type: 'AI agent', agentId: 'gap' },
   { id: 'clear', name: 'CLEAR Framework', type: 'Agent creation system' },
   { id: 'personalization', name: 'Personalization Adoption Prototype', type: 'Product concept', agentId: 'personalization' },
+  { id: 'ava', name: 'Ava Virtual Teammate', type: 'AI teammate system', agentId: 'ava' },
 ];
 
 export const clearStages = [
@@ -420,4 +512,84 @@ export const architectureFlow = [
   ['Tools', 'Inventory readers, metric mappers, quality scorers, report renderers'],
   ['Outputs', 'Strategic report, roadmap guidance, assumptions, next actions'],
   ['Business Outcomes', 'Better prioritization, clearer executive narrative, faster product decisions'],
+];
+
+export const avaPrimitives = [
+  {
+    id: 'opportunity',
+    name: 'Identify Opportunities',
+    trigger: 'Daily signal scan',
+    description: 'Fetches segment performance data, filters for reliability, calculates opportunity size, and ranks personalization ideas.',
+    steps: ['Segment data fetcher', 'Opportunity analyzer', 'Opportunity board composer'],
+    output: 'Segment opportunity board',
+    artifact: {
+      headline: 'Returning visitors show high intent but lower conversion efficiency.',
+      confidence: 'High',
+      recommendedAction: 'Design a guided offer or content path for returning visitors with strong product engagement.',
+      signal: '+18% opportunity score',
+    },
+  },
+  {
+    id: 'design',
+    name: 'Design Campaign',
+    trigger: 'Selected opportunity',
+    description: 'Reads the selected opportunity, checks experimentation metadata, and drafts audience rules, variants, goals, and approval notes.',
+    steps: ['Metadata fetcher', 'Campaign designer', 'Design canvas composer'],
+    output: 'Campaign design canvas',
+    artifact: {
+      headline: 'Build a returning-visitor personalization path with two variants and clear success metrics.',
+      confidence: 'Medium-high',
+      recommendedAction: 'Approve audience rules, confirm the primary metric, and review copy before staging.',
+      signal: '2 variants ready',
+    },
+  },
+  {
+    id: 'build',
+    name: 'Stage Build',
+    trigger: 'Human approval',
+    description: 'Turns the approved campaign spec into staged personalization entities while keeping activation gated by a human.',
+    steps: ['Approved spec reader', 'Payload builder', 'Build confirmation composer'],
+    output: 'Paused campaign build report',
+    artifact: {
+      headline: 'Campaign is staged as paused with audience, experiences, metrics, and launch checklist.',
+      confidence: 'Human-gated',
+      recommendedAction: 'Review QA checklist and manually activate only after stakeholder approval.',
+      signal: 'Activation locked',
+    },
+  },
+  {
+    id: 'monitor',
+    name: 'Monitor Performance',
+    trigger: 'Daily performance read',
+    description: 'Pulls running campaign and experiment results, analyzes lift and confidence, and generates next-step recommendations.',
+    steps: ['Results fetcher', 'Performance analyzer', 'Performance report composer'],
+    output: 'Multi-campaign performance report',
+    artifact: {
+      headline: 'One campaign is trending positive, one needs more traffic, and one should be reviewed for audience fit.',
+      confidence: 'Directional',
+      recommendedAction: 'Keep collecting data, inspect weak segment fit, and preserve the strongest learning for next week.',
+      signal: '+6.4% modeled lift',
+    },
+  },
+  {
+    id: 'dashboard',
+    name: 'Weekly Intelligence Hub',
+    trigger: 'Friday program readout',
+    description: 'Consolidates segment, campaign, and experiment activity into a weekly dashboard for program decisions.',
+    steps: ['Campaign fetcher', 'Dashboard enricher', 'Dashboard composer'],
+    output: 'Weekly intelligence dashboard',
+    artifact: {
+      headline: 'Personalization momentum is improving, but metric coverage and audience reuse need attention.',
+      confidence: 'Executive-ready',
+      recommendedAction: 'Prioritize two high-fit audiences, review metric gaps, and carry forward the highest-value learning.',
+      signal: '4 decisions surfaced',
+    },
+  },
+];
+
+export const avaDashboardMetrics = [
+  { label: 'Segments analyzed', value: '42', trend: '+9 WoW' },
+  { label: 'Campaign ideas ranked', value: '12', trend: '5 high-fit' },
+  { label: 'Experiments monitored', value: '8', trend: '3 need attention' },
+  { label: 'Weekly decisions surfaced', value: '4', trend: '2 roadmap inputs' },
 ];

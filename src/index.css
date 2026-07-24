@@ -147,6 +147,13 @@ a {
   background-size: auto, 42px 42px, 42px 42px, auto;
 }
 
+.ecosystem-stage {
+  display: grid;
+  align-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 1rem;
+}
+
 .agent-lab {
   background:
     radial-gradient(circle at 50% 50%, rgba(69, 211, 167, 0.16), transparent 13rem),
@@ -235,6 +242,39 @@ a {
   inset: -34px;
   border-color: rgba(103, 212, 255, 0.1);
   animation: slowSpin 16s linear infinite;
+}
+
+.planner-field {
+  background:
+    radial-gradient(circle at 18% 18%, rgba(69, 211, 167, 0.16), transparent 24rem),
+    radial-gradient(circle at 72% 20%, rgba(109, 40, 217, 0.14), transparent 26rem),
+    radial-gradient(circle at 58% 80%, rgba(37, 99, 235, 0.12), transparent 24rem);
+}
+
+.planner-field::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.038) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.038) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(circle at 56% 45%, black, transparent 74%);
+}
+
+.planner-console {
+  position: relative;
+  overflow: hidden;
+}
+
+.planner-console::before {
+  content: '';
+  position: absolute;
+  inset-inline: -20%;
+  top: 44%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(69, 211, 167, 0.65), rgba(103, 212, 255, 0.48), transparent);
+  animation: pulseLine 3.2s ease-in-out infinite;
 }
 
 .ava-field {

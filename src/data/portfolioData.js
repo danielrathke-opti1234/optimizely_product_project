@@ -83,6 +83,27 @@ export const agents = [
     color: 'gold',
   },
   {
+    id: 'campaign-planner',
+    name: 'Personalization Campaign Planner',
+    tag: 'Campaign planning intelligence',
+    status: 'Productized Opal agent',
+    problem: 'Personalization teams often have project configuration, audiences, events, attributes, and experiment history, but still struggle to decide which campaign to plan next and how to launch it responsibly.',
+    insight: 'The value is not generic ideation. The opportunity is evidence-backed campaign planning that connects retrieved setup, historical experiment learning, activation method guidance, setup gaps, and launch readiness.',
+    solution: 'A productized agent that analyzes project configuration and historical experiment results, selects the primary campaign to plan next, recommends activation method, identifies readiness gaps, and generates an interactive HTML Canvas report.',
+    capabilities: [
+      'Primary campaign recommendation',
+      'Campaign launch plan',
+      'Evidence-backed campaign portfolio',
+      'Activation method guidance',
+      'Contextual bandit readiness assessment',
+      'Setup gaps and next actions',
+      'Interactive HTML Canvas report',
+    ],
+    skills: ['Personalization strategy', 'Evidence-backed planning', 'Activation method design', 'Contextual bandit assessment', 'AI-assisted reporting'],
+    metric: 'Campaign launch readiness',
+    color: 'mint',
+  },
+  {
     id: 'ava',
     name: 'Ava Virtual Teammate',
     tag: 'Personalization operations',
@@ -137,6 +158,18 @@ export const journeys = [
 ];
 
 export const concepts = [
+  {
+    id: 'campaign-planner-concept',
+    title: 'Personalization Campaign Planner',
+    label: 'Flagship personalization agent',
+    focus: 'Turn existing project setup and experiment history into the single campaign a team should plan next.',
+    opportunity: 'Shift personalization from generic brainstorming to evidence-backed campaign planning with activation guidance, setup gaps, and launch confidence.',
+    prototype: 'Annotated agent experience with report-order controls, activation method logic, contextual bandit readiness, and sanitized Canvas output structure.',
+    validation: 'Test whether PMs, marketers, and experimentation practitioners trust the primary recommendation, understand the activation path, and can act on the launch plan.',
+    cta: 'Explore Campaign Planner',
+    questions: ['Does the primary recommendation feel evidence-backed?', 'Are setup gaps actionable?', 'When should rules, validation tests, or contextual bandit be used?'],
+    skills: ['Personalization strategy', 'Evidence-backed planning', 'Activation method design', 'AI-assisted reporting'],
+  },
   {
     id: 'personalization-concept',
     title: 'Personalization Maturity & Adoption Journey',
@@ -278,6 +311,42 @@ export const jsonExamples = {
     },
     guardrails: ['sanitized_context_only', 'no_customer_identifiers', 'recommendations_include_rationale'],
   },
+  'campaign-planner': {
+    schema_version: 'sanitized-1.0',
+    agent_type: 'specialized',
+    name: 'Personalization Campaign Planner',
+    description: 'Turns project configuration and historical experiment learning into campaign-ready personalization plans.',
+    parameters: [
+      { name: 'project_identifier', type: 'string', required: true },
+      { name: 'business_goal', type: 'string', required: false },
+      { name: 'focus_area', type: 'string', required: false },
+      { name: 'analysis_period_months', type: 'number', default: 12 },
+      { name: 'maximum_campaigns', type: 'number', default: 5, max: 8 },
+      { name: 'include_contextual_bandit_assessment', type: 'boolean', default: true },
+    ],
+    tools: ['schema_reader', 'project_configuration_query', 'program_reporting_query', 'html_canvas_renderer'],
+    workflow_phases: [
+      'resolve_project',
+      'discover_configuration',
+      'build_readiness_inventory',
+      'retrieve_experiment_inventory',
+      'initialize_program_reporting',
+      'retrieve_historical_results',
+      'create_experiment_learning_layer',
+      'identify_recommended_campaigns',
+      'select_primary_campaign',
+      'choose_activation_method',
+      'create_launch_plan',
+      'assess_contextual_bandit_readiness',
+      'render_campaign_planning_canvas',
+    ],
+    activation_methods: ['Launch Rules-Based Campaign', 'Run Validation Test First', 'Prepare Contextual Bandit', 'Resolve Setup Gap First', 'Do Not Prioritize Yet'],
+    output: {
+      type: 'html_canvas_campaign_planning_report',
+      sections: ['primary_campaign', 'why_selected', 'launch_plan', 'campaign_portfolio', 'activation_guidance', 'contextual_bandit_readiness', 'setup_gaps', 'experiment_learning', 'project_data_reviewed', 'methodology_and_trust'],
+    },
+    guardrails: ['no_generic_ideation', 'schema_first_queries', 'separate_metadata_from_performance', 'do_not_force_contextual_bandit', 'hide_raw_ids'],
+  },
   personalization: {
     schema_version: 'sanitized-1.0',
     agent_type: 'maturity_guidance_agent',
@@ -375,6 +444,12 @@ export const annotations = {
     ['Workflow', 'Readiness scoring comes before next-step guidance so the concept does not jump to advanced features too early.'],
     ['Output', 'The roadmap format positions personalization maturity as one product case study, not the whole portfolio.'],
   ],
+  'campaign-planner': [
+    ['Problem framing', 'The agent is explicitly a campaign planning agent, not a generic ideation assistant. That makes the output closer to a product workflow teams can trust.'],
+    ['Schema-first data access', 'Metadata/configuration queries are separated from performance queries so setup evidence and result evidence do not get blurred.'],
+    ['Activation method logic', 'Each campaign receives a clear path: rules-based launch, validation test, contextual bandit prep, setup-gap resolution, or deprioritization.'],
+    ['Canvas report order', 'The report leads with the primary campaign and launch plan before showing methodology, which matches how PMs and business stakeholders make decisions.'],
+  ],
   ava: [
     ['Virtual teammate design', 'Ava is positioned as an operating model, not a chatbot. The system coordinates recurring workflows that move from signal to action.'],
     ['Primitive structure', 'Each primitive has a trigger, workflow agent, specialized steps, and a canvas output so the experience is repeatable and explainable.'],
@@ -465,6 +540,7 @@ export const patterns = [
 ];
 
 export const artifacts = [
+  { id: 'campaign-planner', name: 'Personalization Campaign Planner', type: 'Flagship personalization agent', agentId: 'campaign-planner' },
   { id: 'roi', name: 'ROI Agent', type: 'AI agent', agentId: 'roi' },
   { id: 'health', name: 'Program Health Agent', type: 'AI agent', agentId: 'health' },
   { id: 'gap', name: 'Experimentation Gap Analysis Agent', type: 'AI agent', agentId: 'gap' },
@@ -592,4 +668,53 @@ export const avaDashboardMetrics = [
   { label: 'Campaign ideas ranked', value: '12', trend: '5 high-fit' },
   { label: 'Experiments monitored', value: '8', trend: '3 need attention' },
   { label: 'Weekly decisions surfaced', value: '4', trend: '2 roadmap inputs' },
+];
+
+export const campaignPlannerReport = {
+  primaryCampaign: 'High-intent visitor progression campaign',
+  activationMethod: 'Run Validation Test First',
+  launchReadiness: 'Ready After Setup',
+  primaryMetric: 'Qualified conversion progression',
+  mainSetupGap: 'Guardrail metric needs confirmation',
+  nextBestAction: 'Approve the campaign brief, confirm measurement, then run a validation test before scaling into personalization.',
+};
+
+export const campaignPlannerSections = [
+  {
+    id: 'primary',
+    label: 'Primary Campaign',
+    title: 'What should we plan next?',
+    detail: 'Lead with one campaign recommendation, why it was selected, activation method, launch readiness, metric, setup gap, and next best action.',
+  },
+  {
+    id: 'launch',
+    label: 'Launch Plan',
+    title: 'How would the team launch it?',
+    detail: 'Translate the recommendation into objective, audience/context, current experience, treatment, primary metric, guardrails, required setup, QA, and what not to do.',
+  },
+  {
+    id: 'portfolio',
+    label: 'Campaign Portfolio',
+    title: 'What else was considered?',
+    detail: 'Show supporting candidates with action-oriented filters: ready to launch, validate first, contextual bandit candidate, setup required, and not recommended yet.',
+  },
+  {
+    id: 'bandit',
+    label: 'Bandit Readiness',
+    title: 'When is adaptive personalization appropriate?',
+    detail: 'Assess whether the campaign has meaningful experience variation, one clear optimization metric, usable contextual attributes, guardrails, and sufficient decision volume.',
+  },
+  {
+    id: 'trust',
+    label: 'Methodology',
+    title: 'Why is this not generic ideation?',
+    detail: 'Separate configuration metadata, program reporting evidence, inferred relationships, readiness scoring, missing data limitations, and generated assumptions.',
+  },
+];
+
+export const campaignPlannerMethods = [
+  { label: 'Rules-Based', status: 'Use when conditions are deterministic and setup exists.' },
+  { label: 'Validate First', status: 'Use when the mechanism is promising but causal learning is still needed.' },
+  { label: 'Contextual Bandit', status: 'Use only when multiple meaningful experiences and one clear optimization metric exist.' },
+  { label: 'Resolve Gap', status: 'Use when the campaign is useful but instrumentation or setup is missing.' },
 ];

@@ -25,6 +25,9 @@ import {
   artifacts,
   avaDashboardMetrics,
   avaPrimitives,
+  campaignPlannerMethods,
+  campaignPlannerReport,
+  campaignPlannerSections,
   clearStages,
   concepts,
   customerSignals,
@@ -118,6 +121,13 @@ function Hero({ onBegin }) {
 function AgentLabBoot() {
   const scenes = [
     {
+      signal: 'Personalization planning is stuck between data and launch',
+      pattern: 'Campaign Planning Intelligence',
+      artifact: 'Campaign Planner Agent',
+      line: 'Teams needed a data-backed way to decide which personalization campaign to plan next, how to launch it, and what setup gaps block scale.',
+      color: 'mint',
+    },
+    {
       signal: 'Value cannot be proven',
       pattern: 'Value Realization',
       artifact: 'ROI Agent',
@@ -188,17 +198,17 @@ function AgentLabBoot() {
 
         <div className="agent-core rounded-lg border border-mint/20 bg-mint/5 p-4">
           <div className="grid gap-4 lg:grid-cols-[.95fr_1.05fr]">
-            <div className="relative min-h-72 overflow-hidden rounded-lg border border-white/10 bg-ink/75">
+            <div className="relative flex min-h-72 flex-col justify-center gap-4 overflow-hidden rounded-lg border border-white/10 bg-ink/75 p-4">
               <div className="scene-vignette absolute inset-0" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <motion.div key={scene.artifact} initial={{ opacity: 0, scale: 0.82, rotate: -3 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} className="agent-hologram flex h-48 w-48 items-center justify-center rounded-full border border-mint/30 bg-mint/10 p-6 text-center shadow-glow">
+              <div className="relative z-10 flex items-center justify-center">
+                <motion.div key={scene.artifact} initial={{ opacity: 0, scale: 0.82, rotate: -3 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} className="agent-hologram flex min-h-40 w-full max-w-64 items-center justify-center rounded-lg border border-mint/30 bg-mint/10 p-6 text-center shadow-glow">
                   <div>
                     <div className="text-xs uppercase tracking-[.16em] text-mint">Artifact</div>
                     <div className="mt-2 text-2xl font-semibold text-white">{scene.artifact}</div>
                   </div>
                 </motion.div>
               </div>
-              <div className="absolute bottom-4 left-4 right-4 rounded-md border border-white/10 bg-ink/80 p-3 backdrop-blur">
+              <div className="relative z-10 rounded-md border border-white/10 bg-ink/80 p-3 backdrop-blur">
                 <div className="text-xs uppercase tracking-[.16em] text-slate-500">Pattern detected</div>
                 <motion.div key={scene.pattern} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="mt-1 text-lg font-semibold text-white">{scene.pattern}</motion.div>
               </div>
@@ -297,8 +307,8 @@ function PatternsChapter({ unlocked }) {
                   onClick={() => setActive(pattern)}
                   className={`absolute rounded-full border px-4 py-3 text-sm font-semibold transition ${active.id === pattern.id ? 'border-sky/50 bg-sky/15 text-white' : 'border-white/12 bg-ink/75 text-slate-300 hover:bg-white/10'}`}
                   style={{
-                    left: `${[38, 8, 55, 64, 20][index]}%`,
-                    top: `${[8, 33, 34, 68, 70][index]}%`,
+                    left: `${[38, 8, 55, 62, 18][index]}%`,
+                    top: `${[8, 31, 34, 59, 60][index]}%`,
                   }}
                 >
                   {pattern.name}
@@ -320,7 +330,7 @@ function PatternsChapter({ unlocked }) {
 }
 
 function ArtifactsChapter() {
-  const [active, setActive] = useState(artifacts[2]);
+  const [active, setActive] = useState(artifacts[0]);
   const agent = agents.find((item) => item.id === active.agentId);
 
   return (
@@ -330,13 +340,12 @@ function ArtifactsChapter() {
         <h2 className="max-w-4xl text-4xl font-semibold text-white sm:text-6xl">The network becomes a product ecosystem.</h2>
         <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_.9fr]">
           <div className="ecosystem-stage relative min-h-[36rem] rounded-lg border border-white/10 bg-ink/55 p-5">
-            {artifacts.map((artifact, index) => (
+            {artifacts.map((artifact) => (
               <motion.button
                 key={artifact.id}
                 whileHover={{ scale: 1.04 }}
                 onClick={() => setActive(artifact)}
-                className={`absolute w-48 rounded-lg border p-4 text-left shadow-soft transition ${active.id === artifact.id ? 'border-mint/50 bg-mint/12' : 'border-white/12 bg-white/8 hover:bg-white/12'}`}
-                style={{ left: `${[8, 56, 35, 12, 64, 40][index]}%`, top: `${[12, 15, 42, 68, 68, 8][index]}%` }}
+                className={`rounded-lg border p-4 text-left shadow-soft transition ${active.id === artifact.id ? 'border-mint/50 bg-mint/12' : 'border-white/12 bg-white/8 hover:bg-white/12'}`}
               >
                 <div className="text-xs uppercase tracking-[.16em] text-slate-500">{artifact.type}</div>
                 <div className="mt-2 text-base font-semibold text-white">{artifact.name}</div>
@@ -349,7 +358,7 @@ function ArtifactsChapter() {
             {agent ? (
               <>
                 <InfoStack rows={[['Problem', agent.problem], ['Insight', agent.insight], ['Solution', agent.solution], ['Business impact', agent.metric], ['Product thinking', agent.skills.join(' | ')]]} />
-                <button onClick={() => scrollToId('architecture')} className="mt-5 inline-flex items-center gap-2 rounded-md bg-mint px-4 py-3 text-sm font-semibold text-ink">
+                <button onClick={() => scrollToId(agent.id === 'campaign-planner' ? 'campaign-planner' : 'architecture')} className="mt-5 inline-flex items-center gap-2 rounded-md bg-mint px-4 py-3 text-sm font-semibold text-ink">
                   Explore Architecture <ArrowRight className="h-4 w-4" />
                 </button>
               </>
@@ -418,9 +427,10 @@ function ClearChapter() {
 }
 
 function ArchitectureChapter() {
-  const [activeId, setActiveId] = useState('gap');
+  const [activeId, setActiveId] = useState('campaign-planner');
   const [drawerOpen, setDrawerOpen] = useState(false);
   const agent = agents.find((item) => item.id === activeId) || agents[0];
+  const rows = getArchitectureRows(agent.id);
 
   return (
     <section id="architecture" className="border-y border-white/10 bg-white/[0.03] px-4 py-24 sm:px-6 lg:px-8">
@@ -428,7 +438,7 @@ function ArchitectureChapter() {
         <ChapterLabel number="05" title="Agent architecture explorer" />
         <h2 className="max-w-4xl text-4xl font-semibold text-white sm:text-6xl">Explore the source code of product thinking.</h2>
         <div className="mt-8 flex flex-wrap gap-2">
-          {agents.filter((item) => ['roi', 'health', 'gap', 'ava'].includes(item.id)).map((item) => (
+          {agents.filter((item) => ['campaign-planner', 'ava', 'personalization', 'gap', 'roi', 'health'].includes(item.id)).map((item) => (
             <button key={item.id} onClick={() => setActiveId(item.id)} className={`rounded-md px-4 py-3 text-sm transition ${activeId === item.id ? 'bg-mint text-ink' : 'border border-white/10 bg-white/7 text-slate-300 hover:bg-white/12'}`}>{item.name}</button>
           ))}
         </div>
@@ -436,7 +446,7 @@ function ArchitectureChapter() {
           <div className="glass rounded-lg p-6">
             <h3 className="text-2xl font-semibold text-white">{agent.name}</h3>
             <div className="mt-6 space-y-3">
-              {architectureFlow.map(([title, text], index) => (
+              {rows.map(([title, text], index) => (
                 <motion.div key={title} initial={{ opacity: 0, x: -12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.06 }} className="flex items-center gap-4 rounded-md border border-white/10 bg-white/6 p-4">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-sky/25 bg-sky/10 text-sm font-semibold text-sky">{index + 1}</div>
                   <div>
@@ -462,6 +472,37 @@ function ArchitectureChapter() {
   );
 }
 
+function getArchitectureRows(agentId) {
+  if (agentId === 'campaign-planner') {
+    return [
+      ['Inputs', 'Project identifier, optional business goal, focus area, analysis period, campaign limit, contextual bandit toggle'],
+      ['Evidence Split', 'Schema-first configuration retrieval stays separate from historical performance and Program Reporting evidence'],
+      ['Planning Logic', 'Primary campaign selection, evidence basis labels, activation method rules, readiness gaps, launch confidence'],
+      ['Outputs', 'Primary campaign recommendation, launch plan, campaign portfolio, activation guidance, bandit readiness, setup gaps'],
+      ['Business Outcome', 'A team can move from existing Optimizely evidence to a campaign-ready personalization plan'],
+    ];
+  }
+  if (agentId === 'ava') {
+    return [
+      ['Inputs', 'Segment performance, experiment performance, campaign specs, approval state, weekly program context'],
+      ['Orchestration', 'Scheduled primitives coordinate fetch, analyze, enrich, compose, and message workflows'],
+      ['Approval Logic', 'Ava can recommend and stage work, while launch and activation remain human-gated'],
+      ['Outputs', 'Opportunity boards, campaign design canvases, paused build reports, performance reads, weekly dashboards'],
+      ['Business Outcome', 'Personalization becomes an operating rhythm instead of a one-off planning exercise'],
+    ];
+  }
+  if (agentId === 'personalization') {
+    return [
+      ['Inputs', 'Current maturity stage, available capabilities, primary goal, blockers, adoption context'],
+      ['Readiness Logic', 'Capability sequencing, maturity scoring, blocker detection, and next-stage recommendation'],
+      ['Tools', 'Capability mapper, readiness scorer, adoption plan generator'],
+      ['Outputs', 'Readiness score, capability map, next moves, and validation plan'],
+      ['Business Outcome', 'Teams understand how to progress from foundation to adaptive personalization'],
+    ];
+  }
+  return architectureFlow;
+}
+
 function JsonDrawer({ open, onClose, agent }) {
   return (
     <AnimatePresence>
@@ -484,6 +525,98 @@ function JsonDrawer({ open, onClose, agent }) {
         </>
       )}
     </AnimatePresence>
+  );
+}
+
+function CampaignPlannerSpotlight() {
+  const [activeSection, setActiveSection] = useState(campaignPlannerSections[0]);
+  const [activeMethod, setActiveMethod] = useState(campaignPlannerMethods[1]);
+  const agent = agents.find((item) => item.id === 'campaign-planner');
+
+  return (
+    <section id="campaign-planner" className="relative overflow-hidden border-y border-white/10 bg-white/[0.035] px-4 py-24 sm:px-6 lg:px-8">
+      <div className="absolute inset-0 planner-field" />
+      <div className="relative z-10 mx-auto max-w-7xl">
+        <ChapterLabel number="05A" title="Flagship personalization agent" />
+        <div className="grid gap-8 lg:grid-cols-[.82fr_1.18fr]">
+          <div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-mint/25 bg-mint/10 px-4 py-2 text-sm font-semibold text-mint">
+              <Sparkles className="h-4 w-4" />
+              Personalization PM focus
+            </div>
+            <h2 className="mt-5 text-4xl font-semibold text-white sm:text-6xl">Campaign planning, not campaign guessing.</h2>
+            <p className="mt-5 max-w-2xl text-slate-400">This agent reframes personalization from generic idea generation into a campaign-ready planning workflow grounded in project setup, historical experiment learning, activation method logic, and launch readiness.</p>
+            <InfoStack rows={[['Customer problem', agent.problem], ['Product insight', agent.insight], ['Solution concept', agent.solution]]} />
+          </div>
+
+          <div className="planner-console glass rounded-lg p-5">
+            <div className="grid gap-4 lg:grid-cols-[.88fr_1.12fr]">
+              <div className="rounded-lg border border-white/10 bg-ink/72 p-4">
+                <div className="text-xs uppercase tracking-[.16em] text-slate-500">Report order</div>
+                <div className="mt-4 space-y-2">
+                  {campaignPlannerSections.map((section, index) => (
+                    <button
+                      key={section.id}
+                      onClick={() => setActiveSection(section)}
+                      className={`flex w-full items-center gap-3 rounded-md border p-3 text-left transition ${activeSection.id === section.id ? 'border-mint/45 bg-mint/10 text-white' : 'border-white/10 bg-white/6 text-slate-400 hover:bg-white/10'}`}
+                    >
+                      <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-md border text-xs font-semibold ${activeSection.id === section.id ? 'border-mint/30 bg-mint/10 text-mint' : 'border-white/10 bg-ink/60 text-slate-500'}`}>{index + 1}</span>
+                      <span className="text-sm font-semibold">{section.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <motion.div key={activeSection.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="rounded-lg border border-mint/20 bg-mint/7 p-5">
+                <div className="text-xs uppercase tracking-[.16em] text-slate-500">Canvas section</div>
+                <h3 className="mt-3 text-3xl font-semibold text-white">{activeSection.title}</h3>
+                <p className="mt-4 leading-7 text-slate-300">{activeSection.detail}</p>
+                <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                  {[
+                    ['Primary campaign', campaignPlannerReport.primaryCampaign],
+                    ['Activation method', campaignPlannerReport.activationMethod],
+                    ['Launch readiness', campaignPlannerReport.launchReadiness],
+                    ['Main setup gap', campaignPlannerReport.mainSetupGap],
+                  ].map(([label, value]) => (
+                    <div key={label} className="rounded-md border border-white/10 bg-ink/60 p-3">
+                      <div className="text-xs uppercase tracking-[.14em] text-slate-500">{label}</div>
+                      <div className="mt-1 text-sm font-semibold text-white">{value}</div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+
+            <div className="mt-5 rounded-lg border border-white/10 bg-ink/70 p-4">
+              <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <div className="text-xs uppercase tracking-[.16em] text-slate-500">Activation method logic</div>
+                  <h3 className="mt-1 text-xl font-semibold text-white">{activeMethod.label}</h3>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {campaignPlannerMethods.map((method) => (
+                    <button key={method.label} onClick={() => setActiveMethod(method)} className={`rounded-md px-3 py-2 text-xs font-semibold transition ${activeMethod.label === method.label ? 'bg-mint text-ink' : 'border border-white/10 bg-white/7 text-slate-300 hover:bg-white/12'}`}>{method.label}</button>
+                  ))}
+                </div>
+              </div>
+              <p className="text-sm leading-6 text-slate-300">{activeMethod.status}</p>
+              <div className="mt-4 rounded-md border border-gold/20 bg-gold/10 p-4 text-sm text-gold">
+                Next best action: {campaignPlannerReport.nextBestAction}
+              </div>
+            </div>
+
+            <div className="mt-5 flex flex-wrap gap-3">
+              <button onClick={() => scrollToId('architecture')} className="inline-flex items-center gap-2 rounded-md bg-mint px-4 py-3 text-sm font-semibold text-ink">
+                Inspect Agent JSON <Code2 className="h-4 w-4" />
+              </button>
+              <button onClick={() => scrollToId('ava-control-room')} className="inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/7 px-4 py-3 text-sm font-semibold text-slate-200">
+                Continue to Ava <ArrowRight className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -520,6 +653,11 @@ function ConceptsChapter() {
             {active.id === 'personalization-concept' && (
               <button onClick={() => scrollToId('personalization-prototype')} className="mt-6 inline-flex items-center gap-2 rounded-md bg-gold px-4 py-3 text-sm font-semibold text-ink">
                 Explore Personalization Prototype <ArrowRight className="h-4 w-4" />
+              </button>
+            )}
+            {active.id === 'campaign-planner-concept' && (
+              <button onClick={() => scrollToId('campaign-planner')} className="mt-6 inline-flex items-center gap-2 rounded-md bg-mint px-4 py-3 text-sm font-semibold text-ink">
+                Explore Campaign Planner <ArrowRight className="h-4 w-4" />
               </button>
             )}
             {active.id === 'ava-virtual-teammate' && (
@@ -755,6 +893,7 @@ function FloatingNav() {
         ['CLEAR', 'clear', Workflow],
         ['Architecture', 'architecture', Code2],
         ['Concepts', 'concepts', Sparkles],
+        ['Planner', 'campaign-planner', Zap],
         ['Ava', 'ava-control-room', Bot],
         ['PM', 'why-product', Compass],
       ].map(([label, id, Icon]) => (
@@ -786,6 +925,7 @@ function App() {
         <ClearChapter />
         <ArchitectureChapter />
         <ConceptsChapter />
+        <CampaignPlannerSpotlight />
         <PersonalizationPrototype />
         <AvaControlRoom />
         <WhyProductChapter />

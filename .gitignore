@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.DS_Store
+.env
+.env.*
+*.local
+
+# Local package manager/runtime caches
+.pnpm-store/
+.vite/
+
+# Keep source mock data sanitized. Do not commit raw exports, customer data,
+# personal Downloads/Desktop files, or interview prep notes.
+*.log

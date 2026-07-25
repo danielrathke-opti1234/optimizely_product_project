@@ -303,16 +303,12 @@ function PatternsChapter({ unlocked }) {
             <h2 className="text-4xl font-semibold text-white sm:text-6xl">Signals converge into product patterns.</h2>
             <p className="mt-5 text-slate-400">Once recurring challenges repeat across customers, they become product strategy inputs.</p>
             {!unlocked && <div className="mt-5 rounded-md border border-gold/25 bg-gold/10 p-4 text-sm text-gold">Explore at least two signals to unlock this chapter.</div>}
-            <div className="network-stage mt-10 min-h-[32rem] rounded-lg border border-white/10 bg-white/[0.03] p-5">
+            <div className="network-stage pattern-grid mt-10 rounded-lg border border-white/10 bg-white/[0.03] p-5">
               {patterns.map((pattern, index) => (
                 <button
                   key={pattern.id}
                   onClick={() => setActive(pattern)}
-                  className={`absolute rounded-full border px-4 py-3 text-sm font-semibold transition ${active.id === pattern.id ? 'border-sky/50 bg-sky/15 text-white' : 'border-white/12 bg-ink/75 text-slate-300 hover:bg-white/10'}`}
-                  style={{
-                    left: `${[38, 8, 55, 62, 18][index]}%`,
-                    top: `${[8, 31, 34, 59, 60][index]}%`,
-                  }}
+                  className={`rounded-full border px-4 py-3 text-sm font-semibold transition ${active.id === pattern.id ? 'border-sky/50 bg-sky/15 text-white' : 'border-white/12 bg-ink/75 text-slate-300 hover:bg-white/10'}`}
                 >
                   {pattern.name}
                 </button>

@@ -178,6 +178,20 @@ a {
   z-index: 1;
 }
 
+.pattern-grid {
+  display: grid;
+  min-height: 32rem;
+  align-content: center;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .pattern-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .agent-lab {
   background:
     radial-gradient(circle at 50% 50%, rgba(69, 211, 167, 0.16), transparent 13rem),
@@ -325,17 +339,6 @@ a {
 .ava-console {
   position: relative;
   overflow: hidden;
-}
-
-.ava-console::before {
-  content: '';
-  position: absolute;
-  left: -18%;
-  right: -18%;
-  top: 32%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(69, 211, 167, 0.68), rgba(103, 212, 255, 0.55), transparent);
-  animation: pulseLine 3s ease-in-out infinite;
 }
 
 .ava-radar {

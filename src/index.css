@@ -4,7 +4,7 @@
 
 :root {
   color-scheme: dark;
-  background: #06110d;
+  background: #061314;
   font-family: Inter, ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -21,9 +21,10 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background:
-    radial-gradient(circle at 12% 8%, rgba(171, 255, 68, 0.16), transparent 28rem),
-    radial-gradient(circle at 84% 10%, rgba(255, 153, 182, 0.14), transparent 26rem),
-    linear-gradient(180deg, #06110d 0%, #08251A 44%, #06110d 100%);
+    radial-gradient(circle at 14% 10%, rgba(145, 219, 218, 0.18), transparent 30rem),
+    radial-gradient(circle at 84% 12%, rgba(255, 153, 182, 0.1), transparent 27rem),
+    radial-gradient(circle at 46% 88%, rgba(171, 255, 68, 0.045), transparent 32rem),
+    linear-gradient(180deg, #061314 0%, #071a1a 44%, #061314 100%);
   color: #F5FFF0;
 }
 
@@ -91,8 +92,8 @@ a {
 
 .command-grid {
   background:
-    radial-gradient(circle at 20% 18%, rgba(171, 255, 68, 0.16), transparent 16rem),
-    radial-gradient(circle at 82% 12%, rgba(145, 219, 218, 0.13), transparent 18rem),
+    radial-gradient(circle at 20% 18%, rgba(145, 219, 218, 0.17), transparent 16rem),
+    radial-gradient(circle at 82% 12%, rgba(255, 153, 182, 0.09), transparent 18rem),
     linear-gradient(rgba(255, 255, 255, 0.052) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.052) 1px, transparent 1px),
     rgba(11, 23, 19, 0.76);
@@ -101,10 +102,10 @@ a {
 
 .cinematic-orbit {
   background:
-    radial-gradient(circle at 50% 42%, rgba(171, 255, 68, 0.18), transparent 18rem),
-    radial-gradient(circle at 70% 18%, rgba(145, 219, 218, 0.12), transparent 24rem),
-    radial-gradient(circle at 14% 80%, rgba(255, 153, 182, 0.11), transparent 26rem),
-    linear-gradient(180deg, rgba(6, 17, 13, 0.35), #06110d 88%);
+    radial-gradient(circle at 50% 42%, rgba(145, 219, 218, 0.18), transparent 18rem),
+    radial-gradient(circle at 70% 18%, rgba(255, 153, 182, 0.11), transparent 24rem),
+    radial-gradient(circle at 14% 80%, rgba(171, 255, 68, 0.055), transparent 26rem),
+    linear-gradient(180deg, rgba(6, 19, 20, 0.35), #061314 88%);
 }
 
 .cinematic-orbit::before {
@@ -135,9 +136,9 @@ a {
 
 .signal-field {
   background:
-    radial-gradient(circle at 22% 24%, rgba(171, 255, 68, 0.14), transparent 20rem),
-    radial-gradient(circle at 72% 32%, rgba(145, 219, 218, 0.11), transparent 24rem),
-    radial-gradient(circle at 56% 78%, rgba(255, 153, 182, 0.1), transparent 22rem),
+    radial-gradient(circle at 22% 24%, rgba(145, 219, 218, 0.15), transparent 20rem),
+    radial-gradient(circle at 72% 32%, rgba(255, 153, 182, 0.1), transparent 24rem),
+    radial-gradient(circle at 56% 78%, rgba(171, 255, 68, 0.055), transparent 22rem),
     rgba(255, 255, 255, 0.015);
 }
 
@@ -147,7 +148,7 @@ a {
   inset: 0;
   background-image:
     radial-gradient(circle, rgba(255, 255, 255, 0.26) 1px, transparent 1px),
-    radial-gradient(circle, rgba(171, 255, 68, 0.22) 1px, transparent 1px);
+    radial-gradient(circle, rgba(145, 219, 218, 0.22) 1px, transparent 1px);
   background-position: 0 0, 18px 24px;
   background-size: 62px 62px, 94px 94px;
   opacity: 0.18;
@@ -194,8 +195,8 @@ a {
 
 .agent-lab {
   background:
-    radial-gradient(circle at 50% 50%, rgba(171, 255, 68, 0.16), transparent 13rem),
-    radial-gradient(circle at 18% 20%, rgba(145, 219, 218, 0.1), transparent 15rem),
+    radial-gradient(circle at 50% 50%, rgba(145, 219, 218, 0.14), transparent 13rem),
+    radial-gradient(circle at 18% 20%, rgba(171, 255, 68, 0.07), transparent 15rem),
     radial-gradient(circle at 82% 75%, rgba(255, 153, 182, 0.08), transparent 15rem),
     linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
@@ -206,7 +207,7 @@ a {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 50%, transparent 0 22%, rgba(6, 17, 13, 0.28) 70%);
+  background: radial-gradient(circle at 50% 50%, transparent 0 22%, rgba(6, 19, 20, 0.28) 70%);
   pointer-events: none;
 }
 
@@ -223,7 +224,7 @@ a {
   top: 50%;
   height: 1px;
   z-index: 0;
-  background: linear-gradient(90deg, transparent, rgba(171, 255, 68, 0.16), transparent);
+  background: linear-gradient(90deg, transparent, rgba(145, 219, 218, 0.16), transparent);
   animation: pulseLine 3s ease-in-out infinite;
   pointer-events: none;
 }
@@ -241,10 +242,10 @@ a {
 
 .scene-vignette {
   background:
-    radial-gradient(circle at 50% 46%, rgba(171, 255, 68, 0.18), transparent 12rem),
+    radial-gradient(circle at 50% 46%, rgba(145, 219, 218, 0.18), transparent 12rem),
     linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
-    rgba(6, 17, 13, 0.45);
+    rgba(6, 19, 20, 0.45);
   background-size: auto, 28px 28px, 28px 28px, auto;
 }
 
@@ -286,9 +287,9 @@ a {
 
 .planner-field {
   background:
-    radial-gradient(circle at 18% 18%, rgba(171, 255, 68, 0.16), transparent 24rem),
+    radial-gradient(circle at 18% 18%, rgba(145, 219, 218, 0.17), transparent 24rem),
     radial-gradient(circle at 72% 20%, rgba(255, 153, 182, 0.14), transparent 26rem),
-    radial-gradient(circle at 58% 80%, rgba(145, 219, 218, 0.12), transparent 24rem);
+    radial-gradient(circle at 58% 80%, rgba(171, 255, 68, 0.055), transparent 24rem);
 }
 
 .planner-field::before {
@@ -313,15 +314,15 @@ a {
   inset-inline: -20%;
   top: 44%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(171, 255, 68, 0.65), rgba(145, 219, 218, 0.48), transparent);
+  background: linear-gradient(90deg, transparent, rgba(145, 219, 218, 0.56), rgba(255, 153, 182, 0.3), transparent);
   animation: pulseLine 3.2s ease-in-out infinite;
 }
 
 .ava-field {
   background:
-    radial-gradient(circle at 12% 20%, rgba(171, 255, 68, 0.18), transparent 23rem),
-    radial-gradient(circle at 82% 18%, rgba(145, 219, 218, 0.14), transparent 22rem),
-    radial-gradient(circle at 74% 76%, rgba(255, 153, 182, 0.1), transparent 24rem);
+    radial-gradient(circle at 12% 20%, rgba(145, 219, 218, 0.18), transparent 23rem),
+    radial-gradient(circle at 82% 18%, rgba(255, 153, 182, 0.1), transparent 22rem),
+    radial-gradient(circle at 74% 76%, rgba(171, 255, 68, 0.055), transparent 24rem);
   opacity: 0.85;
 }
 
@@ -348,7 +349,7 @@ a {
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background:
-    radial-gradient(circle at 50% 50%, rgba(171, 255, 68, 0.12), transparent 12rem),
+    radial-gradient(circle at 50% 50%, rgba(145, 219, 218, 0.13), transparent 12rem),
     linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
     rgba(6, 17, 13, 0.58);
@@ -421,7 +422,7 @@ a {
   top: 50%;
   height: 1px;
   z-index: 0;
-  background: linear-gradient(90deg, transparent, rgba(171, 255, 68, 0.18), rgba(145, 219, 218, 0.14), transparent);
+  background: linear-gradient(90deg, transparent, rgba(145, 219, 218, 0.18), rgba(255, 153, 182, 0.12), transparent);
   animation: pulseLine 3.2s ease-in-out infinite;
   pointer-events: none;
 }
@@ -443,7 +444,7 @@ a {
   content: '';
   position: absolute;
   inset: -30%;
-  background: conic-gradient(from 180deg, transparent, rgba(171, 255, 68, 0.11), transparent, rgba(255, 153, 182, 0.09), transparent);
+  background: conic-gradient(from 180deg, transparent, rgba(145, 219, 218, 0.12), transparent, rgba(255, 153, 182, 0.09), transparent);
   animation: slowSpin 18s linear infinite;
   opacity: 0.65;
 }
@@ -452,7 +453,7 @@ a {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 50%, transparent 0 28%, rgba(6, 17, 13, 0.62) 72%);
+  background: radial-gradient(circle at 50% 50%, transparent 0 28%, rgba(6, 19, 20, 0.62) 72%);
   pointer-events: none;
 }
 

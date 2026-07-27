@@ -92,7 +92,7 @@ function Hero({ onBegin }) {
           <p className="mt-6 max-w-2xl text-base leading-7 text-slate-300">
             Over the last several years I have worked directly with enterprise experimentation teams, marketers, analysts, and digital leaders. Those conversations revealed recurring problems. This experience explores what happened next.
           </p>
-          <button onClick={onBegin} className="mt-7 inline-flex items-center gap-2 rounded-md bg-mint px-5 py-4 text-sm font-semibold text-ink transition hover:bg-mint/90">
+          <button onClick={onBegin} className="mt-7 inline-flex items-center gap-2 rounded-md bg-gold px-5 py-4 text-sm font-semibold text-ink transition hover:bg-gold/90">
             Begin Exploration <ArrowRight className="h-4 w-4" />
           </button>
         </motion.div>
@@ -192,7 +192,7 @@ function AgentLabBoot() {
                 transition={{ delay: index * 0.15, duration: 0.45 }}
                 className={`flex w-full items-center gap-2 rounded-md border px-3 py-2 text-left text-xs leading-5 transition ${active === index ? 'border-mint/45 bg-mint/10 text-white' : 'border-white/10 bg-white/6 text-slate-400 hover:bg-white/10'}`}
               >
-                <span className={`h-2 w-2 rounded-full ${active === index ? 'bg-mint shadow-[0_0_14px_rgba(171,255,68,.85)]' : 'bg-slate-600'}`} />
+                <span className={`h-2 w-2 rounded-full ${active === index ? 'bg-gold shadow-[0_0_14px_rgba(145,219,218,.85)]' : 'bg-slate-600'}`} />
                 {item.signal}
               </motion.button>
             ))}
@@ -268,7 +268,7 @@ function SignalsChapter({ exploredSignals, setExploredSignals }) {
                     top: `${[4, 15, 39, 49, 66, 74][index]}%`,
                   }}
                 >
-                  <span className="mr-2 inline-block h-2 w-2 rounded-full bg-mint shadow-[0_0_16px_rgba(171,255,68,.9)]" />
+                  <span className="mr-2 inline-block h-2 w-2 rounded-full bg-gold shadow-[0_0_16px_rgba(145,219,218,.9)]" />
                   {signal.quote}
                 </motion.button>
               ))}
@@ -357,7 +357,7 @@ function ArtifactsChapter() {
             {agent ? (
               <>
                 <InfoStack rows={[['Problem', agent.problem], ['Insight', agent.insight], ['Solution', agent.solution], ['Business impact', agent.metric], ['Product thinking', agent.skills.join(' | ')]]} />
-                <button onClick={() => scrollToId(agent.id === 'campaign-planner' ? 'campaign-planner' : 'architecture')} className="mt-5 inline-flex items-center gap-2 rounded-md bg-mint px-4 py-3 text-sm font-semibold text-ink">
+                <button onClick={() => scrollToId(agent.id === 'campaign-planner' ? 'campaign-planner' : 'architecture')} className="mt-5 inline-flex items-center gap-2 rounded-md bg-gold px-4 py-3 text-sm font-semibold text-ink">
                   Explore Architecture <ArrowRight className="h-4 w-4" />
                 </button>
               </>
@@ -438,7 +438,7 @@ function ArchitectureChapter() {
         <h2 className="max-w-4xl text-4xl font-semibold text-white sm:text-6xl">Explore the source code of product thinking.</h2>
         <div className="mt-8 flex flex-wrap gap-2">
           {agents.filter((item) => ['campaign-planner', 'ava', 'personalization', 'gap', 'roi', 'health'].includes(item.id)).map((item) => (
-            <button key={item.id} onClick={() => setActiveId(item.id)} className={`rounded-md px-4 py-3 text-sm transition ${activeId === item.id ? 'bg-mint text-ink' : 'border border-white/10 bg-white/7 text-slate-300 hover:bg-white/12'}`}>{item.name}</button>
+            <button key={item.id} onClick={() => setActiveId(item.id)} className={`rounded-md px-4 py-3 text-sm transition ${activeId === item.id ? 'bg-gold text-ink' : 'border border-white/10 bg-white/7 text-slate-300 hover:bg-white/12'}`}>{item.name}</button>
           ))}
         </div>
         <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_.85fr]">
@@ -594,7 +594,7 @@ function CampaignPlannerSpotlight() {
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {campaignPlannerMethods.map((method) => (
-                    <button key={method.label} onClick={() => setActiveMethod(method)} className={`rounded-md px-3 py-2 text-xs font-semibold transition ${activeMethod.label === method.label ? 'bg-mint text-ink' : 'border border-white/10 bg-white/7 text-slate-300 hover:bg-white/12'}`}>{method.label}</button>
+                    <button key={method.label} onClick={() => setActiveMethod(method)} className={`rounded-md px-3 py-2 text-xs font-semibold transition ${activeMethod.label === method.label ? 'bg-gold text-ink' : 'border border-white/10 bg-white/7 text-slate-300 hover:bg-white/12'}`}>{method.label}</button>
                   ))}
                 </div>
               </div>
@@ -605,7 +605,7 @@ function CampaignPlannerSpotlight() {
             </div>
 
             <div className="mt-5 flex flex-wrap gap-3">
-              <button onClick={() => scrollToId('architecture')} className="inline-flex items-center gap-2 rounded-md bg-mint px-4 py-3 text-sm font-semibold text-ink">
+              <button onClick={() => scrollToId('architecture')} className="inline-flex items-center gap-2 rounded-md bg-gold px-4 py-3 text-sm font-semibold text-ink">
                 Inspect Agent JSON <Code2 className="h-4 w-4" />
               </button>
               <button onClick={() => scrollToId('ava-control-room')} className="inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/7 px-4 py-3 text-sm font-semibold text-slate-200">
@@ -655,12 +655,12 @@ function ConceptsChapter() {
               </button>
             )}
             {active.id === 'campaign-planner-concept' && (
-              <button onClick={() => scrollToId('campaign-planner')} className="mt-6 inline-flex items-center gap-2 rounded-md bg-mint px-4 py-3 text-sm font-semibold text-ink">
+              <button onClick={() => scrollToId('campaign-planner')} className="mt-6 inline-flex items-center gap-2 rounded-md bg-gold px-4 py-3 text-sm font-semibold text-ink">
                 Explore Campaign Planner <ArrowRight className="h-4 w-4" />
               </button>
             )}
             {active.id === 'ava-virtual-teammate' && (
-              <button onClick={() => scrollToId('ava-control-room')} className="mt-6 inline-flex items-center gap-2 rounded-md bg-mint px-4 py-3 text-sm font-semibold text-ink">
+              <button onClick={() => scrollToId('ava-control-room')} className="mt-6 inline-flex items-center gap-2 rounded-md bg-gold px-4 py-3 text-sm font-semibold text-ink">
                 Launch Ava Control Room <ArrowRight className="h-4 w-4" />
               </button>
             )}
@@ -949,7 +949,7 @@ function StoryNavigation({ activeIndex, onGo, onPrev, onNext }) {
           <button
             key={id}
             onClick={() => onGo(index)}
-            className={`group relative rounded-full p-3 transition ${activeIndex === index ? 'bg-mint text-ink' : 'text-slate-400 hover:bg-white/10 hover:text-white'}`}
+            className={`group relative rounded-full p-3 transition ${activeIndex === index ? 'bg-gold text-ink' : 'text-slate-400 hover:bg-white/10 hover:text-white'}`}
             aria-label={label}
           >
             <Icon className="h-4 w-4" />
@@ -966,7 +966,7 @@ function StoryNavigation({ activeIndex, onGo, onPrev, onNext }) {
           <div className="text-[0.65rem] uppercase tracking-[.18em] text-slate-500">Chapter {String(activeIndex + 1).padStart(2, '0')} / {String(storyChapters.length).padStart(2, '0')}</div>
           <div className="truncate text-sm font-semibold text-white">{storyChapters[activeIndex].label}</div>
         </div>
-        <button onClick={onNext} disabled={atEnd} className="inline-flex items-center gap-2 rounded-full bg-mint px-4 py-3 text-sm font-semibold text-ink transition hover:bg-mint/90 disabled:cursor-not-allowed disabled:opacity-35">
+        <button onClick={onNext} disabled={atEnd} className="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-3 text-sm font-semibold text-ink transition hover:bg-gold/90 disabled:cursor-not-allowed disabled:opacity-35">
           Next <ArrowRight className="h-4 w-4" />
         </button>
       </div>

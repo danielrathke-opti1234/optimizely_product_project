@@ -4,17 +4,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: '#07090f',
-        panel: '#0d111b',
-        panel2: '#111827',
+        ink: '#06110d',
+        panel: '#0b1713',
+        panel2: '#10211b',
         line: 'rgba(255,255,255,0.11)',
-        mint: '#45d3a7',
-        coral: '#ff7a6b',
-        gold: '#f2c94c',
-        sky: '#67d4ff',
+        mint: '#ABFF44',
+        coral: '#FF99B6',
+        gold: '#FF99B6',
+        sky: '#91DBDA',
       },
       boxShadow: {
-        glow: '0 0 0 1px rgba(255,255,255,.08), 0 24px 80px rgba(0,0,0,.45)',
+        glow: '0 0 0 1px rgba(255,255,255,.08), 0 24px 80px rgba(0,0,0,.45), 0 0 36px rgba(171,255,68,.08)',
         soft: '0 18px 55px rgba(0,0,0,.35)',
       },
       fontFamily: {

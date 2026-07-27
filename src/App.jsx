@@ -192,7 +192,7 @@ function AgentLabBoot() {
                 transition={{ delay: index * 0.15, duration: 0.45 }}
                 className={`flex w-full items-center gap-2 rounded-md border px-3 py-2 text-left text-xs leading-5 transition ${active === index ? 'border-mint/45 bg-mint/10 text-white' : 'border-white/10 bg-white/6 text-slate-400 hover:bg-white/10'}`}
               >
-                <span className={`h-2 w-2 rounded-full ${active === index ? 'bg-mint shadow-[0_0_14px_rgba(69,211,167,.85)]' : 'bg-slate-600'}`} />
+                <span className={`h-2 w-2 rounded-full ${active === index ? 'bg-mint shadow-[0_0_14px_rgba(171,255,68,.85)]' : 'bg-slate-600'}`} />
                 {item.signal}
               </motion.button>
             ))}
@@ -268,7 +268,7 @@ function SignalsChapter({ exploredSignals, setExploredSignals }) {
                     top: `${[4, 15, 39, 49, 66, 74][index]}%`,
                   }}
                 >
-                  <span className="mr-2 inline-block h-2 w-2 rounded-full bg-mint shadow-[0_0_16px_rgba(69,211,167,.9)]" />
+                  <span className="mr-2 inline-block h-2 w-2 rounded-full bg-mint shadow-[0_0_16px_rgba(171,255,68,.9)]" />
                   {signal.quote}
                 </motion.button>
               ))}

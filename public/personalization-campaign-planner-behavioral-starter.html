@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalization Campaign Planner</title>
+    <style>
+        :root {
+            --opti-near-black: #111827;
+            --opti-deep-navy: #0B1220;
+            --opti-blue: #2563EB;
+            --opti-purple: #6D28D9;
+            --opti-green: #047857;
+            --opti-amber: #B7791F;
+            --opti-red: #B42318;
+            --opti-white: #FFFFFF;
+            --opti-light-bg: #F6F8FB;
+            --opti-line: #E2E8F0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        body { margin: 0; padding: 0; background-color: var(--opti-light-bg); color: var(--opti-near-black); line-height: 1.5; }
+        header { background-color: var(--opti-deep-navy); color: var(--opti-white); padding: 2rem; position: sticky; top: 0; z-index: 100; }
+        .hero { background: linear-gradient(135deg, var(--opti-deep-navy) 0%, var(--opti-purple) 100%); color: var(--opti-white); padding: 3rem 2rem; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        h1, h2, h3, h4 { margin-top: 0; }
+        .card { background: var(--opti-white); border: 1px solid var(--opti-line); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .badge { display: inline-block; padding: 0.25rem 0.5rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 500; }
+        .badge-green { background-color: #DEF7EC; color: var(--opti-green); }
+        .badge-blue { background-color: #E1EFFE; color: var(--opti-blue); }
+        .badge-amber { background-color: #FDF6B2; color: var(--opti-amber); }
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid var(--opti-line); }
+        th { background-color: var(--opti-light-bg); font-weight: 600; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        button { background-color: var(--opti-blue); color: var(--opti-white); border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-weight: 500; }
+        button:hover { opacity: 0.9; }
+        details { margin-bottom: 1rem; background: var(--opti-white); border: 1px solid var(--opti-line); border-radius: 4px; padding: 0.5rem; }
+        summary { font-weight: 600; cursor: pointer; padding: 0.5rem; }
+        .nav-links { display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 0.5rem; }
+        .nav-links a { color: var(--opti-white); text-decoration: none; font-size: 0.875rem; opacity: 0.8; white-space: nowrap; }
+        .nav-links a:hover { opacity: 1; }
+        @media print { header { position: static; } body { background: white; } .card { box-shadow: none; border-color: #000; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h2 style="margin:0;">Personalization Campaign Planner</h2>
+            <button onclick="window.print()">Print / Save as PDF</button>
+        </div>
+        <div class="nav-links">
+            <a href="#hero">Recommendation</a>
+            <a href="#primary-campaign">Campaign Card</a>
+            <a href="#why-selected">Evidence</a>
+            <a href="#launch-plan">Launch Plan</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#activation">Activation</a>
+            <a href="#readiness">Behavioral Readiness</a>
+            <a href="#gaps">Setup Gaps</a>
+            <a href="#learning">Experiment Learning</a>
+            <a href="#data">Project Data</a>
+            <a href="#methodology">Methodology</a>
+        </div>
+    </header>
+
+    <div class="hero" id="hero">
+        <div class="container" style="padding:0;">
+            <div style="margin-bottom: 1rem; opacity: 0.9;">Project: Volaris.com | Goal: Increase ancillary attachment across the booking journey | Period: Last 12 Months</div>
+            <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Start Here: Behavioral Baggage Upsell for Repeat Leisure Searchers</h1>
+            <p style="font-size: 1.25rem; max-width: 860px; margin-bottom: 2rem;">The lowest-effort, highest-impact way to launch Personalization: serve your already-proven baggage UI (+171% engagement) only to high-intent behavioral segments you have already built. All components exist &mdash; audience, creative, and metric &mdash; so this is a rules-based campaign you can stand up without new engineering.</p>
+
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; flex: 1;">
+                    <div style="font-size: 0.875rem; opacity: 0.8;">Activation Method</div>
+                    <div style="font-weight: 600; font-size: 1.125rem;">Rules-Based (Behavioral)</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; flex: 1;">
+                    <div style="font-size: 0.875rem; opacity: 0.8;">Primary Metric</div>
+                    <div style="font-weight: 600; font-size: 1.125rem;">Click_Checked (Baggage)</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; flex: 1;">
+                    <div style="font-size: 0.875rem; opacity: 0.8;">Effort to Launch</div>
+                    <div style="font-weight: 600; font-size: 1.125rem;">Low (Reuses Assets)</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; flex: 1;">
+                    <div style="font-size: 0.875rem; opacity: 0.8;">Live Personalization Today</div>
+                    <div style="font-weight: 600; font-size: 1.125rem;">0 Campaigns</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Primary Campaign Recommendation -->
+        <section id="primary-campaign">
+            <h2>Primary Campaign Recommendation</h2>
+            <div class="card" style="border-left: 4px solid var(--opti-purple);">
+                <div style="display:flex; justify-content: space-between; align-items:flex-start; margin-bottom:1rem;">
+                    <h3>Behavioral Baggage Upsell &mdash; Repeat Leisure Searchers</h3>
+                    <span class="badge badge-green">Launch Rules-Based Campaign</span>
+                </div>
+                <div class="grid">
+                    <div>
+                        <strong>Target Page / Decision Point:</strong><br>
+                        BF - Flight Select Page [NGEN]
+                    </div>
+                    <div>
+                        <strong>Behavioral Audience (pre-built):</strong><br>
+                        Searched Flights to CUN (&gt;1 in last 30) &mdash; broaden with "Searched for a Flight &gt;1 in last 30"
+                    </div>
+                    <div>
+                        <strong>Experience Strategy:</strong><br>
+                        Deploy the winning "Ancillaries" baggage presentation to these high-propensity travelers only.
+                    </div>
+                    <div>
+                        <strong>Primary Metric:</strong><br>
+                        Click_Checked &nbsp;(Guardrail: Confirmation [NGEN])
+                    </div>
+                </div>
+                <hr style="border:0; border-top: 1px solid var(--opti-line); margin: 1rem 0;">
+                <div style="display:flex; justify-content: space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+                    <div><strong>Launch Confidence:</strong> High &mdash; proven creative, contained to a self-selected intent segment</div>
+                    <div><strong>Next Best Action:</strong> Duplicate the "Ancillaries" variation into a rules-based campaign scoped to the behavioral audience</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why This Campaign Was Selected -->
+        <section id="why-selected">
+            <h2>Why This Campaign Was Selected</h2>
+            <div class="grid">
+                <div class="card">
+                    <h4 style="color:var(--opti-blue);">1. Proven Creative</h4>
+                    <p>The "Ancillaries" variation of <em>Test-FlightSelect/My trips/Seat-Ancillaries</em> drove a statistically significant <strong>+171% lift in Click_Checked</strong> across 1.1M visitors. The mechanism to move baggage attachment is already validated on this exact page.</p>
+                </div>
+                <div class="card">
+                    <h4 style="color:var(--opti-green);">2. Behavioral Audiences Ready</h4>
+                    <p>ODP-powered behavioral segments already exist &mdash; <code>Searched Flights to CUN (&gt;1 in last 30)</code>, <code>Searched for a Flight &gt;1 in last 30</code>, and <code>Customer Booking with a Domestic Flight</code> &mdash; so no new audience engineering is required.</p>
+                </div>
+                <div class="card">
+                    <h4 style="color:var(--opti-purple);">3. Risk Containment</h4>
+                    <p>The global test showed a <strong>-2% confirmation</strong> drag at 100% traffic. Restricting the experience to repeat, high-intent leisure searchers captures the ancillary lift while shielding low-intent visitors from added friction.</p>
+                </div>
+                <div class="card">
+                    <h4 style="color:var(--opti-amber);">4. Measurement In Place</h4>
+                    <p>The <code>Click_Checked</code> and <code>AddBaggage</code> events plus the <code>Confirmation [NGEN]</code> guardrail are all live, so impact can be measured from day one with no tracking work.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Campaign Launch Plan -->
+        <section id="launch-plan">
+            <h2>Campaign Launch Plan</h2>
+            <div class="card">
+                <table>
+                    <tr>
+                        <th style="width: 25%;">Campaign Objective</th>
+                        <td>Lift checked-baggage attachment among high-intent repeat searchers without reducing overall booking confirmations.</td>
+                    </tr>
+                    <tr>
+                        <th>Target Page</th>
+                        <td>BF - Flight Select Page [NGEN]</td>
+                    </tr>
+                    <tr>
+                        <th>Behavioral Audience</th>
+                        <td>Searched Flights to CUN (&gt;1 in last 30) OR Searched for a Flight &gt;1 in last 30 OR Customer Booking with a Domestic Flight</td>
+                    </tr>
+                    <tr>
+                        <th>Current Experience</th>
+                        <td>Standard Flight Select layout shown to all visitors.</td>
+                    </tr>
+                    <tr>
+                        <th>Recommended Treatment</th>
+                        <td>The winning "Ancillaries" baggage presentation from experiment 6408127034163200.</td>
+                    </tr>
+                    <tr>
+                        <th>Primary Metric</th>
+                        <td>Click_Checked (baggage engagement)</td>
+                    </tr>
+                    <tr>
+                        <th>Guardrails</th>
+                        <td>Confirmation [NGEN] (must not drop), Passengers &amp; Payment [NGEN] progression</td>
+                    </tr>
+                    <tr>
+                        <th>Required Setup</th>
+                        <td>Duplicate the winning variation code into a new rules-based campaign; scope the audience to the behavioral segment. No new build.</td>
+                    </tr>
+                    <tr>
+                        <th>QA Checklist</th>
+                        <td>Confirm behavioral audience membership evaluates on the Flight Select page; validate rendering across viewports; verify event firing on click.</td>
+                    </tr>
+                    <tr>
+                        <th>Launch Recommendation</th>
+                        <td>Run with a 10% holdback for 3&ndash;4 weeks to quantify incremental attachment vs. the standard experience.</td>
+                    </tr>
+                    <tr>
+                        <th>What Not to Do</th>
+                        <td>Do not roll the winning UI to 100% of traffic &mdash; the behavioral scoping is what protects conversion.</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Recommended Campaign Portfolio -->
+        <section id="portfolio">
+            <h2>Recommended Campaign Portfolio</h2>
+            <p style="color:#4B5563; margin-top:-0.5rem;">Ranked for a Personalization program with zero live campaigns today &mdash; all four are behavioral/rules-based and reuse existing assets.</p>
+            <div class="grid">
+                <!-- Secondary 1 -->
+                <div class="card">
+                    <div style="display:flex; justify-content: space-between;">
+                        <span class="badge badge-green">Launch Rules-Based Campaign</span>
+                        <span style="font-size: 0.875rem; color: var(--opti-blue); font-weight:600;">High Priority</span>
+                    </div>
+                    <h3 style="margin-top:0.5rem;">Travel Insurance Card (Safest Win)</h3>
+                    <p><strong>Page:</strong> BF - Passengers &amp; Payment [NGEN]</p>
+                    <p><strong>Primary Metric:</strong> Confirmation Insurance [NGEN]</p>
+                    <details>
+                        <summary>Expand Evidence</summary>
+                        <p><strong>Evidence Basis:</strong> <em>Test - Travel Insurance Add [Payment]</em> drove a significant <strong>+4% lift in insurance confirmations</strong> with no significant drop in overall bookings. Unambiguously positive &mdash; the lowest-risk rules-based deploy in the account.</p>
+                    </details>
+                    <p style="font-size:0.875rem;"><strong>Setup:</strong> Promote the winning "Insurance Card" variation into a permanent rules-based campaign.</p>
+                </div>
+
+                <!-- Secondary 2 -->
+                <div class="card">
+                    <div style="display:flex; justify-content: space-between;">
+                        <span class="badge badge-green">Launch Rules-Based Campaign</span>
+                        <span style="font-size: 0.875rem; color: var(--opti-blue); font-weight:600;">High Priority</span>
+                    </div>
+                    <h3 style="margin-top:0.5rem;">Domestic Traveler Baggage Nudge</h3>
+                    <p><strong>Page:</strong> BF - Flight Select Page [NGEN]</p>
+                    <p><strong>Primary Metric:</strong> Click_Checked</p>
+                    <details>
+                        <summary>Expand Evidence</summary>
+                        <p><strong>Evidence Basis:</strong> Behavioral audience <code>Customer Booking with a Domestic Flight</code> (utag flight_market == DOM) is pre-built. Domestic bookers over-index on checked-baggage need &mdash; a natural second behavioral slice of the winning baggage creative.</p>
+                    </details>
+                    <p style="font-size:0.875rem;"><strong>Setup:</strong> Reuse the Ancillaries creative; swap the audience rule.</p>
+                </div>
+
+                <!-- Secondary 3 -->
+                <div class="card">
+                    <div style="display:flex; justify-content: space-between;">
+                        <span class="badge badge-amber">Validate First</span>
+                        <span style="font-size: 0.875rem; color: var(--opti-blue); font-weight:600;">Medium Priority</span>
+                    </div>
+                    <h3 style="margin-top:0.5rem;">Returning-Searcher Baggage Teaser</h3>
+                    <p><strong>Page:</strong> BF - Homepage [NGEN]</p>
+                    <p><strong>Primary Metric:</strong> Flight Search [NGEN]</p>
+                    <details>
+                        <summary>Expand Evidence</summary>
+                        <p><strong>Evidence Basis:</strong> <em>Test- Homepage Marquee Baggage $1</em> drove <strong>+12% FS Overview</strong> and <strong>+7% Flight Search</strong>. Serve an evergreen (non-promo) baggage teaser to <code>Searched for a Flight &gt;1 in last 30</code> to pull repeat visitors back into the funnel.</p>
+                    </details>
+                    <p style="font-size:0.875rem;"><strong>Setup:</strong> Design evergreen baggage messaging (validate vs. promo pull-through).</p>
+                </div>
+
+                <!-- Secondary 4 -->
+                <div class="card">
+                    <div style="display:flex; justify-content: space-between;">
+                        <span class="badge badge-green">Launch Rules-Based Campaign</span>
+                        <span style="font-size: 0.875rem; color: var(--opti-blue); font-weight:600;">Medium Priority</span>
+                    </div>
+                    <h3 style="margin-top:0.5rem;">Loyalty Ancillary Nudge</h3>
+                    <p><strong>Page:</strong> BF - Flight Select Page [NGEN]</p>
+                    <p><strong>Primary Metric:</strong> Confirmation [NGEN]</p>
+                    <details>
+                        <summary>Expand Evidence</summary>
+                        <p><strong>Evidence Basis:</strong> The <code>Tealium Loyalist Audience</code> and <code>Logged In Within Last 90 Days</code> behavioral segments are pre-built. Highlight premium fares/combos to known high-LTV members.</p>
+                    </details>
+                    <p style="font-size:0.875rem;"><strong>Setup:</strong> Map the loyalist audience to a tailored fare-benefit experience.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Activation Method Guidance -->
+        <section id="activation">
+            <h2>Activation Method Guidance</h2>
+            <div class="card">
+                <p><strong>Why rules-based (behavioral) to start?</strong> With zero live personalization campaigns, the fastest path to value is deterministic behavioral targeting: the audiences already exist, the winning creative already exists, and the metrics already fire. There is no learning ramp-up and no engineering dependency &mdash; you can be live in days.</p>
+                <p><strong>Where a Contextual Bandit fits later:</strong> Once the behavioral baggage and insurance campaigns are producing steady attachment, the Flight Select combo/ancillary slot is a strong bandit candidate (multiple proven presentations + one clear metric + very high decision volume). Treat that as phase two, after the rules-based wins bank early value.</p>
+                <p><strong>Next action:</strong> Duplicate the winning Ancillaries variation into a rules-based campaign scoped to the repeat-searcher behavioral audience.</p>
+            </div>
+        </section>
+
+        <!-- Behavioral Readiness -->
+        <section id="readiness">
+            <h2>Behavioral Targeting Readiness</h2>
+            <div class="card" style="background-color:#F8FAFC;">
+                <h3 style="color:var(--opti-green);">Classification: Ready to Launch (No Build Required)</h3>
+                <table>
+                    <tr><th>Requirement</th><th>Status</th><th>Details</th></tr>
+                    <tr>
+                        <td>Behavioral audience exists</td>
+                        <td>&#9989; Yes</td>
+                        <td>Searched Flights to CUN (&gt;1 in last 30), Searched for a Flight &gt;1 in last 30, Customer Booking with a Domestic Flight.</td>
+                    </tr>
+                    <tr>
+                        <td>Proven experience/creative</td>
+                        <td>&#9989; Yes</td>
+                        <td>Winning "Ancillaries" variation (+171% Click_Checked).</td>
+                    </tr>
+                    <tr>
+                        <td>Clear success metric</td>
+                        <td>&#9989; Yes</td>
+                        <td>Click_Checked, with Confirmation [NGEN] as guardrail.</td>
+                    </tr>
+                    <tr>
+                        <td>Sufficient traffic</td>
+                        <td>&#9989; Yes</td>
+                        <td>Flight Select is a top-funnel-adjacent, high-volume decision point.</td>
+                    </tr>
+                    <tr>
+                        <td>Conversion-risk mitigation</td>
+                        <td>&#9989; Handled</td>
+                        <td>Behavioral scoping + 10% holdback contains the -2% global confirmation risk.</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Setup Gaps -->
+        <section id="gaps">
+            <h2>Setup Gaps and Next Actions</h2>
+            <div class="card">
+                <ul style="padding-left:1.5rem;">
+                    <li><strong>Critical to launch:</strong> Confirm the behavioral audience evaluates reliably at the Flight Select decision point (ODP membership latency check).</li>
+                    <li><strong>Recommended before scaling:</strong> Consolidate overlapping behavioral segments (e.g., three near-identical "CUN searches" audiences) into one canonical repeat-searcher audience.</li>
+                    <li><strong>Nice to improve later:</strong> Unify ancillary click-metric naming (Click_Checked, ClickChecked_V1, Button_baggage) so cross-campaign reporting is clean.</li>
+                </ul>
+                <h4 style="margin-top:1.5rem;">Concrete next steps</h4>
+                <ol style="padding-left:1.5rem;">
+                    <li>Duplicate the "Ancillaries" variation into a new rules-based campaign on Flight Select.</li>
+                    <li>Scope it to the repeat-searcher behavioral audience with a 10% holdback.</li>
+                    <li>QA Click_Checked and the Confirmation [NGEN] guardrail against the variation.</li>
+                    <li>In parallel, stand up the Travel Insurance Card rules-based campaign (safest win).</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Experiment Learning Used -->
+        <section id="learning">
+            <h2>Experiment Learning Used</h2>
+            <div class="card">
+                <table>
+                    <tr>
+                        <th>Experiment Signal</th>
+                        <th>Decision Area</th>
+                        <th>Result Signal</th>
+                        <th>Learning Used</th>
+                        <th>Campaign Influenced</th>
+                    </tr>
+                    <tr>
+                        <td>Test-FlightSelect/My trips/Seat-Ancillaries</td>
+                        <td>Flight Select</td>
+                        <td><span style="color:var(--opti-green);">+171% Click_Checked</span> / <span style="color:var(--opti-red);">-2% Confirmation</span></td>
+                        <td>Baggage UI works powerfully but needs behavioral scoping to protect conversion.</td>
+                        <td>Primary: Behavioral Baggage Upsell</td>
+                    </tr>
+                    <tr>
+                        <td>Test - Travel Insurance Add [Payment]</td>
+                        <td>Payment</td>
+                        <td><span style="color:var(--opti-green);">+4% Insurance Conf.</span></td>
+                        <td>Prominent insurance card lifts attachment with no booking drag &mdash; safe to deploy as a rule.</td>
+                        <td>Secondary: Travel Insurance Card</td>
+                    </tr>
+                    <tr>
+                        <td>Test- Homepage Marquee Baggage $1</td>
+                        <td>Homepage</td>
+                        <td><span style="color:var(--opti-green);">+12% / +7% Search</span></td>
+                        <td>Baggage teasers pull repeat visitors back into the funnel.</td>
+                        <td>Secondary: Returning-Searcher Teaser</td>
+                    </tr>
+                    <tr>
+                        <td>Behavioral audience config (ODP)</td>
+                        <td>Cross-funnel</td>
+                        <td><span style="color:var(--opti-blue);">Pre-built</span></td>
+                        <td>Repeat-search and domestic-flight signals available with zero build cost.</td>
+                        <td>Enables all behavioral targeting</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Project Data Reviewed -->
+        <section id="data">
+            <h2>Project Data Reviewed</h2>
+            <details>
+                <summary>View Project Configuration Details</summary>
+                <div style="padding:1rem;">
+                    <p><strong>Web Project (ID: 973095788) &mdash; Volaris.com</strong></p>
+                    <ul>
+                        <li><strong>Pages (162 active):</strong> Full-funnel coverage &mdash; Homepage, FlightSearch, FlightSelect, SeatMap, Payment, Confirmation, My Trips.</li>
+                        <li><strong>Events (274 active):</strong> Granular ancillary tracking including Click_Checked, AddBaggage, AddCombo, AddInsurance.</li>
+                        <li><strong>Audiences (60 active):</strong> Rich behavioral (repeat searches, domestic flights, loyalists), geographic, and device segments.</li>
+                        <li><strong>Experiments (1,373 analyzed):</strong> Deep test history across the entire journey.</li>
+                        <li><strong>Live Personalization Campaigns:</strong> 0 &mdash; strong greenfield for a rules-based jumpstart.</li>
+                    </ul>
+                </div>
+            </details>
+        </section>
+
+        <!-- Methodology and Trust -->
+        <section id="methodology">
+            <h2>Methodology and Trust</h2>
+            <div class="card" style="font-size: 0.875rem; color: #4B5563;">
+                <p><strong>Project metadata:</strong> Pages, events, audiences, and configuration retrieved directly from live Optimizely metadata for project 973095788.</p>
+                <p><strong>Performance data:</strong> Lift and significance drawn from Optimizely Program Reporting for experiments in the analysis window (Jul 2025 &ndash; Jul 2026). Business impact relies on the is_positive / is_significant signals rather than raw lift direction.</p>
+                <p><strong>Readiness scoring:</strong> Activation method is derived from the actual presence of required components (audience, creative, metric) &mdash; not hypothetical ideation.</p>
+                <p><em>Generated: July 30, 2026.</em></p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

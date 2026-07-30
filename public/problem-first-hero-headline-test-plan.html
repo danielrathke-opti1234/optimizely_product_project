@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Test Plan – Problem-First Hero Headline vs. Aspirational Control</title>
+<style>
+:root{--blue:#0037ff;--blue2:#001b7a;--ink:#0f172a;--muted:#64748b;--line:#e5e7eb;--soft:#f8fafc;--good:#047857;--goodSoft:#ecfdf5;--amber:#b45309;--amberSoft:#fffbeb;--risk:#dc2626;--riskSoft:#fef2f2}
+*{box-sizing:border-box}
+body{margin:0;background:#f7f8fb;color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.55}
+.page{max-width:1120px;margin:0 auto;padding:24px}
+.hero{background:linear-gradient(135deg,var(--blue) 0%,var(--blue2) 100%);color:#fff;border-radius:20px;padding:30px;box-shadow:0 12px 30px rgba(0,55,255,.18)}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.1em;font-weight:800;opacity:.84}
+h1{font-size:30px;line-height:1.15;margin:8px 0 10px}
+.hero p{margin:0;max-width:780px;font-size:16px;color:rgba(255,255,255,.88)}
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.pill{display:inline-flex;align-items:center;border-radius:999px;padding:7px 11px;background:rgba(255,255,255,.14);font-size:13px;font-weight:700}
+.section{margin-top:16px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+.section-title{font-size:12px;text-transform:uppercase;letter-spacing:.1em;font-weight:900;color:var(--blue);margin-bottom:12px}
+.summary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.summary-item{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:14px;min-width:0}
+.label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:900;color:var(--muted)}
+.summary-value{font-size:15px;font-weight:800;margin-top:6px}
+.two-col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.hypothesis{border-left:4px solid var(--blue);background:#f8faff}
+.hypothesis-text{font-size:20px;font-weight:800;line-height:1.45}
+.subgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
+.subitem{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px}
+.variations{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.variation{border:1px solid var(--line);border-radius:15px;padding:17px;background:linear-gradient(180deg,#fff 0%,#fafafa 100%)}
+.variation-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.variation-name{font-size:17px;font-weight:900}
+.traffic{border-radius:999px;padding:5px 9px;background:#eef2ff;color:#3730a3;font-size:12px;font-weight:900;white-space:nowrap}
+.note{margin-top:12px;border-radius:12px;padding:12px 14px;background:var(--amberSoft);border:1px solid #fde68a;color:#78350f;font-size:13px}
+.target-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.target-item{background:var(--soft);border:1px solid var(--line);border-radius:13px;padding:13px}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th,td{padding:12px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--soft)}
+td{font-size:13px}
+.badge{display:inline-flex;border-radius:999px;padding:4px 8px;font-size:11px;font-weight:900;border:1px solid var(--line);background:#fff}
+.criteria-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.criterion{border-radius:14px;padding:15px;border:1px solid var(--line)}
+.criterion.good{background:var(--goodSoft);border-color:#a7f3d0}
+.criterion.info{background:#eff6ff;border-color:#bfdbfe}
+.criterion.risk{background:var(--riskSoft);border-color:#fecaca}
+.criterion.warn{background:var(--amberSoft);border-color:#fde68a}
+.criterion-title{font-weight:900;margin-bottom:5px}
+.risk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.risk-item{border:1px solid var(--line);border-radius:13px;padding:14px}
+.run{background:linear-gradient(180deg,#f8faff 0%,#fff 100%);border-color:#c7d2fe}
+.next{background:linear-gradient(135deg,#eef2ff 0%,#f8fafc 100%);border:1px solid #c7d2fe}
+.next-action{font-size:18px;font-weight:900;line-height:1.45}
+@media(max-width:900px){.summary-grid,.target-grid,.criteria-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.two-col,.variations,.risk-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.page{padding:16px}h1{font-size:24px}.summary-grid,.target-grid,.criteria-grid,.subgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="hero">
+  <div class="eyebrow">Experiment Test Plan</div>
+  <h1>Problem-First Hero Headline vs. Aspirational Control</h1>
+  <p>Determine whether replacing the aspirational homepage hero headline with a problem-focused alternative increases scroll engagement and demo sign-up rate — isolating the copy effect cleanly from any CTA changes.</p>
+  <div class="meta">
+    <span class="pill">A/B Test</span>
+    <span class="pill">Homepage Hero</span>
+    <span class="pill">Awareness &#8594; Demo Request</span>
+  </div>
+</header>
+
+<section class="card section">
+  <div class="section-title">Experiment Summary</div>
+  <div class="summary-grid">
+    <div class="summary-item">
+      <div class="label">Primary Decision</div>
+      <div class="summary-value">Adopt problem-first copy as the homepage hero default</div>
+    </div>
+    <div class="summary-item">
+      <div class="label">Audience</div>
+      <div class="summary-value">All homepage visitors — no audience condition</div>
+    </div>
+    <div class="summary-item">
+      <div class="label">Devices</div>
+      <div class="summary-value">All devices — desktop, tablet, and mobile</div>
+    </div>
+    <div class="summary-item">
+      <div class="label">Traffic</div>
+      <div class="summary-value">100% eligible homepage traffic, split 50/50</div>
+    </div>
+  </div>
+</section>
+
+<section class="two-col section">
+  <div class="card">
+    <div class="section-title">Opportunity</div>
+    <div>The Optimizely homepage hero is the first impression for every visitor. The current headline, &#8220;You&#8217;re free to grow,&#8221; leads with brand aspiration — a message that resonates broadly but does not immediately signal relevance to in-market B2B buyers who are already feeling the pain of fragmented martech, wasted spend, and difficulty proving impact. These buyers need to see their problem named before they invest attention. A problem-first headline creates that instant recognition and increases the likelihood that qualified visitors scroll deeper and pursue a demo rather than bouncing off an abstract promise.</div>
+    <div style="margin-top:12px">
+      <div class="label">Supporting Rationale</div>
+      <div style="margin-top:5px">A prior test on this same homepage — the &#8220;B2B Tech: Demo Request Funnel&#8221; experiment — showed that the &#8220;Industry Trend Thought Leadership&#8221; variation, which led with the same problem-agitation framing (&#8220;Is Your Marketing Getting Lost in the Noise?&#8221;), delivered +37.7% lift in product-landing-page visits over the aspirational control (statistically significant). The &#8220;Workshop Offer&#8221; variation drove +34.2% (significant). Both beat the aspirational control convincingly, with downstream Demo Request Started and Complete metrics trending positive. Sample sizes in that test were modest at 256&#8211;299 visitors per variation, and the prior winning variation also changed the CTA — so this test is designed to produce a cleaner, better-powered answer by isolating the headline and subheadline copy effect specifically.</div>
+    </div>
+  </div>
+
+  <div class="card hypothesis">
+    <div class="section-title">Hypothesis</div>
+    <div class="hypothesis-text">If we replace the hero headline with &#8220;Is your marketing getting lost in the noise?&#8221; and update the subheadline to focus on turning anonymous visitors into loyal customers, then more in-market visitors will scroll deeper and initiate a demo request, because problem-agitation framing creates immediate relevance for B2B buyers experiencing marketing complexity — motivating them to explore rather than bounce.</div>
+    <div class="subgrid">
+      <div class="subitem">
+        <div class="label">Change</div>
+        <div style="margin-top:5px">Hero headline and subheadline copy only. CTA text, button style, hero background image, text placement, and font styling are unchanged.</div>
+      </div>
+      <div class="subitem">
+        <div class="label">Expected Behavior</div>
+        <div style="margin-top:5px">Higher scroll depth past 50%, more clicks into product pages, and an increase in Demo Request Started events among homepage visitors.</div>
+      </div>
+      <div class="subitem">
+        <div class="label">Business Effect</div>
+        <div style="margin-top:5px">More qualified visitors enter the demo funnel, increasing demo sign-up volume and accelerating pipeline generation.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="card section">
+  <div class="section-title">Experience Design</div>
+  <div class="variations">
+
+    <div class="variation">
+      <div class="variation-head">
+        <div>
+          <div class="variation-name">Control — Aspirational Hero</div>
+          <div style="color:var(--muted);font-size:13px;margin-top:3px">Current live experience — no changes</div>
+        </div>
+        <div class="traffic">50% traffic</div>
+      </div>
+      <div style="margin-top:13px">
+        <div class="label">Key Changes</div>
+        <div style="margin-top:5px">No changes. Headline: &#8220;You&#8217;re free to grow.&#8221; Subheadline: &#8220;The AI platform to create and optimize every digital experience. So the experience-makers can do the work they love.&#8221; CTA: &#8220;Let&#8217;s grow.&#8221;</div>
+      </div>
+      <div style="margin-top:11px">
+        <div class="label">Rationale</div>
+        <div style="margin-top:5px">Serves as the baseline against which all variation metrics are measured. Captures the brand-aspirational positioning currently in market.</div>
+      </div>
+    </div>
+
+    <div class="variation">
+      <div class="variation-head">
+        <div>
+          <div class="variation-name">Variation 1 — Problem-First Hero</div>
+          <div style="color:var(--muted);font-size:13px;margin-top:3px">Headline and subheadline copy swapped; all other elements identical</div>
+        </div>
+        <div class="traffic">50% traffic</div>
+      </div>
+      <div style="margin-top:13px">
+        <div class="label">Key Changes</div>
+        <div style="margin-top:5px">Headline replaced with: &#8220;Is your marketing getting lost in the noise?&#8221; Subheadline replaced with: &#8220;The AI platform to create, test, and optimize every digital experience — so you can turn anonymous visitors into loyal customers.&#8221; Hero background, text placement, font styling, and CTA (&#8220;Let&#8217;s grow&#8221;) are unchanged.</div>
+      </div>
+      <div style="margin-top:11px">
+        <div class="label">Rationale</div>
+        <div style="margin-top:5px">Problem-agitation framing creates immediate recognition for in-market B2B buyers. The subheadline pairs the platform capability statement with a concrete customer outcome, sharpening relevance without abandoning product positioning. Keeping all other hero elements constant ensures the result is attributable to copy alone.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="card section">
+  <div class="section-title">Audience and Targeting</div>
+  <div class="target-grid">
+    <div class="target-item">
+      <div class="label">Activation</div>
+      <div style="margin-top:5px">Page view on optimizely.com homepage (/). Visitor is bucketed on first qualifying page load.</div>
+    </div>
+    <div class="target-item">
+      <div class="label">Audience</div>
+      <div style="margin-top:5px">All visitors — no audience condition applied. Segmentation analysis by new vs. returning and channel is recommended post-hoc.</div>
+    </div>
+    <div class="target-item">
+      <div class="label">Devices</div>
+      <div style="margin-top:5px">All devices — desktop, tablet, and mobile. Confirm hero rendering and text truncation on mobile viewports before launch.</div>
+    </div>
+    <div class="target-item">
+      <div class="label">Allocation</div>
+      <div style="margin-top:5px">100% of eligible homepage traffic. Equal 50/50 split between Control and Variation 1.</div>
+    </div>
+  </div>
+</section>
+
+<section class="card section">
+  <div class="section-title">Measurement Plan</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Role</th>
+          <th>Metric</th>
+          <th>Type</th>
+          <th>Direction</th>
+          <th>Why It Matters</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge">Primary</span></td>
+          <td><strong>Demo Request Started</strong></td>
+          <td>Conversion Rate</td>
+          <td>&#8593; Increase</td>
+          <td>Directly measures in-funnel pull generated by the new headline — the closest observable proxy to demo intent on the page. Aligns with the business objective of increasing demo sign-ups.</td>
+        </tr>
+        <tr>
+          <td><span class="badge">Diagnostic</span></td>
+          <td><strong>Scroll Depth &#8805;50%</strong></td>
+          <td>Conversion Rate</td>
+          <td>&#8593; Increase</td>
+          <td>Leading indicator of whether problem framing captures attention and motivates exploration. Expected to move before downstream conversions, helping interpret causality if Demo Request Started is slow to accumulate.</td>
+        </tr>
+        <tr>
+          <td><span class="badge">Diagnostic</span></td>
+          <td><strong>Visit: Product Landing Page</strong></td>
+          <td>Conversion Rate</td>
+          <td>&#8593; Increase</td>
+          <td>Replicates the primary metric from the prior B2B Tech test, enabling direct benchmarking against the +37.7% prior result and confirming whether the headline effect on page exploration holds when the CTA is held constant.</td>
+        </tr>
+        <tr>
+          <td><span class="badge">Guardrail</span></td>
+          <td><strong>Demo Request Complete</strong></td>
+          <td>Conversion Rate</td>
+          <td>Monitor</td>
+          <td>Confirms that any increase in started requests carries through to form submission. A drop relative to Demo Request Started signals friction in the funnel below the hero, not a headline problem.</td>
+        </tr>
+        <tr>
+          <td><span class="badge">Guardrail</span></td>
+          <td><strong>Bounce / Single-Page Sessions</strong></td>
+          <td>Session Rate</td>
+          <td>&#8595; Decrease</td>
+          <td>Ensures the problem headline does not alienate brand-awareness visitors or cause an increase in immediate exits. A meaningful rise here would indicate the copy is narrowing appeal in a way that harms top-of-funnel volume.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note">Confirm that the selected metrics are available and correctly scoped before launch.</div>
+</section>
+
+<section class="card section">
+  <div class="section-title">Decision Criteria</div>
+  <div class="criteria-grid">
+    <div class="criterion good">
+      <div class="criterion-title">&#9989; Adopt</div>
+      <div>Variation 1 reaches a reliable improvement in Demo Request Started with scroll depth and product-page visits trending positively. No guardrail degradation. Optimizely signals a confident decision. Ship the problem-first copy as the new homepage hero default.</div>
+    </div>
+    <div class="criterion info">
+      <div class="criterion-title">&#128260; Iterate</div>
+      <div>Demo Request Started moves directionally but does not reach the decision threshold, or scroll depth improves without downstream conversion movement. Run a follow-on test pairing this headline with a sharpened CTA or a refined subheadline to continue building on the signal.</div>
+    </div>
+    <div class="criterion risk">
+      <div class="criterion-title">&#10060; Do Not Adopt</div>
+      <div>Variation 1 shows no meaningful lift in Demo Request Started, scroll depth is flat or negative, and guardrails are neutral or negative. Retain the aspirational headline and consider alternative interventions — such as a mid-page or form-adjacent copy test — to improve funnel entry.</div>
+    </div>
+    <div class="criterion warn">
+      <div class="criterion-title">&#128269; Investigate</div>
+      <div>Demo Request Complete drops despite Demo Request Started improving (indicating funnel breakage below the hero), results diverge sharply by device type, or a Sample Ratio Mismatch is detected. Pause, audit event scoping and variation rendering, and resolve before drawing conclusions.</div>
+    </div>
+  </div>
+</section>
+
+<section class="card section">
+  <div class="section-title">Risks and QA</div>
+  <div class="risk-grid">
+
+    <div class="risk-item">
+      <div class="label">Interpretation Risk</div>
+      <div style="font-weight:800;margin-top:5px">Limited Power on Downstream Metrics</div>
+      <div style="font-size:13px;color:var(--muted);margin-top:5px">The prior test ran at 256&#8211;299 visitors per variation — sufficient for page-visit metrics but insufficient to confirm downstream conversion effects. This test must run long enough to accumulate meaningful sample on Demo Request Started. Do not stop on an early scroll-depth signal alone; Optimizely&#39;s decision engine should reach confidence on the primary metric before the experiment is called.</div>
+    </div>
+
+    <div class="risk-item">
+      <div class="label">Design Consideration</div>
+      <div style="font-weight:800;margin-top:5px">Clean CTA Isolation</div>
+      <div style="font-size:13px;color:var(--muted);margin-top:5px">The prior winning variation changed both the headline and the CTA; this test holds the CTA constant. If results here are weaker than the +37.7% benchmark, note in reporting that the prior CTA change may have contributed to that lift — and plan a follow-on test to evaluate the CTA effect separately if this variation wins.</div>
+    </div>
+
+    <div class="risk-item">
+      <div class="label">QA Check</div>
+      <div style="font-weight:800;margin-top:5px">Variation Rendering</div>
+      <div style="font-size:13px;color:var(--muted);margin-top:5px">Confirm the headline and subheadline swap is correct in Variation 1 across desktop, tablet, and mobile breakpoints. Verify that the CTA text, button styling, hero background image, and text placement are pixel-identical to the Control before activating traffic.</div>
+    </div>
+
+    <div class="risk-item">
+      <div class="label">QA Check</div>
+      <div style="font-weight:800;margin-top:5px">Event Scoping and Firing</div>
+      <div style="font-size:13px;color:var(--muted);margin-top:5px">Validate that Demo Request Started, Demo Request Complete, scroll-depth, and Visit: Product Landing Page events are correctly scoped to the homepage and firing as expected in both Control and Variation 1 before launch.</div>
+    </div>
+
+    <div class="risk-item">
+      <div class="label">QA Check</div>
+      <div style="font-weight:800;margin-top:5px">Experiment Overlap</div>
+      <div style="font-size:13px;color:var(--muted);margin-top:5px">Confirm that no concurrent experiments are targeting the homepage hero zone. Overlapping tests on the same component can contaminate the traffic split, inflate or deflate observed effects, and make results uninterpretable.</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="card run section">
+  <div class="section-title">Recommended Run Approach</div>
+  <div>Run through at least two complete business cycles — typically four weeks for a B2B SaaS homepage — and continue until Optimizely reaches a reliable decision on Demo Request Started. Because the demo form sits below the fold on a long page, Demo Request Started and Complete events accumulate more slowly than scroll-depth events; allow sufficient time for these to reach confidence before calling the experiment. Avoid stopping early based on directional scroll-depth or product-page-visit movement alone. Post-hoc segment analysis by acquisition channel (paid vs. organic vs. direct) and new vs. returning visitors is recommended to understand where the headline effect is strongest.</div>
+</section>
+
+<section class="card next section">
+  <div class="section-title">Recommended Next Action</div>
+  <div class="next-action">Build the Variation 1 headline and subheadline swap in Optimizely Web Experimentation, verify correct rendering and event firing across all device types in QA, and route the experiment through your team&#39;s launch checklist for sign-off before activating traffic.</div>
+</section>
+
+</div>
+</body>
+</html>

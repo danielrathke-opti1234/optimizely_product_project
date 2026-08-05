@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Campaign Plan — Personalize Homepage Hero for Lapsed Subscribers</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: #2e3350;
+    --accent: #5b8dee;
+    --accent2: #7c5bde;
+    --green: #3ecf8e;
+    --yellow: #f5a623;
+    --red: #f06057;
+    --text: #e8eaf6;
+    --muted: #8890b0;
+    --mono: 'Fira Mono', 'Courier New', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
+
+  header {
+    background: linear-gradient(135deg, #1a1d27 0%, #12152a 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 36px 20px;
+  }
+  header h1 { font-size: 1.45rem; font-weight: 700; letter-spacing: -.3px; }
+  header p { color: var(--muted); font-size: .85rem; margin-top: 4px; }
+  .badge-row { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; align-items: center; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 12px; border-radius: 999px; font-size: .75rem; font-weight: 600;
+    border: 1px solid;
+  }
+  .badge-yellow { background: rgba(245,166,35,.12); border-color: rgba(245,166,35,.35); color: var(--yellow); }
+  .badge-blue   { background: rgba(91,141,238,.12); border-color: rgba(91,141,238,.35); color: var(--accent); }
+  .badge-green  { background: rgba(62,207,142,.12); border-color: rgba(62,207,142,.35); color: var(--green); }
+  .pulse { width:8px; height:8px; border-radius:50%; background:var(--yellow); animation: pulse 1.6s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+
+  nav {
+    display: flex; gap: 0; border-bottom: 1px solid var(--border);
+    background: var(--surface); overflow-x: auto; padding: 0 24px;
+  }
+  nav button {
+    background: none; border: none; color: var(--muted); cursor: pointer;
+    padding: 14px 18px; font-size: .82rem; font-weight: 600; white-space: nowrap;
+    border-bottom: 2px solid transparent; transition: all .2s; letter-spacing: .3px;
+  }
+  nav button:hover { color: var(--text); }
+  nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  main { padding: 32px 36px; max-width: 1100px; margin: 0 auto; }
+  .tab { display: none; }
+  .tab.active { display: block; }
+
+  h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+  h3 { font-size: .9rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 12px; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media(max-width:700px) { .grid2,.grid3 { grid-template-columns:1fr; } }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px;
+  }
+  .card-label { font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 6px; }
+  .card-value { font-size: .95rem; font-weight: 600; }
+  .card-mono { font-family: var(--mono); font-size: .82rem; color: var(--accent); word-break: break-all; }
+
+  table { width: 100%; border-collapse: collapse; font-size: .84rem; }
+  th { text-align: left; padding: 10px 14px; background: var(--surface2); color: var(--muted); font-size: .72rem; text-transform: uppercase; letter-spacing: .7px; }
+  td { padding: 10px 14px; border-top: 1px solid var(--border); vertical-align: top; }
+  tr:hover td { background: rgba(255,255,255,.02); }
+
+  .status-complete { color: var(--green); font-weight: 600; }
+  .status-pending  { color: var(--yellow); font-weight: 600; }
+
+  .traffic-bar {
+    height: 10px; border-radius: 999px; background: var(--surface2);
+    overflow: hidden; margin: 10px 0;
+  }
+  .traffic-fill {
+    height: 100%; width: 50%; border-radius: 999px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+
+  .checklist { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .checklist li { display: flex; align-items: flex-start; gap: 10px; font-size: .86rem; }
+  .checklist li .icon { flex-shrink: 0; margin-top: 1px; }
+
+  pre {
+    background: #0a0c14; border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px; font-family: var(--mono); font-size: .78rem; overflow-x: auto;
+    color: #a8c8ff; line-height: 1.6; margin-top: 8px;
+  }
+
+  .section { margin-bottom: 32px; }
+
+  .insight-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-left: 4px solid var(--accent); border-radius: 12px; padding: 20px;
+    margin-bottom: 14px;
+  }
+  .insight-card.green  { border-left-color: var(--green); }
+  .insight-card.yellow { border-left-color: var(--yellow); }
+  .insight-card.purple { border-left-color: var(--accent2); }
+  .insight-card h4 { font-size: .88rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .insight-card p, .insight-card li { font-size: .84rem; color: #b8bcd8; line-height: 1.65; }
+  .insight-card ul { padding-left: 18px; margin-top: 6px; }
+  .insight-card li { margin-bottom: 4px; }
+
+  .rationale-hero {
+    background: linear-gradient(135deg, rgba(91,141,238,.1), rgba(124,91,222,.1));
+    border: 1px solid rgba(91,141,238,.25);
+    border-radius: 14px; padding: 24px 28px; margin-bottom: 28px;
+  }
+  .rationale-hero h3 { color: var(--accent); text-transform: none; font-size: 1rem; letter-spacing: 0; margin-bottom: 10px; }
+  .rationale-hero p { font-size: .88rem; color: #c0c6e0; line-height: 1.75; }
+
+  .evidence-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+  .evidence-chip {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px 16px; flex: 1; min-width: 160px;
+  }
+  .evidence-chip .num { font-size: 1.5rem; font-weight: 800; color: var(--accent); }
+  .evidence-chip .desc { font-size: .75rem; color: var(--muted); margin-top: 3px; }
+
+  .hypothesis-block {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 18px; margin-bottom: 14px;
+  }
+  .hypothesis-block .label { font-size: .7rem; text-transform: uppercase; letter-spacing: .8px; color: var(--accent2); font-weight: 700; margin-bottom: 6px; }
+  .hypothesis-block p { font-size: .85rem; color: #c0c6e0; line-height: 1.65; }
+
+  .divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📋 Campaign Plan — Personalize Homepage Hero for Lapsed Subscribers</h1>
+  <p>Web Experimentation · Campaign ID <span style="font-family:var(--mono);color:var(--accent)">6254063044526080</span> · Project <span style="font-family:var(--mono);color:var(--accent)">5472592493019136</span></p>
+  <div class="badge-row">
+    <span class="badge badge-yellow"><span class="pulse"></span> Awaiting Activation</span>
+    <span class="badge badge-blue">🍪 Cookie Audience</span>
+    <span class="badge badge-green">✅ Metrics Confirmed</span>
+    <span class="badge badge-blue">50 / 50 Traffic Split</span>
+  </div>
+</header>
+
+<nav>
+  <button class="active" onclick="showTab('rationale', this)">🧠 Rationale &amp; Insights</button>
+  <button onclick="showTab('overview', this)">📋 Overview</button>
+  <button onclick="showTab('variations', this)">🎨 Variations</button>
+  <button onclick="showTab('audience', this)">🎯 Audience</button>
+  <button onclick="showTab('metrics', this)">📊 Metrics</button>
+  <button onclick="showTab('activation', this)">🚀 Activation</button>
+</nav>
+
+<main>
+
+<!-- ═══════════════ TAB: RATIONALE & INSIGHTS ═══════════════ -->
+<div id="tab-rationale" class="tab active">
+  <h2>🧠 Strategic Rationale &amp; Analysis Insights</h2>
+
+  <div class="rationale-hero">
+    <h3>Why This Campaign Was Built</h3>
+    <p>Logged-in users who return to the homepage represent a high-intent segment that is already past the awareness stage — yet the current homepage hero delivers an identical, generic experience to every visitor. This campaign was built to correct that mismatch: replacing a one-size-fits-all hero with two targeted experiences that acknowledge what we know about this user, reduce friction, and drive them toward the next conversion milestone (demo request or MQL creation).</p>
+  </div>
+
+  <div class="section">
+    <h3>Key Evidence &amp; Signals</h3>
+    <div class="evidence-row">
+      <div class="evidence-chip">
+        <div class="num">🔑</div>
+        <div class="desc">Cookie <code style="font-size:.75rem">logged_in_users</code> reliably identifies returning authenticated visitors — zero ODP dependency required</div>
+      </div>
+      <div class="evidence-chip">
+        <div class="num">🎯</div>
+        <div class="desc">Homepage (<code style="font-size:.75rem">optimizely.com</code>) is the highest-traffic re-entry point for lapsed subscribers, making it the ideal intervention page</div>
+      </div>
+      <div class="evidence-chip">
+        <div class="num">📉</div>
+        <div class="desc">Generic hero copy creates no contextual acknowledgment of returning users, leaving conversion potential unrealized at re-engagement stage</div>
+      </div>
+      <div class="evidence-chip">
+        <div class="num">📈</div>
+        <div class="desc">Demo Request Started (primary metric) is a direct downstream signal of intent — the clearest bridge between homepage engagement and pipeline impact</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Strategic Rationale by Decision</h3>
+
+    <div class="insight-card">
+      <h4>📌 Why target logged-in users specifically?</h4>
+      <p>Logged-in users have already cleared the trust and awareness barrier — they created an account, which signals meaningful prior intent. When this segment returns to the homepage, a generic acquisition message is a wasted moment. Personalizing for this cohort maximizes the value of high-intent traffic without requiring any paid re-acquisition spend. The <code style="font-family:var(--mono);font-size:.8rem">logged_in_users</code> cookie provides a reliable, platform-native signal that resolves instantly, with no dependency on external data pipelines or ODP audience sync delays.</p>
+    </div>
+
+    <div class="insight-card green">
+      <h4>✅ Why the homepage hero as the intervention point?</h4>
+      <p>The homepage hero is the first high-visibility element a returning user encounters. It sets intent and signals relevance within the first second of a session. Intervening here — rather than deeper in the funnel — captures the broadest possible share of returning traffic before any drop-off occurs. A single, well-targeted change at this touchpoint can compound across all downstream funnel stages.</p>
+    </div>
+
+    <div class="insight-card purple">
+      <h4>🔀 Why two variations instead of one?</h4>
+      <p>The two variations test distinct conversion levers simultaneously:</p>
+      <ul>
+        <li><strong>Variation 1 (Personalized Headline)</strong> — tests whether <em>recognition and relevance</em> alone are sufficient to lift engagement. If a returning user simply sees copy that acknowledges their context, does that drive action?</li>
+        <li><strong>Variation 2 (Urgency Offer + Streamlined Checkout)</strong> — tests whether <em>a concrete incentive with reduced friction</em> is required to move lapsed subscribers. Adds a time-limited offer and removes checkout steps.</li>
+      </ul>
+      <p style="margin-top:8px">Running both simultaneously against a 50/50 split generates clean learning: we discover not just <em>whether</em> personalization helps, but <em>which type</em> of personalization drives the most meaningful lift.</p>
+    </div>
+
+    <div class="insight-card yellow">
+      <h4>⚙️ Why custom JS via Code Editor?</h4>
+      <p>The homepage hero is rendered via a component that doesn't expose a native Visual Editor handle in the current project configuration. Using the Code Editor with targeted DOM selectors provides the most reliable cross-session injection without requiring a front-end deploy. It also preserves full A/B test integrity — both variations fire on the same DOM load event, ensuring no timing-based bias.</p>
+    </div>
+
+    <div class="insight-card">
+      <h4>📊 Why Demo Request Started as primary metric?</h4>
+      <p>Demo Request Started represents the highest-confidence conversion signal available in the event catalog for this audience. It is a direct downstream intent action — a user requesting a demo is actively raising their hand for a sales conversation, making it the clearest leading indicator of pipeline impact. MQL Created was added as a secondary metric to capture the downstream business outcome and validate that engagement lifts translate into qualified revenue opportunity — not just surface-level clicks.</p>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="section">
+    <h3>Campaign Hypotheses</h3>
+
+    <div class="hypothesis-block">
+      <div class="label">Hypothesis — Variation 1</div>
+      <p><strong>If</strong> we replace the generic homepage hero headline with a personalized message that acknowledges the returning logged-in user's context, <strong>then</strong> we expect to see a statistically meaningful increase in Demo Request Started events — because relevance signals credibility and reduces the cognitive effort required to identify the next action.</p>
+    </div>
+
+    <div class="hypothesis-block">
+      <div class="label">Hypothesis — Variation 2</div>
+      <p><strong>If</strong> we combine a personalized hero headline with a time-limited urgency offer and a streamlined checkout path, <strong>then</strong> we expect to see the highest lift in both Demo Request Started and MQL Created — because urgency removes the "I'll come back to this" deferral behavior that typically causes lapsed subscriber re-engagement attempts to fail.</p>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="section">
+    <h3>Setup Readiness — What Was Confirmed Before Launch</h3>
+    <table>
+      <thead>
+        <tr><th>Item</th><th>Status</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Cookie <code style="font-family:var(--mono)">logged_in_users</code> exists in production</td><td class="status-complete">✅ Confirmed</td><td>Cookie is set on authenticated sessions; exists-match is value-agnostic and reliable</td></tr>
+        <tr><td>Event: Demo Request Started</td><td class="status-complete">✅ Confirmed</td><td>Event ID <code style="font-family:var(--mono)">5854010498875392</code> — pre-existing in catalog</td></tr>
+        <tr><td>Event: MQL Created</td><td class="status-complete">✅ Created &amp; Confirmed</td><td>Event ID <code style="font-family:var(--mono)">6023151375613952</code> — created and registered during campaign build; confirmed by Marketing Ops</td></tr>
+        <tr><td>Page targeting URL</td><td class="status-complete">✅ Confirmed</td><td><code style="font-family:var(--mono)">https://www.optimizely.com</code> — simple match, no regex required</td></tr>
+        <tr><td>Traffic allocation model</td><td class="status-complete">✅ Confirmed</td><td>50/50 split — equal exposure for clean statistical comparison</td></tr>
+        <tr><td>Marketing Ops metric sign-off</td><td class="status-complete">✅ Confirmed</td><td>Both metrics approved for use in this campaign</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════ TAB: OVERVIEW ═══════════════ -->
+<div id="tab-overview" class="tab">
+  <h2>📋 Campaign Overview</h2>
+
+  <div class="section">
+    <div class="grid2">
+      <div class="card"><div class="card-label">Campaign Name</div><div class="card-value">Personalize Homepage Hero for Lapsed Subscribers</div></div>
+      <div class="card"><div class="card-label">Campaign ID</div><div class="card-mono">6254063044526080</div></div>
+      <div class="card"><div class="card-label">Project ID</div><div class="card-mono">5472592493019136</div></div>
+      <div class="card"><div class="card-label">Status</div><div class="card-value" style="color:var(--yellow)">🟡 Not Started — Awaiting Activation</div></div>
+      <div class="card"><div class="card-label">Page Target</div><div class="card-mono">https://www.optimizely.com</div><div style="font-size:.75rem;color:var(--muted);margin-top:4px">Match type: Simple</div></div>
+      <div class="card"><div class="card-label">Traffic Split</div>
+        <div class="card-value">50 / 50</div>
+        <div class="traffic-bar"><div class="traffic-fill"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted)"><span>Variation 1</span><span>Variation 2</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Build Status</h3>
+    <table>
+      <thead><tr><th>Area</th><th>Status</th><th>Detail</th></tr></thead>
+      <tbody>
+        <tr><td>Campaign Shell</td><td class="status-complete">✅ Complete</td><td>Structure locked and configured</td></tr>
+        <tr><td>Page Targeting</td><td class="status-complete">✅ Complete</td><td>optimizely.com — simple match</td></tr>
+        <tr><td>Cookie Audience</td><td class="status-complete">✅ Complete</td><td><code style="font-family:var(--mono)">logged_in_users</code> — wired to both experiences</td></tr>
+        <tr><td>Variation 1 Content</td><td class="status-complete">✅ Complete</td><td>Custom JS injected via Code Editor</td></tr>
+        <tr><td>Variation 2 Content</td><td class="status-complete">✅ Complete</td><td>Custom JS injected via Code Editor</td></tr>
+        <tr><td>Primary Metric</td><td class="status-complete">✅ Complete</td><td>Demo Request Started — <code style="font-family:var(--mono)">5854010498875392</code></td></tr>
+        <tr><td>Secondary Metric</td><td class="status-complete">✅ Complete</td><td>MQL Created — <code style="font-family:var(--mono)">6023151375613952</code></td></tr>
+        <tr><td>Campaign Status</td><td class="status-pending">🟡 Awaiting Activation</td><td>All components ready — manual start required</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════ TAB: VARIATIONS ═══════════════ -->
+<div id="tab-variations" class="tab">
+  <h2>🎨 Experience Variations</h2>
+
+  <div class="section">
+    <div class="grid2">
+      <div class="card">
+        <div class="card-label">Variation 1</div>
+        <div class="card-value" style="margin-bottom:8px">Personalized Headline</div>
+        <div style="font-size:.75rem;color:var(--muted)">Experience ID</div>
+        <div class="card-mono" style="margin-bottom:12px">4746687699222528</div>
+        <div style="font-size:.82rem;color:#b8bcd8;line-height:1.65">Replaces the generic homepage hero headline with copy tailored to returning logged-in users. Tests whether <strong>contextual relevance alone</strong> is sufficient to drive demo requests.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Variation 2</div>
+        <div class="card-value" style="margin-bottom:8px">Urgency Offer + Streamlined Checkout</div>
+        <div style="font-size:.75rem;color:var(--muted)">Experience ID</div>
+        <div class="card-mono" style="margin-bottom:12px">6416261142282240</div>
+        <div style="font-size:.82rem;color:#b8bcd8;line-height:1.65">Combines a personalized hero with a time-limited urgency offer and a reduced-step checkout path. Tests whether <strong>incentive + friction reduction</strong> is required to convert lapsed subscribers.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Delivery Method</h3>
+    <div class="card">
+      <div class="card-label">Implementation</div>
+      <div class="card-value" style="margin-bottom:8px">Custom JavaScript — Code Editor</div>
+      <div style="font-size:.83rem;color:#b8bcd8;line-height:1.65">Both variations inject content via targeted DOM selectors in the Code Editor. This approach bypasses Visual Editor limitations on the homepage hero component and ensures reliable, timing-consistent delivery across sessions.</div>
+      <pre>// Example selector pattern
+document.querySelector('.hero-headline').innerText = 'Welcome back — pick up where you left off';</pre>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ TAB: AUDIENCE ═══════════════ -->
+<div id="tab-audience" class="tab">
+  <h2>🎯 Audience Configuration</h2>
+
+  <div class="section">
+    <div class="grid2">
+      <div class="card"><div class="card-label">Audience Name</div><div class="card-value">Logged-In Users (Cookie)</div></div>
+      <div class="card"><div class="card-label">Audience ID</div><div class="card-mono">5476725604220928</div></div>
+      <div class="card"><div class="card-label">Condition Type</div><div class="card-value">cookies</div></div>
+      <div class="card"><div class="card-label">Cookie Name</div><div class="card-mono">logged_in_users</div></div>
+      <div class="card"><div class="card-label">Match Type</div><div class="card-value">exists <span style="font-size:.75rem;color:var(--muted)">(value-agnostic)</span></div></div>
+      <div class="card"><div class="card-label">Scope</div><div class="card-value">Web Experimentation Native <span style="font-size:.75rem;color:var(--green)">✅ Zero ODP dependency</span></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Condition JSON</h3>
+    <pre>["and", {"type": "cookies", "name": "logged_in_users", "match_type": "exists"}]</pre>
+  </div>
+
+  <div class="section">
+    <h3>Experience Audience Wiring</h3>
+    <pre>["and", {"audience_id": 5476725604220928}]</pre>
+    <div style="font-size:.82rem;color:var(--muted);margin-top:8px">Applied identically to both Variation 1 and Variation 2.</div>
+  </div>
+
+  <div class="section">
+    <div class="card" style="border-left:4px solid var(--yellow)">
+      <div class="card-label">⚠️ QA Note</div>
+      <div style="font-size:.84rem;color:#b8bcd8;margin-top:6px;line-height:1.65">The <code style="font-family:var(--mono)">exists</code> match type fires for any visitor where the cookie is present, regardless of value. If your site sets <code style="font-family:var(--mono)">logged_in_users=true</code> specifically, the condition still works correctly. To narrow to an exact value, update <code style="font-family:var(--mono)">match_type</code> to <code style="font-family:var(--mono)">exact</code> and add a <code style="font-family:var(--mono)">value</code> field — one-line change.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ TAB: METRICS ═══════════════ -->
+<div id="tab-metrics" class="tab">
+  <h2>📊 Metrics</h2>
+
+  <div class="section">
+    <div class="grid2">
+      <div class="card" style="border-left:4px solid var(--accent)">
+        <div class="card-label">🥇 Primary Metric</div>
+        <div class="card-value" style="margin-bottom:8px">Demo Request Started</div>
+        <div style="font-size:.75rem;color:var(--muted)">Event ID</div>
+        <div class="card-mono" style="margin-bottom:10px">5854010498875392</div>
+        <div style="font-size:.75rem;color:var(--muted)">Scope</div>
+        <div style="font-size:.84rem">Session</div>
+        <div style="font-size:.75rem;color:var(--green);margin-top:8px">✅ Pre-existing in catalog · Marketing Ops confirmed</div>
+      </div>
+      <div class="card" style="border-left:4px solid var(--accent2)">
+        <div class="card-label">🥈 Secondary Metric</div>
+        <div class="card-value" style="margin-bottom:8px">MQL Created</div>
+        <div style="font-size:.75rem;color:var(--muted)">Event ID</div>
+        <div class="card-mono" style="margin-bottom:10px">6023151375613952</div>
+        <div style="font-size:.75rem;color:var(--muted)">Scope</div>
+        <div style="font-size:.84rem">Session</div>
+        <div style="font-size:.75rem;color:var(--green);margin-top:8px">✅ Created &amp; registered during build · Marketing Ops confirmed</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Why These Metrics</h3>
+    <table>
+      <thead><tr><th>Metric</th><th>Role</th><th>Rationale</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Demo Request Started</strong></td><td>Primary</td><td>Highest-confidence intent signal available — a user requesting a demo is actively raising their hand for a sales conversation. Direct leading indicator of pipeline impact.</td></tr>
+        <tr><td><strong>MQL Created</strong></td><td>Secondary</td><td>Downstream business outcome validation. Confirms that engagement lifts translate to qualified revenue opportunity — not just surface-level hero clicks.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════ TAB: ACTIVATION ═══════════════ -->
+<div id="tab-activation" class="tab">
+  <h2>🚀 Activation &amp; Monitoring</h2>
+
+  <div class="section">
+    <h3>Pre-Launch Checklist</h3>
+    <ul class="checklist">
+      <li><span class="icon">✅</span><span>Cookie audience <code style="font-family:var(--mono)">logged_in_users</code> confirmed active in production</span></li>
+      <li><span class="icon">✅</span><span>Variation 1 JS — DOM selector validated on live homepage</span></li>
+      <li><span class="icon">✅</span><span>Variation 2 JS — DOM selector validated + urgency offer copy reviewed</span></li>
+      <li><span class="icon">✅</span><span>Primary metric event <code style="font-family:var(--mono)">5854010498875392</code> firing in QA environment</span></li>
+      <li><span class="icon">✅</span><span>Secondary metric event <code style="font-family:var(--mono)">6023151375613952</code> registered and confirmed by Marketing Ops</span></li>
+      <li><span class="icon">✅</span><span>Traffic allocation set to 50 / 50</span></li>
+      <li><span class="icon">⬜</span><span><strong>Human action required:</strong> Set campaign status to <strong>Running</strong> in Optimizely Web UI</span></li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h3>Post-Launch Monitoring Plan</h3>
+    <table>
+      <thead><tr><th>Checkpoint</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td>24 hours post-launch</td><td>Verify both variations are receiving traffic; confirm events are firing in Results dashboard</td></tr>
+        <tr><td>72 hours post-launch</td><td>Sanity check conversion rates — flag any anomalies to Marketing Ops</td></tr>
+        <tr><td>Statistical significance</td><td>Wait for 95%+ confidence before drawing conclusions; do not stop early based on directional trends</td></tr>
+        <tr><td>Decision point</td><td>Declare winner, iterate, or roll back based on Results data — human decision required</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h3>Full ID Quick Reference</h3>
+    <table>
+      <thead><tr><th>Object</th><th>ID</th></tr></thead>
+      <tbody>
+        <tr><td>Project</td><td><code style="font-family:var(--mono)">5472592493019136</code></td></tr>
+        <tr><td>Campaign</td><td><code style="font-family:var(--mono)">6254063044526080</code></td></tr>
+        <tr><td>Audience</td><td><code style="font-family:var(--mono)">5476725604220928</code></td></tr>
+        <tr><td>Variation 1 Experience</td><td><code style="font-family:var(--mono)">4746687699222528</code></td></tr>
+        <tr><td>Variation 2 Experience</td><td><code style="font-family:var(--mono)">6416261142282240</code></td></tr>
+        <tr><td>Event: Demo Request Started</td><td><code style="font-family:var(--mono)">5854010498875392</code></td></tr>
+        <tr><td>Event: MQL Created</td><td><code style="font-family:var(--mono)">6023151375613952</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</main>
+
+<script>
+function showTab(name, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

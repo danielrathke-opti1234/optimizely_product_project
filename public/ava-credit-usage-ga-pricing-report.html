@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ava Credit Usage &amp; GA Pricing Report</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f4f6fb;color:#111827;line-height:1.6}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 0 60px}
+
+  .header{background:linear-gradient(135deg,#0037ff 0%,#001a80 100%);color:#fff;padding:40px 44px 34px}
+  .header .kicker{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.8}
+  .header h1{font-size:28px;font-weight:800;margin-top:8px;letter-spacing:-.02em}
+  .header p{font-size:14px;opacity:.85;margin-top:10px;max-width:680px}
+  .header .meta{font-size:12px;opacity:.7;margin-top:16px}
+
+  .section{padding:32px 44px 8px}
+  .section h2{font-size:19px;font-weight:800;color:#0f172a;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+  .section h2 .bar{width:5px;height:20px;background:#0037ff;border-radius:3px}
+  .section .lead{font-size:13.5px;color:#4b5563;margin-bottom:20px;max-width:760px}
+
+  .callout{background:#fff;border:1px solid #e2e8f0;border-left:5px solid #0037ff;border-radius:10px;padding:22px 26px;margin:0 44px 8px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+  .callout .big{font-size:34px;font-weight:800;color:#0037ff;letter-spacing:-.02em}
+  .callout .big small{font-size:15px;font-weight:600;color:#6b7280}
+  .callout .desc{font-size:13.5px;color:#374151;margin-top:4px}
+
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:8px 44px 4px}
+  .card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px 18px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+  .card .label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#6b7280}
+  .card .val{font-size:24px;font-weight:800;color:#0f172a;margin-top:4px}
+  .card .sub{font-size:11.5px;color:#9ca3af;margin-top:2px}
+
+  table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.05);font-size:13.5px;margin-top:4px}
+  th{background:#f1f5f9;text-align:left;padding:11px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#475569;border-bottom:2px solid #e2e8f0}
+  td{padding:11px 16px;border-bottom:1px solid #f1f5f9}
+  tr:last-child td{border-bottom:none}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  .total-row td{font-weight:800;background:#f8fafc;color:#0037ff;border-top:2px solid #e2e8f0}
+
+  .chart-box{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:22px 24px;box-shadow:0 1px 3px rgba(0,0,0,.05);margin-top:4px}
+  .chart-box h3{font-size:13px;font-weight:700;color:#334155;margin-bottom:14px}
+  .chart-wrap{position:relative;height:300px}
+
+  .scenario-daily{color:#b45309;font-weight:700}
+  .scenario-weekly{color:#047857;font-weight:700}
+
+  .pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:11px;font-weight:700}
+  .pill-test{background:#fef3c7;color:#92400e}
+  .pill-prod{background:#d1fae5;color:#065f46}
+
+  .note{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:16px 20px;margin:12px 44px 0;font-size:13px;color:#1e3a5f}
+  .note strong{color:#0037ff}
+
+  .footer{padding:28px 44px 0;font-size:11.5px;color:#9ca3af;border-top:1px solid #e5e7eb;margin-top:32px}
+
+  ul.clean{list-style:none;margin-top:8px}
+  ul.clean li{font-size:13.5px;color:#374151;padding:6px 0 6px 24px;position:relative}
+  ul.clean li::before{content:'';position:absolute;left:2px;top:13px;width:7px;height:7px;border-radius:50%;background:#0037ff}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <div class="kicker">Optimizely Opal &bull; Virtual Teammate</div>
+    <h1>Ava: Credit Usage &amp; GA Pricing Report</h1>
+    <p>Personalization Strategist Virtual Teammate. Credit consumption analysis based on actual execution history, with projections for expected General Availability usage patterns.</p>
+    <div class="meta">Prepared by Daniel Rathke &bull; Generated 2026-08-10 &bull; Source: live workflow execution history (11 runs per primitive)</div>
+  </div>
+
+  <!-- HEADLINE NUMBER -->
+  <div class="section" style="padding-bottom:12px">
+    <h2><span class="bar"></span>The Number That Matters for Pricing</h2>
+    <p class="lead">Because run frequency is fully customer-configurable, the most durable pricing unit is the cost of one complete personalization campaign build &mdash; not a weekly total.</p>
+  </div>
+  <div class="callout">
+    <div class="big">~1,200 <small>credits per end-to-end personalization campaign</small></div>
+    <div class="desc">One full cycle: Identify opportunities &rarr; Design campaign &rarr; Build in Experimentation &rarr; Monitor performance. Typical range <strong>1,100&ndash;1,400 credits</strong> depending on complexity.</div>
+  </div>
+
+  <!-- PER-PRIMITIVE BREAKDOWN -->
+  <div class="section">
+    <h2><span class="bar"></span>Per-Stage Cost Breakdown</h2>
+    <p class="lead">Ava's program runs as four sequential primitives. Averages below are drawn from actual completed executions.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Stage</th>
+          <th>What it does</th>
+          <th class="num">Avg / Run</th>
+          <th class="num">Range</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>P1 &mdash; Identify</strong></td><td>Ranks personalization opportunities from GA4 data</td><td class="num">280</td><td class="num">190&ndash;350</td></tr>
+        <tr><td><strong>P2 &mdash; Design</strong></td><td>Inspects live page, designs multi-experience campaign spec</td><td class="num">261</td><td class="num">220&ndash;320</td></tr>
+        <tr><td><strong>P3 &mdash; Build</strong></td><td>Builds audiences, experiences, metrics &amp; custom code</td><td class="num">336</td><td class="num">204&ndash;460</td></tr>
+        <tr><td><strong>P4 &mdash; Monitor</strong></td><td>Pulls live results, delivers performance report</td><td class="num">300</td><td class="num">200&ndash;370</td></tr>
+        <tr class="total-row"><td>Full campaign cycle</td><td>One complete build (P1&rarr;P4)</td><td class="num">~1,177</td><td class="num">1,100&ndash;1,400</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CHART -->
+  <div class="section" style="padding-bottom:12px">
+    <h2><span class="bar"></span>Weekly Usage: Test Cadence vs. Expected GA Cadence</h2>
+    <p class="lead">Current usage reflects near-daily runs for verification. Real customers will run far less frequently.</p>
+  </div>
+  <div style="padding:0 44px">
+    <div class="chart-box">
+      <h3>Estimated Weekly Credit Consumption by Cadence</h3>
+      <div class="chart-wrap"><canvas id="cadenceChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- SCENARIO TABLE -->
+  <div class="section">
+    <h2><span class="bar"></span>Cadence Scenarios</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Cadence</th>
+          <th>Profile</th>
+          <th class="num">Weekly Credits</th>
+          <th class="num">Monthly (&times;4)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="pill pill-test">Current test</span> Daily</td><td>Active dev / verification (present setup)</td><td class="num">~4,100</td><td class="num">~16,400</td></tr>
+        <tr><td>3&times; per week</td><td>High-engagement customer</td><td class="num">~3,100</td><td class="num">~12,400</td></tr>
+        <tr><td><span class="pill pill-prod">Expected GA</span> Weekly</td><td>Typical / standard customer</td><td class="num">~1,020</td><td class="num">~4,080</td></tr>
+        <tr><td>Bi-weekly</td><td>Light / occasional user</td><td class="num">~660</td><td class="num">~2,640</td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-left:0;margin-right:0;margin-top:14px">
+      <strong>Reading this:</strong> The current ~4,100/week is a <em>stress-test</em> figure &mdash; all four primitives running nearly daily to validate that Ava works flawlessly before GA. It is not representative of production usage. A typical GA customer building one fresh personalization campaign per week lands near <strong>~1,000&ndash;1,200 credits/week</strong>.
+    </div>
+  </div>
+
+  <!-- KEY NUMBERS CARDS -->
+  <div class="section" style="padding-bottom:12px">
+    <h2><span class="bar"></span>Quick Reference</h2>
+  </div>
+  <div class="cards">
+    <div class="card"><div class="label">Per Campaign</div><div class="val">~1,200</div><div class="sub">credits, end-to-end</div></div>
+    <div class="card"><div class="label">Expected GA Weekly</div><div class="val">~1,020</div><div class="sub">weekly cadence</div></div>
+    <div class="card"><div class="label">Expected GA Monthly</div><div class="val">~4,080</div><div class="sub">weekly cadence &times;4</div></div>
+    <div class="card"><div class="label">Test Cadence Weekly</div><div class="val">~4,100</div><div class="sub">current, not GA-typical</div></div>
+  </div>
+
+  <!-- CONTEXT / CAVEATS -->
+  <div class="section">
+    <h2><span class="bar"></span>Context for Pricing Decisions</h2>
+    <ul class="clean">
+      <li><strong>Frequency is customer-configurable.</strong> Credits scale directly with how often a customer schedules each primitive. Pricing should assume a cadence, not a fixed weekly draw.</li>
+      <li><strong>The multi-experience upgrade raised per-build value.</strong> P3 now produces 3 distinct audiences, 3 experiences, and 3 tailored custom-code blocks &mdash; genuine 1:many personalization, not a single headline swap. This added roughly +75 credits per Build run versus the earlier single-experience version.</li>
+      <li><strong>Training runs inflate the historical average.</strong> Several high-credit runs occurred during active pipeline development and debugging. Steady-state runs trend toward the lower end of each range.</li>
+      <li><strong>Recommended budgeting figure:</strong> use <strong>~1,200 credits per campaign build</strong> as the unit of pricing, then multiply by the customer's expected campaigns-per-month.</li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    Figures derived from live Opal workflow execution records for Ava's four primitives (VT Identify Personalization Opportunities, VT Design Personalization Campaign, VT Build Campaign in Experimentation, VT Monitor Campaign Performance). Averages computed across 11 completed runs per build primitive and 6 for Monitor. All values are estimates for planning purposes and will vary with campaign complexity and configured run cadence.
+  </div>
+
+</div>
+
+<script>
+  const ctx = document.getElementById('cadenceChart');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Daily (current test)', '3x per week', 'Weekly (expected GA)', 'Bi-weekly'],
+      datasets: [{
+        label: 'Weekly Credits',
+        data: [4100, 3100, 1020, 660],
+        backgroundColor: ['#f59e0b', '#6366f1', '#0037ff', '#94a3b8'],
+        borderRadius: 6,
+        maxBarThickness: 90
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: {duration: 900},
+      plugins: {
+        legend: {display: false},
+        tooltip: {callbacks: {label: (c) => c.parsed.y.toLocaleString() + ' credits / week'}}
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {display: true, text: 'Credits per week'},
+          ticks: {callback: (v) => v.toLocaleString()}
+        }
+      }
+    }
+  });
+</script>
+</body>
+</html>

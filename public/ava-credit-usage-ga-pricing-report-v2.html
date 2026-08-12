@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ava Credit Usage &amp; GA Pricing Report</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f4f6fb;color:#111827;line-height:1.6}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 0 60px}
+
+  .header{background:linear-gradient(135deg,#0037ff 0%,#001a80 100%);color:#fff;padding:40px 44px 34px}
+  .header .kicker{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.8}
+  .header h1{font-size:28px;font-weight:800;margin-top:8px;letter-spacing:-.02em}
+  .header p{font-size:14px;opacity:.85;margin-top:10px;max-width:720px}
+  .header .meta{font-size:12px;opacity:.7;margin-top:16px}
+
+  .section{padding:32px 44px 8px}
+  .section h2{font-size:19px;font-weight:800;color:#0f172a;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+  .section h2 .bar{width:5px;height:20px;background:#0037ff;border-radius:3px}
+  .section .lead{font-size:13.5px;color:#4b5563;margin-bottom:18px;max-width:800px}
+
+  .callout{background:#fff;border:1px solid #e2e8f0;border-left:5px solid #0037ff;border-radius:10px;padding:22px 26px;margin:0 44px 8px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+  .callout .big{font-size:34px;font-weight:800;color:#0037ff;letter-spacing:-.02em}
+  .callout .big small{font-size:15px;font-weight:600;color:#6b7280}
+  .callout .desc{font-size:13.5px;color:#374151;margin-top:4px}
+
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:8px 44px 4px}
+  .card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px 18px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+  .card .label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#6b7280}
+  .card .val{font-size:23px;font-weight:800;color:#0f172a;margin-top:4px}
+  .card .sub{font-size:11.5px;color:#9ca3af;margin-top:2px}
+
+  table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.05);font-size:13px;margin-top:4px}
+  th{background:#f1f5f9;text-align:left;padding:11px 14px;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#475569;border-bottom:2px solid #e2e8f0}
+  td{padding:11px 14px;border-bottom:1px solid #f1f5f9;vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .total-row td{font-weight:800;background:#f8fafc;color:#0037ff;border-top:2px solid #e2e8f0}
+  .sep-row td{background:#fafbfc;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#94a3b8;padding:7px 14px}
+  .jobname{font-weight:700;color:#0f172a}
+  .wfname{font-size:11px;color:#94a3b8;font-family:'SF Mono',Consolas,monospace}
+  .row-hl{background:#f0f7ff}
+  .row-hl td{border-bottom:1px solid #dbeafe}
+
+  .chart-box{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:22px 24px;box-shadow:0 1px 3px rgba(0,0,0,.05);margin-top:4px}
+  .chart-box h3{font-size:13px;font-weight:700;color:#334155;margin-bottom:14px}
+  .chart-wrap{position:relative;height:330px}
+
+  .pill{display:inline-block;padding:2px 9px;border-radius:99px;font-size:10.5px;font-weight:700;white-space:nowrap}
+  .pill-test{background:#fef3c7;color:#92400e}
+  .pill-prod{background:#d1fae5;color:#065f46}
+  .pill-monthly{background:#ede9fe;color:#5b21b6}
+
+  .note{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:16px 20px;margin-top:14px;font-size:13px;color:#1e3a5f}
+  .note strong{color:#0037ff}
+  .note-amber{background:#fffbeb;border-color:#fde68a;color:#78350f}
+  .note-amber strong{color:#b45309}
+
+  .footer{padding:28px 44px 0;font-size:11.5px;color:#9ca3af;border-top:1px solid #e5e7eb;margin-top:32px}
+
+  ul.clean{list-style:none;margin-top:8px}
+  ul.clean li{font-size:13.5px;color:#374151;padding:6px 0 6px 24px;position:relative}
+  ul.clean li::before{content:'';position:absolute;left:2px;top:13px;width:7px;height:7px;border-radius:50%;background:#0037ff}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <div class="kicker">Optimizely Opal &bull; Virtual Teammate</div>
+    <h1>Ava: Credit Usage &amp; GA Pricing Report</h1>
+    <p>Personalization Strategist Virtual Teammate. Credit consumption analysis based on live execution history across all five scheduled jobs, with weekly, monthly, and annual projections for expected General Availability usage.</p>
+    <div class="meta">Prepared by Daniel Rathke &bull; Generated 2026-08-12 &bull; Source: live Opal workflow execution records</div>
+  </div>
+
+  <!-- HEADLINE -->
+  <div class="section" style="padding-bottom:12px">
+    <h2><span class="bar"></span>The Number That Matters for Pricing</h2>
+    <p class="lead">Run frequency is fully customer-configurable, so the most durable pricing unit is the cost of one complete personalization campaign build, plus the recurring monthly program report.</p>
+  </div>
+  <div class="callout">
+    <div class="big">~1,200 <small>credits per end-to-end personalization campaign</small></div>
+    <div class="desc">One full cycle: Identify &rarr; Design &rarr; Build &rarr; Monitor. Typical range <strong>1,100&ndash;1,400 credits</strong>. The <strong>Personalization Program Performance Monthly Report</strong> adds <strong>~280 credits/month</strong> on top.</div>
+  </div>
+
+  <!-- JOB BREAKDOWN -->
+  <div class="section">
+    <h2><span class="bar"></span>Cost by Job</h2>
+    <p class="lead">Ava ships as five scheduled jobs. The first four form the campaign build cycle; the fifth is a standalone program-level report intended to run monthly.</p>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:31%">Job</th>
+          <th>What it does</th>
+          <th class="num">Runs analyzed</th>
+          <th class="num">Avg / Run</th>
+          <th class="num">Range</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="sep-row"><td colspan="5">Campaign build cycle</td></tr>
+        <tr>
+          <td><span class="jobname">Identify Personalization Opportunities</span><br><span class="wfname">VT Identify Personalization Opportunities</span></td>
+          <td>Ranks personalization opportunities from analytics data</td>
+          <td class="num">12</td><td class="num">277</td><td class="num">190&ndash;350</td>
+        </tr>
+        <tr>
+          <td><span class="jobname">Personalization Design Campaign Plan</span><br><span class="wfname">VT Design Personalization Campaign</span></td>
+          <td>Inspects live page DOM, designs multi-experience campaign spec</td>
+          <td class="num">12</td><td class="num">271</td><td class="num">220&ndash;380</td>
+        </tr>
+        <tr>
+          <td><span class="jobname">Build Personalization Campaign</span><br><span class="wfname">VT Build Campaign in Experimentation</span></td>
+          <td>Builds audiences, experiences, metrics and custom code</td>
+          <td class="num">12</td><td class="num">346</td><td class="num">204&ndash;460</td>
+        </tr>
+        <tr>
+          <td><span class="jobname">Monitoring Personalization Campaign Performance</span><br><span class="wfname">VT Monitor Campaign Performance</span></td>
+          <td>Pulls live results, delivers performance report</td>
+          <td class="num">7</td><td class="num">301</td><td class="num">200&ndash;370</td>
+        </tr>
+        <tr class="total-row"><td>Full campaign cycle</td><td>One complete build, Identify through Monitor</td><td class="num">&mdash;</td><td class="num">~1,194</td><td class="num">1,100&ndash;1,400</td></tr>
+        <tr class="sep-row"><td colspan="5">Program-level reporting (separate cadence)</td></tr>
+        <tr class="row-hl">
+          <td><span class="jobname">Personalization Program Performance Monthly Report</span> <span class="pill pill-monthly">Monthly</span><br><span class="wfname">VT Program Intelligence Hub</span></td>
+          <td>Portfolio-level program intelligence dashboard across all campaigns</td>
+          <td class="num">6</td><td class="num">280</td><td class="num">190&ndash;310</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="note note-amber">
+      <strong>Note on the Monthly Report:</strong> This job has been running multiple times per week during validation, which is why 6 runs are on record in a short window. At GA it is intended to run <strong>once per month</strong>, contributing roughly <strong>280 credits/month</strong> or <strong>~3,360 credits/year</strong> regardless of campaign cadence.
+    </div>
+  </div>
+
+  <!-- CHART -->
+  <div class="section" style="padding-bottom:12px">
+    <h2><span class="bar"></span>Annual Credit Consumption by Cadence</h2>
+    <p class="lead">Each scenario assumes the campaign cycle runs at the stated frequency, plus 12 monthly program reports per year.</p>
+  </div>
+  <div style="padding:0 44px">
+    <div class="chart-box">
+      <h3>Projected Annual Credits &mdash; Campaign Cycles vs. Monthly Report</h3>
+      <div class="chart-wrap"><canvas id="annualChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- SCENARIO TABLE -->
+  <div class="section">
+    <h2><span class="bar"></span>Cadence Scenarios: Weekly, Monthly &amp; Annual</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Cadence</th>
+          <th>Profile</th>
+          <th class="num">Cycles / yr</th>
+          <th class="num">Weekly</th>
+          <th class="num">Monthly</th>
+          <th class="num">Annual</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="pill pill-test">Current test</span> Daily</td>
+          <td>Active development / verification (present setup)</td>
+          <td class="num">260</td><td class="num">6,037</td><td class="num">26,159</td><td class="num">313,911</td>
+        </tr>
+        <tr>
+          <td>3&times; per week</td>
+          <td>High-engagement power user</td>
+          <td class="num">156</td><td class="num">3,648</td><td class="num">15,808</td><td class="num">189,691</td>
+        </tr>
+        <tr class="row-hl">
+          <td><span class="pill pill-prod">Expected GA</span> Weekly</td>
+          <td>Typical / standard customer</td>
+          <td class="num">52</td><td class="num">1,259</td><td class="num">5,456</td><td class="num">65,470</td>
+        </tr>
+        <tr>
+          <td>Bi-weekly</td>
+          <td>Moderate user</td>
+          <td class="num">26</td><td class="num">662</td><td class="num">2,868</td><td class="num">34,415</td>
+        </tr>
+        <tr>
+          <td>Monthly</td>
+          <td>Light / occasional user</td>
+          <td class="num">12</td><td class="num">340</td><td class="num">1,474</td><td class="num">17,693</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="note">
+      <strong>Reading this:</strong> The daily row is a <em>stress-test</em> figure, not a GA expectation. It reflects running every job near-daily to validate Ava before release. A typical GA customer on a <strong>weekly</strong> cadence lands around <strong>65,000 credits/year</strong> &mdash; roughly one fifth of the test-cadence figure.
+    </div>
+  </div>
+
+  <!-- QUICK REF -->
+  <div class="section" style="padding-bottom:12px">
+    <h2><span class="bar"></span>Quick Reference &mdash; Expected GA (Weekly Cadence)</h2>
+  </div>
+  <div class="cards">
+    <div class="card"><div class="label">Per Campaign</div><div class="val">~1,194</div><div class="sub">credits, Identify &rarr; Monitor</div></div>
+    <div class="card"><div class="label">Weekly</div><div class="val">~1,259</div><div class="sub">incl. monthly report share</div></div>
+    <div class="card"><div class="label">Monthly</div><div class="val">~5,456</div><div class="sub">4 campaigns + 1 report</div></div>
+    <div class="card"><div class="label">Annual</div><div class="val">~65,470</div><div class="sub">52 campaigns + 12 reports</div></div>
+  </div>
+
+  <!-- CONTEXT -->
+  <div class="section">
+    <h2><span class="bar"></span>Context for Pricing Decisions</h2>
+    <ul class="clean">
+      <li><strong>Price the unit, not the week.</strong> Credits scale directly with configured cadence. Recommend anchoring on <strong>~1,200 credits per campaign build</strong> plus <strong>~280 credits per monthly program report</strong>, then multiplying by expected customer usage.</li>
+      <li><strong>The Monthly Report is cadence-independent.</strong> At one run per month it contributes a flat ~3,360 credits/year no matter how often campaigns are built, making it easy to bundle into a base subscription tier.</li>
+      <li><strong>Multi-experience builds raised per-campaign value.</strong> The Build job now produces 3 distinct audiences, 3 experiences and 3 tailored custom-code blocks &mdash; genuine 1:many personalization rather than a single headline swap. This added roughly 75 credits per Build run over the earlier single-experience version.</li>
+      <li><strong>Validation runs inflate the historical average.</strong> Several high-credit runs occurred during active pipeline development and debugging. Steady-state production runs trend toward the lower end of each range.</li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    Figures derived from live Opal workflow execution records for Ava's five scheduled jobs. Averages computed across 12 completed runs each for Identify, Design and Build; 7 for Monitoring; and 6 for the Program Performance Monthly Report. Annual projections assume the stated campaign cadence plus 12 monthly program reports. Weekly figures are annual totals divided by 52; monthly figures are annual totals divided by 12. All values are planning estimates and will vary with campaign complexity and configured run cadence.
+  </div>
+
+</div>
+
+<script>
+  new Chart(document.getElementById('annualChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Daily\n(current test)', '3x per week', 'Weekly\n(expected GA)', 'Bi-weekly', 'Monthly'],
+      datasets: [
+        {
+          label: 'Campaign cycles',
+          data: [310551, 186331, 62110, 31055, 14333],
+          backgroundColor: '#0037ff',
+          borderRadius: 5,
+          maxBarThickness: 70
+        },
+        {
+          label: 'Monthly program report',
+          data: [3360, 3360, 3360, 3360, 3360],
+          backgroundColor: '#a78bfa',
+          borderRadius: 5,
+          maxBarThickness: 70
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: {duration: 900},
+      plugins: {
+        legend: {position: 'bottom', labels: {boxWidth: 12, font: {size: 12}}},
+        tooltip: {
+          callbacks: {
+            label: (c) => c.dataset.label + ': ' + c.parsed.y.toLocaleString() + ' credits/yr',
+            footer: (items) => 'Total: ' + items.reduce((s,i)=>s+i.parsed.y,0).toLocaleString() + ' credits/yr'
+          }
+        }
+      },
+      scales: {
+        x: {stacked: true, ticks: {font: {size: 11}}},
+        y: {
+          stacked: true,
+          beginAtZero: true,
+          title: {display: true, text: 'Credits per year'},
+          ticks: {callback: (v) => v.toLocaleString()}
+        }
+      }
+    }
+  });
+</script>
+</body>
+</html>

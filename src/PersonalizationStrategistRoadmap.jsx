@@ -67,6 +67,24 @@ const roadmapItems = [
     metric: 'Briefs ready',
   },
   {
+    id: 'cross-platform-model',
+    phase: 'Next',
+    eyebrow: 'VT collaboration',
+    title: 'Cross Platform VT Collaboration',
+    platform: 'Opal, Personalization, ODP, CMS, CMP, Experimentation, Optimizely Analytics',
+    outcome:
+      'Help customers complete connected marketing, personalization, and experimentation workflows across Optimizely platforms without manually passing context from one product area to another.',
+    capability:
+      'Personalization Strategist can collaborate with other platform-focused VTs to share context, pass recommendations, request specialized support, and continue work across connected workflows. For example, audience insights from ODP can inform a personalization strategy, CMS or CMP can support the content and experience plan, Experimentation can support validation, and Optimizely Analytics can help monitor performance.',
+    why:
+      'As more VTs are created, the value is not just having separate teammates for separate tasks. The stronger product pattern is allowing each VT to represent a specific Optimizely platform or workflow while still passing the right context to the others. This creates a connected execution path where customer data, audience strategy, content planning, campaign build, validation, and performance monitoring can work together instead of staying isolated by platform.',
+    success:
+      'Context passed successfully between VTs, fewer duplicated inputs, platform-specific recommendations connected into one workflow, campaign or experience builds advanced across multiple product areas, and clearer user review before activation.',
+    icon: Network,
+    signal: 'Connected workflow',
+    metric: 'Context shared',
+  },
+  {
     id: 'mercator-limitless',
     phase: 'Later',
     eyebrow: 'Advanced creation',
@@ -84,24 +102,6 @@ const roadmapItems = [
     signal: 'From campaigns to outcome paths',
     metric: 'Use cases ranked',
   },
-  {
-    id: 'cross-platform-model',
-    phase: 'Later',
-    eyebrow: 'Reusable pattern',
-    title: 'Cross-platform Virtual Teammate model',
-    platform: 'Opal, Personalization, ODP, CMS, CMP, Analytics',
-    outcome:
-      'Create a repeatable Virtual Teammate model that helps customers move from insight to action across Optimizely platforms.',
-    capability:
-      'Coordinates research, planning, build preparation, measurement, and iteration across connected products while keeping human review in the activation path.',
-    why:
-      'The long-term value is not one VT for one use case. The opportunity is a reusable operating model for how Virtual Teammates help customers complete product workflows across Optimizely.',
-    success:
-      'Repeat usage across workflows, more completed activation paths, stronger customer questions for CS and V&A, and clearer signals on where customers need product guidance.',
-    icon: Network,
-    signal: 'From one teammate to a model',
-    metric: 'Reusable VT loop',
-  },
 ];
 
 const phaseCopy = {
@@ -113,15 +113,15 @@ const phaseCopy = {
   },
   Next: {
     label: 'Next',
-    title: 'Expand from execution into strategy.',
+    title: 'Expand from execution into connected workflows.',
     copy:
-      'Help customers decide which audiences are ready and what experience should be created for them.',
+      'Help customers decide which audiences are ready, what experience should be created, and how specialized VTs collaborate across the workflow.',
   },
   Later: {
     label: 'Later',
-    title: 'Turn the pattern into a platform model.',
+    title: 'Move into outcome-based experience creation.',
     copy:
-      'Move toward advanced personalization creation and a reusable Virtual Teammate operating model across products.',
+      'Extend the pattern into Mercator and Limitless Personalization as customers move from campaigns into richer personalized experiences.',
   },
 };
 
@@ -129,8 +129,8 @@ const progression = [
   'Campaign Execution',
   'Audience Readiness',
   'Experience Planning',
+  'Cross-Platform VT Collaboration',
   'Mercator / Limitless Personalization',
-  'Cross-Platform VT Model',
 ];
 
 function FieldCard({ label, children, icon: Icon }) {

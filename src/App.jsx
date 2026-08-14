@@ -35,6 +35,7 @@ import {
   journeys,
   patterns,
 } from './data/portfolioData.js';
+import PersonalizationStrategistRoadmap from './PersonalizationStrategistRoadmap.jsx';
 
 const colors = {
   mint: 'border-mint/40 bg-mint/10 text-mint',
@@ -974,7 +975,7 @@ function StoryNavigation({ activeIndex, onGo, onPrev, onNext }) {
   );
 }
 
-function App() {
+function PortfolioApp() {
   const [begun, setBegun] = useState(false);
   const [exploredSignals, setExploredSignals] = useState([]);
   const [activeChapter, setActiveChapter] = useState(0);
@@ -1041,6 +1042,11 @@ function App() {
       </footer>
     </>
   );
+}
+
+function App() {
+  const isRoadmapRoute = typeof window !== 'undefined' && window.location.pathname.includes('personalization-strategist-roadmap');
+  return isRoadmapRoute ? <PersonalizationStrategistRoadmap /> : <PortfolioApp />;
 }
 
 export default App;

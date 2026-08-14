@@ -32,6 +32,27 @@ main {
   overflow: hidden;
 }
 
+.roadmap-shell {
+  position: relative;
+  background:
+    linear-gradient(116deg, rgba(145, 219, 218, 0.12), transparent 34%),
+    linear-gradient(244deg, rgba(255, 153, 182, 0.09), transparent 34%),
+    linear-gradient(180deg, #061314 0%, #071617 48%, #061314 100%);
+}
+
+.roadmap-grid-bg {
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.38) 72%, rgba(0, 0, 0, 0.12));
+}
+
+.roadmap-progress-rail {
+  align-self: start;
+}
+
 .story-main {
   min-height: 100svh;
 }

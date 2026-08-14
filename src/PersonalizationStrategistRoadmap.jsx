@@ -73,13 +73,13 @@ const roadmapItems = [
     title: 'Mercator and Limitless Personalization support',
     platform: 'Mercator, Limitless Personalization, CMS, CMP, ODP, Opal',
     outcome:
-      'Support more advanced personalized experience creation using product, content, audience, and recommendation context.',
+      'Help customers move from campaign execution into outcome-based experience creation across content, product, audience, and recommendation context.',
     capability:
-      'Helps identify where personalized pages or experiences should be created, recommends what content or product context should influence the experience, supports approved build preparation, and monitors performance after activation.',
+      'Personalization Strategist can help identify which visitor, account, audience, product, or segment deserves a dedicated experience, determine what content or recommendation context should shape it, prepare the experience strategy, support approved build preparation, and monitor performance after activation.',
     why:
-      'This is the natural next level once the VT model proves it can move customers from data and strategy into approved personalized experiences. Mercator and Limitless Personalization provide stronger outcome-based paths where Personalization Strategist could help connect planning, content, data, and execution.',
+      'This is the next level once the VT proves it can move customers from data analysis into campaign execution. Mercator is focused on creating a visitor-facing conversational layer that can replace static navigation, search, and recommendation widgets by surfacing the right content, product, offer, or answer based on who the visitor is and what they need. The Mercator proposal also frames the future around human visitors and agent visitors, both powered through the same personalization engine and data moat. Limitless Personalization adds the scaled experience creation layer by helping teams create more relevant pages and experiences for specific accounts, segments, personas, products, or customer contexts. Personalization Strategist can connect both directions by helping determine who the experience is for, what outcome matters, what content or product context should influence the experience, and what needs to be reviewed before activation.',
     success:
-      'Personalized page concepts generated, approved experiences prepared, recommendation-driven use cases identified, and performance reviewed after launch.',
+      'Personalized page concepts generated, Mercator use cases identified, content and recommendation inputs mapped, approved experiences prepared, and performance reviewed after launch.',
     icon: Sparkles,
     signal: 'From campaigns to outcome paths',
     metric: 'Use cases ranked',
@@ -341,7 +341,7 @@ function PersonalizationStrategistRoadmap() {
                     <FieldCard label="Success Signal" icon={CheckCircle2}>{activeItem.success}</FieldCard>
                   </div>
 
-                  <div className="mt-4 rounded-lg border border-[#ff99b6]/20 bg-[#ff99b6]/10 p-5">
+                  <div className="mt-4 max-h-64 overflow-auto rounded-lg border border-[#ff99b6]/20 bg-[#ff99b6]/10 p-5 thin-scrollbar">
                     <div className="flex items-center gap-2 text-xs uppercase tracking-[.18em] text-[#ff99b6]">
                       <ClipboardList className="h-4 w-4" />
                       Why this comes next

@@ -55,13 +55,13 @@ const roadmapItems = [
     eyebrow: 'Experience strategy',
     title: 'Content and experience planning',
     platform: 'CMS, CMP, Personalization',
-    outcome: 'Help teams connect audience intent to the content or experience that should be delivered.',
+    outcome: 'Help customers turn audience strategy into the actual experience that should be delivered.',
     capability:
-      'Creates experience briefs, recommends content variants, connects campaign goals to audience needs, and prepares review-ready personalization concepts.',
+      'Personalization Strategist reviews the campaign goal, audience context, available content, prior experiment signals, and page experience needs to recommend what experience should be created. It can help prepare the experience brief, suggest content variants, identify relevant CMS content or CMP assets, and package the work for review.',
     why:
-      'Once the audience and campaign direction are clear, customers still need help translating the strategy into the actual experience. This is where CMS and CMP become important.',
+      'After customers know who they want to personalize for, the next blocker is deciding what experience should be shown. CMS provides the page, content, and publishing surface, while CMP supports campaign planning, content workflow, collaboration, and approvals. Personalization Strategist can help connect the audience, campaign goal, available content, and prior experiment signals into a review-ready experience plan that marketing, content, and optimization teams can act on.',
     success:
-      'Experience briefs created, content variants prepared, campaign concepts reviewed, and faster movement from strategy to experience creation.',
+      'Experience briefs created, content variants recommended, CMS content or CMP assets identified, review-ready campaign concepts prepared, and faster movement from audience strategy to experience creation.',
     icon: FileStack,
     signal: 'From strategy to experience',
     metric: 'Briefs ready',

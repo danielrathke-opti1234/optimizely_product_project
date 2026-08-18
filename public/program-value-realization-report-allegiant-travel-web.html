@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Program Value Realization Report</title>
+<style>
+  :root{
+    --blue:#0037ff; --blue-dk:#001a66; --ink:#0f172a; --slate:#475569;
+    --slate-lt:#94a3b8; --line:#e2e8f0; --bg:#f1f5f9; --card:#ffffff;
+    --green:#059669; --green-bg:#ecfdf5; --red:#dc2626; --red-bg:#fef2f2;
+    --amber:#d97706; --amber-bg:#fffbeb; --shadow:0 1px 3px rgba(15,23,42,.08),0 8px 24px rgba(15,23,42,.06);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:32px 24px 64px}
+  /* HERO */
+  .hero{background:linear-gradient(135deg,var(--blue-dk) 0%,var(--blue) 100%);color:#fff;
+    border-radius:20px;padding:40px 44px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .hero::after{content:"";position:absolute;right:-80px;top:-80px;width:320px;height:320px;
+    background:radial-gradient(circle,rgba(255,255,255,.12),transparent 70%)}
+  .hero .eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:12px;font-weight:700;opacity:.85}
+  .hero h1{font-size:34px;font-weight:800;margin:8px 0 20px;line-height:1.15;max-width:760px}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:12px;position:relative;z-index:1}
+  .chip{background:rgba(255,255,255,.14);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.18);
+    border-radius:10px;padding:10px 14px;font-size:13px}
+  .chip b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;opacity:.75;font-weight:600;margin-bottom:2px}
+  /* SECTION */
+  section{margin-top:36px}
+  .sec-head{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+  .sec-head .num{width:30px;height:30px;border-radius:8px;background:var(--blue);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex:none}
+  .sec-head h2{font-size:20px;font-weight:750}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;box-shadow:var(--shadow)}
+  /* EXEC SUMMARY */
+  .summary li{list-style:none;padding:12px 0 12px 34px;position:relative;border-bottom:1px solid var(--line);font-size:15px}
+  .summary li:last-child{border-bottom:none}
+  .summary li::before{content:"";position:absolute;left:6px;top:18px;width:10px;height:10px;border-radius:50%;background:var(--blue)}
+  .summary li b{color:var(--ink)}
+  /* VALUE CARDS */
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .vcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .vcard .tag{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--slate)}
+  .vcard .val{font-size:27px;font-weight:800;margin-top:10px;letter-spacing:-.5px}
+  .vcard .sub{font-size:12.5px;color:var(--slate-lt);margin-top:6px}
+  .vcard .bar{position:absolute;left:0;top:0;bottom:0;width:5px}
+  .pos .bar{background:var(--green)} .pos .val{color:var(--green)}
+  .posr .bar{background:var(--blue)} .posr .val{color:var(--blue)}
+  .loss .bar{background:var(--amber)} .loss .val{color:var(--amber)}
+  .lossr .bar{background:var(--red)} .lossr .val{color:var(--red)}
+  /* KPI TILES */
+  .grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
+  .kpi .k{font-size:12px;color:var(--slate);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+  .kpi .v{font-size:22px;font-weight:800;margin-top:8px}
+  .kpi .d{font-size:12px;color:var(--slate-lt);margin-top:4px}
+  /* TABLE */
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  thead th{text-align:left;background:#f8fafc;color:var(--slate);font-size:11.5px;text-transform:uppercase;
+    letter-spacing:.05em;padding:12px 14px;border-bottom:2px solid var(--line);white-space:nowrap}
+  tbody td{padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  tbody tr:last-child td{border-bottom:none}
+  .rank{display:inline-flex;width:24px;height:24px;border-radius:50%;background:var(--blue);color:#fff;
+    align-items:center;justify-content:center;font-weight:700;font-size:12px}
+  .pill{display:inline-block;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700}
+  .pill.g{background:var(--green-bg);color:var(--green)}
+  .pill.a{background:var(--amber-bg);color:var(--amber)}
+  .pill.s{background:#eef2ff;color:var(--blue)}
+  .pill.n{background:#f1f5f9;color:var(--slate)}
+  .num-c{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .mono{font-variant-numeric:tabular-nums;color:var(--slate);font-size:12.5px}
+  .g-val{color:var(--green);font-weight:700}
+  .a-val{color:var(--amber);font-weight:700}
+  /* METHOD */
+  .method p{margin-bottom:12px;font-size:14.5px;color:var(--slate)}
+  .formula{background:#0f172a;color:#e2e8f0;border-radius:12px;padding:16px 18px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:13px;margin:10px 0;line-height:1.7;overflow-x:auto}
+  .formula .hl{color:#7dd3fc}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .callout{border-left:4px solid var(--amber);background:var(--amber-bg);border-radius:0 10px 10px 0;padding:14px 18px;font-size:13.5px;color:#7c5312;margin-top:16px}
+  .foot{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-size:12px;color:var(--slate-lt);text-align:center}
+  @media(max-width:900px){.grid4,.grid5,.two{grid-template-columns:1fr 1fr}.hero h1{font-size:26px}}
+  @media(max-width:560px){.grid4,.grid5,.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 1. HERO -->
+  <div class="hero">
+    <div class="eyebrow">Optimizely · Program Reporting</div>
+    <h1>Program Value Realization Report</h1>
+    <div class="hero-meta">
+      <div class="chip"><b>Project</b>Allegiant Travel - Web · ID 5698391926112256</div>
+      <div class="chip"><b>Timeframe</b>Aug 1, 2025 – Aug 7, 2026</div>
+      <div class="chip"><b>Model Basis</b>Portfolio Value Model</div>
+      <div class="chip"><b>Metric Focus</b>Home Page BoA Overlay Continue Rate</div>
+    </div>
+  </div>
+
+  <!-- 2. EXECUTIVE SUMMARY -->
+  <section>
+    <div class="sec-head"><div class="num">1</div><h2>Executive Summary</h2></div>
+    <div class="card">
+      <ul class="summary">
+        <li><b>Estimated program value ≈ $21.4M.</b> Modeled realized positive gain from significant, winning experiences on the Home Page BoA Overlay Continue Rate is approximately <b>$21,355,185</b>, based on a Revenue-Per-Passenger input of $119 and an effective program reach of 162,176 evaluated visitors.</li>
+        <li><b>Risk prevention is directionally positive but thin.</b> Modeled loss avoided is ~<b>$6.4M</b>, but this rests entirely on a single archived QA test (5 visitors, not statistically significant) — treat it as illustrative, not bankable.</li>
+        <li><b>Evaluation coverage is complete and high quality.</b> All 3 experiments carrying this metric were modeled; the 2 production-grade experiments were both statistically significant winners (+179% mobile, +32% desktop continue rate).</li>
+        <li><b>Strategic read:</b> The BofA credit-card homepage overlay redesign is a validated, high-impact lever across both mobile and desktop. Rolling it out at scale is the primary driver of the estimated value; the mobile variant alone accounts for the large majority of modeled gain.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3. THEORETICAL VS REALIZED -->
+  <section>
+    <div class="sec-head"><div class="num">2</div><h2>Theoretical vs. Realized Program Value</h2></div>
+    <div class="grid4">
+      <div class="vcard pos"><div class="bar"></div><div class="tag">Theoretical Positive Gain</div><div class="val">$21,355,185</div><div class="sub">Effective reach × $119 × 110.65% lift</div></div>
+      <div class="vcard posr"><div class="bar"></div><div class="tag">Realized Positive Gain</div><div class="val">$21,355,185</div><div class="sub">Rollout factor 100% applied</div></div>
+      <div class="vcard loss"><div class="bar"></div><div class="tag">Theoretical Loss Avoided</div><div class="val">$6,368,652</div><div class="sub">Effective reach × $119 × 33.00% signal</div></div>
+      <div class="vcard lossr"><div class="bar"></div><div class="tag">Realized Loss Avoided</div><div class="val">$6,368,652</div><div class="sub">Not reduced by rollout (default)</div></div>
+    </div>
+    <div class="callout"><b>Read with care:</b> Realized Positive Gain equals the theoretical figure because the Conservative Rollout Factor is set to 100%. Loss Avoided is derived from one low-traffic, non-significant archived test and materially overstates real downside protection — see Assumptions &amp; Reconciliation.</div>
+  </section>
+
+  <!-- 4. KPI TILES -->
+  <section>
+    <div class="sec-head"><div class="num">3</div><h2>Program KPIs</h2></div>
+    <div class="grid5">
+      <div class="kpi"><div class="k">Evaluation Coverage</div><div class="v">3 / 3</div><div class="d">100% of metric experiments modeled</div></div>
+      <div class="kpi"><div class="k">Effective Program Reach</div><div class="v">162,176</div><div class="d">Σ MAX(total_visitors) per experiment</div></div>
+      <div class="kpi"><div class="k">Model Input Value</div><div class="v">$119</div><div class="d">Revenue Per Passenger</div></div>
+      <div class="kpi"><div class="k">Conservative Rollout</div><div class="v">100%</div><div class="d">Applied to Positive Gain</div></div>
+      <div class="kpi"><div class="k">Audience Density Factor</div><div class="v">—</div><div class="d">Not applied</div></div>
+    </div>
+  </section>
+
+  <!-- 5. STAND-ALONE ATTRIBUTION -->
+  <section>
+    <div class="sec-head"><div class="num">4</div><h2>Top 3 Stand-alone Value Attribution</h2></div>
+    <div class="card" style="padding:8px">
+      <table>
+        <thead><tr>
+          <th>#</th><th>Experiment</th><th>ID</th><th>Status</th><th>Type</th>
+          <th class="num-c">Reach</th><th class="num-c">Lift / Signal</th><th>Sig.</th>
+          <th class="num-c">Theoretical</th><th class="num-c">Realized</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="rank">1</span></td>
+            <td>ECOMM-11685: BofA CC Homepage Overlay Redesign - Mobile</td>
+            <td class="mono">4808009465987072</td>
+            <td><span class="pill n">Concluded</span></td>
+            <td><span class="pill g">Positive Gain</span></td>
+            <td class="num-c">86,772</td>
+            <td class="num-c g-val">+179.0%</td>
+            <td><span class="pill s">Significant</span></td>
+            <td class="num-c g-val">$18,483,304</td>
+            <td class="num-c g-val">$18,483,304</td>
+          </tr>
+          <tr>
+            <td><span class="rank">2</span></td>
+            <td>ECOMM-11684: BofA CC Homepage Overlay Redesign - Desktop</td>
+            <td class="mono">5047816414822400</td>
+            <td><span class="pill n">Concluded</span></td>
+            <td><span class="pill g">Positive Gain</span></td>
+            <td class="num-c">75,399</td>
+            <td class="num-c g-val">+32.0%</td>
+            <td><span class="pill s">Significant</span></td>
+            <td class="num-c g-val">$2,871,194</td>
+            <td class="num-c g-val">$2,871,194</td>
+          </tr>
+          <tr>
+            <td><span class="rank">3</span></td>
+            <td>ECOMM-11684: BofA CC Homepage Overlay Redesign - Desktop - test</td>
+            <td class="mono">5083528463908864</td>
+            <td><span class="pill a">Archived</span></td>
+            <td><span class="pill a">Loss Avoided</span></td>
+            <td class="num-c">5</td>
+            <td class="num-c a-val">33.0%</td>
+            <td><span class="pill n">Not sig.</span></td>
+            <td class="num-c a-val">$196</td>
+            <td class="num-c a-val">$196</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12.5px;color:var(--slate-lt);margin-top:10px">Stand-alone values use each experiment's own reach (MAX total_visitors) and do not sum to program totals. Row 3 is a QA test with negligible traffic.</p>
+  </section>
+
+  <!-- 6. METRIC INSIGHT -->
+  <section>
+    <div class="sec-head"><div class="num">5</div><h2>Metric Focus Insight</h2></div>
+    <div class="card method">
+      <p><b>What this metric represents.</b> <i>Home Page BoA Overlay Continue Rate</i> measures the share of visitors who, after seeing the Bank of America credit-card promotional overlay on the homepage, click through to continue — a top-of-funnel engagement signal that feeds downstream booking and ancillary revenue.</p>
+      <p><b>What the results mean.</b> Both production experiences redesigning this overlay drove statistically significant increases in continue rate: the <b>mobile</b> redesign lifted continue rate by roughly <b>179%</b> (from ~6.8% to ~18.9%) and the <b>desktop</b> redesign by roughly <b>32%</b> (from ~6.1% to ~8.0%). The mobile experience is the dominant value driver in this metric focus. Because a Metric Focus was selected, all modeling above is scoped to this metric only and has not been substituted with any other metric.</p>
+    </div>
+  </section>
+
+  <!-- 7. METHODOLOGY -->
+  <section>
+    <div class="sec-head"><div class="num">6</div><h2>Methodology &amp; Calculation Notes</h2></div>
+    <div class="card method">
+      <p><b>Model selected:</b> <b>Portfolio Value Model.</b> The business input is Revenue Per Passenger ($119), a reach-based unit, so program value is modeled across evaluated visitor reach rather than discrete conversion events.</p>
+      <div class="formula">
+        <span class="hl">Positive Portfolio Lift Multiplier</span> = visitor-weighted avg normalized lift (positive rows) = 110.65%<br>
+        <span class="hl">Weighted Negative Signal Multiplier</span> = visitor-weighted avg |normalized lift| (negative rows) = 33.00%<br><br>
+        Theoretical Positive Gain = Effective Reach × Value × Positive Lift Multiplier<br>
+        &nbsp;&nbsp;= 162,176 × $119 × 1.1065 = <span class="hl">$21,355,185</span><br>
+        Realized Positive Gain = Theoretical Positive Gain × Rollout (1.00) = <span class="hl">$21,355,185</span><br><br>
+        Theoretical Loss Avoided = Effective Reach × Value × Negative Signal Multiplier<br>
+        &nbsp;&nbsp;= 162,176 × $119 × 0.33 = <span class="hl">$6,368,652</span><br>
+        Realized Loss Avoided = Theoretical Loss Avoided (rollout not applied) = <span class="hl">$6,368,652</span>
+      </div>
+      <p><b>Reach de-duplication.</b> <code>total_visitors</code> repeats on every result row for an experiment, so reach is computed as <code>MAX(total_visitors)</code> per unique <code>layer_experiment_id</code>, then summed across the 3 modeled experiments.</p>
+      <p><b>Normalization &amp; direction.</b> Percentage lifts are normalized to decimals before arithmetic, and positive vs. negative business impact is determined by the <code>is_positive</code> flag (not the raw sign of lift). The Conservative Rollout Factor is applied to Positive Gain only; Loss Avoided is not discounted by default.</p>
+    </div>
+  </section>
+
+  <!-- 8. ASSUMPTIONS & RECONCILIATION -->
+  <section>
+    <div class="sec-head"><div class="num">7</div><h2>Assumptions, Caveats &amp; Reconciliation</h2></div>
+    <div class="two">
+      <div class="card" style="padding:8px">
+        <table>
+          <thead><tr><th>Reconciliation</th><th class="num-c">Count / Value</th></tr></thead>
+          <tbody>
+            <tr><td>Evaluation base (experiments w/ metric)</td><td class="num-c">3</td></tr>
+            <tr><td>Modeled experiments</td><td class="num-c">3</td></tr>
+            <tr><td>Positive signals (winning treatments)</td><td class="num-c">2</td></tr>
+            <tr><td>&nbsp;&nbsp;— statistically significant</td><td class="num-c">2</td></tr>
+            <tr><td>Negative signals (losing treatments)</td><td class="num-c">1</td></tr>
+            <tr><td>&nbsp;&nbsp;— statistically significant</td><td class="num-c">0</td></tr>
+            <tr><td>No-results / insufficient data</td><td class="num-c">0</td></tr>
+            <tr><td>Effective Program Reach</td><td class="num-c">162,176</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card method">
+        <p style="font-size:14px"><b>Caveats</b></p>
+        <ul class="summary" style="margin-top:4px">
+          <li style="padding-left:26px"><b>Loss Avoided is illustrative.</b> The only negative signal is a 5-visitor archived QA test that is not statistically significant; applying its 33% signal to full program reach materially overstates real downside protection.</li>
+          <li style="padding-left:26px"><b>Value is modeled, not audited.</b> These are directional estimates from experiment results, not booked financials.</li>
+          <li style="padding-left:26px"><b>No overlap adjustment.</b> No Audience Density Factor was applied, so reach may double-count visitors exposed to more than one experiment.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout">This is a modeled value estimate intended to size the impact of the experimentation program. Figures should be interpreted as directional, not as an audited financial statement.</div>
+  </section>
+
+  <div class="foot">Generated by the Program Value Realization Report Agent · Optimizely Program Reporting · Data through Aug 7, 2026</div>
+
+</div>
+</body>
+</html>

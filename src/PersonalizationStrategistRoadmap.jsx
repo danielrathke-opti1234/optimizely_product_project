@@ -125,6 +125,27 @@ const phaseCopy = {
   },
 };
 
+const horizonKpis = {
+  Now: {
+    workflow:
+      'Percent of users who complete the core workflow from opportunity discovery to campaign design and campaign build.',
+    activation:
+      'Percent of VT-built personalization campaigns that are activated in the dashboard.',
+  },
+  Next: {
+    workflow:
+      'Percent of users who complete expanded workflows, such as audience readiness, experience planning, or cross-platform VT collaboration.',
+    activation:
+      'Percent of VT-supported campaign concepts that become activated personalization campaigns.',
+  },
+  Later: {
+    workflow:
+      'Percent of users who complete advanced workflows for Mercator or Limitless Personalization experience creation.',
+    activation:
+      'Percent of VT-supported Mercator or Limitless Personalization experiences that are activated.',
+  },
+};
+
 const progression = [
   'Campaign Execution',
   'Audience Readiness',
@@ -132,6 +153,42 @@ const progression = [
   'Cross-Platform VT Collaboration',
   'Mercator / Limitless Personalization',
 ];
+
+function HorizonKpiPanel({ activePhase, onSelect }) {
+  return (
+    <section className="grid gap-3 border-b border-white/10 py-5 lg:grid-cols-3">
+      {Object.entries(horizonKpis).map(([phase, kpis]) => {
+        const active = phase === activePhase;
+        return (
+          <button
+            key={phase}
+            onClick={() => onSelect(phase)}
+            className={`rounded-xl border p-4 text-left transition ${
+              active
+                ? 'border-[#91dbda]/60 bg-[#91dbda]/10 shadow-[0_18px_60px_rgba(0,0,0,.22)]'
+                : 'border-white/10 bg-white/[0.035] hover:border-[#91dbda]/35 hover:bg-white/[0.06]'
+            }`}
+          >
+            <div className="flex items-center justify-between gap-3">
+              <div className="text-xs uppercase tracking-[.18em] text-[#91dbda]">{phase} KPI lens</div>
+              <div className={`h-2 w-2 rounded-full ${active ? 'bg-[#91dbda]' : 'bg-slate-600'}`} />
+            </div>
+            <div className="mt-4 grid gap-3">
+              <div>
+                <div className="text-sm font-semibold text-white">Workflow Completion Rate</div>
+                <p className="mt-1 text-xs leading-5 text-slate-400">{kpis.workflow}</p>
+              </div>
+              <div className="border-t border-white/10 pt-3">
+                <div className="text-sm font-semibold text-white">Activation Rate</div>
+                <p className="mt-1 text-xs leading-5 text-slate-400">{kpis.activation}</p>
+              </div>
+            </div>
+          </button>
+        );
+      })}
+    </section>
+  );
+}
 
 function FieldCard({ label, children, icon: Icon }) {
   return (
@@ -272,15 +329,20 @@ function PersonalizationStrategistRoadmap() {
             <h1 className="max-w-5xl text-4xl font-semibold tracking-normal text-white sm:text-5xl lg:text-6xl">
               Virtual Teammate Evolution Roadmap
             </h1>
-            <p className="mt-5 max-w-3xl text-base leading-7 text-slate-300">
-              How Personalization Strategist can evolve from a GA Virtual Teammate into a repeatable product pattern across Optimizely platforms.
-            </p>
+            <div className="mt-5 max-w-4xl rounded-xl border border-[#91dbda]/20 bg-[#91dbda]/10 p-4">
+              <div className="text-xs uppercase tracking-[.18em] text-[#91dbda]">North Star</div>
+              <p className="mt-2 text-base leading-7 text-slate-200">
+                Help marketers move from personalization intent to measurable customer experiences, with Virtual Teammates connecting the data, strategy, build, and performance work across Optimizely.
+              </p>
+            </div>
           </div>
           <div className="rounded-xl border border-[#ff99b6]/20 bg-[#ff99b6]/10 p-4 text-sm text-slate-200">
             <div className="text-xs uppercase tracking-[.16em] text-[#ff99b6]">Opticon GA lens</div>
             <div className="mt-2 max-w-xs font-semibold">Start with campaign execution, then expand the operating model.</div>
           </div>
         </header>
+
+        <HorizonKpiPanel activePhase={activePhase} onSelect={selectPhase} />
 
         <section className="grid flex-1 gap-6 py-8 xl:grid-cols-[17rem_1fr]">
           <ProgressionRail activeItem={activeItem} onSelect={selectItem} />

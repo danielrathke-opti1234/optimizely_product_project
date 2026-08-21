@@ -327,12 +327,12 @@ function PersonalizationStrategistRoadmap() {
               Personalization Strategist
             </div>
             <h1 className="max-w-5xl text-4xl font-semibold tracking-normal text-white sm:text-5xl lg:text-6xl">
-              Virtual Teammate Evolution Roadmap
+              The Personalization Strategist VT Evolution Roadmap
             </h1>
             <div className="mt-5 max-w-4xl rounded-xl border border-[#91dbda]/20 bg-[#91dbda]/10 p-4">
               <div className="text-xs uppercase tracking-[.18em] text-[#91dbda]">North Star</div>
               <p className="mt-2 text-base leading-7 text-slate-200">
-                Help marketers move from personalization intent to measurable customer experiences, with Virtual Teammates connecting the data, strategy, build, and performance work across Optimizely.
+                Help marketers move from personalization intent to measurable customer experiences, with the Personalization Strategist Virtual Teammate connecting the data, strategy, build, and performance work across Optimizely.
               </p>
             </div>
           </div>

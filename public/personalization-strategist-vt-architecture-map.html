@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VT Architecture Map — Personalization Strategist</title>
+<style>
+:root{
+  --onboard:#7c3aed;--extract:#1d4ed8;--enrich:#6d28d9;--act:#be123c;
+  --composer:#059669;--conv:#d97706;--ledger:#b45309;
+  --onboard-tint:#f3edff;--extract-tint:#e8effd;--enrich-tint:#f1ecfd;
+  --act-tint:#fde8ee;--composer-tint:#e6f6f0;--conv-tint:#fdf1e2;--ledger-tint:#fbf0e2;
+  --header:#0f2d4a;--header-2:#1a4a7a;--header-3:#081c30;--accent:#0ea5e9;
+  --bg:#f0f6fb;--card:#ffffff;--ink:#0a1929;--ink-2:#2d4a63;--muted:#5a7a96;
+  --line:#d0e4f0;--line-2:#e8f2f9;--code-bg:#081c30;
+  --ok:#0f8a5f;--warn:#b45309;--bad:#be123c;
+  --radius:14px;--radius-sm:9px;
+  --shadow:0 1px 2px rgba(10,25,41,.05),0 6px 18px rgba(10,25,41,.07);
+  --shadow-lg:0 2px 6px rgba(10,25,41,.08),0 18px 40px rgba(10,25,41,.11);
+  --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;}
+header.masthead{background:linear-gradient(135deg,var(--header-3) 0%,var(--header) 45%,var(--header-2) 100%);color:#fff;padding:34px 28px 30px;position:relative;overflow:hidden;border-bottom:3px solid var(--accent);}
+header.masthead::after{content:"";position:absolute;right:-120px;top:-140px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle at center,rgba(14,165,233,.22),rgba(14,165,233,0) 68%);pointer-events:none;}
+header.masthead::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:38px 38px;pointer-events:none;}
+.masthead-inner{max-width:1420px;margin:0 auto;position:relative;z-index:2}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#93c5fd;font-weight:700;margin-bottom:10px;}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(14,165,233,.2)}
+h1.title{margin:0 0 6px;font-size:clamp(24px,3.4vw,38px);font-weight:800;letter-spacing:-.02em}
+.subtitle{margin:0;color:#bcd6f0;font-size:15px;max-width:980px}
+.masthead-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.meta-pill{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.18);color:#e8f4fd;border-radius:100px;padding:5px 13px;font-size:12.5px;font-weight:600;backdrop-filter:blur(3px);}
+.meta-pill b{color:#fff}
+.verified-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(14,165,233,.2);border:1px solid rgba(14,165,233,.4);color:#7dd3fc;border-radius:6px;padding:2px 8px;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;}
+nav.tabs{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);box-shadow:0 2px 10px rgba(10,25,41,.05);}
+.tabs-scroll{max-width:1420px;margin:0 auto;display:flex;gap:2px;overflow-x:auto;padding:0 16px;scrollbar-width:thin;}
+.tabs-scroll::-webkit-scrollbar{height:5px}.tabs-scroll::-webkit-scrollbar-thumb{background:var(--line);border-radius:9px}
+button.tab{flex:0 0 auto;background:none;border:none;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:var(--muted);padding:15px 15px 12px;border-bottom:3px solid transparent;display:flex;align-items:center;gap:8px;white-space:nowrap;transition:color .15s,border-color .15s,background .15s;}
+button.tab:hover{color:var(--header);background:linear-gradient(180deg,transparent,rgba(10,25,41,.04))}
+button.tab[aria-selected="true"]{color:var(--header);border-bottom-color:var(--accent)}
+button.tab .idx{font-family:var(--mono);font-size:10.5px;font-weight:700;background:var(--line-2);color:var(--muted);border-radius:5px;padding:2px 6px;line-height:1.3;}
+button.tab[aria-selected="true"] .idx{background:var(--header);color:#fff}
+main{max-width:1420px;margin:0 auto;padding:30px 22px 90px}
+section.panel{display:none;animation:fade .28s ease both}
+section.panel.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.panel-head{margin-bottom:22px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.panel-head h2{margin:0 0 6px;font-size:23px;font-weight:800;letter-spacing:-.015em}
+.panel-head p{margin:0;color:var(--muted);font-size:14.5px;max-width:1000px}
+h3.sec{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:800;margin:34px 0 14px;display:flex;align-items:center;gap:10px;}
+h3.sec::after{content:"";flex:1;height:1px;background:var(--line)}
+h3.sec:first-of-type{margin-top:8px}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(360px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);position:relative;transition:box-shadow .18s,transform .18s;}
+.card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.card.tier{border-left:5px solid var(--line)}
+.card.t-onboard{border-left-color:var(--onboard)}.card.t-extract{border-left-color:var(--extract)}
+.card.t-enrich{border-left-color:var(--enrich)}.card.t-act{border-left-color:var(--act)}
+.card.t-composer{border-left-color:var(--composer)}.card.t-conv{border-left-color:var(--conv)}
+.card.t-ledger{border-left-color:var(--ledger)}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.card h4{margin:0 0 3px;font-size:16.5px;font-weight:800;letter-spacing:-.01em}
+.card .sub{color:var(--muted);font-size:12.5px;margin:0}
+.card p{font-size:14px;color:var(--ink-2)}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:100px;padding:3px 11px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#fff;white-space:nowrap;}
+.chip.onboard{background:var(--onboard)}.chip.extract{background:var(--extract)}
+.chip.enrich{background:var(--enrich)}.chip.act{background:var(--act)}
+.chip.composer{background:var(--composer)}.chip.conv{background:var(--conv)}
+.chip.ledger{background:var(--ledger)}.chip.neutral{background:#64748b}
+.chip.sm{font-size:10px;padding:2px 8px}
+.tag{display:inline-flex;align-items:center;gap:5px;background:var(--line-2);color:var(--ink-2);border:1px solid var(--line);border-radius:7px;padding:3px 9px;font-size:11.5px;font-weight:600;margin:0 5px 5px 0;}
+.tag.blue{background:var(--extract-tint);border-color:#c6d8f8;color:#173e9c}
+.tag.green{background:var(--composer-tint);border-color:#bde5d4;color:#065f46}
+.tag.amber{background:var(--conv-tint);border-color:#f4d9ae;color:#92400e}
+.tag.sky{background:#e0f2fe;border-color:#bae6fd;color:#0c4a6e}
+code,.code{font-family:var(--mono);font-size:12px;background:#e8f2f9;border:1px solid var(--line);border-radius:5px;padding:1px 6px;color:#0f2d4a;white-space:nowrap;}
+code.path{background:var(--code-bg);color:#7dd3fc;border-color:#0c2d48}
+code.wrap{white-space:normal}
+.io{margin-top:14px;border-top:1px solid var(--line-2);padding-top:12px;display:grid;gap:9px}
+.io-row{display:grid;grid-template-columns:88px 1fr;gap:10px;align-items:start}
+.io-key{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:3px;}
+.io-val{font-size:13px;color:var(--ink-2)}
+.io-val ul{margin:0;padding-left:17px}.io-val li{margin-bottom:3px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+.stat .num{font-size:32px;font-weight:800;line-height:1.05;letter-spacing:-.03em}
+.stat .lbl{font-size:11.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700;margin-top:4px}
+.stat .note{font-size:12px;color:var(--muted);margin-top:6px}
+.stat::after{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--header)}
+.stat.s-onboard::after{background:var(--onboard)}.stat.s-onboard .num{color:var(--onboard)}
+.stat.s-extract::after{background:var(--extract)}.stat.s-extract .num{color:var(--extract)}
+.stat.s-enrich::after{background:var(--enrich)}.stat.s-enrich .num{color:var(--enrich)}
+.stat.s-act::after{background:var(--act)}.stat.s-act .num{color:var(--act)}
+.stat.s-composer::after{background:var(--composer)}.stat.s-composer .num{color:var(--composer)}
+.stat.s-conv::after{background:var(--conv)}.stat.s-conv .num{color:var(--conv)}
+.stat.s-head .num{color:var(--header)}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--card);box-shadow:var(--shadow)}
+table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:620px}
+thead th{background:#f0f6fb;text-align:left;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:800;padding:11px 14px;border-bottom:1px solid var(--line);white-space:nowrap;}
+tbody td{padding:11px 14px;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#f5f9fd}
+td strong{color:var(--ink)}
+.flow{display:flex;align-items:stretch;gap:0;flex-wrap:nowrap;overflow-x:auto;padding:4px 0 8px}
+.flow-node{flex:1 1 0;min-width:190px;background:var(--card);border:1px solid var(--line);border-top:4px solid var(--line);border-radius:var(--radius-sm);padding:13px 14px;}
+.flow-node.n-extract{border-top-color:var(--extract)}.flow-node.n-enrich{border-top-color:var(--enrich)}
+.flow-node.n-act{border-top-color:var(--act)}.flow-node.n-composer{border-top-color:var(--composer)}
+.flow-node.n-conv{border-top-color:var(--conv)}
+.flow-node .fn-tier{font-size:9.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.flow-node .fn-name{font-size:13.5px;font-weight:800;margin:3px 0 5px;letter-spacing:-.01em}
+.flow-node .fn-desc{font-size:11.8px;color:var(--muted);line-height:1.45}
+.flow-node .fn-file{margin-top:8px}
+.arrow{flex:0 0 34px;display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:19px;font-weight:700;}
+.arrow::before{content:"→"}
+.pipe{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0 4px}
+.pipe-step{border-radius:9px;padding:8px 14px;font-size:12.5px;font-weight:800;color:#fff;display:flex;flex-direction:column;line-height:1.25;}
+.pipe-step small{font-weight:600;font-size:10px;opacity:.85;text-transform:uppercase;letter-spacing:.08em}
+.pipe-step.missing{background:#fff;color:var(--muted);border:2px dashed var(--line)}
+.pipe-sep{color:var(--line);font-weight:700}
+.timeline{position:relative;margin:8px 0 0;padding-left:30px}
+.timeline::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--onboard),rgba(124,58,237,.15))}
+.tl-item{position:relative;padding:0 0 18px}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::before{content:"";position:absolute;left:-26px;top:5px;width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid var(--onboard);}
+.tl-item h5{margin:0 0 3px;font-size:14px;font-weight:800}
+.tl-item p{margin:0;font-size:13px;color:var(--ink-2)}
+.mindmap{background:radial-gradient(circle at 12% 50%,rgba(14,165,233,.08),transparent 46%),var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px 22px;box-shadow:var(--shadow);display:flex;align-items:center;gap:0;overflow-x:auto;}
+.mm-rootwrap{flex:0 0 auto;display:flex;align-items:center}
+.mm-root{background:linear-gradient(135deg,var(--header-3),var(--header-2));color:#fff;border-radius:16px;padding:20px 22px;min-width:172px;text-align:center;box-shadow:0 10px 26px rgba(10,25,41,.28);}
+.mm-root .mm-r-title{font-family:var(--mono);font-size:17px;font-weight:700}
+.mm-root .mm-r-sub{font-size:10.5px;text-transform:uppercase;letter-spacing:.12em;color:#93c5fd;margin-top:5px;font-weight:700}
+.mm-connect{flex:0 0 30px;height:2px;background:var(--line)}
+.mm-branches{position:relative;flex:1 1 auto;display:flex;flex-direction:column;gap:16px;padding-left:30px;min-width:520px}
+.mm-branches::before{content:"";position:absolute;left:0;top:34px;bottom:34px;width:2px;background:var(--line)}
+.mm-branch{position:relative;display:flex;align-items:flex-start;gap:14px}
+.mm-branch::before{content:"";position:absolute;left:-30px;top:26px;width:30px;height:2px;background:var(--line)}
+.mm-bnode{flex:0 0 176px;border-radius:11px;padding:11px 13px;color:#fff;font-weight:800;font-size:13px;box-shadow:var(--shadow);}
+.mm-bnode small{display:block;font-weight:600;font-size:10px;opacity:.9;letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+.mm-bnode.b-config{background:linear-gradient(135deg,#0f2d4a,#1a4a7a)}
+.mm-bnode.b-memory{background:linear-gradient(135deg,#6d28d9,#8b5cf6)}
+.mm-bnode.b-extract{background:linear-gradient(135deg,#1d4ed8,#3b82f6)}
+.mm-bnode.b-ledger{background:linear-gradient(135deg,#b45309,#d97706)}
+.mm-bnode.b-out{background:linear-gradient(135deg,#059669,#10b981)}
+.mm-leaves{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;flex:1 1 auto;position:relative}
+.mm-leaves::before{content:"";position:absolute;left:-8px;top:14px;bottom:14px;width:2px;background:var(--line-2)}
+.mm-leaf{position:relative;background:#f8fbfe;border:1px solid var(--line);border-radius:8px;padding:7px 11px;font-size:12.3px;display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;}
+.mm-leaf::before{content:"";position:absolute;left:-8px;top:50%;width:8px;height:2px;background:var(--line-2)}
+.mm-leaf .lf-path{font-family:var(--mono);font-size:11.5px;color:#0f2d4a;font-weight:600}
+.mm-leaf .lf-note{color:var(--muted);font-size:11.5px}
+.mm-leaf .rw{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border-radius:4px;padding:1px 6px;margin-left:auto;}
+.rw.w{background:var(--extract-tint);color:#173e9c}
+.rw.r{background:var(--composer-tint);color:#065f46}
+.rw.rw2{background:var(--conv-tint);color:#92400e}
+.callout{border-radius:var(--radius);padding:15px 18px;font-size:13.5px;border:1px solid var(--line);background:var(--card);border-left:5px solid var(--accent);box-shadow:var(--shadow);}
+.callout h5{margin:0 0 5px;font-size:13.5px;font-weight:800}
+.callout p{margin:0;color:var(--ink-2)}
+.callout.warn{border-left-color:var(--warn);background:#fffaf2}
+.callout.good{border-left-color:var(--ok);background:#f3fbf7}
+.callout.info{border-left-color:var(--extract);background:#f0f7fe}
+.callout.act{border-left-color:var(--act);background:#fff5f7}
+.gs-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:17px 19px 16px;box-shadow:var(--shadow);border-top:4px solid var(--warn);}
+.gs-card.strength{border-top-color:var(--ok)}
+.gs-head{display:flex;align-items:center;gap:11px;margin-bottom:8px}
+.gs-num{flex:0 0 30px;height:30px;border-radius:9px;background:var(--ledger-tint);color:var(--warn);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;}
+.strength .gs-num{background:var(--composer-tint);color:var(--ok)}
+.gs-card h4{margin:0;font-size:15.5px;font-weight:800;flex:1}
+.gs-card p{margin:0 0 10px;font-size:13.5px;color:var(--ink-2)}
+.gs-fix{background:#f5f9fd;border:1px dashed var(--line);border-radius:9px;padding:10px 12px;font-size:12.5px;color:var(--ink-2);}
+.gs-fix b{color:var(--header);text-transform:uppercase;letter-spacing:.08em;font-size:10.5px;display:block;margin-bottom:3px}
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.legend-item{display:flex;align-items:center;gap:9px;background:var(--card);border:1px solid var(--line);border-radius:100px;padding:6px 14px 6px 8px;font-size:12.5px;font-weight:600;box-shadow:var(--shadow);}
+.legend-swatch{width:14px;height:14px;border-radius:5px;flex:0 0 auto}
+.legend-item .lg-note{color:var(--muted);font-weight:500;font-size:11.5px}
+.badge-ok,.badge-no,.badge-part{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;border-radius:6px;padding:2px 8px;letter-spacing:.04em;}
+.badge-ok{background:var(--composer-tint);color:#065f46}
+.badge-no{background:#fdeaee;color:#9f1239}
+.badge-part{background:var(--ledger-tint);color:var(--warn)}
+.lane-banner{border-radius:var(--radius);padding:14px 18px;display:flex;align-items:center;gap:14px;border:1px solid var(--line);box-shadow:var(--shadow);}
+.lane-banner.opp{background:linear-gradient(135deg,#e8effd,#f1ecfd);border-color:#c6d8f8;}
+.lane-banner.ass{background:linear-gradient(135deg,#fdf1e2,#fde8ee);border-color:#f4d9ae;}
+.lane-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+.lane-icon.opp{background:linear-gradient(135deg,var(--extract),var(--enrich))}
+.lane-icon.ass{background:linear-gradient(135deg,var(--conv),var(--act))}
+.lane-banner h4{margin:0 0 2px;font-size:15.5px;font-weight:800}
+.lane-banner p{margin:0;font-size:13px;color:var(--ink-2)}
+.footer-note{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+@media(max-width:860px){
+  .flow{flex-wrap:wrap}.flow-node{flex:1 1 100%}.arrow{flex:1 1 100%;height:26px}.arrow::before{content:"↓"}
+  .mindmap{flex-direction:column;align-items:stretch}.mm-rootwrap{justify-content:center;margin-bottom:12px}
+  .mm-connect,.mm-branches::before,.mm-branch::before,.mm-leaves::before,.mm-leaf::before{display:none}
+  .mm-branches{padding-left:0;min-width:0}.mm-branch{flex-direction:column;gap:8px}.mm-bnode{flex:1 1 auto}
+  .io-row{grid-template-columns:1fr;gap:2px}
+}
+@media(max-width:520px){main{padding:22px 14px 70px}header.masthead{padding:26px 16px 24px}.card{padding:15px 16px}}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="eyebrow"><span class="dot"></span> Virtual Teammate · Architecture Map</div>
+    <h1 class="title">Personalization Strategist VT</h1>
+    <p class="subtitle">A full-lifecycle personalization teammate with two operating lanes: an evidence-driven opportunity lane (Identify → Design → Build → Monitor → Intelligence) and a customer-idea assisted lane. The only VT in this generation with a real Act tier — it creates live Optimizely Personalization campaign entities, human-gated before activation.</p>
+    <div class="masthead-meta">
+      <span class="meta-pill"><b>26</b> agent surfaces</span>
+      <span class="meta-pill"><b>6</b> workflows / jobs</span>
+      <span class="meta-pill"><b>2</b> operating lanes</span>
+      <span class="meta-pill"><b>5</b> tiers implemented</span>
+      <span class="meta-pill"><b>16+</b> context paths</span>
+      <span class="meta-pill">Onboarding <b>v2.9.0</b> · 2026-08-24</span>
+      <span class="meta-pill verified-badge">✓ Verified 2026-08-24</span>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Architecture sections">
+  <div class="tabs-scroll" role="tablist">
+    <button class="tab" role="tab" id="tab-overview"   aria-controls="panel-overview"   aria-selected="true"><span class="idx">01</span> Overview</button>
+    <button class="tab" role="tab" id="tab-onboarding" aria-controls="panel-onboarding" aria-selected="false"><span class="idx">02</span> Onboarding</button>
+    <button class="tab" role="tab" id="tab-lanes"      aria-controls="panel-lanes"      aria-selected="false"><span class="idx">03</span> Two Lanes</button>
+    <button class="tab" role="tab" id="tab-extract"    aria-controls="panel-extract"    aria-selected="false"><span class="idx">04</span> Extract Agents</button>
+    <button class="tab" role="tab" id="tab-enrich"     aria-controls="panel-enrich"     aria-selected="false"><span class="idx">05</span> Enrich Agents</button>
+    <button class="tab" role="tab" id="tab-act"        aria-controls="panel-act"        aria-selected="false"><span class="idx">06</span> Act Agents</button>
+    <button class="tab" role="tab" id="tab-composers"  aria-controls="panel-composers"  aria-selected="false"><span class="idx">07</span> Composers</button>
+    <button class="tab" role="tab" id="tab-context"    aria-controls="panel-context"    aria-selected="false"><span class="idx">08</span> Context Files</button>
+    <button class="tab" role="tab" id="tab-jobs"       aria-controls="panel-jobs"       aria-selected="false"><span class="idx">09</span> Jobs &amp; Pipelines</button>
+    <button class="tab" role="tab" id="tab-ga"         aria-controls="panel-ga"         aria-selected="false"><span class="idx">10</span> GA Readiness</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- 01 OVERVIEW -->
+<section class="panel active" id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+  <div class="panel-head">
+    <h2>Overview</h2>
+    <p>The Personalization Strategist finds where a personalized experience would change an outcome, designs and builds the campaign in Optimizely, watches how it performs, and tells the customer what to do next. It is the only VT in this generation with a real <strong>Act tier</strong> — it creates audiences, campaigns, and experiences directly in Optimizely, staged and human-gated before any activation.</p>
+  </div>
+  <h3 class="sec">Inventory at a glance</h3>
+  <div class="grid g4">
+    <div class="stat s-head"><div class="num">26</div><div class="lbl">Agent surfaces</div><div class="note">20 specialized + 6 workflow orchestrators</div></div>
+    <div class="stat s-onboard"><div class="num">1</div><div class="lbl">Onboarding agent</div><div class="note">v2.9.0 · 11 questions · run-once</div></div>
+    <div class="stat s-extract"><div class="num">5</div><div class="lbl">Extract agents</div><div class="note">Signal · Design Context · Build Handoff · Results · Program Signal</div></div>
+    <div class="stat s-enrich"><div class="num">4</div><div class="lbl">Enrich agents</div><div class="note">Opportunity · Campaign Designer · Performance · Program Intelligence</div></div>
+    <div class="stat s-act"><div class="num">2</div><div class="lbl">Act agents</div><div class="note">Campaign Builder + Assisted Builder · human-gated</div></div>
+    <div class="stat s-composer"><div class="num">5</div><div class="lbl">Composers</div><div class="note">Opportunity Board · Design Canvas · Build Confirmations (both lanes) · Performance · Intelligence Hub</div></div>
+    <div class="stat s-conv"><div class="num">1</div><div class="lbl">Conversational agent</div><div class="note">Campaign Copilot · guides assisted lane</div></div>
+    <div class="stat s-head"><div class="num">2</div><div class="lbl">Operating lanes</div><div class="note">Opportunity-driven + Customer-idea (assisted)</div></div>
+  </div>
+  <h3 class="sec">Tier legend</h3>
+  <div class="legend">
+    <span class="legend-item"><span class="legend-swatch" style="background:var(--onboard)"></span>Onboarding<span class="lg-note">run-once setup · v2.9.0</span></span>
+    <span class="legend-item"><span class="legend-swatch" style="background:var(--extract)"></span>Extract<span class="lg-note">raw pull / context resolution</span></span>
+    <span class="legend-item"><span class="legend-swatch" style="background:var(--enrich)"></span>Enrich<span class="lg-note">analysis, design, ranking</span></span>
+    <span class="legend-item"><span class="legend-swatch" style="background:var(--act)"></span>Act<span class="lg-note">creates live Optimizely entities · human-gated</span></span>
+    <span class="legend-item"><span class="legend-swatch" style="background:var(--composer)"></span>Composer<span class="lg-note">canvas + IM delivery</span></span>
+    <span class="legend-item"><span class="legend-swatch" style="background:var(--conv)"></span>Conversational<span class="lg-note">Campaign Copilot · assisted lane only</span></span>
+    <span class="legend-item"><span class="legend-swatch" style="background:var(--ledger)"></span>Ledger<span class="lg-note">shared campaign lifecycle state</span></span>
+  </div>
+  <h3 class="sec">Reference tier chain vs. this VT</h3>
+  <div class="card">
+    <p class="sub" style="margin-bottom:10px">Reference chain — the shape a mature VT is expected to take:</p>
+    <div class="pipe">
+      <span class="pipe-step" style="background:var(--onboard)"><small>Tier 0</small>Onboarding</span><span class="pipe-sep">›</span>
+      <span class="pipe-step" style="background:var(--extract)"><small>Tier 1</small>Extract</span><span class="pipe-sep">›</span>
+      <span class="pipe-step" style="background:var(--enrich)"><small>Tier 2</small>Enrich</span><span class="pipe-sep">›</span>
+      <span class="pipe-step" style="background:var(--ledger)"><small>Tier 3</small>Gate</span><span class="pipe-sep">›</span>
+      <span class="pipe-step" style="background:var(--composer)"><small>Tier 4</small>Composer</span><span class="pipe-sep">›</span>
+      <span class="pipe-step" style="background:var(--act)"><small>Tier 5</small>Act</span>
+    </div>
+    <p class="sub" style="margin:16px 0 10px">Personalization Strategist VT — what actually exists:</p>
+    <div class="pipe">
+      <span class="pipe-step" style="background:var(--onboard)"><small>Present · v2.9.0</small>Onboarding</span><span class="pipe-sep">›</span>
+      <span class="pipe-step" style="background:var(--extract)"><small>Present ×5</small>Extract</span><span class="pipe-sep">›</span>
+      <span class="pipe-step" style="background:var(--enrich)"><small>Present ×4</small>Enrich</span><span class="pipe-sep">›</span>
+      <span class="pipe-step" style="background:var(--ledger)"><small>Via Ledger</small>Gate / Backpressure</span><span class="pipe-sep">›</span>
+      <span class="pipe-step" style="background:var(--composer)"><small>Present ×5</small>Composer</span><span class="pipe-sep">›</span>
+      <span class="pipe-step" style="background:var(--act)"><small>Present ×2 · Human-gated</small>Act</span>
+    </div>
+    <div class="callout act" style="margin-top:16px">
+      <h5>Key differentiator: the Act tier exists here</h5>
+      <p>The Campaign Builder creates Optimizely Personalization audiences, campaigns, and experiences via the Experimentation API and stages them as paused. Nothing activates without the customer's explicit approval. This is the most complete implementation of the reference chain in this generation.</p>
+    </div>
+  </div>
+  <h3 class="sec">The six jobs</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Job</th><th>Lane</th><th>Pipeline</th><th>Delivery</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Identify Personalization Opportunities</strong></td><td>Opportunity-driven</td><td>Signal Collector → Opportunity Analyzer → Opportunity Composer</td><td>Opportunity Board canvas + IM</td></tr>
+        <tr><td><strong>Design Personalization Campaign Plan</strong></td><td>Opportunity-driven</td><td>Design Context Collector → Campaign Designer → Design Composer</td><td>Campaign Design canvas + IM + build handoff</td></tr>
+        <tr><td><strong>Build Personalization Campaign</strong></td><td>Opportunity-driven</td><td>Build Handoff Reader → Campaign Builder → Build Composer</td><td>Build Confirmation canvas + IM (campaign staged in Optimizely)</td></tr>
+        <tr><td><strong>Monitor Campaign Performance</strong></td><td>Both lanes</td><td>Results Collector → Performance Analyzer → Performance Composer</td><td>Multi-campaign Performance Report canvas + IM</td></tr>
+        <tr><td><strong>Personalization Impact Overview</strong></td><td>Both lanes</td><td>Program Signal Collector → Intelligence Analyzer → Intelligence Composer</td><td>Program Intelligence Hub canvas + IM</td></tr>
+        <tr><td><strong>Build Assisted Campaign</strong></td><td>Customer-idea</td><td>Campaign Copilot (conversational) → Assisted Campaign Builder</td><td>Campaign staged in Optimizely + IM confirmation</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h3 class="sec">Session fixes applied 2026-08-24</h3>
+  <div class="grid g3">
+    <div class="callout good"><h5>Onboarding v2.9.0</h5><p>13 → 11 questions. Dropped <code>preferred_brief_length</code> (owned by post-report calibration) and <code>oa_analytics_app_name</code> (no downstream reader). Verbatim Question Text block embedded in AGENTS.md. Persona scoped away from question wording. <code>enable_personal_context: false</code>.</p></div>
+    <div class="callout good"><h5>Feature-adoption labels restored</h5><p>Program Signal Collector v1.1.0: 7 labels corrupted by the Ava→Personalization Strategist rename hitting the "Available" substring — all restored. Step 6 classification and Step 8 section header now correct.</p></div>
+    <div class="callout good"><h5>OA tri-state wiring</h5><p>Signal Collector v1.1.0 and Program Signal Collector v1.2.0: <code>oa_analytics_configured</code> now extracted and read. <code>false</code> = skip entirely, <code>true</code> = attempt with targeted failure message, <code>unknown</code> = runtime detection.</p></div>
+  </div>
+</section>
+
+<!-- 02 ONBOARDING -->
+<section class="panel" id="panel-onboarding" role="tabpanel" aria-labelledby="tab-onboarding">
+  <div class="panel-head">
+    <h2>Onboarding</h2>
+    <p>A single run-once context agent that bootstraps all configuration files every downstream job depends on. Updated to v2.9.0 on 2026-08-24.</p>
+  </div>
+  <div class="card tier t-onboard">
+    <div class="card-head">
+      <div><h4>Onboarding For Personalization Strategist (v2.9.0)</h4>
+      <p class="sub"><code>personalization_teammate_onboarding_agent</code> · standalone specialized · PRIMARY · run-once · <span class="verified-badge">verified 2026-08-24</span></p></div>
+      <span class="chip onboard">Primary</span>
+    </div>
+    <p>Resolves the principal from the hired VT instance, silently discovers accessible Optimizely Experimentation projects via a schema-first two-call sequence, asks exactly 11 questions one at a time over IM, writes the three canonical context files, scaffolds the memory tree, and hands off.</p>
+    <div class="io">
+      <div class="io-row"><div class="io-key">Sequence</div><div class="io-val">11 fields in fixed order: organization/brand → website → project selection (auto-discovered) → project confirmation → priorities → KPIs → GA4 → Optimizely Analytics → pages/journeys → capabilities → brand voice</div></div>
+      <div class="io-row"><div class="io-key">Discovery</div><div class="io-val"><span class="tag sky">exp_get_schemas</span><span class="tag sky">exp_execute_query</span> — unfiltered project list cached to AGENTS.md. Fails gracefully to manual Project Name / Project ID fallback.</div></div>
+      <div class="io-row"><div class="io-key">Key fix</div><div class="io-val">Verbatim Question Text block in AGENTS.md prevents the generic IM pass from improvising questions — the root cause of the Tron Man Tron incident.</div></div>
+      <div class="io-row"><div class="io-key">Writes</div><div class="io-val"><ul>
+        <li><code class="path">/context/AGENTS.md</code> — authoritative config</li>
+        <li><code class="path">/context/vt_user_context_personalization.md</code> — derived</li>
+        <li><code class="path">/context/personalization_config.md</code> — derived</li>
+        <li><code class="path">/context/memories/</code> MEMORY.md, FACTS.md, RECENTS.md — scaffolded</li>
+      </ul></div></div>
+    </div>
+  </div>
+  <h3 class="sec">11-question sequence (v2.9.0)</h3>
+  <div class="card">
+    <div class="timeline">
+      <div class="tl-item"><h5>Q1 — Organization or brand</h5><p>"Which company, brand, or digital property will this Personalization Strategist support?"</p></div>
+      <div class="tl-item"><h5>Q2 — Website base URL</h5><p>"What is the primary website or digital experience I should use as context?"</p></div>
+      <div class="tl-item"><h5>Q3 — Project selection</h5><p>Auto-discovered. Presents numbered list if multiple projects; falls back to manual entry if discovery fails.</p></div>
+      <div class="tl-item"><h5>Q4 — Project confirmation (conditional)</h5><p>Only fires when exactly one project was auto-discovered and needs confirmation.</p></div>
+      <div class="tl-item"><h5>Q5 — Personalization priorities</h5><p>"What are the top one to three personalization priorities you want me to focus on?"</p></div>
+      <div class="tl-item"><h5>Q6 — Primary KPIs</h5><p>"Which KPIs should I use to judge whether a personalized experience is working?"</p></div>
+      <div class="tl-item"><h5>Q7 — GA4 property ID</h5><p>Optional. Customer can say skip. Normalizes bare numeric to <code>properties/[ID]</code>.</p></div>
+      <div class="tl-item"><h5>Q8 — Optimizely Analytics</h5><p>"Does your team use Optimizely Analytics? Just say yes, no, or not sure." — tri-state flag read by both collectors at runtime.</p></div>
+      <div class="tl-item"><h5>Q9 — Priority pages or journeys</h5><p>"Which pages or customer journeys should I pay the closest attention to?"</p></div>
+      <div class="tl-item"><h5>Q10 — Personalization capabilities</h5><p>"Which Personalization features do you currently have access to or expect to use?" — gates feature-adoption classification in Program Intelligence.</p></div>
+      <div class="tl-item"><h5>Q11 — Brand voice (final)</h5><p>"Last one. When I draft copy for a personalized experience, how should it sound?" — governs all campaign copy drafted by the Campaign Designer and Builder.</p></div>
+    </div>
+    <div class="callout info" style="margin-top:16px">
+      <h5>Fields removed in v2.9.0</h5>
+      <p><strong>preferred_brief_length</strong> (was Q13): initialized to <code>concise</code> at bootstrap, owned by post-report calibration (<code>brief_length_calibrated: false</code> gate). <strong>oa_analytics_app_name</strong> (was Q10): no downstream job reads it — collectors resolve OA availability at runtime via the tri-state flag instead.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 03 TWO LANES -->
+<section class="panel" id="panel-lanes" role="tabpanel" aria-labelledby="tab-lanes">
+  <div class="panel-head">
+    <h2>Two Operating Lanes</h2>
+    <p>The Personalization Strategist works in two distinct lanes that share the campaign ledger, the monitoring job, and the intelligence job — but have separate entry points, separate agents, and separate handoff contracts.</p>
+  </div>
+  <div class="grid g2" style="margin-bottom:20px">
+    <div class="lane-banner opp">
+      <div class="lane-icon opp" style="color:#fff;font-weight:800;font-size:13px">OPP</div>
+      <div><h4>Opportunity-driven lane</h4>
+      <p>The VT finds the opportunity from data. Signal Collector pulls GA4, Optimizely Analytics, and prior Experimentation history into a unified snapshot. The Opportunity Analyzer ranks evidence-based opportunities. Design → Build follow in sequence, each passing a deterministic handoff contract to the next step. Customer approves before anything goes live.</p></div>
+    </div>
+    <div class="lane-banner ass">
+      <div class="lane-icon ass" style="color:#fff;font-weight:800;font-size:13px">ASS</div>
+      <div><h4>Customer-idea lane (assisted)</h4>
+      <p>The customer brings the idea. The Campaign Copilot walks them through it conversationally — page, audience, experiences, targeting, measurement — validates each input against the live project and ledger for per-campaign deduplication, then writes two handoff files and fires the Build Assisted Campaign workflow via <code>run_job</code>. The workflow runs Assisted Campaign Designer → Assisted Campaign Builder → Assisted Build Composer. Copy is built exactly as provided; unsubstantiated claims are flagged before activation.</p></div>
+    </div>
+  </div>
+  <h3 class="sec">What both lanes share</h3>
+  <div class="grid g3">
+    <div class="card tier t-ledger">
+      <div class="card-head"><div><h4>Campaign Ledger</h4><p class="sub"><code class="path">/context/personalization_campaign_ledger.md</code></p></div><span class="chip ledger">Shared</span></div>
+      <p>Both lanes write to the same ledger. Every built campaign gets a row with its <code>campaign_id</code>, target page, treatment intent, status, and build date. The Signal Collector reads it before every Identify run for de-duplication and backpressure.</p>
+      <div class="io">
+        <div class="io-row"><div class="io-key">Written by</div><div class="io-val">Campaign Builder (opportunity lane) · Assisted Campaign Builder (customer lane)</div></div>
+        <div class="io-row"><div class="io-key">Backpressure</div><div class="io-val"><code>staged_campaign_backpressure_threshold: 5</code> — if 5+ campaigns are staged and awaiting activation, Priority 1 recommendations are suppressed</div></div>
+      </div>
+    </div>
+    <div class="card tier t-composer">
+      <div class="card-head"><div><h4>Monitor Campaign Performance</h4></div><span class="chip composer">Shared</span></div>
+      <p>Monitors all running Personalization campaigns across both lanes. Results Collector queries Optimizely for live results regardless of which lane created the campaign. Performance Report covers the full portfolio.</p>
+    </div>
+    <div class="card tier t-composer">
+      <div class="card-head"><div><h4>Personalization Impact Overview</h4></div><span class="chip composer">Shared</span></div>
+      <p>Strategic Program Intelligence Hub analyzes portfolio health, coverage, patterns, feature adoption, and maturity across all campaigns from both lanes, delivering next-action recommendations.</p>
+    </div>
+  </div>
+  <h3 class="sec">Activation guardrail — applies to both lanes</h3>
+  <div class="callout act">
+    <h5>Customer approval required before any campaign launch or production change</h5>
+    <p>Written into AGENTS.md Operating Rules, the derived config file, the Campaign Builder prompt, and the Assisted Campaign Builder prompt. Campaigns are created as paused. No agent can activate or modify a live campaign. Design and build may proceed without approval; activation may not.</p>
+  </div>
+</section>
+
+<!-- 04 EXTRACT -->
+<section class="panel" id="panel-extract" role="tabpanel" aria-labelledby="tab-extract">
+  <div class="panel-head">
+    <h2>Extract Agents</h2>
+    <p>Tier 1 — the only agents that touch external data sources (GA4, Optimizely Analytics, Optimizely Experimentation API). Each resolves customer context from config first, then fetches and normalizes. Nothing interprets or decides.</p>
+  </div>
+  <div class="grid g2">
+    <div class="card tier t-extract">
+      <div class="card-head"><div><h4>Personalization Signal Collector</h4><p class="sub"><code>personalization_signal_collector</code> · v1.1.0 · <span class="verified-badge">verified 2026-08-24</span></p></div><span class="chip extract">Extract</span></div>
+      <p>Creates the unified signal snapshot that powers opportunity discovery. Source-flexible — does not require GA4 or OA. Also loads the campaign ledger, runs expiry checks, and enforces backpressure.</p>
+      <div class="io">
+        <div class="io-row"><div class="io-key">Sources</div><div class="io-val">GA4 · Optimizely Analytics (tri-state gated by <code>oa_analytics_configured</code>) · Prior Experimentation history via <span class="tag sky">exp_execute_query</span> · Onboarding context</div></div>
+        <div class="io-row"><div class="io-key">OA gating</div><div class="io-val"><code>false</code> → skip (Not Configured) · <code>true</code> → attempt + surface permissions message on failure · <code>unknown</code> → runtime detection</div></div>
+        <div class="io-row"><div class="io-key">Ledger</div><div class="io-val">Reads ledger — applies 365-day expiry check, platform verification via API, and backpressure count</div></div>
+        <div class="io-row"><div class="io-key">Writes</div><div class="io-val"><code class="path">/context/extract/personalization_signal_collector/summary.md</code> + dated snapshot</div></div>
+      </div>
+    </div>
+    <div class="card tier t-extract">
+      <div class="card-head"><div><h4>Personalization Design Context Collector</h4><p class="sub"><code>personalization_design_context_collector</code> · Design lane</p></div><span class="chip extract">Extract</span></div>
+      <p>Selects the approved opportunity from the Opportunity Board, resolves the onboarded Experimentation project, verifies Personalization feature availability, and retrieves the platform metadata the Campaign Designer needs.</p>
+      <div class="io">
+        <div class="io-row"><div class="io-key">Reads</div><div class="io-val">Enriched opportunity file · <code class="path">/context/personalization_config.md</code> · Optimizely feature flags and variables via <span class="tag sky">exp_execute_query</span></div></div>
+        <div class="io-row"><div class="io-key">Param</div><div class="io-val">Optional segment_key override; otherwise auto-selects highest-priority Open segment</div></div>
+      </div>
+    </div>
+    <div class="card tier t-extract">
+      <div class="card-head"><div><h4>Personalization Build Handoff Reader</h4><p class="sub"><code>personalization_build_handoff_reader</code> · Build lane</p></div><span class="chip extract">Extract</span></div>
+      <p>Reads and validates the explicit Build Handoff contract written by the Design workflow. Prepares the exact campaign specification for the Campaign Builder. Nothing is inferred.</p>
+      <div class="io">
+        <div class="io-row"><div class="io-key">Validates</div><div class="io-val">All required fields present · audience rules complete · experience definitions valid · goal definitions specified</div></div>
+      </div>
+    </div>
+    <div class="card tier t-extract">
+      <div class="card-head"><div><h4>Personalization Campaign Results Collector</h4><p class="sub"><code>personalization_campaign_results_collector</code> · Monitor lane</p></div><span class="chip extract">Extract</span></div>
+      <p>Discovers all running Personalization campaigns for the onboarded project — without relying on a hardcoded project ID — and retrieves current campaign results from the Optimizely platform.</p>
+      <div class="io">
+        <div class="io-row"><div class="io-key">Scope</div><div class="io-val">Personalization campaigns only — A/B tests, MVTs, and Feature flags excluded</div></div>
+        <div class="io-row"><div class="io-key">Sources</div><div class="io-val"><span class="tag sky">exp_execute_query</span><span class="tag sky">exp_summarize_test_result</span></div></div>
+      </div>
+    </div>
+    <div class="card tier t-extract">
+      <div class="card-head"><div><h4>Personalization Program Signal Collector</h4><p class="sub"><code>personalization_program_signal_collector</code> · v1.2.0 · <span class="verified-badge">verified 2026-08-24</span></p></div><span class="chip extract">Extract</span></div>
+      <p>Collects portfolio-level signals for strategic intelligence: campaign inventory, performance history, analytics signals, feature adoption data, and journey coverage — normalized into a single program signals file.</p>
+      <div class="io">
+        <div class="io-row"><div class="io-key">OA gating</div><div class="io-val">Same tri-state logic: <code>false</code> = skip, <code>true</code> = attempt + targeted message on failure, <code>unknown</code> = runtime detection</div></div>
+        <div class="io-row"><div class="io-key">Writes</div><div class="io-val"><code class="path">/context/extract/personalization_program_intelligence/program_signals.md</code></div></div>
+      </div>
+    </div>
+  </div>
+  <h3 class="sec">Extract tier contract</h3>
+  <div class="grid g3">
+    <div class="callout good"><h5>External sources are Extract-only</h5><p>Only Extract-tier agents query GA4, Optimizely Analytics, or the Experimentation API. Enrich, Act, and Composer agents work from disk — making every output reproducible.</p></div>
+    <div class="callout good"><h5>OA awareness is now wired</h5><p>As of v1.1.0/v1.2.0 (2026-08-24), both collectors read <code>oa_analytics_configured</code>. <code>false</code> eliminates unnecessary query attempts. <code>true</code> surfaces a specific permissions message rather than a generic failure.</p></div>
+    <div class="callout info"><h5>Ledger lives at Extract tier</h5><p>The campaign ledger read and backpressure check happen inside the Signal Collector — before any analysis. De-duplication and gate logic are informed by verified platform state, not just stored ledger values.</p></div>
+  </div>
+</section>
+
+<!-- 05 ENRICH -->
+<section class="panel" id="panel-enrich" role="tabpanel" aria-labelledby="tab-enrich">
+  <div class="panel-head">
+    <h2>Enrich Agents</h2>
+    <p>Tier 2 — interpretation, analysis, and design. Enrich agents read exactly one upstream Extract output plus the canonical config files, apply the customer's priorities, and produce a ranked list, a written analysis, or a build-ready specification. No Enrich agent queries external APIs directly.</p>
+  </div>
+  <div class="grid g2">
+    <div class="card tier t-enrich">
+      <div class="card-head"><div><h4>Personalization Opportunity Analyzer</h4><p class="sub"><code>personalization_opportunity_analyzer</code> · Identify lane</p></div><span class="chip enrich">Enrich</span></div>
+      <p>Combines behavioral signals, audience data, historical Experimentation learnings, business priorities, and measurement evidence into ranked opportunities with readiness and confidence scores.</p>
+      <div class="io">
+        <div class="io-row"><div class="io-key">Logic</div><div class="io-val">Evidence before activation — behavioral signals outweigh structural. De-duplicates against ledger. Suppresses Priority 1 when backpressure_active = true. Ranks by evidence strength, reach, KPI alignment, and capability feasibility.</div></div>
+        <div class="io-row"><div class="io-key">Writes</div><div class="io-val"><code class="path">/context/enrich/personalization_opportunity_analyzer/personalization_opportunities_enriched.md</code></div></div>
+      </div>
+    </div>
+    <div class="card tier t-enrich">
+      <div class="card-head"><div><h4>Personalization Campaign Designer</h4><p class="sub"><code>personalization_campaign_designer</code> · Design lane</p></div><span class="chip enrich">Enrich</span></div>
+      <p>Inspects the live customer experience at the target URL and converts the selected opportunity into a build-ready campaign specification: audience rules, variant experiences, targeting conditions, goals, measurement plan, and a deterministic handoff for the Build workflow.</p>
+      <div class="io">
+        <div class="io-row"><div class="io-key">Logic</div><div class="io-val">Inspects live page via <span class="tag blue">browse_web</span> to verify selectors. Generates safe JavaScript. Flags any copy claims not supported by the live page.</div></div>
+        <div class="io-row"><div class="io-key">Writes</div><div class="io-val"><code class="path">/context/enrich/personalization_campaign_designer/staged_campaign_spec.md</code> + deterministic build handoff</div></div>
+      </div>
+    </div>
+    <div class="card tier t-enrich">
+      <div class="card-head"><div><h4>Personalization Performance Analyzer</h4><p class="sub"><code>personalization_performance_analyzer</code> · Monitor lane</p></div><span class="chip enrich">Enrich</span></div>
+      <p>Analyzes all running Personalization campaigns individually and across the portfolio. Identifies signals and produces specific recommendations for what to continue, adjust, investigate, or stop.</p>
+      <div class="io">
+        <div class="io-row"><div class="io-key">Scope</div><div class="io-val">Personalization campaigns only — does not interpret A/B or feature flag results even when they share the project</div></div>
+        <div class="io-row"><div class="io-key">Writes</div><div class="io-val"><code class="path">/context/enrich/personalization_performance_analyzer/campaign_performance_analysis.md</code></div></div>
+      </div>
+    </div>
+    <div class="card tier t-enrich">
+      <div class="card-head"><div><h4>Personalization Program Intelligence Analyzer</h4><p class="sub"><code>personalization_program_intelligence_analyzer</code> · Intelligence lane</p></div><span class="chip enrich">Enrich</span></div>
+      <p>Analyzes the program as a portfolio. Produces strategic health assessment, audience and journey coverage analysis, feature adoption scoring, recurring pattern identification, maturity model placement, risk register, and prioritized next actions.</p>
+      <div class="io">
+        <div class="io-row"><div class="io-key">Feature adoption</div><div class="io-val">Uses <code>personalization_capabilities</code> from onboarding as the reference set. Classifies each: Available and Used / Available but Not Observed / User Indicated Available / Availability Unknown / Not Available</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 ACT -->
+<section class="panel" id="panel-act" role="tabpanel" aria-labelledby="tab-act">
+  <div class="panel-head">
+    <h2>Act Agents</h2>
+    <p>Tier 5 — the only agents that write to the Optimizely Personalization platform. Two Act agents, one per lane. Both create audiences, campaigns, and experiences via the Experimentation API, stage everything as paused, and require explicit customer approval before anything can go live. <strong>This tier is absent from every other VT in this generation.</strong></p>
+  </div>
+  <div class="callout act" style="margin-bottom:20px">
+    <h5>What makes this tier significant</h5>
+    <p>Most VTs in this generation stop at the Composer tier — they report and recommend but do not act. The Personalization Strategist creates real Optimizely entities: audience conditions, campaign configuration, experience variations, and goal definitions. The customer moves from insight to a staged, review-ready campaign without leaving the VT conversation.</p>
+  </div>
+  <div class="grid g2">
+    <div class="card tier t-act">
+      <div class="card-head"><div><h4>Personalization Campaign Builder</h4><p class="sub"><code>personalization_campaign_builder</code> · Opportunity-driven lane</p></div><span class="chip act">Act</span></div>
+      <p>Builds the exact campaign specified in the upstream Build Handoff contract. Generates safe custom JavaScript, creates all Personalization campaign entities in the onboarded Optimizely project, verifies every entity via follow-up API call, writes the ledger row immediately, and stages as paused for review.</p>
+      <div class="io">
+        <div class="io-row"><div class="io-key">Creates</div><div class="io-val">Audience(s) · Personalization campaign · Experience variations · Goal definitions — all via <span class="tag sky">exp_execute_query</span></div></div>
+        <div class="io-row"><div class="io-key">Ledger</div><div class="io-val">Writes campaign row to <code class="path">/context/personalization_campaign_ledger.md</code> immediately on success</div></div>
+        <div class="io-row"><div class="io-key">Guardrail</div><div class="io-val">Creates as paused only. Cannot activate. Cannot modify a live campaign. Activation is customer-controlled.</div></div>
+        <div class="io-row"><div class="io-key">Writes</div><div class="io-val"><code class="path">/context/enrich/personalization_campaign_builder/build_result.md</code></div></div>
+      </div>
+    </div>
+    <div class="card tier t-act">
+      <div class="card-head"><div><h4>Assisted Campaign Builder</h4><p class="sub"><code>assisted-campaign-builder</code> · Customer-idea lane</p></div><span class="chip act">Act</span><span class="chip conv sm">Assisted</span></div>
+      <p>Reads the spec produced by the Campaign Copilot, generates safe JavaScript, browses the live target page to verify selectors and copy claims, creates all Personalization entities in Optimizely, writes the ledger row, and stages as paused.</p>
+      <div class="io">
+        <div class="io-row"><div class="io-key">Reads</div><div class="io-val"><code class="path">/context/assisted/campaign_spec.md</code> — built conversationally by the Campaign Copilot</div></div>
+        <div class="io-row"><div class="io-key">Claims check</div><div class="io-val">Flags unsubstantiated copy claims for customer confirmation before activation — never silently applies or removes customer-supplied copy</div></div>
+        <div class="io-row"><div class="io-key">Writes</div><div class="io-val"><code class="path">/context/assisted/build_result.md</code> — build confirmation + claims verification record</div></div>
+      </div>
+    </div>
+  </div>
+  <h3 class="sec">Campaign Copilot — conversational entry to the assisted lane</h3>
+  <div class="card tier t-conv">
+    <div class="card-head"><div><h4>Personalization Campaign Copilot</h4><p class="sub"><code>personalization-campaign-copilot</code> · Customer-idea lane · conversational</p></div><span class="chip conv">Conversational</span></div>
+    <p>Guides the customer through building a campaign from a plain-language idea — page, audience, experience changes, targeting, measurement — one topic at a time. Reads the ledger at conversation start for per-campaign deduplication. On confirmation writes two handoff files and fires the Build Assisted Campaign workflow via <code>run_job</code>.</p>
+    <div class="io">
+      <div class="io-row"><div class="io-key">Validates</div><div class="io-val">Target page accessibility · Audience condition feasibility against configured capabilities · Ledger check for duplicate campaigns on same page + audience</div></div>
+      <div class="io-row"><div class="io-key">Writes</div><div class="io-val"><code class="path">/context/assisted/campaign_spec.md</code> — handed to Assisted Campaign Builder</div></div>
+    </div>
+  </div>
+  <div class="callout info" style="margin-top:16px">
+    <h5>Design note: assisted-lane backpressure is informational, not a gate</h5>
+    <p>The Copilot does not enforce the global <code>staged_campaign_backpressure_threshold</code> — and that is intentional. The threshold was designed for autonomous pipeline activity, not customer-initiated builds. Blocking a user who explicitly asked to build a campaign because the automated lane queued other campaigns would be confusing and wrong. Post-GA: surface an informational count of staged campaigns at conversation start without blocking.</p>
+  </div>
+</section>
+
+<!-- 07 COMPOSERS -->
+<section class="panel" id="panel-composers" role="tabpanel" aria-labelledby="tab-composers">
+  <div class="panel-head">
+    <h2>Composer Agents</h2>
+    <p>Tier 4 — every agent the customer actually sees. Five composers, each delivering a canvas and an IM. No Composer queries the Optimizely API or external data sources — every figure in every canvas traces back to a file on disk written by an upstream Extract or Act agent.</p>
+  </div>
+  <div class="grid g2">
+    <div class="card tier t-composer">
+      <div class="card-head"><div><h4>Personalization Opportunity Composer</h4><p class="sub"><code>personalization_opportunity_composer</code> · Identify lane</p></div><span class="chip composer">Composer</span></div>
+      <p>Creates and delivers the GA Personalization Opportunity Board — ranked opportunities with evidence, readiness, and confidence scores. Sends an IM with highlights. The customer's entry point to the opportunity-driven lane.</p>
+      <div class="io">
+        <div class="io-row"><div class="io-key">Delivery</div><div class="io-val"><span class="tag green">create_canvas</span> (Opportunity Board) · <span class="tag amber">send_im</span></div></div>
+        <div class="io-row"><div class="io-key">Archive</div><div class="io-val"><code class="path">/context/jobs/discover_personalization_opportunities/</code></div></div>
+      </div>
+    </div>
+    <div class="card tier t-composer">
+      <div class="card-head"><div><h4>Personalization Campaign Design Composer</h4><p class="sub"><code>personalization_campaign_design_composer</code> · Design lane</p></div><span class="chip composer">Composer</span></div>
+      <p>Creates the Campaign Design Canvas and exposes the explicit auto-build handoff state for the downstream Build workflow. Customer-facing canvas + machine-readable build handoff — both emitted in the same turn.</p>
+      <div class="io">
+        <div class="io-row"><div class="io-key">Delivery</div><div class="io-val"><span class="tag green">create_canvas</span> (Campaign Design) · <span class="tag amber">send_im</span> · build handoff file</div></div>
+        <div class="io-row"><div class="io-key">Archive</div><div class="io-val"><code class="path">/context/jobs/design_personalization_campaign/</code></div></div>
+      </div>
+    </div>
+    <div class="card tier t-composer">
+      <div class="card-head"><div><h4>Personalization Campaign Build Composer</h4><p class="sub"><code>personalization_campaign_build_composer</code> · Build lane</p></div><span class="chip composer">Composer</span></div>
+      <p>Creates the build confirmation and rationale report from the exact upstream opportunity, design, and verified API build results. Every claim traceable to what was actually created in Optimizely.</p>
+      <div class="io">
+        <div class="io-row"><div class="io-key">Delivery</div><div class="io-val"><span class="tag green">create_canvas</span> (Build Confirmation) · <span class="tag amber">send_im</span></div></div>
+        <div class="io-row"><div class="io-key">Archive</div><div class="io-val"><code class="path">/context/jobs/build_personalization_campaign/</code></div></div>
+      </div>
+    </div>
+    <div class="card tier t-composer">
+      <div class="card-head"><div><h4>Personalization Performance Composer</h4><p class="sub"><code>personalization_performance_composer</code> · Monitor lane</p></div><span class="chip composer">Composer</span></div>
+      <p>Creates and delivers the multi-campaign Personalization Performance Report covering the complete portfolio — both opportunity-driven and assisted campaigns.</p>
+      <div class="io">
+        <div class="io-row"><div class="io-key">Delivery</div><div class="io-val"><span class="tag green">create_canvas</span> (Performance Report) · <span class="tag amber">send_im</span></div></div>
+        <div class="io-row"><div class="io-key">Archive</div><div class="io-val"><code class="path">/context/jobs/monitor_personalization_performance/</code></div></div>
+      </div>
+    </div>
+    <div class="card tier t-composer">
+      <div class="card-head"><div><h4>Personalization Program Intelligence Composer</h4><p class="sub"><code>personalization_program_intelligence_composer</code> · Intelligence lane</p></div><span class="chip composer">Composer</span></div>
+      <p>Creates the strategic Program Intelligence Hub — portfolio health, journey coverage, audience usage, feature adoption, pattern analysis, maturity model, risk register, and prioritized next actions. The most comprehensive artifact the VT produces.</p>
+      <div class="io">
+        <div class="io-row"><div class="io-key">Delivery</div><div class="io-val"><span class="tag green">create_canvas</span> (Intelligence Hub) · <span class="tag amber">send_im</span></div></div>
+        <div class="io-row"><div class="io-key">Archive</div><div class="io-val"><code class="path">/context/jobs/personalization_program_intelligence/</code></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="callout good" style="margin-top:16px">
+    <h5>Composer discipline</h5>
+    <p>No Composer queries GA4, Optimizely Analytics, or the Experimentation API. Every number in every canvas traces back to a file on disk. Any report can be re-rendered from the same data and produce identical figures.</p>
+  </div>
+</section>
+
+<!-- 08 CONTEXT FILES -->
+<section class="panel" id="panel-context" role="tabpanel" aria-labelledby="tab-context">
+  <div class="panel-head">
+    <h2>Context Files</h2>
+    <p>The <code class="path">/context/</code> store is the VT's only shared state. Agents coordinate by writing and reading files — no message-passing between pipeline steps. Five zones: authoritative config, derived config, campaign ledger, memory, working extracts, and archival job outputs.</p>
+  </div>
+  <div class="mindmap">
+    <div class="mm-rootwrap">
+      <div class="mm-root"><div class="mm-r-title">/context/</div><div class="mm-r-sub">Shared state</div></div>
+    </div>
+    <div class="mm-connect" aria-hidden="true"></div>
+    <div class="mm-branches">
+      <div class="mm-branch">
+        <div class="mm-bnode b-config">Configuration<small>Authoritative source</small></div>
+        <ul class="mm-leaves">
+          <li class="mm-leaf"><span class="lf-path">AGENTS.md</span><span class="lf-note">Root config — principal, org, website, project, priorities, KPIs, GA4, OA state, pages, capabilities, brand voice, ledger path, memory rules</span><span class="rw rw2">R/W</span></li>
+          <li class="mm-leaf"><span class="lf-path">vt_user_context_personalization.md</span><span class="lf-note">Derived from AGENTS.md · read by downstream jobs · never edit directly</span><span class="rw rw2">R/W</span></li>
+          <li class="mm-leaf"><span class="lf-path">personalization_config.md</span><span class="lf-note">Derived from AGENTS.md · read by both collectors · includes operational settings</span><span class="rw rw2">R/W</span></li>
+        </ul>
+      </div>
+      <div class="mm-branch">
+        <div class="mm-bnode b-ledger">Campaign Ledger<small>Shared across both lanes</small></div>
+        <ul class="mm-leaves">
+          <li class="mm-leaf"><span class="lf-path">personalization_campaign_ledger.md</span><span class="lf-note">One row per built campaign · statuses: Staged / Live / Concluded / Deferred / Expired / Archived / Dismissed</span><span class="rw rw2">R/W</span></li>
+        </ul>
+      </div>
+      <div class="mm-branch">
+        <div class="mm-bnode b-memory">Memory<small>Written by VT on every run</small></div>
+        <ul class="mm-leaves">
+          <li class="mm-leaf"><span class="lf-path">memories/MEMORY.md</span><span class="lf-note">Index of topic files</span><span class="rw rw2">R/W</span></li>
+          <li class="mm-leaf"><span class="lf-path">memories/FACTS.md</span><span class="lf-note">Durable facts about the principal and program</span><span class="rw rw2">R/W</span></li>
+          <li class="mm-leaf"><span class="lf-path">memories/RECENTS.md</span><span class="lf-note">Dated one-liners, newest first, max 10 — pruned on every write</span><span class="rw rw2">R/W</span></li>
+          <li class="mm-leaf"><span class="lf-path">memories/team_feedback.md</span><span class="lf-note">Non-principal input pending principal confirmation — created on first use</span><span class="rw rw2">R/W</span></li>
+        </ul>
+      </div>
+      <div class="mm-branch">
+        <div class="mm-bnode b-extract">Extract &amp; Enrich<small>Per-run working files</small></div>
+        <ul class="mm-leaves">
+          <li class="mm-leaf"><span class="lf-path">extract/personalization_signal_collector/</span><span class="lf-note">Signal snapshot + dated copy</span><span class="rw w">Write</span></li>
+          <li class="mm-leaf"><span class="lf-path">extract/personalization_program_intelligence/</span><span class="lf-note">Program signals file</span><span class="rw w">Write</span></li>
+          <li class="mm-leaf"><span class="lf-path">enrich/personalization_opportunity_analyzer/</span><span class="lf-note">Ranked + enriched opportunities</span><span class="rw w">Write</span></li>
+          <li class="mm-leaf"><span class="lf-path">enrich/personalization_campaign_designer/</span><span class="lf-note">Staged campaign spec + build handoff</span><span class="rw w">Write</span></li>
+          <li class="mm-leaf"><span class="lf-path">enrich/personalization_campaign_builder/</span><span class="lf-note">Build result (opportunity lane)</span><span class="rw w">Write</span></li>
+          <li class="mm-leaf"><span class="lf-path">enrich/personalization_performance_analyzer/</span><span class="lf-note">Campaign performance analysis</span><span class="rw w">Write</span></li>
+          <li class="mm-leaf"><span class="lf-path">assisted/campaign_spec.md</span><span class="lf-note">Copilot-built campaign spec (assisted lane)</span><span class="rw w">Write</span></li>
+          <li class="mm-leaf"><span class="lf-path">assisted/build_result.md</span><span class="lf-note">Assisted build result + claims verification</span><span class="rw w">Write</span></li>
+        </ul>
+      </div>
+      <div class="mm-branch">
+        <div class="mm-bnode b-out">Job archives<small>Append-only</small></div>
+        <ul class="mm-leaves">
+          <li class="mm-leaf"><span class="lf-path">jobs/discover_personalization_opportunities/</span><span class="lf-note">Opportunity Board archives</span><span class="rw r">Append</span></li>
+          <li class="mm-leaf"><span class="lf-path">jobs/design_personalization_campaign/</span><span class="lf-note">Campaign Design archives</span><span class="rw r">Append</span></li>
+          <li class="mm-leaf"><span class="lf-path">jobs/build_personalization_campaign/</span><span class="lf-note">Build Confirmation archives</span><span class="rw r">Append</span></li>
+          <li class="mm-leaf"><span class="lf-path">jobs/monitor_personalization_performance/</span><span class="lf-note">Performance Report archives</span><span class="rw r">Append</span></li>
+          <li class="mm-leaf"><span class="lf-path">jobs/personalization_program_intelligence/</span><span class="lf-note">Intelligence Hub archives</span><span class="rw r">Append</span></li>
+          <li class="mm-leaf"><span class="lf-path">jobs/build_assisted_campaign/</span><span class="lf-note">Assisted build archives</span><span class="rw r">Append</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <h3 class="sec">Key file rules</h3>
+  <div class="grid g3">
+    <div class="callout good"><h5>AGENTS.md is the single source of truth</h5><p>The derived files carry a DERIVED FILE header. When the two disagree, AGENTS.md wins and the derived file is regenerated. Memory files must never restate AGENTS.md config fields.</p></div>
+    <div class="callout good"><h5>Campaign ledger is shared state</h5><p>The ledger is the one file both lanes write to. It is also what the Signal Collector reads before every Opportunity Board run, making it the effective gate between past campaigns and future recommendations.</p></div>
+    <div class="callout info"><h5>Working files are ephemeral</h5><p>Extract and enrich working files are overwritten on each run. Durability comes from the dated archives in <code class="path">jobs/*/</code>. The ledger is the only per-campaign durable record outside of archives.</p></div>
+  </div>
+</section>
+
+<!-- 09 JOBS -->
+<section class="panel" id="panel-jobs" role="tabpanel" aria-labelledby="tab-jobs">
+  <div class="panel-head">
+    <h2>Jobs &amp; Pipelines</h2>
+    <p>Six workflows. Five follow the Extract → Enrich → [Act →] Composer pattern. One (Build Assisted Campaign) uses a conversational entry point followed by a direct Act step. Step composition inferred from agent naming — confirmed against the jobs list from the Optimizely UI on 2026-08-24. Scope: this instance only.</p>
+  </div>
+  <div class="card" style="margin-bottom:18px">
+    <div class="card-head" style="margin-bottom:12px"><div><h4>1 · Identify Personalization Opportunities</h4><p class="sub">Opportunity-driven · scheduled · 3 steps · always delivers</p></div><span class="chip composer">Report</span></div>
+    <div class="flow">
+      <div class="flow-node n-extract"><div class="fn-tier">Extract</div><div class="fn-name">Signal Collector</div><div class="fn-desc">GA4 + OA (tri-state gated) + Exp history + Onboarding context → unified snapshot. Ledger read + backpressure check.</div><div class="fn-file"><code class="path wrap">extract/personalization_signal_collector/summary.md</code></div></div>
+      <div class="arrow"></div>
+      <div class="flow-node n-enrich"><div class="fn-tier">Enrich</div><div class="fn-name">Opportunity Analyzer</div><div class="fn-desc">Ranks evidence-based opportunities by readiness, confidence, and KPI alignment. Suppresses Priority 1 under backpressure.</div><div class="fn-file"><code class="path wrap">enrich/personalization_opportunity_analyzer/...enriched.md</code></div></div>
+      <div class="arrow"></div>
+      <div class="flow-node n-composer"><div class="fn-tier">Composer</div><div class="fn-name">Opportunity Composer</div><div class="fn-desc">Opportunity Board canvas + IM highlights.</div><div class="fn-file"><code class="path wrap">jobs/discover_personalization_opportunities/</code></div></div>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:18px">
+    <div class="card-head" style="margin-bottom:12px"><div><h4>2 · Design Personalization Campaign Plan</h4><p class="sub">Opportunity-driven · scheduled · 3 steps · always delivers + emits build handoff</p></div><span class="chip composer">Report</span></div>
+    <div class="flow">
+      <div class="flow-node n-extract"><div class="fn-tier">Extract</div><div class="fn-name">Design Context Collector</div><div class="fn-desc">Selects approved opportunity, resolves project + feature availability, retrieves Optimizely metadata.</div></div>
+      <div class="arrow"></div>
+      <div class="flow-node n-enrich"><div class="fn-tier">Enrich</div><div class="fn-name">Campaign Designer</div><div class="fn-desc">Live page inspection, audience rules, variant experiences, goals, JS generation → deterministic build handoff.</div><div class="fn-file"><code class="path wrap">enrich/personalization_campaign_designer/staged_campaign_spec.md</code></div></div>
+      <div class="arrow"></div>
+      <div class="flow-node n-composer"><div class="fn-tier">Composer</div><div class="fn-name">Design Composer</div><div class="fn-desc">Campaign Design canvas + IM + machine-readable build handoff for downstream Build workflow.</div><div class="fn-file"><code class="path wrap">jobs/design_personalization_campaign/</code></div></div>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:18px">
+    <div class="card-head" style="margin-bottom:12px"><div><h4>3 · Build Personalization Campaign</h4><p class="sub">Opportunity-driven · scheduled · 3 steps · creates live Optimizely entities</p></div><span class="chip act">Act</span></div>
+    <div class="flow">
+      <div class="flow-node n-extract"><div class="fn-tier">Extract</div><div class="fn-name">Build Handoff Reader</div><div class="fn-desc">Reads + validates the Design Composer's build handoff contract. Prepares exact spec for Campaign Builder.</div></div>
+      <div class="arrow"></div>
+      <div class="flow-node n-act"><div class="fn-tier">Act · Human-gated</div><div class="fn-name">Campaign Builder</div><div class="fn-desc">Creates Optimizely audiences, campaign, experiences, goals via API. Verifies every entity. Writes ledger row. Stages as paused.</div><div class="fn-file"><code class="path wrap">enrich/personalization_campaign_builder/build_result.md</code></div></div>
+      <div class="arrow"></div>
+      <div class="flow-node n-composer"><div class="fn-tier">Composer</div><div class="fn-name">Build Composer</div><div class="fn-desc">Build Confirmation canvas + IM. Every claim traceable to verified API results.</div><div class="fn-file"><code class="path wrap">jobs/build_personalization_campaign/</code></div></div>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:18px">
+    <div class="card-head" style="margin-bottom:12px"><div><h4>4 · Monitor Campaign Performance</h4><p class="sub">Both lanes · scheduled · 3 steps · portfolio-level</p></div><span class="chip composer">Report</span></div>
+    <div class="flow">
+      <div class="flow-node n-extract"><div class="fn-tier">Extract</div><div class="fn-name">Campaign Results Collector</div><div class="fn-desc">Discovers all running Personalization campaigns (no hardcoded IDs), retrieves live results from Optimizely.</div></div>
+      <div class="arrow"></div>
+      <div class="flow-node n-enrich"><div class="fn-tier">Enrich</div><div class="fn-name">Performance Analyzer</div><div class="fn-desc">Individual + portfolio-level analysis. Signals what to continue, adjust, investigate, or stop.</div></div>
+      <div class="arrow"></div>
+      <div class="flow-node n-composer"><div class="fn-tier">Composer</div><div class="fn-name">Performance Composer</div><div class="fn-desc">Multi-campaign Performance Report canvas + IM.</div><div class="fn-file"><code class="path wrap">jobs/monitor_personalization_performance/</code></div></div>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:18px">
+    <div class="card-head" style="margin-bottom:12px"><div><h4>5 · Personalization Impact Overview</h4><p class="sub">Both lanes · scheduled · 3 steps · strategic portfolio view</p></div><span class="chip composer">Report</span></div>
+    <div class="flow">
+      <div class="flow-node n-extract"><div class="fn-tier">Extract</div><div class="fn-name">Program Signal Collector</div><div class="fn-desc">Portfolio inventory, performance history, analytics signals (OA tri-state gated), feature adoption, journey coverage → program_signals.md.</div></div>
+      <div class="arrow"></div>
+      <div class="flow-node n-enrich"><div class="fn-tier">Enrich</div><div class="fn-name">Program Intelligence Analyzer</div><div class="fn-desc">Health, coverage, patterns, maturity, risk register, next actions — across both lanes.</div></div>
+      <div class="arrow"></div>
+      <div class="flow-node n-composer"><div class="fn-tier">Composer</div><div class="fn-name">Intelligence Composer</div><div class="fn-desc">Program Intelligence Hub canvas + IM — the most comprehensive artifact the VT produces.</div><div class="fn-file"><code class="path wrap">jobs/personalization_program_intelligence/</code></div></div>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:18px">
+    <div class="card-head" style="margin-bottom:12px"><div><h4>6 · Build Assisted Campaign</h4><p class="sub">Customer-idea lane · conversational trigger + 3 workflow steps · creates live Optimizely entities</p></div><span class="chip act">Act</span><span class="chip conv sm">Assisted</span></div>
+    <div class="flow">
+      <div class="flow-node n-conv"><div class="fn-tier">Conversational trigger</div><div class="fn-name">Campaign Copilot</div><div class="fn-desc">Guides user through page, audience, changes, and measurement. Reads ledger for per-campaign dedup. On confirmation writes handoff files and fires the workflow via <code>run_job</code>.</div><div class="fn-file"><code class="path wrap">assisted/design_context.md + campaign_spec_ready.md</code></div></div>
+      <div class="arrow"></div>
+      <div class="flow-node n-enrich"><div class="fn-tier">Enrich</div><div class="fn-name">Assisted Campaign Designer</div><div class="fn-desc">Opens rendered-DOM session, verifies selectors, classifies rendering model, captures claims inventory, writes build-ready spec.</div><div class="fn-file"><code class="path wrap">assisted/campaign_spec.md</code></div></div>
+      <div class="arrow"></div>
+      <div class="flow-node n-act"><div class="fn-tier">Act · Human-gated</div><div class="fn-name">Assisted Campaign Builder</div><div class="fn-desc">Inspects live page, verifies selectors + copy claims, creates Optimizely entities, writes ledger row, stages as paused.</div><div class="fn-file"><code class="path wrap">assisted/build_result.md</code></div></div>
+      <div class="arrow"></div>
+      <div class="flow-node n-composer"><div class="fn-tier">Composer</div><div class="fn-name">Assisted Build Composer</div><div class="fn-desc">Creates Build Confirmation canvas, surfaces claims prominently, updates ledger Building → Staged, sends IM.</div><div class="fn-file"><code class="path wrap">jobs/build_assisted_campaign/</code></div></div>
+    </div>
+    <div class="callout warn" style="margin-top:14px"><h5>No Composer step in this pipeline</h5><p>The Assisted Campaign Builder delivers directly via IM — no dedicated Build Confirmation canvas for the assisted lane. The opportunity-driven lane has a three-step pipeline ending with a canvas; the assisted lane ends with an IM only. A dedicated Assisted Build Composer would bring the lanes to feature parity.</p></div>
+  </div>
+  <h3 class="sec">Cadence overview</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Trigger</th><th>Jobs that run</th><th>Customer receives</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Scheduled</strong></td><td>Identify → Design → Build (opportunity chain, sequential)</td><td>Opportunity Board → Campaign Design canvas → Build Confirmation canvas, each with an IM</td></tr>
+        <tr><td><strong>Scheduled</strong></td><td>Monitor Campaign Performance</td><td>Multi-campaign Performance Report canvas + IM</td></tr>
+        <tr><td><strong>Scheduled</strong></td><td>Personalization Impact Overview</td><td>Program Intelligence Hub canvas + IM</td></tr>
+        <tr><td><strong>Conversational</strong></td><td>Build Assisted Campaign (Copilot → Designer → Builder → Composer)</td><td>Conversational guidance, then staged campaign in Optimizely + IM confirmation</td></tr>
+        <tr><td><strong>Once · at setup</strong></td><td>Onboarding agent (v2.9.0)</td><td>11-question sequential interview, then written config + memory scaffold</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 10 GA READINESS -->
+<section class="panel" id="panel-ga" role="tabpanel" aria-labelledby="tab-ga">
+  <div class="panel-head">
+    <h2>GA Readiness</h2>
+    <p>Assessed against the reference tier chain — <strong>Onboarding → Extract → Enrich → Gate → Composer → Act, plus memory and campaign ledger as cross-cutting concerns.</strong> This VT is GA-ready. The one item below is a post-GA enhancement, not a blocker. Zero GA blockers. One post-GA enhancement identified; eight architectural strengths to document for other VT teams.</p>
+  </div>
+  <h3 class="sec">Coverage against the reference pattern</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Reference tier</th><th>Status</th><th>Evidence in this VT</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Onboarding</strong></td><td><span class="badge-ok">Complete · v2.9.0</span></td><td>11-question sequence, verbatim question text in AGENTS.md, persona scoped, personal context off, project auto-discovery. Fixed 2026-08-24.</td></tr>
+        <tr><td><strong>Extract</strong></td><td><span class="badge-ok">Complete ×5</span></td><td>Signal, Design Context, Build Handoff, Results, Program Signal — each owning a single output path</td></tr>
+        <tr><td><strong>Enrich</strong></td><td><span class="badge-ok">Complete ×4</span></td><td>Opportunity Analyzer, Campaign Designer, Performance Analyzer, Program Intelligence Analyzer</td></tr>
+        <tr><td><strong>Gate / Backpressure</strong></td><td><span class="badge-ok">Complete (by design)</span></td><td>Ledger-based backpressure enforced by Signal Collector (opportunity lane). Copilot performs per-campaign dedup at conversation start. Global threshold check intentionally omitted from the assisted lane — customer-initiated builds should not be blocked by autonomous pipeline activity. Post-GA: add informational awareness (not a gate).</td></tr>
+        <tr><td><strong>Composer</strong></td><td><span class="badge-part">Complete ×5 / Partial</span></td><td>Five composers for the opportunity-driven lane plus a dedicated Assisted Build Composer for the assisted lane. Both lanes deliver a canvas Build Confirmation.</td></tr>
+        <tr><td><strong>Act</strong></td><td><span class="badge-ok">Complete ×2 · Human-gated</span></td><td>Campaign Builder + Assisted Campaign Builder. Both create live Optimizely entities, stage as paused, write ledger. Absent from every other VT in this generation.</td></tr>
+        <tr><td><strong>Memory</strong></td><td><span class="badge-ok">Complete</span></td><td>FACTS.md, RECENTS.md, MEMORY.md, team_feedback.md. Universal Reflection Directive writes to RECENTS.md after every job.</td></tr>
+        <tr><td><strong>Campaign Ledger</strong></td><td><span class="badge-ok">Complete</span></td><td>Shared across both lanes. Expiry, platform verification, and backpressure computed at Signal Collector time.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h3 class="sec">Post-GA Enhancement</h3>
+  <div class="grid g2">
+    <div class="gs-card">
+      <div class="gs-head"><div class="gs-num">1</div><h4>Campaign Copilot: add informational backpressure awareness</h4><span class="chip extract sm">Post-GA</span></div>
+      <p>The Signal Collector enforces the global <code>staged_campaign_backpressure_threshold</code> before producing an Opportunity Board. The Copilot reads the ledger for per-campaign deduplication but does not check the total staged-campaign count against the threshold. <strong>This is intentional design</strong> — customer-initiated builds should not be blocked by autonomous pipeline activity. A customer who has several unactivated staged campaigns might simply not realize they exist when starting an assisted build.</p>
+      <div class="gs-fix"><b>Post-GA Enhancement</b>At the Copilot’s first turn, surface a brief informational note when staged campaigns exist: “You have N campaigns staged and waiting for activation in Optimizely.” Do not block the build — let the customer decide. This is awareness, not a gate.</div>
+    </div>
+  </div>
+  <h3 class="sec">Strengths — preserve and document for other VT teams</h3>
+  <div class="grid g2">
+    <div class="gs-card strength">
+      <div class="gs-head"><div class="gs-num">1</div><h4>The only VT with a real Act tier</h4><span class="chip act sm">Act</span></div>
+      <p>Both the Campaign Builder and the Assisted Campaign Builder create live Optimizely Personalization entities — audiences, campaigns, experiences, goals — via the Experimentation API. Everything is staged as paused. The customer moves from insight to a review-ready campaign without leaving the VT conversation.</p>
+      <div class="gs-fix"><b>Why it matters</b>Every other VT in this generation stops at the Composer tier. This VT closes the loop from evidence to execution, with the customer retaining activation authority throughout.</div>
+    </div>
+    <div class="gs-card strength">
+      <div class="gs-head"><div class="gs-num">2</div><h4>Deterministic build handoff contract</h4><span class="chip enrich sm">Enrich</span></div>
+      <p>The Campaign Design Composer emits a machine-readable build handoff alongside the customer-facing canvas. The Build Handoff Reader validates it before the Campaign Builder touches the API. Nothing is inferred across the Design → Build boundary.</p>
+      <div class="gs-fix"><b>Why it matters</b>A deterministic contract means Design failures produce a validation error, not a malformed campaign in Optimizely. The boundary is explicit, auditable, and testable.</div>
+    </div>
+    <div class="gs-card strength">
+      <div class="gs-head"><div class="gs-num">3</div><h4>Two-lane architecture with shared campaign ledger</h4><span class="chip ledger sm">Ledger</span></div>
+      <p>Both lanes write to the same ledger. The Signal Collector reads the full ledger before every Opportunity Board run, so de-duplication and backpressure work across both lanes. A customer who builds an assisted campaign Monday will not see the same opportunity surface Friday.</p>
+      <div class="gs-fix"><b>Why it matters</b>The ledger is the single source of campaign truth across the full program — not siloed by which lane created the campaign.</div>
+    </div>
+    <div class="gs-card strength">
+      <div class="gs-head"><div class="gs-num">4</div><h4>Backpressure control</h4><span class="chip ledger sm">Ledger</span></div>
+      <p>The Signal Collector enforces <code>staged_campaign_backpressure_threshold: 5</code>. When five or more campaigns are staged and awaiting activation, the Analyzer suppresses Priority 1 recommendations. The Backpressure Notice tells the customer exactly how many staged slots are in use.</p>
+      <div class="gs-fix"><b>Why it matters</b>Without backpressure, a VT could produce an unlimited queue of staged campaigns the customer never activates. Backpressure prevents the pipeline from outrunning the customer's review capacity.</div>
+    </div>
+    <div class="gs-card strength">
+      <div class="gs-head"><div class="gs-num">5</div><h4>Claims verification in the assisted lane</h4><span class="chip act sm">Act</span></div>
+      <p>The Assisted Campaign Builder browses the live target page before creating the campaign. If any copy claim in the customer-supplied experience is not supported by the live page, it is flagged for confirmation before activation — never silently applied or removed.</p>
+      <div class="gs-fix"><b>Why it matters</b>A customer may know something about their product that the live page does not say yet. The VT builds exactly what the customer intended and lets the customer decide — it does not censor without consent.</div>
+    </div>
+    <div class="gs-card strength">
+      <div class="gs-head"><div class="gs-num">6</div><h4>OA tri-state gating</h4><span class="chip extract sm">Extract</span></div>
+      <p>As of v1.1.0 / v1.2.0 (2026-08-24), both collectors read <code>oa_analytics_configured</code> before attempting any Optimizely Analytics query. <code>false</code> eliminates the query entirely. <code>true</code> produces a specific permissions message on failure. <code>unknown</code> falls back to runtime detection.</p>
+      <div class="gs-fix"><b>Why it matters</b>A job that attempts an OA query for a customer who said "no" during onboarding produces noise in every source availability matrix. Three-state gating makes source coverage meaningful and failure messages actionable.</div>
+    </div>
+    <div class="gs-card strength">
+      <div class="gs-head"><div class="gs-num">7</div><h4>AGENTS.md as the onboarding state machine</h4><span class="chip onboard sm">Onboarding</span></div>
+      <p>The onboarding imperative and verbatim question text are embedded in AGENTS.md — not only in the onboarding agent's prompt. Any pass that reads AGENTS.md while <code>onboarded: false</code> sees fixed question wording and cannot improvise.</p>
+      <div class="gs-fix"><b>Why it matters</b>The Tron Man Tron incident — questions about JavaScript developers, CDPs, and firmographic enrichment — traced directly to the generic IM responder improvising question text. The fix closes that failure mode at the source.</div>
+    </div>
+    <div class="gs-card strength">
+      <div class="gs-head"><div class="gs-num">8</div><h4>Evidence-before-activation philosophy</h4><span class="chip enrich sm">Enrich</span></div>
+      <p>Written into AGENTS.md Operating Rules and enforced throughout: behavioral signals outweigh structural signals; directional lift is not declared a winner; built and staged is not live; activation requires customer approval. The Watchlist flags harmful campaigns, tracking failures, and unsubstantiated copy claims immediately regardless of which job is running.</p>
+      <div class="gs-fix"><b>Why it matters</b>Personalization campaigns affect real visitor experiences at scale. A VT that activates prematurely or overstates confidence causes business harm. The philosophy is codified so it cannot be lost in a prompt update.</div>
+    </div>
+  </div>
+  <h3 class="sec">Post-GA Enhancement Priority</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>#</th><th>Action</th><th>Tier affected</th><th>Effort</th><th>Impact</th></tr></thead>
+      <tbody>
+        <tr><td>—</td><td>Add informational staged-campaign count to Campaign Copilot <em>(post-GA)</em></td><td>Conversational</td><td>Low — one ledger read at conversation start</td><td>Low — awareness only, not a gate</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="footer-note">
+    <span>VT Architecture Map · Personalization Strategist · assessed against the Onboarding → Extract → Enrich → Gate → Composer → Act reference chain</span>
+    <span>26 agent surfaces · 6 workflows · 2 lanes · 5 tiers implemented · generated 2026-08-24 · updated 2026-08-24</span>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function(){
+  var tabs=Array.prototype.slice.call(document.querySelectorAll('button.tab'));
+  var panels=Array.prototype.slice.call(document.querySelectorAll('section.panel'));
+  function activate(tab,push){
+    if(!tab)return;
+    tabs.forEach(function(t){var on=t===tab;t.setAttribute('aria-selected',on?'true':'false');t.tabIndex=on?0:-1;});
+    var id=tab.getAttribute('aria-controls');
+    panels.forEach(function(p){p.classList.toggle('active',p.id===id);});
+    if(push){var k=id.replace('panel-','');if(history.replaceState)history.replaceState(null,'','#'+k);else location.hash=k;}
+    if(tab.scrollIntoView)tab.scrollIntoView({block:'nearest',inline:'nearest'});
+  }
+  tabs.forEach(function(tab){
+    tab.addEventListener('click',function(){activate(tab,true);window.scrollTo({top:0,behavior:'smooth'});});
+    tab.addEventListener('keydown',function(e){
+      var i=tabs.indexOf(tab),next=null;
+      if(e.key==='ArrowRight')next=tabs[(i+1)%tabs.length];
+      else if(e.key==='ArrowLeft')next=tabs[(i-1+tabs.length)%tabs.length];
+      else if(e.key==='Home')next=tabs[0];
+      else if(e.key==='End')next=tabs[tabs.length-1];
+      if(next){e.preventDefault();activate(next,true);next.focus();}
+    });
+  });
+  var hash=(location.hash||'').replace('#','');
+  if(hash){var m=tabs.filter(function(t){return t.getAttribute('aria-controls')==='panel-'+hash;})[0];if(m)activate(m,false);}
+})();
+</script>
+</body>
+</html>

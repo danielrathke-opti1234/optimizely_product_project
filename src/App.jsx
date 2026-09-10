@@ -35,6 +35,7 @@ import {
   journeys,
   patterns,
 } from './data/portfolioData.js';
+import P13nClientRealityBriefing from './P13nClientRealityBriefing.jsx';
 import PersonalizationStrategistRoadmap from './PersonalizationStrategistRoadmap.jsx';
 
 const colors = {
@@ -1046,7 +1047,10 @@ function PortfolioApp() {
 
 function App() {
   const isRoadmapRoute = typeof window !== 'undefined' && window.location.pathname.includes('personalization-strategist-roadmap');
-  return isRoadmapRoute ? <PersonalizationStrategistRoadmap /> : <PortfolioApp />;
+  const isPortfolioRoute = typeof window !== 'undefined' && window.location.pathname.includes('portfolio-story');
+  if (isRoadmapRoute) return <PersonalizationStrategistRoadmap />;
+  if (isPortfolioRoute) return <PortfolioApp />;
+  return <P13nClientRealityBriefing />;
 }
 
 export default App;

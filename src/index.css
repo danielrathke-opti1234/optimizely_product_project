@@ -32,6 +32,662 @@ main {
   overflow: hidden;
 }
 
+.cmab-shell {
+  position: relative;
+  min-height: 100svh;
+  overflow: clip;
+  background:
+    radial-gradient(circle at 14% 10%, rgba(145, 219, 218, 0.18), transparent 30rem),
+    radial-gradient(circle at 86% 8%, rgba(255, 153, 182, 0.13), transparent 28rem),
+    radial-gradient(circle at 68% 88%, rgba(125, 221, 61, 0.09), transparent 32rem),
+    linear-gradient(180deg, #061314 0%, #071d1d 48%, #061314 100%);
+  color: #f5fff0;
+}
+
+.cmab-shell * {
+  letter-spacing: 0;
+}
+
+.cmab-background {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: radial-gradient(circle at 50% 22%, black, transparent 78%);
+}
+
+.cmab-nav {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  gap: 0.45rem;
+  overflow-x: auto;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(6, 19, 20, 0.82);
+  padding: 0.75rem clamp(1rem, 4vw, 4rem);
+  backdrop-filter: blur(18px);
+}
+
+.cmab-nav button {
+  flex: 0 0 auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.055);
+  padding: 0.65rem 0.9rem;
+  color: #c7d7cf;
+  font-size: 0.84rem;
+  font-weight: 800;
+  transition: 160ms ease;
+}
+
+.cmab-nav button:hover {
+  border-color: rgba(145, 219, 218, 0.45);
+  background: rgba(145, 219, 218, 0.12);
+  color: white;
+}
+
+.cmab-hero,
+.cmab-section {
+  position: relative;
+  z-index: 1;
+  padding: clamp(4rem, 8vw, 8rem) clamp(1rem, 4vw, 4rem);
+}
+
+.cmab-hero {
+  display: grid;
+  min-height: calc(100svh - 4.4rem);
+  grid-template-columns: minmax(0, 0.95fr) minmax(22rem, 1.05fr);
+  gap: clamp(1rem, 4vw, 4rem);
+  align-items: center;
+}
+
+.cmab-label {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(125, 221, 61, 0.3);
+  border-radius: 999px;
+  background: rgba(125, 221, 61, 0.1);
+  padding: 0.45rem 0.75rem;
+  color: #7DDD3D;
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.cmab-hero h1,
+.cmab-section h2 {
+  max-width: 68rem;
+  margin: 1rem 0 0;
+  color: white;
+  font-size: clamp(2.4rem, 5vw, 6rem);
+  font-weight: 800;
+  line-height: 0.98;
+}
+
+.cmab-section h2 {
+  font-size: clamp(2.15rem, 4vw, 4.8rem);
+}
+
+.cmab-hero p,
+.cmab-section > div > p {
+  max-width: 56rem;
+  margin: 1.2rem 0 0;
+  color: #c7d7cf;
+  font-size: 1.08rem;
+  line-height: 1.75;
+}
+
+.cmab-hero button:not(.cmab-nav button) {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.8rem;
+  border-radius: 8px;
+  background: #7DDD3D;
+  padding: 0.95rem 1.15rem;
+  color: #061314;
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.cmab-hero-panel,
+.cmab-reframe-grid > div,
+.cmab-path-list button,
+.cmab-path-detail,
+.cmab-recommendation-card,
+.cmab-client-card,
+.cmab-decision-step,
+.cmab-decision-fit,
+.cmab-talk-compare > div,
+.cmab-script-card,
+.cmab-concern-card,
+.cmab-status-panel,
+.cmab-action-grid > div,
+.cmab-final-card {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(9, 28, 28, 0.7);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
+  backdrop-filter: blur(18px);
+}
+
+.cmab-hero-panel {
+  padding: clamp(1rem, 2vw, 1.5rem);
+}
+
+.cmab-question-card {
+  border: 1px solid rgba(145, 219, 218, 0.22);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(145, 219, 218, 0.15), rgba(255, 153, 182, 0.09)),
+    rgba(255, 255, 255, 0.055);
+  padding: clamp(1.2rem, 3vw, 2rem);
+}
+
+.cmab-question-card span,
+.cmab-stat-grid span,
+.cmab-kicker,
+.cmab-info-grid dt,
+.cmab-talk-compare span,
+.cmab-script-card span {
+  color: #91DBDA;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.cmab-question-card strong {
+  display: block;
+  margin-top: 0.8rem;
+  color: white;
+  font-size: clamp(1.6rem, 3vw, 3.2rem);
+  line-height: 1.08;
+}
+
+.cmab-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.cmab-stat-grid div {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.055);
+  padding: 1rem;
+}
+
+.cmab-stat-grid p {
+  margin: 0.45rem 0 0;
+  color: white;
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.cmab-section-muted {
+  border-block: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.cmab-reframe-grid,
+.cmab-path-grid,
+.cmab-picker-grid,
+.cmab-talk-grid,
+.cmab-readiness-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(20rem, 0.8fr);
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.cmab-reframe-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.cmab-reframe-grid > div {
+  padding: clamp(1rem, 2vw, 1.5rem);
+}
+
+.cmab-reframe-grid svg,
+.cmab-path-detail svg,
+.cmab-recommendation-card svg,
+.cmab-final-card svg {
+  color: #7DDD3D;
+}
+
+.cmab-reframe-grid span {
+  display: block;
+  margin-top: 1.2rem;
+  color: #91DBDA;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.cmab-reframe-grid p,
+.cmab-talk-compare p {
+  margin: 0.75rem 0 0;
+  color: white;
+  font-size: clamp(1.3rem, 2.3vw, 2.2rem);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.cmab-reframe-grid .cmab-simple-statement {
+  border-color: rgba(125, 221, 61, 0.32);
+  background: rgba(125, 221, 61, 0.1);
+}
+
+.cmab-usecase-list,
+.cmab-path-list,
+.cmab-client-tabs,
+.cmab-concern-list,
+.cmab-checklist {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.cmab-usecase-list button,
+.cmab-path-list button,
+.cmab-client-tabs button,
+.cmab-concern-list button,
+.cmab-checklist button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.055);
+  padding: 1rem;
+  color: #d7e5de;
+  font-size: 1rem;
+  font-weight: 800;
+  text-align: left;
+  transition: 160ms ease;
+}
+
+.cmab-usecase-list button:hover,
+.cmab-usecase-list button.is-active,
+.cmab-path-list button:hover,
+.cmab-path-list button.is-active,
+.cmab-client-tabs button:hover,
+.cmab-client-tabs button.is-active,
+.cmab-concern-list button:hover,
+.cmab-concern-list button.is-active,
+.cmab-checklist button:hover,
+.cmab-checklist button.is-active {
+  border-color: rgba(145, 219, 218, 0.5);
+  background: rgba(145, 219, 218, 0.13);
+  color: white;
+}
+
+.cmab-path-list button {
+  justify-content: flex-start;
+}
+
+.cmab-path-list svg {
+  flex: 0 0 auto;
+  color: #91DBDA;
+}
+
+.cmab-path-list button.is-active svg {
+  color: #7DDD3D;
+}
+
+.cmab-path-list small {
+  display: block;
+  margin-top: 0.35rem;
+  color: #aebfb6;
+  font-size: 0.88rem;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.cmab-path-detail {
+  align-self: start;
+  padding: 1.25rem;
+}
+
+.cmab-path-detail h3 {
+  margin: 0.55rem 0 0;
+  color: white;
+  font-size: clamp(1.8rem, 3vw, 3rem);
+  font-weight: 900;
+}
+
+.cmab-recommendation-card {
+  align-self: start;
+  padding: 1.25rem;
+}
+
+.cmab-recommendation-card h3,
+.cmab-client-card h3,
+.cmab-status-panel h3,
+.cmab-action-grid h3 {
+  margin: 0.55rem 0 0;
+  color: white;
+  font-size: clamp(1.6rem, 2.6vw, 2.6rem);
+  font-weight: 800;
+}
+
+.cmab-recommendation-card dl,
+.cmab-client-card dl {
+  display: grid;
+  gap: 0.85rem;
+  margin: 1.2rem 0 0;
+}
+
+.cmab-recommendation-card dt {
+  color: #7DDD3D;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.cmab-recommendation-card dd,
+.cmab-info-grid dd {
+  margin: 0.35rem 0 0;
+  color: #d7e5de;
+  line-height: 1.6;
+}
+
+.cmab-client-shell {
+  display: grid;
+  grid-template-columns: minmax(14rem, 0.35fr) minmax(0, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.cmab-client-card {
+  padding: 1.25rem;
+}
+
+.cmab-info-grid {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.cmab-info-grid > div {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 0.8rem;
+}
+
+.cmab-decision-flow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.85rem;
+  margin-top: 2rem;
+}
+
+.cmab-decision-step,
+.cmab-decision-fit {
+  min-height: 18rem;
+  padding: 1rem;
+}
+
+.cmab-decision-step span,
+.cmab-action-grid span {
+  color: #91DBDA;
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
+.cmab-decision-step h3 {
+  margin: 1rem 0 0;
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.cmab-decision-step p,
+.cmab-decision-fit p,
+.cmab-status-panel p,
+.cmab-action-grid p,
+.cmab-final-card p {
+  margin: 0.9rem 0 0;
+  color: #c7d7cf;
+  line-height: 1.6;
+}
+
+.cmab-decision-fit {
+  border-color: rgba(125, 221, 61, 0.35);
+  background: rgba(125, 221, 61, 0.1);
+}
+
+.cmab-decision-fit strong {
+  display: block;
+  margin-top: 1rem;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.cmab-talk-grid {
+  grid-template-columns: 1fr 1fr;
+}
+
+.cmab-talk-compare {
+  display: grid;
+  gap: 1rem;
+}
+
+.cmab-talk-compare > div {
+  padding: 1.25rem;
+}
+
+.cmab-concern-card {
+  padding: 1rem;
+}
+
+.cmab-concern-card .cmab-kicker {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.cmab-talk-script-grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.cmab-script-card {
+  padding: 1rem;
+}
+
+.cmab-script-card p {
+  margin: 0.55rem 0 0;
+  color: #d7e5de;
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+.cmab-concern-response {
+  margin-top: 1rem;
+  border: 1px solid rgba(125, 221, 61, 0.25);
+  border-radius: 8px;
+  background: rgba(125, 221, 61, 0.1);
+  padding: 1rem;
+}
+
+.cmab-concern-response svg {
+  color: #7DDD3D;
+}
+
+.cmab-concern-response p {
+  margin: 0.75rem 0 0;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.cmab-checklist button {
+  justify-content: flex-start;
+}
+
+.cmab-checklist svg {
+  color: #53645b;
+}
+
+.cmab-checklist button.is-active svg {
+  color: #7DDD3D;
+}
+
+.cmab-checklist small {
+  display: block;
+  margin-top: 0.3rem;
+  color: #aebfb6;
+  font-size: 0.86rem;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.cmab-status-panel {
+  align-self: start;
+  padding: 1.25rem;
+}
+
+.cmab-status-panel svg {
+  color: #91DBDA;
+}
+
+.cmab-readiness-bar {
+  height: 0.55rem;
+  margin-top: 1rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.cmab-readiness-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #91DBDA, #7DDD3D);
+}
+
+.cmab-antipatterns {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 1.2rem;
+}
+
+.cmab-antipatterns div {
+  display: flex;
+  gap: 0.55rem;
+  color: #d7e5de;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.cmab-antipatterns svg {
+  flex: 0 0 auto;
+  color: #FF99B6;
+}
+
+.cmab-action-section {
+  padding-bottom: 7rem;
+}
+
+.cmab-action-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.85rem;
+  margin-top: 2rem;
+}
+
+.cmab-action-grid > div {
+  min-height: 16rem;
+  padding: 1rem;
+}
+
+.cmab-action-grid h3 {
+  font-size: 1.2rem;
+  line-height: 1.25;
+}
+
+.cmab-final-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 0.42fr) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: center;
+  margin-top: 1rem;
+  border-color: rgba(125, 221, 61, 0.32);
+  background: rgba(125, 221, 61, 0.1);
+  padding: 1.25rem;
+}
+
+.cmab-final-card strong {
+  color: white;
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+
+.cmab-final-card p {
+  margin: 0;
+}
+
+@media (max-width: 1120px) {
+  .cmab-hero,
+  .cmab-reframe-grid,
+  .cmab-path-grid,
+  .cmab-picker-grid,
+  .cmab-talk-grid,
+  .cmab-readiness-grid,
+  .cmab-client-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .cmab-decision-flow,
+  .cmab-action-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cmab-hero {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 760px) {
+  .cmab-hero,
+  .cmab-section {
+    padding-inline: 0.85rem;
+  }
+
+  .cmab-stat-grid,
+  .cmab-decision-flow,
+  .cmab-action-grid,
+  .cmab-final-card {
+    grid-template-columns: 1fr;
+  }
+
+  .cmab-decision-step,
+  .cmab-decision-fit,
+  .cmab-action-grid > div {
+    min-height: auto;
+  }
+
+  .cmab-nav {
+    padding-inline: 0.85rem;
+  }
+
+  .cmab-usecase-list button,
+  .cmab-path-list button,
+  .cmab-client-tabs button,
+  .cmab-concern-list button,
+  .cmab-checklist button {
+    align-items: flex-start;
+  }
+}
+
 .briefing-shell {
   position: relative;
   min-height: 100svh;

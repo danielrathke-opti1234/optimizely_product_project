@@ -35,6 +35,7 @@ import {
   journeys,
   patterns,
 } from './data/portfolioData.js';
+import CmabMarketerReframe from './CmabMarketerReframe.jsx';
 import P13nClientRealityBriefing from './P13nClientRealityBriefing.jsx';
 import PersonalizationStrategistRoadmap from './PersonalizationStrategistRoadmap.jsx';
 
@@ -1048,6 +1049,8 @@ function PortfolioApp() {
 function App() {
   const isRoadmapRoute = typeof window !== 'undefined' && window.location.pathname.includes('personalization-strategist-roadmap');
   const isPortfolioRoute = typeof window !== 'undefined' && window.location.pathname.includes('portfolio-story');
+  const isCmabRoute = typeof window !== 'undefined' && window.location.pathname.includes('cmab-marketer-reframe');
+  if (isCmabRoute) return <CmabMarketerReframe />;
   if (isRoadmapRoute) return <PersonalizationStrategistRoadmap />;
   if (isPortfolioRoute) return <PortfolioApp />;
   return <P13nClientRealityBriefing />;

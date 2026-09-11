@@ -8,9 +8,9 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
   :root{
-    --ink:#08251A; --accent:#ABFF44; --accent-ink:#202320; --green:#226B1E;
-    --tint:#EEFFD9; --line:#E4F0DA; --muted:#616755; --page:#F9FCF8;
-    --warn:#B54707; --warn-bg:#FEF1C6; --err:#5D2E41; --err-bg:#FFDFE8;
+    --ink:#08251A;--accent:#ABFF44;--accent-ink:#202320;--green:#226B1E;
+    --tint:#EEFFD9;--line:#E4F0DA;--muted:#616755;--page:#F9FCF8;
+    --warn:#B54707;--warn-bg:#FEF1C6;--err:#5D2E41;--err-bg:#FFDFE8;
   }
   body{background:var(--page);color:var(--accent-ink);
     font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
@@ -19,22 +19,42 @@
     transition:background .12s,border-color .12s,box-shadow .12s;}
   .stmt:hover{background:var(--tint);border-color:#C9E6A8;}
   .stmt.sel{background:var(--tint);border-color:var(--green);box-shadow:inset 3px 0 0 var(--green);}
+  .stmt.sel:hover{background:#E1FAC2;border-color:var(--green);}
   .stmt.sel .lvl{background:var(--accent);color:var(--accent-ink);border-color:var(--green);}
   .lvl{min-width:30px;height:30px;border-radius:8px;border:1px solid var(--line);
     background:#F4F7F1;color:var(--muted);font-weight:700;font-size:13px;
     display:flex;align-items:center;justify-content:center;flex:none;}
   .tabbtn{border:1px solid var(--line);background:#fff;border-radius:999px;
-    padding:7px 15px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;}
+    padding:7px 15px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;
+    transition:background .12s,border-color .12s,color .12s;}
+  .tabbtn:hover{background:#fff;border-color:var(--green);color:var(--green);}
   .tabbtn.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .tabbtn.on:hover{background:#124430;border-color:#124430;color:#fff;}
+  .tabbtn:focus-visible{outline:2px solid var(--green);outline-offset:2px;}
   .tabbtn .dot{display:inline-block;width:7px;height:7px;border-radius:50%;
     background:var(--accent);margin-left:7px;vertical-align:middle;}
   input.f,textarea.f{border:1px solid var(--line);border-radius:9px;padding:8px 11px;
     font-size:14px;width:100%;background:#fff;color:var(--accent-ink);}
   input.f:focus,textarea.f:focus{outline:2px solid var(--accent);outline-offset:1px;}
-  .btn{padding:8px 14px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--muted);}
-  .btn:hover{background:var(--tint);}
+
+  /* Buttons: each variant owns its hover so nothing inherits a wrong background */
+  .btn{padding:8px 14px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;
+    border:1px solid var(--line);background:#fff;color:var(--muted);
+    transition:background .12s,border-color .12s,color .12s,box-shadow .12s;}
+  .btn:hover{background:#fff;border-color:var(--green);color:var(--green);
+    box-shadow:0 1px 3px rgba(8,37,26,.13);}
+  .btn:active{background:var(--tint);border-color:var(--green);color:var(--green);}
+  .btn:focus-visible{outline:2px solid var(--green);outline-offset:2px;}
+
   .btn-a{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);}
+  .btn-a:hover{background:#93EE22;border-color:#7FD413;color:var(--accent-ink);
+    box-shadow:0 1px 4px rgba(8,37,26,.18);}
+  .btn-a:active{background:#7FD413;border-color:#7FD413;color:var(--accent-ink);}
+
   .btn-d{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .btn-d:hover{background:#124430;border-color:#124430;color:#fff;
+    box-shadow:0 1px 4px rgba(8,37,26,.25);}
+  .btn-d:active{background:var(--ink);border-color:var(--ink);color:#fff;}
   .hidden{display:none!important;}
   .overlay{position:fixed;inset:0;background:rgba(8,37,26,.55);z-index:60;display:flex;align-items:flex-start;justify-content:center;padding:40px 16px;overflow:auto;}
   @media print{
@@ -64,7 +84,6 @@
   </div>
 </header>
 
-<!-- sticky progress + save controls -->
 <div class="sticky top-0 z-30 noprint" style="background:rgba(249,252,248,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)">
   <div class="max-w-6xl mx-auto px-6 py-3 flex items-center gap-4 flex-wrap">
     <div class="flex-1 min-w-[190px]">
@@ -84,7 +103,6 @@
   </div>
 </div>
 
-<!-- restore / storage banners -->
 <div class="max-w-6xl mx-auto px-6 noprint">
   <div id="restoreBanner" class="hidden mt-4 rounded-xl p-3 flex items-center gap-3 flex-wrap"
        style="background:var(--tint);border:1px solid var(--green)">
@@ -96,7 +114,7 @@
   <div id="storeWarn" class="hidden mt-4 rounded-xl p-3"
        style="background:var(--warn-bg);border:1px solid #EBCB8B">
     <p class="text-sm" style="color:var(--warn)"><b>Autosave unavailable in this browser context.</b>
-      Your answers are held in memory only. Use <b>Save / Load &rarr; Export</b> to keep a copy before you close or refresh.</p>
+      Your answers are held in memory only. Use <b>Save / Load &rarr; Export</b> to keep a copy before closing.</p>
   </div>
 </div>
 
@@ -116,9 +134,8 @@
   <section id="results" class="hidden mt-6"></section>
 </main>
 
-<!-- SAVE / LOAD PANEL -->
 <div id="savesOverlay" class="overlay hidden noprint" onclick="if(event.target===this)closeSaves()">
-  <div class="card w-full max-w-2xl" style="max-width:42rem">
+  <div class="card w-full" style="max-width:42rem">
     <div class="flex items-center justify-between p-5" style="border-bottom:1px solid var(--line)">
       <h3 class="font-bold text-lg" style="color:var(--ink)">Saved assessments</h3>
       <button class="btn" onclick="closeSaves()">Close</button>
@@ -126,14 +143,14 @@
     <div class="p-5">
       <div class="flex gap-2 flex-wrap mb-4">
         <button class="btn btn-d" onclick="saveNamed()">Save current assessment</button>
-        <button class="btn" onclick="exportJSON()">Export to file</button>
+        <button class="btn" onclick="exportJSON()">Export working file</button>
         <button class="btn" onclick="document.getElementById('importFile').click()">Import from file</button>
         <input id="importFile" type="file" accept="application/json,.json" class="hidden" onchange="importFromFile(event)">
       </div>
       <div id="savesList" class="space-y-2"></div>
       <details class="mt-5">
-        <summary class="text-sm cursor-pointer" style="color:var(--muted)">Paste or copy raw data (backup fallback)</summary>
-        <textarea id="rawBox" class="f mt-2" rows="5" placeholder="Paste previously exported JSON here, then click Load pasted data."></textarea>
+        <summary class="text-sm cursor-pointer" style="color:var(--muted)">Paste / copy raw data (fallback)</summary>
+        <textarea id="rawBox" class="f mt-2" rows="4" placeholder="Paste previously exported JSON here then click Load."></textarea>
         <div class="flex gap-2 mt-2">
           <button class="btn" onclick="fillRaw()">Copy current data here</button>
           <button class="btn btn-d" onclick="loadRaw()">Load pasted data</button>
@@ -152,407 +169,392 @@ const TIERS = [
   {min:3.01,max:4.0, name:"Advanced",      desc:"Consistent, measured, and scaling across teams."},
   {min:4.01,max:5.0, name:"Best-in-class", desc:"Embedded organization-wide and continuously optimized."}
 ];
-
 const DATA = [
 {category:"Ideation",benchmark:3.44,questions:[
  {q:"Velocity of Generating New Experiment Ideas",s:["No new ideas are being generated.","Ideas are generated sporadically and usually in reaction to problems or leadership requests.","There is a structured approach to generating new ideas on an annual basis.","There is a structured approach to generating new ideas on a quarterly basis.","There is a structured approach to generating new ideas on a monthly basis.","There is a structured approach to generating new ideas as part of daily workflows."]},
  {q:"Data Sources and/or Research Types Used to Generate Experiment Ideas",s:["No data or research tools are available.","Ideas are based on opinions, although tools are available.","Ideas are based on opinions, and quantitative or qualitative insights are then used to validate the idea.","Ideas are informed by one dominant source: quantitative or qualitative inputs.","Ideas are sometimes informed by both quantitative and qualitative inputs.","Ideas are always informed by both quantitative and qualitative inputs."]},
  {q:"Resources Generating Experiment Ideas",s:["No one else is involved.","Ideation is driven by executive leadership.","Ideation is owned by singular testing program owner and uses platforms such as Opal.","Ideation is owned within individual testing teams with little / no collaboration and uses platforms such as Opal.","Individual testing teams collaborate on ideation in a structured setting.","Ideation is an organization-wide initiative, everyone is welcome to submit test ideas."]},
  {q:"Prioritizing Experiment Ideas",s:["There is no list and no framework is used.","A list of unprioritized ideas exists without a structured approach.","Team members vote on what should be prioritized.","A common prioritization framework (e.g., PIE, ICE, RICE, PXL).","Experiments are prioritized as part of the Product or Marketing roadmap.","A custom-built data-driven prioritization framework is used, and prioritization is continuously refined."]},
- {q:"Run Rate (size of backlog) for Experimentation Testing",s:["No experimentation backlog exists.","Testing is conducted one at a time whenever an idea is shared.","There is only 1 weeks worth of test ideas in the backlog.","There is only 1 months worth of test ideas in the backlog.","There are 3+ months worth of test ideas.","There are 12+ months worth of test ideas."]}]},
+ {q:"Run Rate (size of backlog) for Experimentation Testing",s:["No experimentation backlog exists.","Testing is conducted one at a time whenever an idea is shared.","There is only 1 weeks worth of test ideas in the backlog.","There is only 1 months worth of test ideas in the backlog.","There are 3+ months worth of test ideas.","There are 12+ months worth of test ideas."]}
+]},
 {category:"Program Strategy",benchmark:3.16,questions:[
  {q:"Experimentation Roadmap",s:["No experimentation roadmap exists.","Roadmap is driven by leadership.","Roadmap is a list of ideas/new features.","Roadmap includes structured hypotheses and prioritization criteria.","Roadmap includes hypotheses, prioritization frameworks, test length estimation, and links to test materials.","Roadmap incorporates all previous criteria, and is stored and directly accessible by all stakeholders."]},
  {q:"AI Strategy for Experimentation",s:["AI is not used.","There is no defined strategy, but some individuals use generative AI for basic tasks (e.g. for summarising meeting notes).","There is no defined strategy, but we are piloting a small number of AI or agent-based use cases in isolated parts of the workflow.","There is a defined AI strategy, and AI/agents are being used to support specific experimentation tasks.","There is a defined AI strategy and AI is embedded across multiple stages of the experimentation workflow, with clear governance.","There is a defined AI strategy and workflow agents are used across the experimentation program, with integrations across our tech stack and with clear governance."]},
  {q:"Utilization of Targeting & Segmentation",s:["Experiments run to 100% of page traffic and often don't have a control group.","Experiments run to 100% of page traffic and have a control group.","Experiments are targeted often (around 25% of experiments) for basic audiences such as device type.","Experiments are targeted often (around 50% of experiments), usually to address different visitor segments or personas.","Most experiments are targeted (75% or more), likely with a combination of rules-based and automated targeting.","Targeting is used persistently for experimentation and personalization, using 1st and 3rd party data such as ODP and a CDP to define rigorous samples across audience segments."]},
  {q:"Personalization & Digital Marketing Strategy",s:["Personalization is not part of the digital marketing strategy.","Delivering a personable experience to different audiences is a guessing game.","Basics of personalization are understood, but the team still needs to identify and understand different customer cohorts.","Testing different variations has begun based on a few audience cohorts to explore what creates a personable experience for each.","Testing has expanded with several iterations, but some guessing persists; focus on specific groups is needed to achieve a tailored experience.","Comprehensive research and data on multiple cohorts are complete, leading to a digital marketing strategy that is personalized and aligned with each user's experience."]},
- {q:"Types of Changes Tested",s:["No testing currently being conducted.","Testing on simple UI changes such as headlines, copy, imagery, or calls to action.","Testing focuses on UI and UX changes such as how pages are structured, visual design, and layout changes.","Testing extends to testing features and functionality.","Testing is used not only to optimize live experiences and features but also to validate new concepts and test user demand before full investment and deployment.","Testing includes all of the above as well as testing algorithms, pricing, and monetization models."]}]},
+ {q:"Types of Changes Tested",s:["No testing currently being conducted.","Testing on simple UI changes such as headlines, copy, imagery, or calls to action.","Testing focuses on UI and UX changes such as how pages are structured, visual design, and layout changes.","Testing extends to testing features and functionality.","Testing is used not only to optimize live experiences and features but also to validate new concepts and test user demand before full investment and deployment.","Testing includes all of the above as well as testing algorithms, pricing, and monetization models."]}
+]},
 {category:"Program Goals",benchmark:3.66,questions:[
  {q:"Weekly Team Commitment to Experimentation",s:["No time spent or not sure.","Up to 10% of time spent on experimentation.","10-25% of time spent on experimentation.","25-50% of time spent on experimentation.","50-75% of time spent on experimentation.","More than 75% of time spent on experimentation."]},
  {q:"Experiment Alignment with Strategic Goals and Priorities",s:["Experiments are never aligned with strategic goals and projects.","Experiments are rarely aligned to strategic goals or projects, and are mostly driven by ad hoc ideas.","Some experiments are loosely aligned to strategic goals and projects, but alignment is inconsistent.","Most experiments are aligned with strategic goals or projects, using a defined framework (e.g. a Goal Tree), though adherence to this approach is inconsistent or informal.","Experiments are consistently aligned with strategic goals and projects through a defined and repeatable process that is widely adopted.","Not only do your experiments consistently align with strategic goals and projects, experiment insights also shape the team's/businesses strategic goals and projects."]},
  {q:"Process Selection of Metrics for Individual Experiments",s:["There is no process for metric selection.","Revenue or Conversion Rate is used as the primary metric for all experiments.","Metrics are chosen on a case-by-case basis, usually aligned to the experiment idea, but without standardized guidance.","Metrics are selected based on the experiment hypothesis, with a primary metric and secondary metrics.","A documented, standardized framework has been built by the experimentation team to define primary, secondary, and monitoring metrics, with alignment to North Star and business KPIs applied at the program level.","A documented, standardized framework is used across the organization to define primary, secondary, and monitoring metrics, with alignment to North Star and business KPIs governed at the enterprise level."]},
  {q:"What level of leadership support does the experimentation program have?",s:["No leadership support.","Manager level support.","Director level support.","VP/SVP level support.","One key sponsor from ELT (CMO/CPO/CTO).","Sponsorship from full ELT."]},
- {q:"Frequency of Achieving Experimentation Goals (e.g., velocity, conclusive rate, metric uplift)",s:["No program goals are established.","Program goals are never met.","Program goals are rarely met.","Program goals are sometimes met.","Program goals are almost always met.","Program goals are consistently met."]}]},
+ {q:"Frequency of Achieving Experimentation Goals (e.g., velocity, conclusive rate, metric uplift)",s:["No program goals are established.","Program goals are never met.","Program goals are rarely met.","Program goals are sometimes met.","Program goals are almost always met.","Program goals are consistently met."]}
+]},
 {category:"Experiment Execution",benchmark:3.25,questions:[
- {q:"Experimentation Program Management",s:["Tests are not documented.","The experiment owner chooses how to deliver and document the experiment, and documents are not stored centrally/in a repository.","Each team has their own experimentation process and are using slides or a spreadsheet to manage experiments which are not stored centrally/in a repository. Opal is being explored to help generate the test plans and reports.","Each team has their own experimentation process and are using a program management tool.","There is a shared experimentation program management system. This includes an end-to-end experimenation process, document templates, standardised best practices/methodologies, and an online platform is used for program management, and to store the roadmaps and results/insights. Visibility of this experimentation program management system is limited to the teams that use it, such as Product and Marketing.","Everything above, but the experiment program management system can be and is accessed by everyone from across the business, such as senior leadership, call center management etc."]},
+ {q:"Experimentation Program Management",s:["Tests are not documented.","The experiment owner chooses how to deliver and document the experiment, and documents are not stored centrally/in a repository.","Each team has their own experimentation process and are using slides or a spreadsheet to manage experiments which are not stored centrally/in a repository.","Each team has their own experimentation process and are using a program management tool.","There is a shared experimentation program management system with an end-to-end process, document templates, and standardised best practices. Visibility is limited to the teams that use it.","Everything above, but the program management system is accessible by everyone across the business including senior leadership."]},
  {q:"Experimentation Velocity",s:["Experiments are never launched.","Experiments are launched on a quarterly basis.","Experiments are launched on a monthly basis.","Experiments are launched on a bi-weekly basis.","Experiments are launched on a weekly basis.","Experiments are launched multiple times a week."]},
- {q:"Testing Coverage",s:["No testing is conducted anywhere.","Testsing is limited to a few pages.","Testing takes place across core customer journeys on web, including all key steps in the funnel.","Testing spans public web experiences plus logged-in journeys.","Testing takes place across all key public and logged-in pages across web, app and email, including back-end experimentation.","Testing encompasses the full technical stack across omnichannel platforms (IoT, kiosks, wearables, etc.), including back-end experimentation."]},
- {q:"Types of Experiments",s:["No testing is conducted.","Tests focus on fixing (hot fixes).","A/B testing with one variation compared to the original.","A/B/n testing is used, where multiple variations are tested against the original.","Stats Accelerator and Multi-Armed Bandits (MAB) are used in addition to A/B and A/B/n testing.","Testing expands to multi-page campaigns tests, mutual exclusions, Stats Accelerator, CMAB, MAB, MVT, and personalization campaigns."]},
- {q:"Technical Development & Deployment Resources",s:["No technical resources are available; QA is never performed.","Technical resources are rarely available; QA is never performed. Opal Dev Agent is being explored to help with building tests.","Technical resources are available, but experimentation is a low priority; QA is performed by the experiment owner. Dev Agent is occasionally being used to help with building tests.","A few technical resources are available, and an engagement model exists; QA is performed by a specialist. Dev Agent is being used as the go-to development tool to build tests.","Technical resources are identified and assigned to all tests in the backlog with a specific process in place; QA is performed by a specialist.","Technical resources are identified and assigned to all tests in the backlog with a specific process in place; QA is performed by a specialist; and dedicated Engineering resources support the Optimizely platform through integrations, tooling enablement, and ongoing platform-level improvements."]}]},
+ {q:"Testing Coverage",s:["No testing is conducted anywhere.","Testing is limited to a few pages.","Testing takes place across core customer journeys on web, including all key steps in the funnel.","Testing spans public web experiences plus logged-in journeys.","Testing takes place across all key public and logged-in pages across web, app and email, including back-end experimentation.","Testing encompasses the full technical stack across omnichannel platforms (IoT, kiosks, wearables, etc.), including back-end experimentation."]},
+ {q:"Types of Experiments",s:["No testing is conducted.","Tests focus on fixing (hot fixes).","A/B testing with one variation compared to the original.","A/B/n testing is used, where multiple variations are tested against the original.","Stats Accelerator and Multi-Armed Bandits (MAB) are used in addition to A/B and A/B/n testing.","Testing expands to multi-page campaign tests, mutual exclusions, Stats Accelerator, CMAB, MAB, MVT, and personalization campaigns."]},
+ {q:"Technical Development & Deployment Resources",s:["No technical resources are available; QA is never performed.","Technical resources are rarely available; QA is never performed. Opal Dev Agent is being explored to help with building tests.","Technical resources are available, but experimentation is a low priority; QA is performed by the experiment owner.","A few technical resources are available, and an engagement model exists; QA is performed by a specialist.","Technical resources are identified and assigned to all tests in the backlog with a specific process in place; QA is performed by a specialist.","Technical resources are identified and assigned to all tests; QA is performed by a specialist; and dedicated Engineering resources support the platform through integrations and tooling."]}
+]},
 {category:"Reporting & Value Realization",benchmark:3.28,questions:[
- {q:"Analysis of Data",s:["No results are tracked.","Majority of experiment data cannot be analysed due to incorrect metrics, low audience reach, or premature ending.","Analysis is based on the primary metric only, and Opal is being explored to support with analysis.","Analysis is based on both primary and monitoring metrics, and Opal is being explored to support with analysis.","Analysis is based on primary, secondary and monitoring metrics, and leverages data segmentation e.g. device type.","Everything above, plus has established an analysis on business metrics e.g. retention, total revenue, guardrail alerts, and defined outlier management."]},
+ {q:"Analysis of Data",s:["No results are tracked.","Majority of experiment data cannot be analysed due to incorrect metrics, low audience reach, or premature ending.","Analysis is based on the primary metric only, and Opal is being explored to support with analysis.","Analysis is based on both primary and monitoring metrics, and Opal is being explored to support with analysis.","Analysis is based on primary, secondary and monitoring metrics, and leverages data segmentation e.g. device type.","Everything above, plus established analysis on business metrics e.g. retention, total revenue, guardrail alerts, and defined outlier management."]},
  {q:"Additional Platforms For Analyzing Experiment Results",s:["No platforms are used for analyzing experiment results.","Web metrics such as order conversion rate and/or revenue increase are used.","Web metrics, along with app and/or site analytics (e.g., Google Analytics), are used.","Web metrics, app/site analytics, and heatmaps or click maps are used.","Web metrics, app/site analytics, heatmaps, and voice of customer research are used.","Web metrics, app/site analytics, heatmaps, voice of customer research, and a data warehouse (e.g., BigQuery, Snowflake) are used."]},
  {q:"Experimentation & Business Impact Reporting",s:["Experimentation is not considered impactful to the business.","Impact is recognized only if experimentation leads to an increase in revenue.","Impact is recognized based on the impact to key website metrics (e.g., conversions, subscriptions, sales).","Impact is recognized based on the impact to the primary metric (e.g., progression to next page).","Impact is recognized, regardless of a positive or negative result.","Everything above, plus impact is realized as experiment results are a key driver for business decision making."]},
- {q:"Experimentation Evaluation",s:["Experiment results are not documented.","Only winning experiments are analyzed and documented, and there is no defined process. Winners are rarely implemented.","All experiments are analyzed and documented, but there is no defined process. Winners are rarely implemented.","All experiments are analyzed and documented, and there is a defined process which is sometimes followed. Winners are sometimes implemented.","All experiments are analyzed and documented, and there is a defined process which is consistently followed. Winners are always implemented in a short timeframe.","As well as there being a defined process for analyzing, documenting and implementing results, there is also an established process for running program retros (e.g. program goal tracking, a Maturity Assessment) to optimize program performance."]},
- {q:"Communicating Experiment Value",s:["The value of experiments is not communicated.","Value communication is minimal and rarely conducted.","The value of some experiments is communicated, but the process is inconsistent and not comprehensive (limited to teams involved).","The value of experiments is regularly communicated across multiple teams, but there are areas for improvement in clarity and reach.","The value of experiments is consistently communicated effectively, ensuring stakeholders understand their importance.","There is a defined strategy for communicating value across the entire business leveraging tools such as Opal, newsletter, experimentation days, company wide access to a testing repository."]}]}
+ {q:"Experimentation Evaluation",s:["Experiment results are not documented.","Only winning experiments are analyzed and documented, and there is no defined process. Winners are rarely implemented.","All experiments are analyzed and documented, but there is no defined process. Winners are rarely implemented.","All experiments are analyzed and documented, and there is a defined process which is sometimes followed. Winners are sometimes implemented.","All experiments are analyzed and documented, and there is a defined process which is consistently followed. Winners are always implemented in a short timeframe.","As well as a defined process for analyzing, documenting and implementing results, there is an established process for running program retros to optimize program performance."]},
+ {q:"Communicating Experiment Value",s:["The value of experiments is not communicated.","Value communication is minimal and rarely conducted.","The value of some experiments is communicated, but the process is inconsistent and not comprehensive.","The value of experiments is regularly communicated across multiple teams, but there are areas for improvement in clarity and reach.","The value of experiments is consistently communicated effectively, ensuring stakeholders understand their importance.","There is a defined strategy for communicating value across the entire business leveraging tools such as Opal, newsletters, experimentation days, and company-wide access to a testing repository."]}
+]}
 ];
 
-let answers = {};
-let activeCat = 0;
-let radar = null;
-
+let answers = {}, activeCat = 0, radar = null, lastResults = null;
 const esc = t => String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 const key = (c,q) => c+"-"+q;
 const r2  = n => Math.round(n*100)/100;
 const fmt = n => n.toFixed(2);
-const $ = id => document.getElementById(id);
+const $   = id => document.getElementById(id);
 
-/* ================= STORAGE ================= */
-const AUTO_KEY = "opti-ema-autosave-v1";
-const SAVES_KEY = "opti-ema-saves-v1";
-let storageOK = true;
-try { localStorage.setItem("__t","1"); localStorage.removeItem("__t"); }
-catch(e){ storageOK = false; }
-
-function sGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
-function sSet(k,v){ try{ localStorage.setItem(k,v); return true; }catch(e){ return false; } }
+/* ===== STORAGE ===== */
+const AUTO_KEY="opti-ema-auto-v1", SAVES_KEY="opti-ema-saves-v1";
+let storageOK=true;
+try{localStorage.setItem("_t","1");localStorage.removeItem("_t");}catch(e){storageOK=false;}
+const sGet=k=>{try{return localStorage.getItem(k);}catch(e){return null;}};
+const sSet=(k,v)=>{try{localStorage.setItem(k,v);return true;}catch(e){return false;}};
 
 function snapshot(){
-  return { version:1, savedAt:new Date().toISOString(),
-    client:$("fClient").value, date:$("fDate").value, by:$("fBy").value, ppl:$("fPpl").value,
-    answers:{...answers} };
+  return{version:1,savedAt:new Date().toISOString(),
+    client:$("fClient").value,date:$("fDate").value,by:$("fBy").value,ppl:$("fPpl").value,
+    answers:{...answers}};
 }
 function applySnapshot(s){
-  if(!s || typeof s!=="object" || !s.answers) throw new Error("Not a valid assessment file.");
-  const clean = {};
+  if(!s||typeof s!=="object"||!s.answers) throw new Error("Not a valid assessment file.");
+  const clean={};
   Object.entries(s.answers).forEach(([k,v])=>{
-    const m = /^(\d)-(\d)$/.exec(k);
-    if(m && Number.isInteger(v) && v>=0 && v<=5 && +m[1]<5 && +m[2]<5) clean[k]=v;
+    const m=/^(\d)-(\d)$/.exec(k);
+    if(m&&Number.isInteger(v)&&v>=0&&v<=5&&+m[1]<5&&+m[2]<5) clean[k]=v;
   });
-  answers = clean;
-  $("fClient").value = s.client||""; $("fDate").value = s.date||"";
-  $("fBy").value = s.by||"";       $("fPpl").value = s.ppl||"";
+  answers=clean;
+  $("fClient").value=s.client||""; $("fDate").value=s.date||"";
+  $("fBy").value=s.by||"";         $("fPpl").value=s.ppl||"";
   $("results").classList.add("hidden"); $("quiz").classList.remove("hidden");
-  activeCat = 0; renderTabs(); renderCats(); updateBar();
+  activeCat=0; renderTabs(); renderCats(); updateBar();
 }
-
-let saveTimer=null;
+let _saveTimer=null;
 function autosave(){
   if(!storageOK) return;
-  clearTimeout(saveTimer);
-  saveTimer = setTimeout(()=>{
-    if(sSet(AUTO_KEY, JSON.stringify(snapshot()))){
-      const t = new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
-      $("saveTag").textContent = " · saved "+t;
+  clearTimeout(_saveTimer);
+  _saveTimer=setTimeout(()=>{
+    if(sSet(AUTO_KEY,JSON.stringify(snapshot()))){
+      const t=new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
+      $("saveTag").textContent=" · saved "+t;
     }
-  }, 250);
+  },300);
 }
 function discardRestore(){
-  if(!confirm("Discard the restored session and start a blank assessment?")) return;
-  answers = {}; ["fClient","fBy","fPpl"].forEach(i=>$(i).value="");
-  $("fDate").value = new Date().toISOString().slice(0,10);
-  try{ localStorage.removeItem(AUTO_KEY); }catch(e){}
+  if(!confirm("Discard restored session and start fresh?")) return;
+  answers={}; ["fClient","fBy","fPpl"].forEach(i=>$(i).value="");
+  $("fDate").value=new Date().toISOString().slice(0,10);
+  try{localStorage.removeItem(AUTO_KEY);}catch(e){}
   $("restoreBanner").classList.add("hidden"); $("saveTag").textContent="";
   activeCat=0; renderTabs(); renderCats(); updateBar();
 }
 
-/* ---- named saves ---- */
-function allSaves(){ try{ return JSON.parse(sGet(SAVES_KEY)||"[]"); }catch(e){ return []; } }
-function writeSaves(list){ return sSet(SAVES_KEY, JSON.stringify(list)); }
-
+/* named saves */
+const allSaves=()=>{try{return JSON.parse(sGet(SAVES_KEY)||"[]");}catch(e){return[];}};
+const writeSaves=list=>sSet(SAVES_KEY,JSON.stringify(list));
 function saveNamed(){
-  const n = Object.keys(answers).length;
-  const def = ($("fClient").value.trim() || "Untitled") + " — " + new Date().toLocaleDateString();
-  const name = prompt("Name this saved assessment:", def);
+  const def=(($("fClient").value.trim()||"Untitled")+" \u2014 "+new Date().toLocaleDateString());
+  const name=prompt("Name this saved assessment:",def);
   if(name===null) return;
-  if(!storageOK){ alert("This browser context blocks saved sessions. Use Export to file instead."); return; }
-  const list = allSaves();
-  const rec = {id:Date.now().toString(36), name:name.trim()||def, answered:n, data:snapshot()};
-  const dupe = list.findIndex(x=>x.name===rec.name);
-  if(dupe>-1 && confirm("A save named \""+rec.name+"\" exists. Overwrite it?")) list[dupe]=rec;
+  if(!storageOK){alert("Storage blocked. Use Export working file instead.");return;}
+  const list=allSaves();
+  const rec={id:Date.now().toString(36),name:name.trim()||def,answered:Object.keys(answers).length,data:snapshot()};
+  const dupe=list.findIndex(x=>x.name===rec.name);
+  if(dupe>-1&&confirm('"'+rec.name+'" exists. Overwrite?')) list[dupe]=rec;
   else if(dupe>-1) return;
   else list.unshift(rec);
-  if(!writeSaves(list)){ alert("Could not save — storage is full or blocked. Use Export to file."); return; }
+  if(!writeSaves(list)){alert("Could not save — storage full. Use Export working file.");return;}
   renderSaves();
 }
 function loadSave(id){
-  const rec = allSaves().find(x=>x.id===id);
-  if(!rec) return;
-  if(Object.keys(answers).length && !confirm("Load \""+rec.name+"\"? This replaces your current answers.")) return;
-  try{ applySnapshot(rec.data); autosave(); closeSaves(); }
-  catch(e){ alert("Could not load that save: "+e.message); }
+  const rec=allSaves().find(x=>x.id===id); if(!rec) return;
+  if(Object.keys(answers).length&&!confirm('Load "'+rec.name+'"? Replaces current answers.')) return;
+  try{applySnapshot(rec.data);autosave();closeSaves();}catch(e){alert("Load failed: "+e.message);}
 }
 function deleteSave(id){
-  const list = allSaves(); const rec = list.find(x=>x.id===id);
-  if(!rec || !confirm("Delete \""+rec.name+"\"?")) return;
+  const list=allSaves(),rec=list.find(x=>x.id===id);
+  if(!rec||!confirm('Delete "'+rec.name+'"?')) return;
   writeSaves(list.filter(x=>x.id!==id)); renderSaves();
 }
 function renderSaves(){
-  const list = allSaves();
-  $("savesList").innerHTML = list.length
-    ? list.map(r=>`<div class="flex items-center gap-3 p-3 rounded-lg" style="border:1px solid var(--line)">
-        <div class="flex-1 min-w-0">
-          <p class="text-sm font-semibold truncate" style="color:var(--ink)">${esc(r.name)}</p>
-          <p class="text-xs" style="color:var(--muted)">${r.answered}/25 answered · ${new Date(r.data.savedAt).toLocaleString()}</p>
-        </div>
-        <button class="btn btn-a" onclick="loadSave('${r.id}')">Load</button>
-        <button class="btn" onclick="deleteSave('${r.id}')">Delete</button>
-      </div>`).join("")
-    : `<p class="text-sm p-3 rounded-lg" style="color:var(--muted);background:var(--tint)">No saved assessments yet. Click <b>Save current assessment</b> to keep one, or <b>Export to file</b> for a portable copy.</p>`;
+  const list=allSaves();
+  $("savesList").innerHTML=list.length
+    ? list.map(r=>'<div class="flex items-center gap-3 p-3 rounded-lg" style="border:1px solid var(--line)">'+
+        '<div class="flex-1 min-w-0"><p class="text-sm font-semibold truncate" style="color:var(--ink)">'+esc(r.name)+'<\/p>'+
+        '<p class="text-xs" style="color:var(--muted)">'+r.answered+'/25 answered &middot; '+new Date(r.data.savedAt).toLocaleString()+'<\/p><\/div>'+
+        '<button class="btn btn-a" onclick="loadSave(\''+r.id+'\')">Load<\/button>'+
+        '<button class="btn" onclick="deleteSave(\''+r.id+'\')">Delete<\/button><\/div>').join("")
+    : '<p class="text-sm p-3 rounded-lg" style="color:var(--muted);background:var(--tint)">No saved assessments yet.<\/p>';
 }
-function openSaves(){ renderSaves(); $("savesOverlay").classList.remove("hidden"); }
-function closeSaves(){ $("savesOverlay").classList.add("hidden"); }
+function openSaves(){renderSaves();$("savesOverlay").classList.remove("hidden");}
+function closeSaves(){$("savesOverlay").classList.add("hidden");}
 
-/* ---- file export / import ---- */
-function exportJSON(){
-  const s = snapshot();
-  const fname = (s.client||"assessment").replace(/[^a-z0-9]+/gi,"-").toLowerCase()+"-maturity-"+(s.date||"")+".json";
-  const txt = JSON.stringify(s,null,2);
+/* file export/import */
+function _download(name,mime,text){
   try{
-    const url = URL.createObjectURL(new Blob([txt],{type:"application/json"}));
-    const a = document.createElement("a"); a.href=url; a.download=fname;
-    document.body.appendChild(a); a.click(); a.remove();
+    const url=URL.createObjectURL(new Blob([text],{type:mime}));
+    const a=document.createElement("a");a.href=url;a.download=name;
+    document.body.appendChild(a);a.click();a.remove();
     setTimeout(()=>URL.revokeObjectURL(url),1500);
-  }catch(e){
-    $("rawBox").value = txt; $("rawBox").select();
-    alert("Download was blocked here. Your data is in the text box at the bottom — copy it and save it somewhere safe.");
+    return true;
+  }catch(e){return false;}
+}
+function _slug(s){return((s||"assessment").replace(/[^a-z0-9]+/gi,"-").replace(/^-+|-+$/g,"").toLowerCase())||"assessment";}
+
+function exportJSON(){
+  const s=snapshot();
+  const fn=_slug(s.client)+"-maturity-"+(s.date||"")+".json";
+  if(!_download(fn,"application/json",JSON.stringify(s,null,2))){
+    $("rawBox").value=JSON.stringify(s,null,2);$("rawBox").select();
+    alert("Download blocked. Your data is in the text box — copy and save it.");
   }
 }
 function importFromFile(ev){
-  const f = ev.target.files && ev.target.files[0]; if(!f) return;
-  const rd = new FileReader();
-  rd.onload = () => {
-    try{ applySnapshot(JSON.parse(rd.result)); autosave(); closeSaves(); }
-    catch(e){ alert("Could not read that file: "+e.message); }
-  };
+  const f=ev.target.files&&ev.target.files[0]; if(!f) return;
+  const rd=new FileReader();
+  rd.onload=()=>{try{applySnapshot(JSON.parse(rd.result));autosave();closeSaves();}catch(e){alert("Could not read file: "+e.message);}};
   rd.readAsText(f); ev.target.value="";
 }
-function fillRaw(){ $("rawBox").value = JSON.stringify(snapshot(),null,2); $("rawBox").select(); }
+function fillRaw(){$("rawBox").value=JSON.stringify(snapshot(),null,2);$("rawBox").select();}
 function loadRaw(){
-  try{ applySnapshot(JSON.parse($("rawBox").value)); autosave(); closeSaves(); }
-  catch(e){ alert("That does not look like valid assessment data: "+e.message); }
+  try{applySnapshot(JSON.parse($("rawBox").value));autosave();closeSaves();}
+  catch(e){alert("Invalid data: "+e.message);}
 }
 
-/* ================= SCORING ================= */
-function tierFor(v){ return TIERS.find(t=>v>=t.min-0.0001 && v<=t.max+0.0001) || TIERS[0]; }
-function catAnswered(ci){ return DATA[ci].questions.filter((_,qi)=>answers[key(ci,qi)]!==undefined).length; }
+/* ===== SCORING ===== */
+const tierFor=v=>TIERS.find(t=>v>=t.min-0.0001&&v<=t.max+0.0001)||TIERS[0];
+const catAnswered=ci=>DATA[ci].questions.filter((_,qi)=>answers[key(ci,qi)]!==undefined).length;
 function catScore(ci){
-  const v = DATA[ci].questions.map((_,qi)=>answers[key(ci,qi)]).filter(x=>x!==undefined);
-  return v.length ? r2(v.reduce((a,b)=>a+b,0)/v.length) : null;
+  const v=DATA[ci].questions.map((_,qi)=>answers[key(ci,qi)]).filter(x=>x!==undefined);
+  return v.length?r2(v.reduce((a,b)=>a+b,0)/v.length):null;
 }
-function totalAnswered(){ return Object.keys(answers).length; }
+const totalAnswered=()=>Object.keys(answers).length;
 
-/* ================= RENDER ================= */
+/* ===== RENDER ASSESSMENT ===== */
 function renderTabs(){
-  $("tabs").innerHTML = DATA.map((c,i)=>{
-    const done = catAnswered(i)===5;
-    return `<button class="tabbtn ${i===activeCat?'on':''}" onclick="goCat(${i})">
-      ${esc(c.category)} <span style="opacity:.65">${catAnswered(i)}/5</span>${done?'<span class="dot"></span>':''}</button>`;
+  $("tabs").innerHTML=DATA.map((c,i)=>{
+    const done=catAnswered(i)===5;
+    return '<button class="tabbtn '+(i===activeCat?'on':'')+'" onclick="goCat('+i+')">'+
+      esc(c.category)+' <span style="opacity:.65">'+catAnswered(i)+'/5<\/span>'+(done?'<span class="dot"><\/span>':'')+'<\/button>';
   }).join("");
 }
-
 function renderCats(){
-  const c = DATA[activeCat], ci = activeCat, sc = catScore(ci);
-  $("cats").innerHTML = `
-    <div class="card p-5 md:p-7">
-      <div class="flex items-start justify-between gap-4 flex-wrap">
-        <div>
-          <p class="text-[11px] uppercase tracking-[0.18em]" style="color:var(--muted)">Category ${ci+1} of 5</p>
-          <h2 class="text-xl font-bold mt-1" style="color:var(--ink)">${esc(c.category)}</h2>
-          <p class="text-sm mt-1" style="color:var(--muted)">Pick the statement that best reflects the client's current situation. If they fall between two, choose the lower.</p>
-        </div>
-        <div class="text-right">
-          <p class="text-[11px] uppercase tracking-wide" style="color:var(--muted)">Category score</p>
-          <p class="text-3xl font-bold" style="color:var(--green)">${sc===null?'&mdash;':fmt(sc)}</p>
-          <p class="text-[11px]" style="color:var(--muted)">Benchmark ${c.benchmark}</p>
-        </div>
-      </div>
-      <div class="mt-6 space-y-7">
-        ${c.questions.map((q,qi)=>{
-          const cur = answers[key(ci,qi)];
-          return `<div>
-            <div class="flex items-baseline gap-2">
-              <span class="text-xs font-bold" style="color:var(--green)">Q${qi+1}</span>
-              <h3 class="font-semibold" style="color:var(--ink)">${esc(q.q)}</h3>
-              ${cur!==undefined?`<span class="ml-auto text-xs font-bold px-2 py-0.5 rounded" style="background:var(--tint);color:var(--green)">Scored ${cur}</span>`:''}
-            </div>
-            <div class="mt-2 space-y-1.5">
-              ${q.s.map((st,li)=>`
-                <div class="stmt ${cur===li?'sel':''} flex gap-3 items-start p-2.5" onclick="pick(${ci},${qi},${li})">
-                  <div class="lvl">${li}</div>
-                  <p class="text-sm leading-relaxed pt-1">${esc(st)}</p>
-                </div>`).join("")}
-            </div>
-          </div>`;
-        }).join("")}
-      </div>
-      <div class="flex justify-between mt-8 pt-5 noprint" style="border-top:1px solid var(--line)">
-        <button onclick="goCat(${ci-1})" class="btn ${ci===0?'opacity-30 pointer-events-none':''}">&larr; Previous</button>
-        ${ci<4
-          ? `<button onclick="goCat(${ci+1})" class="btn btn-d">Next: ${esc(DATA[ci+1].category)} &rarr;</button>`
-          : `<button onclick="calculate()" class="btn btn-a">Give me the total</button>`}
-      </div>
-    </div>`;
+  const c=DATA[activeCat],ci=activeCat,sc=catScore(ci);
+  $("cats").innerHTML='<div class="card p-5 md:p-7">'+
+    '<div class="flex items-start justify-between gap-4 flex-wrap">'+
+      '<div>'+
+        '<p class="text-[11px] uppercase tracking-[0.18em]" style="color:var(--muted)">Category '+(ci+1)+' of 5<\/p>'+
+        '<h2 class="text-xl font-bold mt-1" style="color:var(--ink)">'+esc(c.category)+'<\/h2>'+
+        '<p class="text-sm mt-1" style="color:var(--muted)">Pick the statement that best reflects the client\'s current situation. If they fall between two, choose the lower.<\/p>'+
+      '<\/div>'+
+      '<div class="text-right">'+
+        '<p class="text-[11px] uppercase tracking-wide" style="color:var(--muted)">Category score<\/p>'+
+        '<p class="text-3xl font-bold" style="color:var(--green)">'+(sc===null?'&mdash;':fmt(sc))+'<\/p>'+
+        '<p class="text-[11px]" style="color:var(--muted)">Benchmark '+c.benchmark+'<\/p>'+
+      '<\/div>'+
+    '<\/div>'+
+    '<div class="mt-6 space-y-7">'+
+      c.questions.map((q,qi)=>{
+        const cur=answers[key(ci,qi)];
+        return '<div>'+
+          '<div class="flex items-baseline gap-2">'+
+            '<span class="text-xs font-bold" style="color:var(--green)">Q'+(qi+1)+'<\/span>'+
+            '<h3 class="font-semibold" style="color:var(--ink)">'+esc(q.q)+'<\/h3>'+
+            (cur!==undefined?'<span class="ml-auto text-xs font-bold px-2 py-0.5 rounded" style="background:var(--tint);color:var(--green)">Scored '+cur+'<\/span>':'')+
+          '<\/div>'+
+          '<div class="mt-2 space-y-1.5">'+
+            q.s.map((st,li)=>
+              '<div class="stmt '+(cur===li?'sel':'')+' flex gap-3 items-start p-2.5" onclick="pick('+ci+','+qi+','+li+')">'+
+                '<div class="lvl">'+li+'<\/div>'+
+                '<p class="text-sm leading-relaxed pt-1">'+esc(st)+'<\/p>'+
+              '<\/div>'
+            ).join("")+
+          '<\/div>'+
+        '<\/div>';
+      }).join("")+
+    '<\/div>'+
+    '<div class="flex justify-between mt-8 pt-5 noprint" style="border-top:1px solid var(--line)">'+
+      '<button onclick="goCat('+(ci-1)+')" class="btn '+(ci===0?'opacity-30 pointer-events-none':'')+'">← Previous<\/button>'+
+      (ci<4
+        ? '<button onclick="goCat('+(ci+1)+')" class="btn btn-d">Next: '+esc(DATA[ci+1].category)+' →<\/button>'
+        : '<button onclick="calculate()" class="btn btn-a">Give me the total<\/button>')+
+    '<\/div>'+
+  '<\/div>';
 }
-
-function pick(ci,qi,li){ answers[key(ci,qi)] = li; renderTabs(); renderCats(); updateBar(); autosave(); }
-function goCat(i){ if(i<0||i>4) return; activeCat=i; renderTabs(); renderCats(); window.scrollTo({top:0,behavior:"smooth"}); }
-
+function pick(ci,qi,li){answers[key(ci,qi)]=li;renderTabs();renderCats();updateBar();autosave();}
+function goCat(i){if(i<0||i>4)return;activeCat=i;renderTabs();renderCats();window.scrollTo({top:0,behavior:"smooth"});}
 function updateBar(){
-  const n = totalAnswered();
-  $("pgTxt").textContent = n+" of 25";
-  $("pgFill").style.width = (n/25*100)+"%";
-  const done = DATA.map((_,i)=>catScore(i)).filter(x=>x!==null);
-  $("pgScore").textContent = n===0 ? "—" : fmt(r2(done.reduce((a,b)=>a+b,0)/done.length));
+  const n=totalAnswered();
+  $("pgTxt").textContent=n+" of 25";
+  $("pgFill").style.width=(n/25*100)+"%";
+  const done=DATA.map((_,i)=>catScore(i)).filter(x=>x!==null);
+  $("pgScore").textContent=n===0?"—":fmt(r2(done.reduce((a,b)=>a+b,0)/done.length));
 }
-
 function resetAll(){
   if(!confirm("Clear all 25 answers and start over? Saved assessments are not affected.")) return;
-  answers = {};
-  $("results").classList.add("hidden"); $("quiz").classList.remove("hidden");
+  answers={}; $("results").classList.add("hidden"); $("quiz").classList.remove("hidden");
   activeCat=0; renderTabs(); renderCats(); updateBar(); autosave();
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
-/* ================= RESULTS ================= */
+/* ===== RESULTS ===== */
 function calculate(){
-  const missing = [];
+  const missing=[];
   DATA.forEach((c,ci)=>c.questions.forEach((q,qi)=>{
     if(answers[key(ci,qi)]===undefined) missing.push(c.category+" · Q"+(qi+1)+": "+q.q);
   }));
   if(missing.length){
-    alert("Still missing "+missing.length+" answer"+(missing.length>1?"s":"")+".\n\n"+
-      missing.slice(0,8).map(m=>"• "+m).join("\n")+
-      (missing.length>8?"\n…and "+(missing.length-8)+" more":""));
-    const fi = DATA.findIndex((_,i)=>catAnswered(i)<5);
+    alert("Still missing "+missing.length+" answer"+(missing.length>1?"s":"")+".\\n\\n"+
+      missing.slice(0,8).map(m=>"• "+m).join("\\n")+(missing.length>8?"\\n…and "+(missing.length-8)+" more":""));
+    const fi=DATA.findIndex((_,i)=>catAnswered(i)<5);
     if(fi>-1) goCat(fi);
     return;
   }
-
-  const cats = DATA.map((c,ci)=>{
-    const score = catScore(ci);
-    return {name:c.category, score, bench:c.benchmark, delta:r2(score-c.benchmark), tier:tierFor(score)};
+  const cats=DATA.map((c,ci)=>{
+    const score=catScore(ci);
+    return{name:c.category,score,bench:c.benchmark,delta:r2(score-c.benchmark),tier:tierFor(score)};
   });
-  const overall = r2(cats.reduce((a,c)=>a+c.score,0)/cats.length);
-  const oDelta  = r2(overall-BENCH_OVERALL);
-  const oTier   = tierFor(overall);
-
-  const flat = [];
+  const overall=r2(cats.reduce((a,c)=>a+c.score,0)/cats.length);
+  const oDelta=r2(overall-BENCH_OVERALL);
+  const oTier=tierFor(overall);
+  const flat=[];
   DATA.forEach((c,ci)=>c.questions.forEach((q,qi)=>{
-    const sc = answers[key(ci,qi)];
-    flat.push({cat:c.category, q:q.q, score:sc});
+    flat.push({cat:c.category,q:q.q,score:answers[key(ci,qi)]});
   }));
-  const top = [...flat].sort((a,b)=>b.score-a.score || a.q.localeCompare(b.q)).slice(0,3);
-  const bot = [...flat].sort((a,b)=>a.score-b.score || a.q.localeCompare(b.q)).slice(0,3);
+  const top=[...flat].sort((a,b)=>b.score-a.score||a.q.localeCompare(b.q)).slice(0,3);
+  const bot=[...flat].sort((a,b)=>a.score-b.score||a.q.localeCompare(b.q)).slice(0,3);
+  const client=$("fClient").value.trim(),date=$("fDate").value;
+  const by=$("fBy").value.trim(),ppl=$("fPpl").value.trim();
+  const dTxt=date?new Date(date+"T00:00:00").toLocaleDateString(undefined,{year:"numeric",month:"long",day:"numeric"}):"";
+  const meta=[client&&["Client",client],dTxt&&["Date",dTxt],by&&["Prepared by",by],ppl&&["Participants",ppl]].filter(Boolean);
 
-  const client = $("fClient").value.trim(), date = $("fDate").value;
-  const by = $("fBy").value.trim(), ppl = $("fPpl").value.trim();
-  const dTxt = date ? new Date(date+"T00:00:00").toLocaleDateString(undefined,{year:"numeric",month:"long",day:"numeric"}) : "";
-  const meta = [client&&["Client",client], dTxt&&["Date",dTxt], by&&["Prepared by",by], ppl&&["Participants",ppl]].filter(Boolean);
+  lastResults={cats,overall,oDelta,oTier,top,bot,client,dTxt,by,ppl,meta};
 
-  const deltaChip = d => d>=0
-    ? `<span class="font-bold" style="color:var(--green)">+${fmt(d)}</span>`
-    : `<span class="font-bold px-1.5 py-0.5 rounded" style="color:var(--err);background:var(--err-bg)">${fmt(d)}</span>`;
+  const dChip=d=>d>=0
+    ? '<span class="font-bold" style="color:var(--green)">+'+fmt(d)+'<\/span>'
+    : '<span class="font-bold px-1.5 py-0.5 rounded" style="color:var(--err);background:var(--err-bg)">'+fmt(d)+'<\/span>';
 
-  $("results").innerHTML = `
-    <div class="card overflow-hidden">
-      <div style="background:var(--ink)" class="text-white p-6 md:p-8">
-        <p class="text-[11px] tracking-[0.2em] uppercase" style="color:var(--accent)">Assessment Results</p>
-        <h2 class="text-2xl md:text-3xl font-bold mt-1">${client?esc(client):"Experimentation Maturity Report"}</h2>
-        ${meta.length?`<div class="flex flex-wrap gap-x-8 gap-y-1 mt-4 text-sm text-white/75">
-          ${meta.map(([k,v])=>`<span><span class="text-white/50">${k}:</span> ${esc(v)}</span>`).join("")}</div>`:""}
-      </div>
-      <div class="p-6 md:p-8">
-        <div class="grid md:grid-cols-3 gap-5">
-          <div class="rounded-xl p-6 text-center" style="background:var(--tint);border:1px solid var(--line)">
-            <p class="text-[11px] uppercase tracking-wide" style="color:var(--muted)">Overall maturity</p>
-            <p class="text-6xl font-bold mt-1" style="color:var(--green)">${fmt(overall)}</p>
-            <p class="text-sm" style="color:var(--muted)">out of 5.00</p>
-          </div>
-          <div class="rounded-xl p-6 md:col-span-2" style="border:1px solid var(--line)">
-            <p class="text-[11px] uppercase tracking-wide" style="color:var(--muted)">Maturity tier</p>
-            <p class="text-2xl font-bold mt-1" style="color:var(--ink)">${oTier.name}</p>
-            <p class="text-sm mt-1" style="color:var(--muted)">${oTier.desc}</p>
-            <div class="mt-4 pt-4 text-sm" style="border-top:1px solid var(--line)">
-              <span style="color:var(--muted)">vs. industry benchmark ${BENCH_OVERALL} &mdash; </span>
-              ${oDelta>=0 ? `<b style="color:var(--green)">${fmt(oDelta)} above</b>`
-                          : `<b style="color:var(--err)">${fmt(Math.abs(oDelta))} below</b>`}
-            </div>
-          </div>
-        </div>
-
-        <h3 class="text-lg font-bold mt-9 mb-3" style="color:var(--ink)">Maturity profile vs. benchmark</h3>
-        <div class="rounded-xl p-4" style="border:1px solid var(--line);max-height:600px">
-          <canvas id="radar" style="max-height:540px"></canvas>
-        </div>
-
-        <h3 class="text-lg font-bold mt-9 mb-3" style="color:var(--ink)">Category scorecard</h3>
-        <div class="overflow-x-auto rounded-xl" style="border:1px solid var(--line)">
-          <table class="w-full text-sm">
-            <thead><tr style="background:var(--tint)">
-              <th class="text-left p-3 font-semibold">Category</th>
-              <th class="text-center p-3 font-semibold">Score</th>
-              <th class="text-center p-3 font-semibold">Benchmark</th>
-              <th class="text-center p-3 font-semibold">Delta</th>
-              <th class="text-left p-3 font-semibold">Tier</th>
-            </tr></thead>
-            <tbody>
-              ${cats.map(c=>`<tr style="border-top:1px solid var(--line)">
-                <td class="p-3 font-medium">${esc(c.name)}</td>
-                <td class="p-3 text-center font-bold" style="color:var(--ink)">${fmt(c.score)}</td>
-                <td class="p-3 text-center" style="color:var(--muted)">${c.bench}</td>
-                <td class="p-3 text-center">${deltaChip(c.delta)}</td>
-                <td class="p-3" style="color:var(--muted)">${c.tier.name}</td>
-              </tr>`).join("")}
-              <tr style="border-top:2px solid var(--ink);background:var(--tint)">
-                <td class="p-3 font-bold">Overall</td>
-                <td class="p-3 text-center font-bold" style="color:var(--green)">${fmt(overall)}</td>
-                <td class="p-3 text-center" style="color:var(--muted)">${BENCH_OVERALL}</td>
-                <td class="p-3 text-center">${deltaChip(oDelta)}</td>
-                <td class="p-3 font-semibold">${oTier.name}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-5 mt-9">
-          <div class="rounded-xl p-5" style="border:1px solid var(--line);background:var(--tint)">
-            <h4 class="font-bold mb-3" style="color:var(--green)">Top strengths</h4>
-            ${top.map(f=>`<div class="mb-3 flex gap-2">
-              <span class="lvl" style="background:var(--accent);color:var(--accent-ink);border-color:var(--green)">${f.score}</span>
-              <div><p class="text-sm font-semibold">${esc(f.q)}</p><p class="text-xs" style="color:var(--muted)">${esc(f.cat)}</p></div></div>`).join("")}
-          </div>
-          <div class="rounded-xl p-5" style="border:1px solid var(--line);background:var(--err-bg)">
-            <h4 class="font-bold mb-3" style="color:var(--err)">Priority gaps</h4>
-            ${bot.map(f=>`<div class="mb-3 flex gap-2">
-              <span class="lvl" style="background:#fff;color:var(--err);border-color:#F3C9D6">${f.score}</span>
-              <div><p class="text-sm font-semibold">${esc(f.q)}</p><p class="text-xs" style="color:var(--muted)">${esc(f.cat)}</p></div></div>`).join("")}
-          </div>
-        </div>
-
-        <h3 class="text-lg font-bold mt-9 mb-1" style="color:var(--ink)">Detailed responses and next level</h3>
-        <p class="text-sm mb-4" style="color:var(--muted)">Each answer with the statement one level up &mdash; the concrete next step for that dimension.</p>
-        ${DATA.map((c,ci)=>`
-          <div class="rounded-xl p-5 mb-4" style="border:1px solid var(--line)">
-            <div class="flex justify-between items-baseline mb-3">
-              <h4 class="font-bold" style="color:var(--ink)">${esc(c.category)}</h4>
-              <span class="text-sm"><b style="color:var(--green)">${fmt(catScore(ci))}</b>
-                <span style="color:var(--muted)">/ bench ${c.benchmark}</span></span>
-            </div>
-            ${c.questions.map((q,qi)=>{
-              const sc = answers[key(ci,qi)];
-              return `<div class="py-3" style="border-top:1px solid var(--line)">
-                <div class="flex gap-3">
-                  <span class="lvl" style="background:var(--accent);color:var(--accent-ink);border-color:var(--green)">${sc}</span>
-                  <div class="flex-1">
-                    <p class="text-sm font-semibold" style="color:var(--ink)">${esc(q.q)}</p>
-                    <p class="text-sm mt-1">${esc(q.s[sc])}</p>
-                    ${sc<5
-                      ? `<p class="text-sm mt-2 p-2 rounded" style="background:var(--tint)">
-                          <span class="font-semibold" style="color:var(--green)">Next level (${sc+1}):</span> ${esc(q.s[sc+1])}</p>`
-                      : `<p class="text-sm mt-2 p-2 rounded font-semibold" style="background:var(--tint);color:var(--green)">Top level reached.</p>`}
-                  </div>
-                </div>
-              </div>`;
-            }).join("")}
-          </div>`).join("")}
-
-        <div class="flex gap-3 mt-8 flex-wrap noprint">
-          <button class="btn" onclick="backToEdit()">&larr; Back to edit answers</button>
-          <button class="btn" onclick="openSaves()">Save / Export</button>
-          <button class="btn btn-a" onclick="window.print()">Print / Save as PDF</button>
-        </div>
-      </div>
-    </div>`;
+  $("results").innerHTML=
+    '<div class="card overflow-hidden">'+
+      '<div style="background:var(--ink)" class="text-white p-6 md:p-8">'+
+        '<p class="text-[11px] tracking-[0.2em] uppercase" style="color:var(--accent)">Assessment Results<\/p>'+
+        '<h2 class="text-2xl md:text-3xl font-bold mt-1">'+(client?esc(client):"Experimentation Maturity Report")+'<\/h2>'+
+        (meta.length?'<div class="flex flex-wrap gap-x-8 gap-y-1 mt-4 text-sm text-white/75">'+
+          meta.map(m=>'<span><span class="text-white/50">'+m[0]+':<\/span> '+esc(m[1])+'<\/span>').join("")+'<\/div>':"")+
+      '<\/div>'+
+      '<div class="p-6 md:p-8">'+
+        '<div class="grid md:grid-cols-3 gap-5">'+
+          '<div class="rounded-xl p-6 text-center" style="background:var(--tint);border:1px solid var(--line)">'+
+            '<p class="text-[11px] uppercase tracking-wide" style="color:var(--muted)">Overall maturity<\/p>'+
+            '<p class="text-6xl font-bold mt-1" style="color:var(--green)">'+fmt(overall)+'<\/p>'+
+            '<p class="text-sm" style="color:var(--muted)">out of 5.00<\/p>'+
+          '<\/div>'+
+          '<div class="rounded-xl p-6 md:col-span-2" style="border:1px solid var(--line)">'+
+            '<p class="text-[11px] uppercase tracking-wide" style="color:var(--muted)">Maturity tier<\/p>'+
+            '<p class="text-2xl font-bold mt-1" style="color:var(--ink)">'+oTier.name+'<\/p>'+
+            '<p class="text-sm mt-1" style="color:var(--muted)">'+oTier.desc+'<\/p>'+
+            '<div class="mt-4 pt-4 text-sm" style="border-top:1px solid var(--line)">'+
+              '<span style="color:var(--muted)">vs. industry benchmark '+BENCH_OVERALL+' &mdash; <\/span>'+
+              (oDelta>=0?'<b style="color:var(--green)">'+fmt(oDelta)+' above<\/b>':'<b style="color:var(--err)">'+fmt(Math.abs(oDelta))+' below<\/b>')+
+            '<\/div>'+
+          '<\/div>'+
+        '<\/div>'+
+        '<h3 class="text-lg font-bold mt-9 mb-3" style="color:var(--ink)">Maturity profile vs. benchmark<\/h3>'+
+        '<div class="rounded-xl p-4" style="border:1px solid var(--line);max-height:600px">'+
+          '<canvas id="radar" style="max-height:540px"><\/canvas>'+
+        '<\/div>'+
+        '<h3 class="text-lg font-bold mt-9 mb-3" style="color:var(--ink)">Category scorecard<\/h3>'+
+        '<div class="overflow-x-auto rounded-xl" style="border:1px solid var(--line)">'+
+          '<table class="w-full text-sm">'+
+            '<thead><tr style="background:var(--tint)">'+
+              '<th class="text-left p-3 font-semibold">Category<\/th>'+
+              '<th class="text-center p-3 font-semibold">Score<\/th>'+
+              '<th class="text-center p-3 font-semibold">Benchmark<\/th>'+
+              '<th class="text-center p-3 font-semibold">Delta<\/th>'+
+              '<th class="text-left p-3 font-semibold">Tier<\/th>'+
+            '<\/tr><\/thead>'+
+            '<tbody>'+
+              cats.map(c=>'<tr style="border-top:1px solid var(--line)">'+
+                '<td class="p-3 font-medium">'+esc(c.name)+'<\/td>'+
+                '<td class="p-3 text-center font-bold" style="color:var(--ink)">'+fmt(c.score)+'<\/td>'+
+                '<td class="p-3 text-center" style="color:var(--muted)">'+c.bench+'<\/td>'+
+                '<td class="p-3 text-center">'+dChip(c.delta)+'<\/td>'+
+                '<td class="p-3" style="color:var(--muted)">'+c.tier.name+'<\/td>'+
+              '<\/tr>').join("")+
+              '<tr style="border-top:2px solid var(--ink);background:var(--tint)">'+
+                '<td class="p-3 font-bold">Overall<\/td>'+
+                '<td class="p-3 text-center font-bold" style="color:var(--green)">'+fmt(overall)+'<\/td>'+
+                '<td class="p-3 text-center" style="color:var(--muted)">'+BENCH_OVERALL+'<\/td>'+
+                '<td class="p-3 text-center">'+dChip(oDelta)+'<\/td>'+
+                '<td class="p-3 font-semibold">'+oTier.name+'<\/td>'+
+              '<\/tr>'+
+            '<\/tbody>'+
+          '<\/table>'+
+        '<\/div>'+
+        '<div class="grid md:grid-cols-2 gap-5 mt-9">'+
+          '<div class="rounded-xl p-5" style="border:1px solid var(--line);background:var(--tint)">'+
+            '<h4 class="font-bold mb-3" style="color:var(--green)">Top strengths<\/h4>'+
+            top.map(f=>'<div class="mb-3 flex gap-2"><span class="lvl" style="background:var(--accent);color:var(--accent-ink);border-color:var(--green)">'+f.score+'<\/span>'+
+              '<div><p class="text-sm font-semibold">'+esc(f.q)+'<\/p><p class="text-xs" style="color:var(--muted)">'+esc(f.cat)+'<\/p><\/div><\/div>').join("")+
+          '<\/div>'+
+          '<div class="rounded-xl p-5" style="border:1px solid var(--line);background:var(--err-bg)">'+
+            '<h4 class="font-bold mb-3" style="color:var(--err)">Priority gaps<\/h4>'+
+            bot.map(f=>'<div class="mb-3 flex gap-2"><span class="lvl" style="background:#fff;color:var(--err);border-color:#F3C9D6">'+f.score+'<\/span>'+
+              '<div><p class="text-sm font-semibold">'+esc(f.q)+'<\/p><p class="text-xs" style="color:var(--muted)">'+esc(f.cat)+'<\/p><\/div><\/div>').join("")+
+          '<\/div>'+
+        '<\/div>'+
+        '<h3 class="text-lg font-bold mt-9 mb-1" style="color:var(--ink)">Detailed responses and next level<\/h3>'+
+        '<p class="text-sm mb-4" style="color:var(--muted)">Each answer with the statement one level up &mdash; the concrete next step for that dimension.<\/p>'+
+        DATA.map((c,ci)=>
+          '<div class="rounded-xl p-5 mb-4" style="border:1px solid var(--line)">'+
+            '<div class="flex justify-between items-baseline mb-3">'+
+              '<h4 class="font-bold" style="color:var(--ink)">'+esc(c.category)+'<\/h4>'+
+              '<span class="text-sm"><b style="color:var(--green)">'+fmt(catScore(ci))+'<\/b> <span style="color:var(--muted)">/ bench '+c.benchmark+'<\/span><\/span>'+
+            '<\/div>'+
+            c.questions.map((q,qi)=>{
+              const sc=answers[key(ci,qi)];
+              return '<div class="py-3" style="border-top:1px solid var(--line)">'+
+                '<div class="flex gap-3">'+
+                  '<span class="lvl" style="background:var(--accent);color:var(--accent-ink);border-color:var(--green)">'+sc+'<\/span>'+
+                  '<div class="flex-1">'+
+                    '<p class="text-sm font-semibold" style="color:var(--ink)">'+esc(q.q)+'<\/p>'+
+                    '<p class="text-sm mt-1">'+esc(q.s[sc])+'<\/p>'+
+                    (sc<5
+                      ? '<p class="text-sm mt-2 p-2 rounded" style="background:var(--tint)"><span class="font-semibold" style="color:var(--green)">Next level ('+(sc+1)+'):<\/span> '+esc(q.s[sc+1])+'<\/p>'
+                      : '<p class="text-sm mt-2 p-2 rounded font-semibold" style="background:var(--tint);color:var(--green)">Top level reached.<\/p>')+
+                  '<\/div>'+
+                '<\/div>'+
+              '<\/div>';
+            }).join("")+
+          '<\/div>'
+        ).join("")+
+        /* ── Export & share panel ── */
+        '<div class="rounded-xl p-5 mt-9 noprint" style="border:1px solid var(--line);background:var(--tint)">'+
+          '<h4 class="font-bold" style="color:var(--ink)">Export &amp; share<\/h4>'+
+          '<p class="text-sm mt-1 mb-3" style="color:var(--muted)">Send the client report as a standalone file — opens in any browser, works offline, no account needed.<\/p>'+
+          '<div class="flex gap-2 flex-wrap">'+
+            '<button class="btn btn-a" onclick="exportClientReport()">Download client report<\/button>'+
+            '<button class="btn" onclick="exportCSV()">Download scores (CSV)<\/button>'+
+            '<button class="btn" onclick="exportJSON()">Export working file<\/button>'+
+            '<button class="btn" onclick="window.print()">Print / Save as PDF<\/button>'+
+          '<\/div>'+
+        '<\/div>'+
+        '<div class="flex gap-3 mt-4 flex-wrap noprint">'+
+          '<button class="btn" onclick="backToEdit()">← Back to edit answers<\/button>'+
+          '<button class="btn" onclick="openSaves()">Save / Load<\/button>'+
+        '<\/div>'+
+      '<\/div>'+
+    '<\/div>';
 
   $("quiz").classList.add("hidden");
   $("results").classList.remove("hidden");
@@ -560,55 +562,190 @@ function calculate(){
   autosave();
 
   if(radar) radar.destroy();
-  radar = new Chart($("radar"), {
+  radar=new Chart($("radar"),{
     type:"radar",
-    data:{ labels:cats.map(c=>c.name),
-      datasets:[
-        {label:client||"Client score", data:cats.map(c=>c.score),
-         backgroundColor:"rgba(171,255,68,.35)", borderColor:"#226B1E", borderWidth:2,
-         pointBackgroundColor:"#ABFF44", pointBorderColor:"#226B1E", pointRadius:5},
-        {label:"Industry benchmark", data:cats.map(c=>c.bench),
-         backgroundColor:"rgba(156,163,175,.15)", borderColor:"#9CA3AF", borderWidth:2,
-         borderDash:[5,4], pointBackgroundColor:"#9CA3AF", pointRadius:4}
-      ]},
-    options:{ responsive:true, maintainAspectRatio:false,
+    data:{labels:cats.map(c=>c.name),datasets:[
+      {label:client||"Client score",data:cats.map(c=>c.score),
+       backgroundColor:"rgba(171,255,68,.35)",borderColor:"#226B1E",borderWidth:2,
+       pointBackgroundColor:"#ABFF44",pointBorderColor:"#226B1E",pointRadius:5},
+      {label:"Industry benchmark",data:cats.map(c=>c.bench),
+       backgroundColor:"rgba(156,163,175,.15)",borderColor:"#9CA3AF",borderWidth:2,
+       borderDash:[5,4],pointBackgroundColor:"#9CA3AF",pointRadius:4}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
       animation:{duration:900,easing:"easeOutQuart"},
-      plugins:{ legend:{position:"bottom",labels:{padding:16,font:{size:12}}},
+      plugins:{legend:{position:"bottom",labels:{padding:16,font:{size:12}}},
         title:{display:true,text:"Category scores vs. industry benchmark",
-          font:{size:14,weight:"bold"},color:"#08251A",padding:{bottom:12}} },
-      scales:{ r:{ min:0,max:5,ticks:{stepSize:1,backdropColor:"transparent",color:"#616755"},
-        grid:{color:"#E4F0DA"}, angleLines:{color:"#E4F0DA"},
-        pointLabels:{font:{size:12,weight:"600"},color:"#08251A"} } } }
+          font:{size:14,weight:"bold"},color:"#08251A",padding:{bottom:12}}},
+      scales:{r:{min:0,max:5,ticks:{stepSize:1,backdropColor:"transparent",color:"#616755"},
+        grid:{color:"#E4F0DA"},angleLines:{color:"#E4F0DA"},
+        pointLabels:{font:{size:12,weight:"600"},color:"#08251A"}}}}
   });
 }
-
 function backToEdit(){
   $("results").classList.add("hidden");
   $("quiz").classList.remove("hidden");
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
-/* ================= BOOT ================= */
+/* ===== CLIENT EXPORTS ===== */
+function exportCSV(){
+  if(!lastResults){alert("Click \"Give me the total\" first.");return;}
+  const R=lastResults;
+  const qt=v=>'"'+String(v===undefined?"":v).replace(/"/g,'""')+'"';
+  const rows=[
+    ["Client",R.client||""],["Date",R.dTxt||""],["Prepared by",R.by||""],["Participants",R.ppl||""],
+    [],[" Category","Question","Score","Selected statement"]
+  ];
+  DATA.forEach((c,ci)=>c.questions.forEach((q,qi)=>{
+    const sc=answers[key(ci,qi)];
+    rows.push([c.category,q.q,sc,q.s[sc]]);
+  }));
+  rows.push([]);
+  rows.push(["Category","Score","Benchmark","Delta","Tier"]);
+  R.cats.forEach(c=>rows.push([c.name,fmt(c.score),c.bench,fmt(c.delta),c.tier.name]));
+  rows.push(["Overall",fmt(R.overall),BENCH_OVERALL,fmt(R.oDelta),R.oTier.name]);
+  const csv=rows.map(r=>r.map(qt).join(",")).join("\r\n");
+  if(!_download(_slug(R.client)+"-maturity-scores.csv","text/csv;charset=utf-8",csv))
+    alert("Download blocked. Use Print / Save as PDF instead.");
+}
+
+function exportClientReport(){
+  if(!lastResults){alert("Click \"Give me the total\" first.");return;}
+  const R=lastResults;
+  let chartImg="";
+  try{if(radar) chartImg=radar.toBase64Image();}catch(e){}
+
+  const metaHtml=R.meta.length
+    ? '<div class="meta">'+R.meta.map(m=>'<span><b>'+esc(m[0])+':<\/b> '+esc(m[1])+'<\/span>').join("")+'<\/div>':"";
+  const benchLine=R.oDelta>=0
+    ? '<b class="pos">'+fmt(R.oDelta)+' above<\/b> the industry benchmark of '+BENCH_OVERALL
+    : '<b class="neg">'+fmt(Math.abs(R.oDelta))+' below<\/b> the industry benchmark of '+BENCH_OVERALL;
+  const scRows=R.cats.map(c=>
+    '<tr><td>'+esc(c.name)+'<\/td><td class="n">'+fmt(c.score)+'<\/td><td class="n">'+c.bench+
+    '<\/td><td class="n '+(c.delta>=0?'pos':'neg')+'">'+(c.delta>=0?'+':'')+fmt(c.delta)+'<\/td><td>'+c.tier.name+'<\/td><\/tr>').join("");
+  const strengthItems=R.top.map(f=>'<div class="item"><span class="pill">'+f.score+'<\/span><div><p>'+esc(f.q)+'<\/p><small>'+esc(f.cat)+'<\/small><\/div><\/div>').join("");
+  const gapItems=R.bot.map(f=>'<div class="item"><span class="pill b">'+f.score+'<\/span><div><p>'+esc(f.q)+'<\/p><small>'+esc(f.cat)+'<\/small><\/div><\/div>').join("");
+  const detailHtml=DATA.map((c,ci)=>{
+    const cs=R.cats[ci];
+    const qs=c.questions.map((q,qi)=>{
+      const sc=answers[key(ci,qi)];
+      const nx=sc<5
+        ? '<p class="nx"><b>Next level ('+(sc+1)+'):<\/b> '+esc(q.s[sc+1])+'<\/p>'
+        : '<p class="nx top">Top level reached.<\/p>';
+      return '<div class="q"><span class="pill">'+sc+'<\/span><div class="qb"><p class="qt">'+esc(q.q)+'<\/p><p class="qs">'+esc(q.s[sc])+'<\/p>'+nx+'<\/div><\/div>';
+    }).join("");
+    return '<div class="section"><div class="cat-hd"><h3>'+esc(c.category)+'<\/h3><span><b style="color:#226B1E">'+fmt(cs.score)+'<\/b> <em>benchmark '+cs.bench+'<\/em><\/span><\/div>'+qs+'<\/div>';
+  }).join("");
+
+  /* Build the CSS and body separately to avoid any closing-tag issues */
+  const css=[
+    '*{box-sizing:border-box}',
+    'body{margin:0;background:#F9FCF8;color:#202320;font:15px/1.6 ui-sans-serif,system-ui,Arial,sans-serif}',
+    '.wrap{max-width:860px;margin:0 auto;padding:0 24px 56px}',
+    'header{background:#08251A;color:#fff;padding:32px 0;margin-bottom:24px}',
+    '.eyebrow{color:#ABFF44;font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin:0}',
+    'h1{font-size:26px;margin:6px 0 0}',
+    '.meta{margin-top:14px;font-size:13px;color:rgba(255,255,255,.75)}',
+    '.meta span{display:inline-block;margin-right:24px}',
+    'h2{font-size:18px;color:#08251A;margin:32px 0 10px}',
+    '.hero{display:flex;gap:18px;flex-wrap:wrap}',
+    '.hero .sc{flex:0 0 200px;background:#EEFFD9;border:1px solid #E4F0DA;border-radius:12px;padding:20px;text-align:center}',
+    '.hero .sc b{display:block;font-size:48px;color:#226B1E;line-height:1.1}',
+    '.hero .tr{flex:1 1 280px;border:1px solid #E4F0DA;border-radius:12px;padding:20px;background:#fff}',
+    '.lbl{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#616755;margin:0}',
+    'table{width:100%;border-collapse:collapse;font-size:13.5px;background:#fff;border:1px solid #E4F0DA}',
+    'th{background:#EEFFD9;text-align:left;padding:10px;font-weight:600}',
+    'td{padding:10px;border-top:1px solid #E4F0DA}',
+    'td.n,th.n{text-align:center}',
+    '.pos{color:#226B1E;font-weight:700}.neg{color:#5D2E41;font-weight:700}',
+    'tr.total td{background:#EEFFD9;border-top:2px solid #08251A;font-weight:700}',
+    '.cols{display:flex;gap:16px;flex-wrap:wrap}',
+    '.col{flex:1 1 260px;border:1px solid #E4F0DA;border-radius:12px;padding:16px}',
+    '.col.g{background:#EEFFD9}.col.r{background:#FFDFE8}',
+    '.col h3{margin:0 0 10px;font-size:14px}',
+    '.item{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start}',
+    '.pill{flex:none;width:28px;height:28px;border-radius:7px;background:#ABFF44;color:#202320;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;border:1px solid #226B1E}',
+    '.pill.b{background:#fff;color:#5D2E41;border-color:#F3C9D6}',
+    '.item p{margin:0;font-size:13.5px;font-weight:600}',
+    '.item small{color:#616755}',
+    '.section{border:1px solid #E4F0DA;border-radius:12px;padding:16px;margin-bottom:12px;background:#fff}',
+    '.cat-hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}',
+    '.cat-hd h3{margin:0;font-size:15px;color:#08251A}',
+    '.cat-hd em{color:#616755;font-style:normal;font-size:13px}',
+    '.q{border-top:1px solid #E4F0DA;padding:11px 0;display:flex;gap:10px;align-items:flex-start}',
+    '.qb{flex:1}.qt{font-weight:600;font-size:13.5px;color:#08251A;margin:0}',
+    '.qs{margin:4px 0 0;font-size:13.5px}',
+    '.nx{margin:7px 0 0;font-size:13px;background:#EEFFD9;border-radius:7px;padding:8px}',
+    '.nx b{color:#226B1E}.nx.top{font-weight:600;color:#226B1E}',
+    '.chart-box{background:#fff;border:1px solid #E4F0DA;border-radius:12px;padding:16px;text-align:center}',
+    '.chart-box img{max-width:100%;height:auto}',
+    'footer{margin-top:36px;padding-top:14px;border-top:1px solid #E4F0DA;font-size:12px;color:#616755}',
+    '@media print{.section,.col,table,.chart-box{break-inside:avoid;page-break-inside:avoid}}'
+  ].join("\n");
+
+  const parts=[
+    '<!DOCTYPE html>',
+    '<html lang="en">',
+    '<head>',
+    '<meta charset="utf-8">',
+    '<meta name="viewport" content="width=device-width,initial-scale=1">',
+    '<title>'+(R.client?esc(R.client)+' \u2014 ':'')+' Experimentation Maturity Assessment<\/title>',
+    '<style>'+css+'<\/style>',
+    '<\/head>',
+    '<body>',
+    '<header><div class="wrap"><p class="eyebrow">Optimizely<\/p><h1>Experimentation Maturity Assessment<\/h1>'+metaHtml+'<\/div><\/header>',
+    '<div class="wrap">',
+    '<div class="hero">',
+    '<div class="sc"><p class="lbl">Overall maturity<\/p><b>'+fmt(R.overall)+'<\/b><span style="color:#616755">out of 5.00<\/span><\/div>',
+    '<div class="tr"><p class="lbl">Maturity tier<\/p><p style="font-size:20px;font-weight:700;margin:4px 0 0;color:#08251A">'+R.oTier.name+'<\/p>',
+    '<p style="margin:5px 0 0;color:#616755">'+R.oTier.desc+'<\/p>',
+    '<p style="margin:12px 0 0;padding-top:10px;border-top:1px solid #E4F0DA">'+benchLine+'.<\/p><\/div>',
+    '<\/div>',
+    (chartImg?'<h2>Maturity profile vs. benchmark<\/h2><div class="chart-box"><img alt="Radar chart" src="'+chartImg+'"><\/div>':''),
+    '<h2>Category scorecard<\/h2>',
+    '<table><thead><tr><th>Category<\/th><th class="n">Score<\/th><th class="n">Benchmark<\/th><th class="n">Delta<\/th><th>Tier<\/th><\/tr><\/thead>',
+    '<tbody>'+scRows,
+    '<tr class="total"><td>Overall<\/td><td class="n">'+fmt(R.overall)+'<\/td><td class="n">'+BENCH_OVERALL+'<\/td>',
+    '<td class="n '+(R.oDelta>=0?'pos':'neg')+'">'+(R.oDelta>=0?'+':'')+fmt(R.oDelta)+'<\/td><td>'+R.oTier.name+'<\/td><\/tr>',
+    '<\/tbody><\/table>',
+    '<h2>Strengths and priority gaps<\/h2>',
+    '<div class="cols"><div class="col g"><h3 style="color:#226B1E">Top strengths<\/h3>'+strengthItems+'<\/div>',
+    '<div class="col r"><h3 style="color:#5D2E41">Priority gaps<\/h3>'+gapItems+'<\/div><\/div>',
+    '<h2>Detailed responses and next level<\/h2>',
+    '<p style="color:#616755;margin:-4px 0 12px">Every answer with the statement one level up — your concrete next step.<\/p>',
+    detailHtml,
+    '<footer>Scored 0\u20135 across 25 questions in 5 categories. Category score = average of its 5 questions; overall score = average of 5 category scores. Benchmarks reflect industry averages.<\/footer>',
+    '<\/div>',
+    '<\/body>',
+    '<\/html>'
+  ];
+
+  const doc=parts.join("\n");
+  const fn=_slug(R.client)+"-experimentation-maturity-report.html";
+  if(!_download(fn,"text/html;charset=utf-8",doc))
+    alert("Download blocked in this view. Use Print / Save as PDF instead.");
+}
+
+/* ===== BOOT ===== */
 (function init(){
-  $("fDate").value = new Date().toISOString().slice(0,10);
+  $("fDate").value=new Date().toISOString().slice(0,10);
   if(!storageOK){ $("storeWarn").classList.remove("hidden"); }
-  else {
-    const raw = sGet(AUTO_KEY);
+  else{
+    const raw=sGet(AUTO_KEY);
     if(raw){
       try{
-        const s = JSON.parse(raw);
-        if(s && s.answers && Object.keys(s.answers).length){
+        const s=JSON.parse(raw);
+        if(s&&s.answers&&Object.keys(s.answers).length){
           applySnapshot(s);
-          $("restoreTxt").textContent =
-            Object.keys(answers).length+" of 25 answers recovered from "+
-            new Date(s.savedAt).toLocaleString()+".";
+          $("restoreTxt").textContent=Object.keys(answers).length+" of 25 answers recovered from "+new Date(s.savedAt).toLocaleString()+".";
           $("restoreBanner").classList.remove("hidden");
         }
       }catch(e){}
     }
   }
-  window.addEventListener("beforeunload", e=>{
-    if(Object.keys(answers).length && !storageOK){ e.preventDefault(); e.returnValue=""; }
+  window.addEventListener("beforeunload",e=>{
+    if(Object.keys(answers).length&&!storageOK){e.preventDefault();e.returnValue="";}
   });
   renderTabs(); renderCats(); updateBar();
 })();

@@ -1,0 +1,171 @@
+<!DOCTYPE html><html lang="en-US"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Immediate Media Company &middot; Experimentation maturity review &middot; Q2 26'</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;600;700;900&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fir:#08251A; --midfir:#0D3A29; --lfir:#197050;
+  --lf:#ABFF44; --grass:#7DDD3D; --go:#3AB533; --teal:#007B79;
+  --n1:#FFFFFF; --n2:#EFF6E9; --n3:#E4F0DA; --n4:#D8E4CB; --n5:#C3CEAF; --n6:#A1AC8D;
+  --ink:#08251A; --ink2:#4F5E48; --line:#D3DEC7;
+  --head:'Roboto Condensed','Roboto',sans-serif; --sans:'Roboto',system-ui,sans-serif;
+  --mono:'Roboto Mono',monospace;
+  --sh:0 14px 36px rgba(8,37,26,.08),0 3px 10px rgba(8,37,26,.04);
+  --fs-xxs:11px; --fs-xs:12px; --fs-sm:13px; --fs-body:14.5px; --fs-ui:15px;
+  --fs-sub:16px; --fs-lede:18px; --c-warn:#C97B30;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--n4);font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5}
+.doc{max-width:1080px;margin:0 auto;background:var(--n1);box-shadow:0 30px 80px rgba(8,37,26,.16)}
+h1{font-family:var(--head);font-weight:900;letter-spacing:-.025em;line-height:1}
+.lede{font-size:var(--fs-lede);color:var(--ink2);line-height:1.55}
+b,strong{font-weight:700;color:var(--ink)}
+section{padding:60px 72px}
+.band-n3{background:var(--n3)}
+.sec-title{font-family:var(--head);font-weight:700;font-size:30px;letter-spacing:-.01em;color:var(--ink);padding-bottom:14px;border-bottom:2px solid var(--fir);margin-bottom:32px;display:inline-block}
+.cover{background:var(--fir);color:#EAF3EC}
+.cover-top{display:flex;justify-content:space-between;align-items:center;padding:26px 72px;border-bottom:1px solid rgba(255,255,255,.10);font-family:var(--mono);font-size:var(--fs-xs);letter-spacing:.14em;text-transform:uppercase;color:#AFC7BA}
+.cover-main{padding:60px 72px 56px;display:grid;grid-template-columns:1fr auto;gap:48px;align-items:end}
+.cover-eyebrow{font-family:var(--mono);font-size:var(--fs-xs);letter-spacing:.16em;text-transform:uppercase;color:var(--lf);margin-bottom:20px}
+.cover-org{font-family:var(--mono);font-size:var(--fs-body);color:#AFC7BA;margin-bottom:8px}
+.cover h1{font-size:52px;color:#fff;max-width:560px}
+.cover-ctx{font-size:var(--fs-sub);color:#CADED2;line-height:1.55;margin-top:20px;max-width:520px}
+.score-box{text-align:right}
+.score-num{font-family:var(--head);font-weight:900;font-size:128px;line-height:.82;color:var(--lf);letter-spacing:-.04em}
+.score-num span{font-size:40px;color:#A6BFB1;letter-spacing:0}
+.score-tier{font-family:var(--mono);font-size:var(--fs-ui);letter-spacing:.18em;text-transform:uppercase;color:#fff;margin-top:14px}
+.cover-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;padding:24px 72px 30px;border-top:1px solid rgba(255,255,255,.10)}
+.cm-lab{font-family:var(--mono);font-size:var(--fs-xxs);letter-spacing:.14em;text-transform:uppercase;color:#A6BFB1}
+.cm-val{font-size:var(--fs-ui);color:#EAF3EC;margin-top:6px;font-weight:500}
+.cover-bench{width:320px;margin:26px 0 0 auto;text-align:left}
+.cb-top{position:relative;height:16px}
+.cb-you{position:absolute;bottom:0;transform:translateX(-50%);font-family:var(--mono);font-size:var(--fs-xxs);color:var(--lf);white-space:nowrap}
+.cb-track{position:relative;height:8px;border-radius:99px;background:rgba(255,255,255,.15);margin-top:2px}
+.cb-fill{position:absolute;left:0;top:0;height:100%;border-radius:99px;background:var(--lf)}
+.cb-tick{position:absolute;top:-5px;width:2px;height:18px;border-radius:2px;background:rgba(255,255,255,.5);transform:translateX(-50%)}
+.cb-dot{position:absolute;top:50%;width:15px;height:15px;border-radius:50%;background:var(--go);border:3px solid #fff;box-shadow:0 2px 6px rgba(8,37,26,.4);transform:translate(-50%,-50%)}
+.cb-scale{position:relative;height:16px;margin-top:11px}
+.cb-scale span{position:absolute;font-family:var(--mono);font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;color:#A6BFB1;white-space:nowrap}
+.cb-scale .sc-med{transform:translateX(-100%);padding-right:2px}
+.findings{border-top:1px solid var(--line)}
+.finding{display:grid;grid-template-columns:34px 1fr;gap:18px;padding:22px 0;border-bottom:1px solid var(--line);align-items:start}
+.finding-n{font-family:var(--mono);font-size:var(--fs-sm);color:var(--go);font-weight:500;padding-top:3px}
+.finding-t{font-size:17px;line-height:1.5;color:var(--ink)}
+.tier-ladder{display:flex;gap:8px;margin:24px 0 16px}
+.tl-pill{flex:1;text-align:center;font-family:var(--mono);font-size:var(--fs-xxs);letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);background:var(--n2);border:1px solid var(--line);border-radius:12px;padding:14px 6px}
+.tl-pill.on{background:var(--go);border-color:var(--go);color:#fff;font-weight:700;box-shadow:0 6px 18px rgba(58,181,51,.28)}
+.tier-explain{font-size:var(--fs-ui);color:var(--ink2);line-height:1.55}
+.ws-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.ws-eyebrow{font-family:var(--mono);font-size:var(--fs-xxs);letter-spacing:.13em;text-transform:uppercase;color:var(--ink2);margin-bottom:16px}
+.ws-sub{font-size:var(--fs-body);color:var(--ink2);line-height:1.55;margin-top:12px}
+.ws-divider{height:1px;background:var(--line);margin:30px 0}
+.standgauge{margin:10px 0 0}
+.sg-mark{position:relative;height:70px}
+.sg-readout{position:absolute;bottom:2px;transform:translateX(-50%);text-align:center;white-space:nowrap}
+.sg-readout .sg-num{font-family:var(--head);font-weight:900;font-size:46px;line-height:.85;letter-spacing:-.03em;color:var(--lfir)}
+.sg-readout .sg-num i{font-style:normal;font-size:19px;color:var(--ink2);font-weight:700}
+.sg-readout .sg-tier{display:block;font-family:var(--mono);font-size:var(--fs-xxs);letter-spacing:.16em;text-transform:uppercase;color:var(--go);margin-top:6px}
+.sg-track{position:relative;height:14px;border-radius:99px;background:var(--n4)}
+.sg-fill{position:absolute;left:0;top:0;height:100%;border-radius:99px;background:var(--go)}
+.sg-tick{position:absolute;top:-5px;width:2.5px;height:24px;background:var(--n6);border-radius:2px;transform:translateX(-50%)}
+.sg-dot{position:absolute;top:50%;width:20px;height:20px;border-radius:50%;background:var(--go);border:4px solid #fff;box-shadow:0 2px 7px rgba(8,37,26,.32);transform:translate(-50%,-50%)}
+.sg-scale{position:relative;height:18px;margin-top:14px}
+.sg-scale span{position:absolute;font-family:var(--mono);font-size:var(--fs-xs);text-transform:uppercase;color:var(--ink2);white-space:nowrap}
+.sg-scale .sc-med{transform:translateX(-100%);padding-right:2px}
+.sb-rows{display:flex;flex-direction:column;gap:20px}
+.sb-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.sb-name{font-family:var(--head);font-weight:700;font-size:var(--fs-sub);color:var(--ink)}
+.sb-val{font-family:var(--head);font-weight:700;font-size:17px;color:var(--ink)}
+.sb-val i{font-style:normal;font-size:var(--fs-xs);color:var(--ink2);font-weight:400}
+.sb-bar{height:8px;border-radius:99px;background:var(--n4);overflow:hidden}
+.sb-fill{height:100%;border-radius:99px;background:var(--go)}
+.sb-fill.c-warn{background:var(--c-warn)}
+.sb-desc{font-size:var(--fs-sm);color:var(--ink2);margin-top:9px;line-height:1.45}
+.bench-card{background:var(--n2);border:1px solid #C9E6D0;border-radius:14px;padding:20px 22px;margin-top:32px}
+.bench-card-title{font-family:var(--head);font-weight:700;font-size:var(--fs-ui);color:var(--ink);margin-bottom:8px}
+.bench-card-body{font-size:var(--fs-sm);color:var(--ink2);line-height:1.6}
+.sig{display:grid;grid-template-columns:1fr 1fr;gap:52px;padding:36px 0;border-bottom:1px solid var(--line);align-items:start}
+.sig:first-of-type{border-top:1px solid var(--line);margin-top:18px}
+.sig-name{font-family:var(--mono);font-size:var(--fs-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);margin-bottom:18px}
+.sig-big{font-family:var(--head);font-weight:900;font-size:60px;letter-spacing:-.03em;line-height:.9;color:var(--go);display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.sig-big span{font-family:var(--sans);font-size:17px;font-weight:400;color:var(--ink2);letter-spacing:0}
+.sig.gap .sig-big{color:var(--c-warn)}
+.sig-pct{font-family:var(--mono);font-size:var(--fs-xs);text-transform:uppercase;color:var(--lfir);margin-top:16px;font-weight:500}
+.sig.gap .sig-pct{color:var(--ink2)}
+.sig-read{font-size:var(--fs-ui);line-height:1.6;color:var(--ink2);margin-top:18px;max-width:470px}
+.sig-note{font-size:var(--fs-xs);color:var(--ink2);line-height:1.5;margin-top:16px;padding-left:16px;position:relative}
+.sig-note::before{content:'\25CF';position:absolute;left:0;color:var(--go);font-size:8px;top:4px}
+.slider{position:relative;height:104px}
+.sl-pill{position:absolute;top:0;transform:translateX(-50%);font-family:var(--mono);font-size:var(--fs-xs);font-weight:500;color:#fff;background:var(--go);border-radius:99px;padding:6px 14px;white-space:nowrap}
+.sig.gap .sl-pill{background:var(--c-warn)}
+.sl-toplab{position:absolute;top:42px;transform:translateX(-50%);font-family:var(--mono);font-size:var(--fs-xxs);letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);white-space:nowrap}
+.sl-track{position:absolute;top:64px;left:0;right:0;height:6px;border-radius:99px;background:var(--n4)}
+.sl-mark{position:absolute;top:58px;width:2px;height:18px;background:var(--n5)}
+.sl-ring{position:absolute;top:58px;width:18px;height:18px;border-radius:50%;border:4px solid var(--go);background:#fff;transform:translateX(-50%);box-sizing:border-box}
+.sig.gap .sl-ring{border-color:var(--c-warn)}
+.sl-botval{position:absolute;top:82px;transform:translateX(-50%);font-family:var(--head);font-weight:700;font-size:var(--fs-sub);color:var(--ink);white-space:nowrap}
+.trend{margin-top:10px;border-top:1px solid var(--line);padding-top:18px}
+.trend-lab{font-family:var(--mono);font-size:var(--fs-xxs);letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);margin-bottom:16px}
+.bars{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:end}
+.bar-col{display:flex;flex-direction:column;align-items:center;justify-content:flex-end}
+.bar-val{font-family:var(--head);font-weight:700;font-size:var(--fs-lede);color:var(--ink2);margin-bottom:8px}
+.bar-col.cur .bar-val{color:var(--go)}
+.bar{width:62%;border-radius:6px 6px 0 0;background:var(--n4)}
+.bar-col.cur .bar{background:var(--go)}
+.bar-q{font-family:var(--mono);font-size:var(--fs-xxs);color:var(--n6);margin-top:8px}
+.bar-col.cur .bar-q{color:var(--go)}
+.prog-legend{display:flex;gap:22px;margin:20px 0 10px;font-family:var(--mono);font-size:var(--fs-xxs);letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+.prog-legend span{display:flex;align-items:center;gap:8px}
+.prog-legend .pl-you::before{content:'';width:22px;height:8px;border-radius:99px;background:var(--go);display:inline-block}
+.prog-legend .pl-avg::before{content:'';width:2px;height:16px;border-radius:2px;background:var(--midfir);display:inline-block}
+.prog-rows{border-top:1px solid var(--line)}
+.prog-row{display:grid;grid-template-columns:220px 1fr 92px;gap:26px;align-items:center;padding:18px 0;border-bottom:1px solid var(--line)}
+.prog-name{font-family:var(--head);font-weight:700;font-size:var(--fs-sub);color:var(--ink)}
+.prog-track{position:relative;height:10px;border-radius:99px;background:var(--n4)}
+.prog-fill{position:absolute;left:0;top:0;height:100%;border-radius:99px;background:var(--go)}
+.prog-row.gap .prog-fill{background:var(--c-warn)}
+.prog-cohort{position:absolute;top:-4px;width:2px;height:18px;border-radius:2px;background:var(--midfir);transform:translateX(-50%)}
+.prog-vals{text-align:right;white-space:nowrap}
+.prog-vals .pv-you{font-family:var(--head);font-weight:700;font-size:var(--fs-lede);color:var(--go)}
+.prog-row.gap .prog-vals .pv-you{color:var(--c-warn)}
+.prog-vals .pv-avg{display:block;font-family:var(--mono);font-size:var(--fs-xxs);color:var(--n6);margin-top:2px}
+.prog-foot{margin-top:20px;font-size:var(--fs-sm);color:var(--ink2)}
+.feat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:6px}
+.feat-tile{border-radius:14px;padding:18px 16px 20px;border:1px solid var(--line);background:var(--n1);position:relative;box-shadow:var(--sh);display:flex;flex-direction:column}
+.feat-tile.on{background:var(--n2);border-color:#C9E6D0}
+.feat-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.feat-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--n5);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.feat-tile.on .feat-dot{background:var(--go);border-color:var(--go)}
+.feat-tile.on .feat-dot::after{content:'\2713';color:#fff;font-size:var(--fs-xs);font-weight:700;line-height:1}
+.feat-stat{font-family:var(--mono);font-size:var(--fs-xxs);letter-spacing:.04em;text-transform:uppercase;color:var(--n6);font-weight:500}
+.feat-tile.on .feat-stat{color:var(--lfir);font-weight:700}
+.feat-name{font-family:var(--head);font-weight:700;font-size:var(--fs-sub);line-height:1.2;color:var(--ink)}
+.feat-tile:not(.on) .feat-name{color:var(--ink2)}
+.feat-metric-wrap{display:flex;align-items:baseline;justify-content:space-between;margin-top:12px}
+.feat-metric{font-family:var(--head);font-weight:900;font-size:24px;line-height:1;color:var(--lfir);letter-spacing:-.02em}
+.feat-tile:not(.on) .feat-metric{color:var(--ink2)}
+.feat-metric-sub{font-family:var(--mono);font-size:var(--fs-xxs);color:var(--n6);letter-spacing:.04em;text-transform:uppercase}
+.feat-bar{height:6px;border-radius:99px;background:var(--n4);overflow:hidden;margin:8px 0 10px}
+.feat-fill{height:100%;border-radius:99px;background:var(--go)}
+.feat-tile:not(.on) .feat-fill{background:var(--n6)}
+.feat-one{font-size:12px;color:var(--ink2);line-height:1.45;margin-top:auto}
+.feat-tile.unknown{background:repeating-linear-gradient(45deg,#FAFBF7,#FAFBF7 6px,#F2F5EC 6px,#F2F5EC 12px);border-style:dashed;border-color:#C3CEAF}
+.feat-tile.unknown .feat-dot{border-style:dashed}
+.feat-tile.unknown .feat-stat{color:#A1AC8D}
+.feat-tile.unknown .feat-name{color:#A1AC8D}
+.feat-tile.unknown .feat-metric{color:#A1AC8D;font-size:18px;font-style:italic;font-weight:400}
+.feat-tile.unknown .feat-bar{background:transparent;border:1px dashed var(--n5)}
+.rec-grid{display:grid;gap:18px;margin-top:4px}
+.rec-card{background:var(--n1);border:1px solid var(--line);border-radius:20px;padding:28px 30px;box-shadow:var(--sh);display:grid;grid-template-columns:44px 1fr auto;gap:24px;align-items:start}
+.rec-num{font-family:var(--head);font-weight:900;font-size:30px;color:var(--n5);line-height:1}
+.rec-fmt{display:inline-block;font-family:var(--mono);font-size:var(--fs-xxs);text-transform:uppercase;padding:4px 10px;border-radius:7px;margin-bottom:10px;background:var(--n3);color:var(--midfir)}
+.rec-area{font-family:var(--mono);font-size:var(--fs-xxs);color:var(--ink2);margin-bottom:6px}
+.rec-title{font-family:var(--head);font-weight:700;font-size:21px;color:var(--ink);line-height:1.1;margin-bottom:10px}
+.rec-body{font-size:var(--fs-body);line-height:1.55;color:var(--ink2);max-width:620px}
+.rec-cta{align-self:center;text-align:right}
+.btn{font-family:var(--sans);font-weight:700;font-size:var(--fs-body);color:var(--fir);background:var(--lf);border:0;border-radius:99px;padding:11px 20px;white-space:nowrap;cursor:pointer}
+.footer{padding:22px 72px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:var(--fs-xxs);color:#A6BFB1;background:var(--fir)}
+.prov{background:#FFF8E8;border:1px solid #E8D9A8;border-radius:12px;padding:16px 20px;margin:0 72px 30px;font-size:var(--fs-sm);color:#6B5518;line-height:1.6}
+.prov b{color:#4A3A0F}
+@media(max-width:900px){.ws-grid{grid-template-columns:1fr}.sig{grid-template-columns:1fr;gap:28px}.feat-grid{grid-template-columns:repeat(2,1fr)}.cover-main{grid-template-columns:1fr}}
+</style></head><body><div class="doc"><div class="cover"><div class="cover-top"><span>Optimizely</span><span>Immediate Media Company &middot; Q2 26'</span></div><div class="cover-main"><div><div class="cover-eyebrow">Quarterly experimentation maturity</div><div class="cover-org">Immediate Media Company</div><h1>An established experimentation program</h1><div class="cover-ctx">At 71, Immediate Media Company is an <b>Established</b> experimentation program, running 8.3 experiments a month against a cohort median of 3.7, with 28% of tests comparing three or more variations.</div></div><div class="score-box"><div class="score-num">71<span>/100</span></div><div class="score-tier">Established</div><div class="cover-bench"><div class="cb-top"><span class="cb-you" style="left:71%">You &middot; 71</span></div><div class="cb-track"><div class="cb-fill" style="width:71%"></div><div class="cb-tick" style="left:62%"></div><div class="cb-tick" style="left:77%"></div><div class="cb-dot" style="left:71%"></div></div><div class="cb-scale"><span class="sc-med" style="left:62%">Median 62</span><span style="left:77%">Top decile 77</span></div></div></div></div><div class="cover-meta"><div><div class="cm-lab">Reviewing</div><div class="cm-val">Apr — Jun 2026</div></div><div><div class="cm-lab">Trajectory</div><div class="cm-val">-4 quarter on quarter</div></div><div><div class="cm-lab">Benchmark cohort</div><div class="cm-val">953 active Optimizely Experimentation programs</div></div></div></div><div class="prov" style="margin-top:30px"><b>Prototype.</b> Testing activity, variation depth, the four-quarter trajectory, cohort benchmarks and feature adoption depth are computed live from Snowflake for this account. Support health and the five programme-strategy pillars are carried from this client's existing record.</div><section><div class="sec-title">Executive summary</div><p class="lede" style="max-width:760px;margin-bottom:30px">This quarter's review points to three main takeaways:</p><div class="findings"><div class="finding"><div class="finding-n">01</div><div class="finding-t">Immediate Media Company scored 71 out of 100 this quarter, placing the program in the Established tier. Testing velocity of 8.3 experiments per month is above the cohort median of 3.7, and 28% of tests compare three or more variations against a median of 11%.</div></div><div class="finding"><div class="finding-n">02</div><div class="finding-t">Program goals is the programme strategy pillar furthest below the cohort average, at 3.2 against 3.4. Experiment execution remains the clear strength at 3.6.</div></div><div class="finding"><div class="finding-n">03</div><div class="finding-t">Feature adoption shows real depth differences rather than simple on/off state: audience targeting is applied on 16% of experiments (4 of 25), Stats Accelerator on 0% (0 of 31), and Opal shows 7,147 credits consumed.</div></div></div><div class="tier-ladder"><div class="tl-pill">Emerging</div><div class="tl-pill">Developing</div><div class="tl-pill">Scaling</div><div class="tl-pill on">Established</div><div class="tl-pill">Leading</div></div><div class="tier-explain">A score of <b>71</b> places the program in the <b>Established</b> tier. The Leading tier begins at 80.</div></section><section class="band-n3"><div class="sec-title">Where you stand</div><div class="ws-grid"><div><div class="ws-eyebrow">Your maturity score</div><div class="standgauge"><div class="sg-mark"><div class="sg-readout" style="left:71.0%"><span class="sg-num">71<i>/100</i></span><span class="sg-tier">Established</span></div></div><div class="sg-track"><div class="sg-fill" style="width:71.0%"></div><span class="sg-tick" style="left:62%"></span><span class="sg-tick" style="left:77%"></span><span class="sg-dot" style="left:71.0%"></span></div><div class="sg-scale"><span class="sc-med" style="left:62%">Median 62</span><span style="left:77%">Top decile 77</span></div></div><div class="ws-sub">Immediate Media Company scores 71 in Q2 26'. Velocity and variation depth are both computed from experiments started in the quarter, deduplicated by experiment.</div><div class="ws-divider"></div><div class="ws-eyebrow">Maturity score &middot; last four quarters</div><div class="traj-chart"><svg viewBox="0 0 560 232" width="100%" style="display:block"><line x1="64" y1="65.8" x2="512" y2="65.8" stroke="#C3CEAF" stroke-width="1" stroke-dasharray="4 4"/><text x="64" y="58.8" font-family="Roboto Mono" font-size="11" fill="#6E7D63">TOP DECILE 77</text><line x1="64" y1="128.8" x2="512" y2="128.8" stroke="#A1AC8D" stroke-width="1" stroke-dasharray="4 4"/><text x="64" y="121.8" font-family="Roboto Mono" font-size="11.5" fill="#3F5238">MEDIAN 62</text><polygon points="64,196 64.0,74.2 213.3,82.6 362.7,74.2 512.0,91.0 512,196" fill="#3AB533" fill-opacity="0.08"/><polyline points="64.0,74.2 213.3,82.6 362.7,74.2 512.0,91.0" fill="none" stroke="#3AB533" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="64.0" cy="74.2" r="5" fill="#fff" stroke="#7DDD3D" stroke-width="2.5"/><text x="64.0" y="61.2" text-anchor="middle" font-family="Roboto Mono" font-size="12" fill="#4F5E48">75</text><text x="64.0" y="218" text-anchor="middle" font-family="Roboto Mono" font-size="11" fill="#A1AC8D">Q3 25'</text><circle cx="213.3" cy="82.6" r="5" fill="#fff" stroke="#7DDD3D" stroke-width="2.5"/><text x="213.3" y="69.6" text-anchor="middle" font-family="Roboto Mono" font-size="12" fill="#4F5E48">73</text><text x="213.3" y="218" text-anchor="middle" font-family="Roboto Mono" font-size="11" fill="#A1AC8D">Q4 25'</text><circle cx="362.7" cy="74.2" r="5" fill="#fff" stroke="#7DDD3D" stroke-width="2.5"/><text x="362.7" y="61.2" text-anchor="middle" font-family="Roboto Mono" font-size="12" fill="#4F5E48">75</text><text x="362.7" y="218" text-anchor="middle" font-family="Roboto Mono" font-size="11" fill="#A1AC8D">Q1 26'</text><circle cx="512.0" cy="91.0" r="7" fill="#3AB533"/><circle cx="512.0" cy="91.0" r="13" fill="none" stroke="#3AB533" stroke-opacity="0.25" stroke-width="2"/><text x="512.0" y="73.0" text-anchor="middle" font-family="Roboto Condensed" font-weight="900" font-size="22" fill="#08251A">71</text><text x="512.0" y="218" text-anchor="middle" font-family="Roboto Mono" font-size="11" fill="#197050">Q2 26'</text></svg></div></div><div><div class="ws-eyebrow">How it breaks down</div><div class="sb-rows"><div><div class="sb-top"><span class="sb-name">Testing activity</span><span class="sb-val">29<i>/40</i></span></div><div class="sb-bar"><div class="sb-fill c-warn" style="width:72%"></div></div><div class="sb-desc">How often the team runs experiments, and how many tests compare multiple variations.</div></div><div><div class="sb-top"><span class="sb-name">Program strategy</span><span class="sb-val">20<i>/30</i></span></div><div class="sb-bar"><div class="sb-fill c-warn" style="width:67%"></div></div><div class="sb-desc">How the program is run across ideation, strategy, goals, execution and reporting.</div></div><div><div class="sb-top"><span class="sb-name">Feature adoption</span><span class="sb-val">12<i>/20</i></span></div><div class="sb-bar"><div class="sb-fill c-warn" style="width:60%"></div></div><div class="sb-desc">Key platform capabilities in active use across the experimentation program.</div></div><div><div class="sb-top"><span class="sb-name">Support health</span><span class="sb-val">10<i>/10</i></span></div><div class="sb-bar"><div class="sb-fill" style="width:100%"></div></div><div class="sb-desc">Whether the team has needed frequent basic platform support this quarter.</div></div></div></div></div><div class="bench-card"><div class="bench-card-title">About this benchmark</div><div class="bench-card-body">This report compares Immediate Media Company with 953 Optimizely Experimentation accounts that started at least one A/B experiment in Apr — Jun 2026. Benchmarks are computed live from product telemetry, deduplicated by experiment, and give directional context rather than a like-for-like industry ranking.</div></div></section><section><div class="sec-title">Testing activity</div><p class="lede" style="max-width:720px;margin-bottom:8px">Immediate Media Company's Q2 26' testing activity covers experiments started in Apr — Jun 2026. Velocity and variation depth are the two signals scored here, each compared against 953 peer accounts.</p><div class="sig"><div class="sig-left"><div class="sig-name">Velocity &middot; experiments per month</div><div class="sig-big">8.3 <span>avg, rolling 3 months</span></div><div class="sig-pct">above the benchmark median</div><div class="sig-read">Immediate Media Company started an average of 8.3 A/B experiments per month this quarter, against a cohort median of 3.7. That is a working delivery rhythm; the next gain is in the depth and quality of each test.</div><div class="sig-note">Production A/B experiments that actually started, deduplicated by experiment ID. Personalization campaigns are out of scope.</div></div><div class="sig-right"><div class="slider"><div class="sl-pill" style="left:33.9%">You · 8.3</div><div class="sl-toplab" style="left:15.1%">Median</div><div class="sl-toplab" style="left:92.0%">Top decile</div><div class="sl-track"></div><div class="sl-mark" style="left:15.1%"></div><div class="sl-mark" style="left:92.0%"></div><div class="sl-ring" style="left:33.9%"></div><div class="sl-botval" style="left:15.1%">3.7</div><div class="sl-botval" style="left:92.0%">22.7+</div></div><div class="trend"><div class="trend-lab">4-quarter trend</div><div class="bars"><div class="bar-col"><div class="bar-val">6.7</div><div class="bar" style="height:76px"></div><div class="bar-q">Q3 25'</div></div><div class="bar-col"><div class="bar-val">6.3</div><div class="bar" style="height:71px"></div><div class="bar-q">Q4 25'</div></div><div class="bar-col"><div class="bar-val">5.7</div><div class="bar" style="height:65px"></div><div class="bar-q">Q1 26'</div></div><div class="bar-col cur"><div class="bar-val">8.3</div><div class="bar" style="height:94px"></div><div class="bar-q">Q2 26'</div></div></div></div></div></div><div class="sig"><div class="sig-left"><div class="sig-name">Variation depth &middot; share of tests with 3+ variations</div><div class="sig-big">28% <span>of tests run 3+ variations</span></div><div class="sig-pct">above the benchmark median</div><div class="sig-read">28% of experiments this quarter included three or more variations, against a cohort median of 11%. Comparative tests generate more learning per cycle.</div><div class="sig-note">Control counts as a variation. Deduplicated by experiment ID, which is what keeps this share from exceeding 100%.</div></div><div class="sig-right"><div class="slider"><div class="sl-pill" style="left:51.9%">You · 28%</div><div class="sl-toplab" style="left:20.4%">Median</div><div class="sl-toplab" style="left:92.0%">Top decile</div><div class="sl-track"></div><div class="sl-mark" style="left:20.4%"></div><div class="sl-mark" style="left:92.0%"></div><div class="sl-ring" style="left:51.9%"></div><div class="sl-botval" style="left:20.4%">11%</div><div class="sl-botval" style="left:92.0%">50%+</div></div><div class="trend"><div class="trend-lab">4-quarter trend</div><div class="bars"><div class="bar-col"><div class="bar-val">50%</div><div class="bar" style="height:62px"></div><div class="bar-q">Q3 25'</div></div><div class="bar-col"><div class="bar-val">42%</div><div class="bar" style="height:52px"></div><div class="bar-q">Q4 25'</div></div><div class="bar-col"><div class="bar-val">76%</div><div class="bar" style="height:94px"></div><div class="bar-q">Q1 26'</div></div><div class="bar-col cur"><div class="bar-val">28%</div><div class="bar" style="height:35px"></div><div class="bar-q">Q2 26'</div></div></div></div></div></div></section><section class="band-n3"><div class="sec-title">Program strategy</div><p class="lede" style="max-width:720px;margin-bottom:8px">Five pillars from the maturity assessment, scored 1&ndash;5 against the cohort average.</p><div class="prog-legend"><span class="pl-you">You</span><span class="pl-avg">Cohort average</span></div><div class="prog-rows"><div class="prog-row"><div class="prog-name">Ideation</div><div class="prog-track"><div class="prog-fill" style="width:68%"></div><div class="prog-cohort" style="left:65%"></div></div><div class="prog-vals"><span class="pv-you">3.4</span><span class="pv-avg">avg 3.3</span></div></div><div class="prog-row"><div class="prog-name">Program strategy</div><div class="prog-track"><div class="prog-fill" style="width:60%"></div><div class="prog-cohort" style="left:55%"></div></div><div class="prog-vals"><span class="pv-you">3.0</span><span class="pv-avg">avg 2.8</span></div></div><div class="prog-row gap"><div class="prog-name">Program goals</div><div class="prog-track"><div class="prog-fill" style="width:64%"></div><div class="prog-cohort" style="left:68%"></div></div><div class="prog-vals"><span class="pv-you">3.2</span><span class="pv-avg">avg 3.4</span></div></div><div class="prog-row"><div class="prog-name">Experiment execution</div><div class="prog-track"><div class="prog-fill" style="width:72%"></div><div class="prog-cohort" style="left:62%"></div></div><div class="prog-vals"><span class="pv-you">3.6</span><span class="pv-avg">avg 3.1</span></div></div><div class="prog-row"><div class="prog-name">Reporting &amp; value realization</div><div class="prog-track"><div class="prog-fill" style="width:64%"></div><div class="prog-cohort" style="left:64%"></div></div><div class="prog-vals"><span class="pv-you">3.2</span><span class="pv-avg">avg 3.2</span></div></div></div><div class="prog-foot">These five pillars normalise into your <b>20/30</b> Program strategy score.</div></section><section><div class="sec-title">Feature adoption</div><p class="lede" style="max-width:720px;margin-bottom:26px">Adoption is shown as the actual share of tests using each capability rather than a simple in-use tick, so depth of use is visible. 3 of 5 capabilities on record are in active use.</p><div class="feat-grid" style="grid-template-columns:repeat(3,1fr)"><div class="feat-tile"><div class="feat-top"><div class="feat-dot"></div><div class="feat-stat">0% share</div></div><div class="feat-name">Stats Accelerator</div><div class="feat-metric-wrap"><div class="feat-metric">0%</div><div class="feat-metric-sub">0 of 31 tests</div></div><div class="feat-bar"><div class="feat-fill" style="width:0%"></div></div><div class="feat-one">0 of 31 layer experiments used dynamic traffic allocation (MAB / min-regret).</div></div><div class="feat-tile on"><div class="feat-top"><div class="feat-dot"></div><div class="feat-stat">16% share</div></div><div class="feat-name">Audience targeting</div><div class="feat-metric-wrap"><div class="feat-metric">16%</div><div class="feat-metric-sub">4 of 25 tests</div></div><div class="feat-bar"><div class="feat-fill" style="width:16%"></div></div><div class="feat-one">4 of 25 experiments targeted specific audience segments.</div></div><div class="feat-tile on"><div class="feat-top"><div class="feat-dot"></div><div class="feat-stat">7,147 credits</div></div><div class="feat-name">Opal Credit Usage</div><div class="feat-metric-wrap"><div class="feat-metric">7,147</div><div class="feat-metric-sub">Credits used</div></div><div class="feat-bar"><div class="feat-fill" style="width:100%"></div></div><div class="feat-one">7,147 credits consumed across ideation and workflow automation.</div></div></div><div class="sb-desc" style="margin-top:20px">Feature adoption is scored across this account's full capability record.</div></section><section class="band-n3"><div class="sec-title">Recommendations</div><p class="lede" style="max-width:720px;margin-bottom:30px">Focus areas for next quarter, derived from the lowest-scoring signals above.</p><div class="rec-grid"><div class="rec-card"><div class="rec-num">01</div><div><span class="rec-fmt">Academy</span><div class="rec-area">Program goals</div><div class="rec-title">Connect experimentation more directly to strategic goals.</div><div class="rec-body">Program goals is the pillar furthest below the cohort average at 3.2 against 3.4. Mapping experiments to specific business outcomes would give the team a clearer basis for prioritising the backlog.</div></div><div class="rec-cta"><button class="btn">Explore on Academy &rarr;</button></div></div><div class="rec-card"><div class="rec-num">02</div><div><span class="rec-fmt">Academy</span><div class="rec-area">Feature adoption</div><div class="rec-title">Adopt Stats Accelerator on high-velocity campaigns.</div><div class="rec-body">Stats Accelerator is currently at 0% share (0 of 31 experiments). Directing traffic dynamically to winning variations speeds up decision cycles on high-impact funnels.</div></div><div class="rec-cta"><button class="btn">Explore on Academy &rarr;</button></div></div><div class="rec-card"><div class="rec-num">03</div><div><span class="rec-fmt">Academy</span><div class="rec-area">Testing activity</div><div class="rec-title">Push variation depth back toward the top decile.</div><div class="rec-body">Depth moved from 76% to 28% across the last two quarters. The top decile runs 50%; returning to that level increases learning per cycle without needing more tests.</div></div><div class="rec-cta"><button class="btn">Explore on Academy &rarr;</button></div></div></div></section><div class="footer"><span>Optimizely</span><span>Immediate Media Company &middot; Q2 26'</span></div></div></body></html>

@@ -632,13 +632,16 @@ function Curve({ active, setActive }) {
           <path d={path} fill="none" stroke={C.lf} strokeWidth="3.5" strokeLinecap="round" />
           {LEVELS.map((l) => {
             const on = l.id === active;
+            const labelWidth = Math.min(156, Math.max(96, l.name.length * 6.8));
+            const labelX = Math.max(labelWidth / 2 + 4, Math.min(916 - labelWidth / 2, l.x));
             return (
               <g key={l.id} onClick={() => setActive(l.id)} style={{ cursor: "pointer" }}>
                 <line x1={l.x} y1={l.y - 16} x2={l.x} y2={l.y - 38} stroke={`${C.n1}33`} strokeWidth="1.5" strokeDasharray="3 4" />
                 <circle cx={l.x} cy={l.y} r={on ? 14 : 9} fill={on ? C.lf : C.n1} stroke={C.fir} strokeWidth="3" />
                 <text x={l.x} y={l.y - 46} fill={on ? C.lf : C.n1} fontSize={on ? 15 : 13} fontWeight="800" textAnchor="middle">{l.unlocks}</text>
-                <text x={l.x} y={l.y + 28} fill={on ? C.lf : `${C.n1}CC`} fontSize="12" fontWeight="700" textAnchor="middle">{`L${l.id}`}</text>
-                <text x={l.x} y={l.y + 44} fill={on ? C.lf : `${C.n1}99`} fontSize="11" fontWeight="600" textAnchor="middle">{l.name}</text>
+                <rect x={labelX - labelWidth / 2} y={l.y + 14} width={labelWidth} height="46" rx="8" fill={C.fir} />
+                <text x={labelX} y={l.y + 32} fill={on ? C.lf : `${C.n1}DD`} fontSize="12" fontWeight="700" textAnchor="middle">{`L${l.id}`}</text>
+                <text x={labelX} y={l.y + 50} fill={on ? C.lf : `${C.n1}BB`} fontSize="11" fontWeight="600" textAnchor="middle">{l.name}</text>
               </g>
             );
           })}

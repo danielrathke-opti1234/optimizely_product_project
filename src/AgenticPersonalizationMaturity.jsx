@@ -1366,10 +1366,313 @@ function Next() {
   );
 }
 
+
+/* ---------------------- TAB: THE BASELINE ---------------------- */
+
+const LADDER = [
+  { rung: "Creates any audience", n: 408, pct: 76.3, lvl: "Entry to Level 2" },
+  { rung: "Custom attribute audiences", n: 217, pct: 40.6, lvl: "Established Level 2" },
+  { rung: "Behavioural / visitor-behaviour audiences", n: 96, pct: 17.9, lvl: "Entry to Level 3" },
+];
+
+const DIST = [
+  { lvl: 1, label: "Level 1 \u00b7 Manual", n: "340 accounts", pct: 67.7, conf: "Measured", d: "No personalization campaign created in nine months, December 2025 to September 2026. This is the model's Level 1, and it is more than two thirds of the paying base." },
+  { lvl: 2, label: "Level 2 \u00b7 Mark Assists", n: "up to 162 accounts", pct: 32.3, conf: "Upper bound", d: "Created at least one campaign in the window. Some of these also use behavioural audiences, so the true Level 2-only count is lower. Overlap is not resolvable in the current data." },
+  { lvl: 3, label: "Level 3 \u00b7 Mark Advises", n: "up to 96 accounts", pct: 17.9, conf: "Upper bound, different denominator", d: "Use behavioural or visitor-behaviour audiences. This measures audience sophistication, not campaign sophistication, and its denominator differs from the ARR view. Treat as a ceiling, not a count." },
+  { lvl: 4, label: "Level 4 \u00b7 Mark Decides", n: "not measurable", pct: 0, conf: "No telemetry", d: "Adaptive and orchestrated usage is not instrumented in this dashboard. We cannot currently evidence that anyone operates here." },
+  { lvl: 5, label: "Level 5 \u00b7 Mark Orchestrates", n: "not measurable", pct: 0, conf: "No telemetry", d: "The Assist dimension is uninstrumented. Two of the four ELT flagship bets land at this level and we have no way to measure progress toward it." },
+];
+
+const PROOFS = [
+  {
+    k: "01",
+    t: "The ladder halves at every rung",
+    n: "76% \u2192 41% \u2192 18%",
+    d: "408 accounts create an audience. 217 use custom attributes. 96 reach behavioural targeting. That is the maturity model's shape, measured independently of it \u2014 roughly half of each cohort fails to reach the next rung.",
+    so: "The model is not a framing device we invented. It describes a progression that already exists in the data, with the steepest fall exactly where we claimed it was: Level 2 to Level 3.",
+    tint: "C.lf",
+  },
+  {
+    k: "02",
+    t: "Half of everything built never ships",
+    n: "50.4%",
+    d: "780 campaigns created in August, 393 qualified. 387 abandoned. That conversion rate has not moved in twelve months. On the same run rate that is roughly 4,600 campaigns a year built and never launched.",
+    so: "This is the execution bottleneck with a number attached. It is also the cleanest agentic argument available: lifting conversion to 65% would ship around 114 more campaigns a month with zero new accounts and zero additional campaigns created.",
+    tint: "C.sand",
+  },
+  {
+    k: "03",
+    t: "Almost nobody looks at the result",
+    n: "9 of 101",
+    d: "101 accounts created a campaign in August. Nine viewed a results page. Under nine percent close the loop on their own work.",
+    so: "This is the most serious finding in the report for our thesis. Trust is built on evidence, and the evidence loop is open. A client who never sees whether it worked cannot build an internal case for doing more \u2014 which is why activation stalls after the first campaign.",
+    tint: "C.pink",
+  },
+  {
+    k: "04",
+    t: "The people who do use it are at a capacity ceiling",
+    n: "+11%",
+    d: "Campaigns per active account rose from 6.95 to 7.72 while the per-paying-account ratio fell 21%. Absolute output was flat. The ratio fell because the denominator grew 25%, not because usage declined.",
+    so: "The product works for people who use it. They increased throughput while pressed against their own limits. That is the ceiling this model describes \u2014 one team's available hours \u2014 and it is the thing agentic execution removes.",
+    tint: "C.blue",
+  },
+];
+
+function Baseline() {
+  return (
+    <div>
+      <SectionTitle
+        eyebrow="Optimizely Analytics · baseline August 2026"
+        title="The model is no longer a point of view. This is the measured baseline."
+        sub="Adoption data from the Personalization usage dashboard, internal users excluded. It does two things for this vision: it validates the shape of the maturity model against real behaviour, and it replaces every population estimate on the previous tab with something defensible."
+      />
+
+      {/* THE CORRECTION */}
+      <div className="mb-10 rounded-3xl p-6 md:p-8" style={{ backgroundColor: C.fir }}>
+        <div className="text-[10px] font-bold uppercase tracking-[0.18em]" style={{ color: C.lf }}>
+          Correcting this model with real numbers
+        </div>
+        <h3 className="mt-3 text-2xl font-extrabold leading-tight md:text-3xl" style={{ color: C.n1 }}>
+          I estimated a third of accounts sat at Level 1. It is more than two thirds.
+        </h3>
+        <p className="mt-4 max-w-4xl text-sm leading-relaxed" style={{ color: `${C.n1}CC` }}>
+          340 of 502 paying accounts — 67.7% — have not created a personalization campaign since December 2025.
+          Measured monthly, 79.8% are inactive. The base is substantially earlier than this model assumed, and the
+          error ran in the direction that matters: we have been designing and selling for a maturity that most of the
+          base has not reached. Every argument on the previous tabs about building for the crawl phase gets stronger,
+          not weaker.
+        </p>
+      </div>
+
+      {/* DISTRIBUTION */}
+      <h3 className="mb-2 text-xl font-extrabold" style={{ color: C.fir }}>Where the base actually sits on this ladder</h3>
+      <p className="mb-4 max-w-4xl text-sm" style={{ color: `${C.fir}B0` }}>
+        Mapped from the adoption data onto the five levels. Where the data cannot support a precise count, the panel
+        says so rather than estimating.
+      </p>
+      <div className="mb-10 space-y-3">
+        {DIST.map((d) => (
+          <div key={d.lvl} className="rounded-2xl p-5" style={{ backgroundColor: C.n1, border: `2px solid ${C.fir}` }}>
+            <div className="flex flex-wrap items-baseline justify-between gap-3">
+              <div className="flex items-baseline gap-3">
+                <LevelBadge n={d.lvl} />
+                <span className="text-lg font-extrabold" style={{ color: C.fir }}>{d.n}</span>
+              </div>
+              <Pill bg={d.conf === "Measured" ? C.lf : d.conf === "No telemetry" ? C.pink : C.n3} fg={C.fir} border={`${C.fir}33`}>
+                {d.conf}
+              </Pill>
+            </div>
+            {d.pct > 0 && (
+              <div className="mt-3 h-2.5 w-full overflow-hidden rounded-full" style={{ backgroundColor: `${C.fir}12` }}>
+                <div className="h-full rounded-full" style={{ width: `${d.pct}%`, backgroundColor: LEVELS[d.lvl - 1].swatch === C.n3 ? C.gtg : LEVELS[d.lvl - 1].swatch }} />
+              </div>
+            )}
+            <p className="mt-3 text-sm leading-relaxed" style={{ color: `${C.fir}B0` }}>{d.d}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* THE LADDER */}
+      <div className="mb-10 rounded-3xl p-6 md:p-8" style={{ backgroundColor: C.n1, border: `2px solid ${C.fir}` }}>
+        <div className="text-[10px] font-bold uppercase tracking-[0.18em]" style={{ color: C.lightFir }}>
+          The audience sophistication ladder — independent confirmation
+        </div>
+        <h3 className="mt-2 text-2xl font-extrabold" style={{ color: C.fir }}>
+          Nobody built this to match our model. It matches anyway.
+        </h3>
+        <div className="mt-6 space-y-4">
+          {LADDER.map((r, i) => (
+            <div key={i}>
+              <div className="mb-1 flex flex-wrap items-baseline justify-between gap-2">
+                <span className="text-sm font-extrabold" style={{ color: C.fir }}>{r.rung}</span>
+                <span className="text-xs font-semibold" style={{ color: C.lightFir }}>{r.n} accounts · {r.pct}% · {r.lvl}</span>
+              </div>
+              <div className="h-8 w-full overflow-hidden rounded-lg" style={{ backgroundColor: `${C.fir}10` }}>
+                <div className="flex h-full items-center justify-end rounded-lg pr-3 text-xs font-extrabold" style={{ width: `${r.pct}%`, backgroundColor: [C.lf, C.grass, C.gtg][i], color: i === 2 ? C.n1 : C.fir }}>
+                  {r.pct}%
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <p className="mt-5 max-w-4xl text-sm leading-relaxed" style={{ color: `${C.fir}B0` }}>
+          Roughly half of each cohort fails to reach the next rung. The drop from custom attributes to behavioural
+          targeting is the Level 2 to Level 3 transition, and it is the single widest gap in the product. It is also
+          the transition the client-facing model points every Level 2 account at, via Behavior Targeting — which the
+          data now says is the right call.
+        </p>
+      </div>
+
+      {/* PROOF POINTS */}
+      <h3 className="mb-4 text-xl font-extrabold" style={{ color: C.fir }}>Four findings, and what each one means for this vision</h3>
+      <div className="mb-10 grid grid-cols-1 gap-4 md:grid-cols-2">
+        {PROOFS.map((p) => {
+          const tint = { "C.lf": C.lf, "C.sand": C.sand, "C.pink": C.pink, "C.blue": C.blue }[p.tint];
+          return (
+            <div key={p.k} className="rounded-3xl p-6" style={{ backgroundColor: C.n1, border: `2px solid ${C.fir}` }}>
+              <div className="flex items-baseline gap-3">
+                <span className="text-xs font-extrabold" style={{ color: C.gtg }}>{p.k}</span>
+                <h4 className="text-lg font-extrabold leading-tight" style={{ color: C.fir }}>{p.t}</h4>
+              </div>
+              <div className="mt-3 inline-block rounded-xl px-4 py-2 text-2xl font-extrabold" style={{ backgroundColor: tint, color: C.fir }}>
+                {p.n}
+              </div>
+              <p className="mt-3 text-sm leading-relaxed" style={{ color: `${C.fir}A0` }}>{p.d}</p>
+              <div className="mt-4 rounded-2xl p-4" style={{ backgroundColor: C.n3 }}>
+                <div className="text-[10px] font-bold uppercase tracking-[0.15em]" style={{ color: C.lightFir }}>What it means for us</div>
+                <p className="mt-1 text-sm leading-relaxed" style={{ color: C.fir }}>{p.so}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* THE UNCOMFORTABLE ONE */}
+      <div className="mb-10 rounded-3xl p-6 md:p-8" style={{ backgroundColor: C.pink }}>
+        <div className="text-[10px] font-bold uppercase tracking-[0.18em]" style={{ color: C.fir }}>
+          The finding that argues against us, kept in on purpose
+        </div>
+        <h3 className="mt-3 text-2xl font-extrabold leading-tight md:text-3xl" style={{ color: C.fir }}>
+          Mark-generated audiences are down 77%, and the suggestion surface is falling fastest
+        </h3>
+        <div className="mt-5 grid grid-cols-1 gap-3 md:grid-cols-3">
+          {[
+            ["Mark-Suggested audiences", "280 \u2192 44", "\u221284%"],
+            ["Mark Real-Time audiences", "116 \u2192 46", "\u221260%"],
+            ["Combined", "396 \u2192 90", "\u221277%"],
+          ].map(([t, v, d], i) => (
+            <div key={i} className="rounded-2xl p-4" style={{ backgroundColor: C.n1 }}>
+              <div className="text-[10px] font-bold uppercase tracking-[0.15em]" style={{ color: C.lightFir }}>{t}</div>
+              <div className="mt-1 text-sm font-semibold" style={{ color: `${C.fir}B0` }}>{v}</div>
+              <div className="text-2xl font-extrabold" style={{ color: C.fir }}>{d}</div>
+            </div>
+          ))}
+        </div>
+        <p className="mt-5 max-w-4xl text-sm leading-relaxed" style={{ color: `${C.fir}DD` }}>
+          We are building a thesis that clients adopt personalization when Mark carries more of the work, while the
+          one Mark surface we can actually measure is being abandoned. That has to be said out loud in any room where
+          this model is presented, because someone will find it.
+        </p>
+        <p className="mt-3 max-w-4xl text-sm leading-relaxed" style={{ color: `${C.fir}DD` }}>
+          <span className="font-extrabold">The asymmetry is the useful part.</span> Suggested audiences fell 84% while
+          real-time fell 60%. Users are walking away from the suggestion experience faster than from the underlying
+          capability. That points at the surface, not the intelligence — and it is precisely the failure this model
+          predicts: a suggestion with no reasoning, no readiness check and no stated confidence is just a different
+          kind of blank canvas. Level 2 as currently built does not earn trust, which is the argument for rebuilding
+          it around explainability rather than the argument against agentic personalization.
+        </p>
+      </div>
+
+      {/* ARR */}
+      <div className="mb-10 grid grid-cols-1 gap-4 lg:grid-cols-3">
+        <div className="rounded-3xl p-6 lg:col-span-2" style={{ backgroundColor: C.fir }}>
+          <div className="text-[10px] font-bold uppercase tracking-[0.18em]" style={{ color: C.lf }}>The commercial framing</div>
+          <h3 className="mt-2 text-2xl font-extrabold leading-tight" style={{ color: C.n1 }}>
+            More than three quarters of Personalization ARR sits with accounts getting no value from it in a given month
+          </h3>
+          <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {[
+              ["Total P13N ARR", "$11.43M"],
+              ["Engaged", "$2.57M \u00b7 22.4%"],
+              ["Non-engaged", "$8.87M \u00b7 77.6%"],
+            ].map(([t, v], i) => (
+              <div key={i} className="rounded-2xl p-4" style={{ backgroundColor: i === 2 ? C.pink : `${C.n1}14`, border: `1px solid ${C.lf}44` }}>
+                <div className="text-[10px] font-bold uppercase tracking-[0.15em]" style={{ color: i === 2 ? C.midFir : C.lf }}>{t}</div>
+                <div className="mt-1 text-xl font-extrabold" style={{ color: i === 2 ? C.fir : C.n1 }}>{v}</div>
+              </div>
+            ))}
+          </div>
+          <p className="mt-4 max-w-4xl text-sm leading-relaxed" style={{ color: `${C.n1}CC` }}>
+            Engaged ARR share fell 4.6 points year over year. The top ten dormant accounts alone carry $9.1M, three of
+            them over $1M each. This is the renewal-risk argument, and it is the reason a maturity model that starts
+            where clients actually are is a commercial priority rather than a design preference.
+          </p>
+        </div>
+        <div className="rounded-3xl p-6" style={{ backgroundColor: C.sand, border: `2px solid ${C.fir}` }}>
+          <div className="text-[10px] font-bold uppercase tracking-[0.18em]" style={{ color: C.lightFir }}>The contraction</div>
+          <p className="mt-2 text-sm leading-relaxed" style={{ color: C.fir }}>
+            The July analysis used a six-month window and found 188 active accounts. This one used nine months and
+            found 162.
+          </p>
+          <p className="mt-3 text-sm font-extrabold leading-relaxed" style={{ color: C.fir }}>
+            A wider window found fewer accounts. That is a real contraction in the active base, not a measurement
+            artifact.
+          </p>
+          <p className="mt-3 text-sm leading-relaxed" style={{ color: `${C.fir}CC` }}>
+            The dormant cohort is growing from both ends at once — new accounts arriving without activating, and
+            previously active accounts going quiet.
+          </p>
+        </div>
+      </div>
+
+      {/* WHAT IT CHANGES */}
+      <h3 className="mb-4 text-xl font-extrabold" style={{ color: C.fir }}>What this data changes about the plan</h3>
+      <div className="mb-10 overflow-x-auto rounded-2xl" style={{ border: `2px solid ${C.fir}` }}>
+        <table className="w-full min-w-[860px] border-collapse text-left">
+          <thead>
+            <tr style={{ backgroundColor: C.fir }}>
+              {["The move", "What the data now says about it", "Verdict"].map((h) => (
+                <th key={h} className="px-4 py-3 text-[11px] font-bold uppercase tracking-wider" style={{ color: C.lf }}>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ["Make readiness visible in-product", "68% of the base never creates a first campaign. Activation, not sophistication, is the product problem.", "Promote to first", C.lf],
+              ["Rebuild the Mark suggestion surface", "Suggested audiences down 84%, faster than the capability itself. The current surface is actively losing users.", "Promote \u00b7 was not on the list", C.lf],
+              ["Personalization Hub with a Justification column", "Nine of 101 accounts view a result. The loop is open, and the Hub is the thing that closes it.", "Reframe as activation, not reporting", C.n3],
+              ["Fix the terminology", "Telemetry still carries Opal naming in the event schema and the managed flag. The rename is incomplete in the data layer.", "Wider than a UI decision", C.n3],
+              ["Instrument the Assist dimension", "Level 4 and 5 adoption cannot be evidenced at all today. Two of the four ELT bets land there.", "Blocking \u00b7 do first", C.pink],
+              ["Audience definitions across tools", "76% create an audience, 18% reach behavioural. The Level 2 to 3 gap is the widest in the product.", "Confirmed, unchanged priority", C.n3],
+            ].map(([m, d, v, tint], i) => (
+              <tr key={i} style={{ backgroundColor: i % 2 ? C.n3 : C.n1 }}>
+                <td className="px-4 py-4 align-top text-sm font-extrabold" style={{ color: C.fir }}>{m}</td>
+                <td className="px-4 py-4 align-top text-sm leading-relaxed" style={{ color: `${C.fir}B0` }}>{d}</td>
+                <td className="px-4 py-4 align-top"><Pill bg={tint} fg={C.fir} border={`${C.fir}33`}>{v}</Pill></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* CAVEATS */}
+      <div className="rounded-3xl p-6 md:p-8" style={{ backgroundColor: C.n1, border: `2px solid ${C.fir}` }}>
+        <div className="text-[10px] font-bold uppercase tracking-[0.18em]" style={{ color: C.lightFir }}>
+          What this data cannot tell us — state these before anyone asks
+        </div>
+        <h3 className="mt-2 text-xl font-extrabold" style={{ color: C.fir }}>Six limits on the numbers above</h3>
+        <div className="mt-5 grid grid-cols-1 gap-3 md:grid-cols-2">
+          {[
+            ["The dormant count is \u00b1 40 accounts", "The measure divides a campaign-creator count that is not ARR-filtered by a paying-account count that is. Directionally sound, not precise."],
+            ["The ladder uses a different denominator", "Audience sophistication percentages resolve to a base of roughly 535, not the 499 or 502 used elsewhere. Do not mix the two in one chart."],
+            ["Level overlap is unresolved", "We cannot tell how many of the 162 active accounts are also among the 96 using behavioural audiences, so Level 2 and Level 3 counts are ceilings rather than segments."],
+            ["Level 4 and 5 are invisible", "No adaptive or agentic telemetry exists in this dashboard. Absence of evidence here is not evidence of absence."],
+            ["Two tiles disagree", "Campaign Started and Campaign Qualified return zero on one tile while the North Star tile returns 393. One is wrong. Resolve before any external use."],
+            ["Depth has no trend line", "Behavioural targeting adoption is a single point in time. We cannot say whether the Level 2 to 3 gap is widening or closing."],
+          ].map(([t, d], i) => (
+            <div key={i} className="rounded-2xl p-4" style={{ backgroundColor: C.n3 }}>
+              <div className="text-sm font-extrabold" style={{ color: C.fir }}>{t}</div>
+              <p className="mt-1 text-sm leading-relaxed" style={{ color: `${C.fir}B0` }}>{d}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-5 rounded-2xl p-4" style={{ backgroundColor: C.blue }}>
+          <p className="text-sm leading-relaxed" style={{ color: C.fir }}>
+            <span className="font-extrabold">Forward-looking targets are deliberately excluded from this tab. </span>
+            The baseline is observed. Anything projected belongs in a separate conversation with its assumptions
+            attached, and mixing the two is how a credible diagnosis turns into a number nobody trusts.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ---------------------- SHELL ---------------------- */
 
 const TABS = [
   { id: "maturity", label: "Maturity model", el: <Maturity /> },
+  { id: "baseline", label: "The baseline", el: <Baseline /> },
   { id: "trust", label: "Trust", el: <Trust /> },
   { id: "ease", label: "Ease of execution", el: <Ease /> },
   { id: "reality", label: "Client reality", el: <Reality /> },

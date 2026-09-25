@@ -613,6 +613,12 @@ function Eyebrow({ children }) {
 
 function Curve({ active, setActive }) {
   const path = "M 70 340 C 190 337, 240 327, 330 300 S 500 240, 600 188 S 740 112, 872 64";
+  const getLabelLayout = (level) => {
+    const width = Math.min(156, Math.max(96, level.name.length * 6.8));
+    const x = Math.max(width / 2 + 4, Math.min(916 - width / 2, level.x));
+    return { width, x };
+  };
+
   return (
     <div className="rounded-3xl p-6 md:p-8" style={{ backgroundColor: C.fir }}>
       <Eyebrow><span style={{ color: C.lf }}>The curve</span></Eyebrow>
@@ -631,17 +637,19 @@ function Curve({ active, setActive }) {
           <text x="390" y="412" fill={`${C.n1}99`} fontSize="12" fontWeight="700" letterSpacing="1.5">PERSONALIZATION MATURITY</text>
           <path d={path} fill="none" stroke={C.lf} strokeWidth="3.5" strokeLinecap="round" />
           {LEVELS.map((l) => {
+            const label = getLabelLayout(l);
+            return <rect key={`label-bg-${l.id}`} x={label.x - label.width / 2} y={l.y + 14} width={label.width} height="46" rx="8" fill={C.fir} />;
+          })}
+          {LEVELS.map((l) => {
             const on = l.id === active;
-            const labelWidth = Math.min(156, Math.max(96, l.name.length * 6.8));
-            const labelX = Math.max(labelWidth / 2 + 4, Math.min(916 - labelWidth / 2, l.x));
+            const label = getLabelLayout(l);
             return (
               <g key={l.id} onClick={() => setActive(l.id)} style={{ cursor: "pointer" }}>
                 <line x1={l.x} y1={l.y - 16} x2={l.x} y2={l.y - 38} stroke={`${C.n1}33`} strokeWidth="1.5" strokeDasharray="3 4" />
                 <circle cx={l.x} cy={l.y} r={on ? 14 : 9} fill={on ? C.lf : C.n1} stroke={C.fir} strokeWidth="3" />
                 <text x={l.x} y={l.y - 46} fill={on ? C.lf : C.n1} fontSize={on ? 15 : 13} fontWeight="800" textAnchor="middle">{l.unlocks}</text>
-                <rect x={labelX - labelWidth / 2} y={l.y + 14} width={labelWidth} height="46" rx="8" fill={C.fir} />
-                <text x={labelX} y={l.y + 32} fill={on ? C.lf : `${C.n1}DD`} fontSize="12" fontWeight="700" textAnchor="middle">{`L${l.id}`}</text>
-                <text x={labelX} y={l.y + 50} fill={on ? C.lf : `${C.n1}BB`} fontSize="11" fontWeight="600" textAnchor="middle">{l.name}</text>
+                <text x={label.x} y={l.y + 32} fill={on ? C.lf : `${C.n1}DD`} fontSize="12" fontWeight="700" textAnchor="middle">{`L${l.id}`}</text>
+                <text x={label.x} y={l.y + 50} fill={on ? C.lf : `${C.n1}BB`} fontSize="11" fontWeight="600" textAnchor="middle">{l.name}</text>
               </g>
             );
           })}

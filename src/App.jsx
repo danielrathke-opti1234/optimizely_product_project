@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   ArrowRight,
@@ -38,6 +38,8 @@ import {
 import CmabMarketerReframe from './CmabMarketerReframe.jsx';
 import P13nClientRealityBriefing from './P13nClientRealityBriefing.jsx';
 import PersonalizationStrategistRoadmap from './PersonalizationStrategistRoadmap.jsx';
+
+const AgenticPersonalizationMaturity = lazy(() => import('./AgenticPersonalizationMaturity.jsx'));
 
 const colors = {
   mint: 'border-mint/40 bg-mint/10 text-mint',
@@ -1047,9 +1049,17 @@ function PortfolioApp() {
 }
 
 function App() {
+  const isMaturityModelRoute = typeof window !== 'undefined' && window.location.pathname.includes('personalization-maturity-model');
   const isRoadmapRoute = typeof window !== 'undefined' && window.location.pathname.includes('personalization-strategist-roadmap');
   const isPortfolioRoute = typeof window !== 'undefined' && window.location.pathname.includes('portfolio-story');
   const isCmabRoute = typeof window !== 'undefined' && window.location.pathname.includes('cmab-marketer-reframe');
+  if (isMaturityModelRoute) {
+    return (
+      <Suspense fallback={<div className="min-h-screen bg-[#E4F0DA]" />}>
+        <AgenticPersonalizationMaturity />
+      </Suspense>
+    );
+  }
   if (isCmabRoute) return <CmabMarketerReframe />;
   if (isRoadmapRoute) return <PersonalizationStrategistRoadmap />;
   if (isPortfolioRoute) return <PortfolioApp />;

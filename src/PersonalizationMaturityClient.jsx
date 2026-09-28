@@ -136,7 +136,7 @@ const LEVELS = [
       does:
         "Mark drafts the variants, or points you at the asset you already own and forgot about. The content bottleneck — the reason most good ideas at this level never ship — stops being the thing that decides what you attempt.",
       trust:
-        "Everything Mark produces arrives as a draft for review, in your brand voice, with the source it drew on. You approve, edit or reject. Mark never publishes on its own at this level.",
+        "Everything Mark produces arrives as a draft for review, in your brand voice, with the source it drew on. You approve, edit or reject. Autonomous Optimization is the one place Mark decides rather than drafts — and it belongs here precisely because the handover is tightly bounded: you built the options and named the metric, so Mark is optimising a decision already made.",
     },
     data: {
       state: "Segments exist, usually batch, often rebuilt per tool",
@@ -193,10 +193,22 @@ const LEVELS = [
         trust: "Your CRM stays the source of truth. Nothing is duplicated or quietly re-derived somewhere else.",
       },
       {
+        n: "Personalization Strategist",
+        d: "Reads your traffic, content and goals and hands back a ranked shortlist of where personalizing would actually change an outcome.",
+        easy: "Replaces staring at analytics hoping something jumps out. It starts from your site and gives you a starting position instead of a blank canvas.",
+        trust: "Every recommendation arrives with its reasoning — which pages, what traffic, what it noticed. And it tells you when you are not ready, before the sprint is spent.",
+      },
+      {
         n: "Dynamic Experience",
         d: "Experiences that compose rather than branching into rule sprawl.",
         easy: "One experience that adapts, instead of twelve variants to maintain forever.",
         trust: "Fewer moving parts means fewer places for an unintended combination to appear.",
+      },
+      {
+        n: "Autonomous Optimization",
+        d: "One switch on an experiment you already built. You chose the options and the metric; Mark decides the split.",
+        easy: "No weekly ritual of reading dashboards and manually shifting traffic toward whatever looks like it is winning.",
+        trust: "You built every option and named the metric, so Mark is optimising a decision you already made, not making a new one. You can pause or override at any point.",
       },
       {
         n: "Mark-assisted content variants",
@@ -207,7 +219,7 @@ const LEVELS = [
     ],
     mark: {
       does:
-        "Mark checks whether the data actually supports what you are about to build — reading across ODP, your CDP, CRM attributes and behavioural signals — and tells you in plain language what is usable and what is not. It then recommends the simplest approach that fits, so nobody has to learn feature names before they can describe their situation.",
+        "The Personalization Strategist lands at this level. Mark reads your site and your traffic and hands back a ranked shortlist of where personalizing would actually change an outcome — replacing the blank canvas with a starting position. It then checks whether the data supports each idea and tells you plainly what is missing, before the sprint is spent.",
       trust:
         "This is the point where Mark starts being most useful by telling you no. If your tracking, audience size or content will not support the idea, Mark says so before the sprint is spent rather than after the campaign underperforms. A recommendation always arrives with its reasoning and the signals behind it.",
     },
@@ -247,11 +259,12 @@ const LEVELS = [
         easy: "Removes the need to hand-write a rule for every audience and treatment combination — the work that grows forever.",
         trust: "You see what it is weighing, which options are in play, and what it has learned so far. You set the options and the guardrails; it cannot go outside them.",
       },
+
       {
-        n: "Autonomous Optimization",
-        d: "Keeps optimising toward your metric without manual check-ins.",
-        easy: "No weekly ritual of reading dashboards and manually reallocating traffic.",
-        trust: "It optimises toward the metric you named, and you can pause or override it at any point.",
+        n: "Limitless Personalization",
+        d: "Generates bespoke pages at scale across a universe of accounts or segments the human defined.",
+        easy: "The number of experiences you can run stops being a function of headcount.",
+        trust: "You define what may be assembled and from which approved components. Every page is inspectable after the fact, and nothing is generated outside the boundaries you set.",
       },
       {
         n: "Cross-channel orchestration",
@@ -274,7 +287,7 @@ const LEVELS = [
     ],
     mark: {
       does:
-        "Mark helps you judge whether an adaptive approach genuinely fits before you commit to one, then turns the result into a decision rather than a chart — keep, change, expand, stop, or reuse.",
+        "Mark helps you judge whether an adaptive approach genuinely fits before you commit, then turns the result into a decision rather than a chart — keep, change, expand, stop, or reuse. Limitless Personalization also sits at this level: the human defined the universe of pages or accounts, Mark handles production at a scale no team could staff.",
       trust:
         "At this level the system is choosing who sees what, so explainability is the whole product. Mark answers, at any moment: here is what I am weighing, here are the options in play, here is what I have learned, and here is what I would do next. If the conditions for learning are not there — not enough traffic, no clear metric, options that barely differ — Mark tells you to run something simpler instead.",
     },
@@ -305,15 +318,10 @@ const LEVELS = [
       what: "One bounded use case, with a holdback",
       why:
         "Do not start everywhere. Choose one surface where individual relevance is obviously valuable, set an explicit boundary on what Mark may change, and hold back a portion of traffic so you can prove the effect. Measurement is genuinely harder at this level — when only one person sees their version there is no variant to compare against — so decide how you will judge it before you build it.",
-      hero: "Limitless 1:1 Personalization or the Front-end Experience Agent, on one surface",
+      hero: "Limitless Personalization or the Front-end Experience Agent, on one surface",
     },
     features: [
-      {
-        n: "Limitless 1:1 Personalization",
-        d: "Bespoke pages at a scale no team could staff manually.",
-        easy: "The number of experiences you can run stops being a function of headcount.",
-        trust: "You define what may be assembled and from which approved components. Every page is inspectable after the fact.",
-      },
+
       {
         n: "Front-end Experience Agent",
         d: "Finds the most relevant next thing before a returning visitor leaves.",
@@ -321,10 +329,10 @@ const LEVELS = [
         trust: "It surfaces your published content, within your rules. It does not invent things about your business.",
       },
       {
-        n: "Personalization Strategist",
-        d: "Works an opportunity through to the next decision, not just the idea.",
-        easy: "Covers the parts of the job nobody has time for — finding the opportunity, checking readiness, deciding what happens next.",
-        trust: "Every recommendation arrives with its reasoning and the data behind it. You remain the one who decides.",
+        n: "Personalization Strategist, end to end",
+        d: "Works an opportunity through to the next decision, and at this level closes its own loop — measures, learns, and adjusts without being asked.",
+        easy: "The full cycle from opportunity to the next action runs without someone project-managing each step.",
+        trust: "Every action carries the reasoning behind it. The audit trail is always there and there is always a way back.",
       },
       {
         n: "Agentic-legible experiences",
@@ -383,7 +391,7 @@ const STAGES = [
       { lvl: 2, p: "Reorder navigation or featured content for known segments", f: "Personalization Campaigns, CMS Personalization" },
       { lvl: 3, p: "Surface the guide, tool or product that matches demonstrated interest", f: "Content and Product Recommendations, Behavior Targeting" },
       { lvl: 4, p: "Learn which arrangement helps which kind of visitor find things faster", f: "CMAB, Dynamic Experience" },
-      { lvl: 5, p: "The whole library reordered around one person", f: "Limitless 1:1 Personalization" },
+      { lvl: 5, p: "The whole library reordered around one person", f: "Limitless Personalization" },
     ],
     easy: false,
     trust: null,
@@ -401,7 +409,7 @@ const STAGES = [
       { lvl: 2, p: "Bring the relevant proof point or reassurance forward for a known segment", f: "Personalization Campaigns, CMS Personalization" },
       { lvl: 3, p: "Match the proof to what they have actually been looking at", f: "Behavior Targeting, Content Recommendations" },
       { lvl: 4, p: "Learn which reassurance resolves which hesitation, by context", f: "CMAB" },
-      { lvl: 5, p: "Assemble the case for this individual", f: "Limitless 1:1 Personalization" },
+      { lvl: 5, p: "Assemble the case for this individual", f: "Limitless Personalization" },
     ],
     easy: true,
     trust: null,
@@ -489,7 +497,7 @@ const MARK_JOBS = [
     job: "Finding the opportunity",
     without: "Someone stares at analytics hoping something jumps out. Ideas are limited to one person's available hours.",
     with: "Mark reads your traffic, content and goals and returns a ranked list of where relevance would change an outcome.",
-    lvl: 1,
+    lvl: 3,
   },
   {
     job: "Checking you are ready",
@@ -513,6 +521,12 @@ const MARK_JOBS = [
     job: "Creating the content",
     without: "The hard ceiling. No capacity for variants, so audiences get widened until the relevance disappears.",
     with: "Mark drafts the variants in your brand voice, or finds the asset already sitting in your library.",
+    lvl: 2,
+  },
+  {
+    job: "Optimising the split across options you built",
+    without: "Someone reads the dashboard weekly and manually shifts traffic toward whatever looks like it is winning.",
+    with: "Mark shifts the split toward the metric you named, continuously. You built the options, so the handover is bounded.",
     lvl: 2,
   },
   {
@@ -564,6 +578,21 @@ const MARK_TRUST = [
 
 /* ---------------------- SUPPORTING ---------------------- */
 
+
+const PATTERNS = [
+  { p: "Never getting started", d: "The first campaign never ships. Not because the capability is missing, but because nobody can answer all four questions with enough confidence to press go.", lvl: 1 },
+  { p: "Staying with basic targeting", d: "Rules get built, and then the programme plateaus. Attribute-based audiences never progress to behavioural intent, which is where relevance starts compounding.", lvl: 2 },
+  { p: "Personalization as disconnected features", d: "Each channel becomes its own island, the same audience gets rebuilt in three tools, and nobody can see the whole picture in one place.", lvl: 3 },
+];
+
+const ARC = [
+  { n: "01", t: "Recognize the opportunity", q: "Where would relevance actually change an outcome?" },
+  { n: "02", t: "Validate the inputs", q: "Does my data, audience size and content support this?" },
+  { n: "03", t: "Build the right experience", q: "What should change, and can we produce it?" },
+  { n: "04", t: "Measure the outcome", q: "Did it work, and can I say so credibly?" },
+  { n: "05", t: "Learn the next move", q: "Keep it, change it, expand it, or stop?" },
+];
+
 const CDP_TRACK = [
   { lvl: 1, label: "Collecting", d: "Events and identity switched on. Nothing activating yet." },
   { lvl: 2, label: "Segmenting", d: "Batch segments and list attributes, defined once where possible." },
@@ -613,12 +642,6 @@ function Eyebrow({ children }) {
 
 function Curve({ active, setActive }) {
   const path = "M 70 340 C 190 337, 240 327, 330 300 S 500 240, 600 188 S 740 112, 872 64";
-  const getLabelLayout = (level) => {
-    const width = Math.min(156, Math.max(96, level.name.length * 6.8));
-    const x = Math.max(width / 2 + 4, Math.min(916 - width / 2, level.x));
-    return { width, x };
-  };
-
   return (
     <div className="rounded-3xl p-6 md:p-8" style={{ backgroundColor: C.fir }}>
       <Eyebrow><span style={{ color: C.lf }}>The curve</span></Eyebrow>
@@ -637,19 +660,14 @@ function Curve({ active, setActive }) {
           <text x="390" y="412" fill={`${C.n1}99`} fontSize="12" fontWeight="700" letterSpacing="1.5">PERSONALIZATION MATURITY</text>
           <path d={path} fill="none" stroke={C.lf} strokeWidth="3.5" strokeLinecap="round" />
           {LEVELS.map((l) => {
-            const label = getLabelLayout(l);
-            return <rect key={`label-bg-${l.id}`} x={label.x - label.width / 2} y={l.y + 14} width={label.width} height="46" rx="8" fill={C.fir} />;
-          })}
-          {LEVELS.map((l) => {
             const on = l.id === active;
-            const label = getLabelLayout(l);
             return (
               <g key={l.id} onClick={() => setActive(l.id)} style={{ cursor: "pointer" }}>
                 <line x1={l.x} y1={l.y - 16} x2={l.x} y2={l.y - 38} stroke={`${C.n1}33`} strokeWidth="1.5" strokeDasharray="3 4" />
                 <circle cx={l.x} cy={l.y} r={on ? 14 : 9} fill={on ? C.lf : C.n1} stroke={C.fir} strokeWidth="3" />
                 <text x={l.x} y={l.y - 46} fill={on ? C.lf : C.n1} fontSize={on ? 15 : 13} fontWeight="800" textAnchor="middle">{l.unlocks}</text>
-                <text x={label.x} y={l.y + 32} fill={on ? C.lf : `${C.n1}DD`} fontSize="12" fontWeight="700" textAnchor="middle">{`L${l.id}`}</text>
-                <text x={label.x} y={l.y + 50} fill={on ? C.lf : `${C.n1}BB`} fontSize="11" fontWeight="600" textAnchor="middle">{l.name}</text>
+                <text x={l.x} y={l.y + 30} fill={on ? C.lf : `${C.n1}CC`} stroke={C.fir} strokeWidth="3" paintOrder="stroke" strokeLinejoin="round" fontSize="12" fontWeight="700" textAnchor="middle">{`L${l.id}`}</text>
+                <text x={l.x} y={l.y + 52} fill={on ? C.lf : `${C.n1}BB`} stroke={C.fir} strokeWidth="3" paintOrder="stroke" strokeLinejoin="round" fontSize="11" fontWeight="600" textAnchor="middle">{l.name}</text>
               </g>
             );
           })}
@@ -951,6 +969,77 @@ export default function PersonalizationMaturityClient() {
             </p>
           </div>
         </header>
+
+        {/* WHERE THIS COMES FROM */}
+        <section className="mb-12">
+          <Eyebrow>Where this model comes from</Eyebrow>
+          <h2 className="mt-2 text-3xl font-extrabold leading-tight md:text-4xl" style={{ color: C.fir }}>
+            Two years of sessions with teams doing exactly what you are about to do
+          </h2>
+          <p className="mt-3 max-w-4xl text-base leading-relaxed" style={{ color: `${C.fir}B0` }}>
+            This is not a framework we invented and went looking for evidence to support. It came out of two years of
+            workshops and working sessions with customers, and one finding kept repeating: the gap is almost never
+            awareness of what the product can do. It is connecting four things — who should receive a different
+            experience, why that audience matters, what should change for them, and how you will know it worked.
+          </p>
+
+          <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
+            <div className="rounded-3xl p-6 lg:col-span-2" style={{ backgroundColor: C.fir }}>
+              <div className="text-[10px] font-bold uppercase tracking-[0.18em]" style={{ color: C.lf }}>
+                The five decisions every personalization runs through
+              </div>
+              <div className="mt-4 space-y-2">
+                {ARC.map((a) => (
+                  <div key={a.n} className="flex items-start gap-3 rounded-xl p-3" style={{ backgroundColor: `${C.n1}0F` }}>
+                    <span className="text-xs font-extrabold" style={{ color: C.lf }}>{a.n}</span>
+                    <div>
+                      <div className="text-sm font-extrabold" style={{ color: C.n1 }}>{a.t}</div>
+                      <div className="text-xs italic" style={{ color: `${C.n1}99` }}>“{a.q}”</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-4 text-sm leading-relaxed" style={{ color: `${C.n1}CC` }}>
+                Most teams are well supported at step three and largely on their own for the other four. The levels
+                below are organised around closing that gap, in the order it is realistic to close it.
+              </p>
+            </div>
+
+            <div className="rounded-3xl p-6" style={{ backgroundColor: C.sand, border: `2px solid ${C.fir}` }}>
+              <Eyebrow>What we hear most often</Eyebrow>
+              <div className="mt-3 space-y-3">
+                {[
+                  "Because I'm just a one person show, sometimes I feel I run out of ideas.",
+                  "We don't have the capacity to produce the amount of content needed for small, hyper-personalized audiences.",
+                  "Is the juice worth the squeeze?",
+                ].map((q, i) => (
+                  <p key={i} className="border-l-2 pl-3 text-sm italic leading-relaxed" style={{ borderColor: C.gtg, color: C.fir }}>“{q}”</p>
+                ))}
+              </div>
+              <p className="mt-4 text-xs leading-relaxed" style={{ color: `${C.fir}C0` }}>
+                If any of these sound like your team, you are in the majority rather than behind.
+              </p>
+            </div>
+          </div>
+
+          {/* three patterns */}
+          <h3 className="mt-10 text-xl font-extrabold" style={{ color: C.fir }}>Three ways a programme gets stuck</h3>
+          <p className="mt-1 max-w-4xl text-sm" style={{ color: `${C.fir}B0` }}>
+            These came out of the research before this model existed — and each one turned out to be a specific level.
+            Recognising which one is yours is most of the work of choosing where to start.
+          </p>
+          <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
+            {PATTERNS.map((x) => (
+              <button key={x.p} onClick={() => setActive(x.lvl)} className="rounded-3xl p-6 text-left transition-all duration-150" style={{ backgroundColor: active === x.lvl ? C.lf : C.n1, border: `2px solid ${C.fir}`, transform: active === x.lvl ? "translateY(-3px)" : "none", boxShadow: active === x.lvl ? `0 6px 0 0 ${C.fir}` : "none" }}>
+                <h4 className="text-base font-extrabold leading-tight" style={{ color: C.fir }}>{x.p}</h4>
+                <p className="mt-2 text-sm leading-relaxed" style={{ color: `${C.fir}B0` }}>{x.d}</p>
+                <div className="mt-4 text-xs font-extrabold uppercase tracking-wider" style={{ color: C.lightFir }}>
+                  This is Level {x.lvl} — see what to do about it
+                </div>
+              </button>
+            ))}
+          </div>
+        </section>
 
         {/* LEVEL SELECTOR */}
         <div className="mb-8">

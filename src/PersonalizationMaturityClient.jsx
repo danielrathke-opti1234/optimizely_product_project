@@ -970,23 +970,23 @@ export default function PersonalizationMaturityClient() {
           </div>
         </header>
 
-        {/* WHERE THIS COMES FROM */}
+        {/* WHY PROGRAMMES STALL */}
         <section className="mb-12">
-          <Eyebrow>Where this model comes from</Eyebrow>
+          <Eyebrow>Before you pick a level</Eyebrow>
           <h2 className="mt-2 text-3xl font-extrabold leading-tight md:text-4xl" style={{ color: C.fir }}>
-            Two years of sessions with teams doing exactly what you are about to do
+            Personalization rarely stalls because the tooling fell short
           </h2>
           <p className="mt-3 max-w-4xl text-base leading-relaxed" style={{ color: `${C.fir}B0` }}>
-            This is not a framework we invented and went looking for evidence to support. It came out of two years of
-            workshops and working sessions with customers, and one finding kept repeating: the gap is almost never
-            awareness of what the product can do. It is connecting four things — who should receive a different
-            experience, why that audience matters, what should change for them, and how you will know it worked.
+            It stalls because four things never quite connect: who should receive a different experience, why that
+            audience matters, what should change for them, and how you will know it worked. Every campaign runs
+            through the same five decisions, and most teams are well supported at one of them and largely on their
+            own for the rest.
           </p>
 
           <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
             <div className="rounded-3xl p-6 lg:col-span-2" style={{ backgroundColor: C.fir }}>
               <div className="text-[10px] font-bold uppercase tracking-[0.18em]" style={{ color: C.lf }}>
-                The five decisions every personalization runs through
+                The five decisions behind every personalization
               </div>
               <div className="mt-4 space-y-2">
                 {ARC.map((a) => (
@@ -1000,24 +1000,26 @@ export default function PersonalizationMaturityClient() {
                 ))}
               </div>
               <p className="mt-4 text-sm leading-relaxed" style={{ color: `${C.n1}CC` }}>
-                Most teams are well supported at step three and largely on their own for the other four. The levels
-                below are organised around closing that gap, in the order it is realistic to close it.
+                Notice that only one of the five is about building anything. The other four are decisions — and they
+                are where programmes get stuck. The levels below are organised around closing that gap, in the order
+                it is realistic to close it.
               </p>
             </div>
 
             <div className="rounded-3xl p-6" style={{ backgroundColor: C.sand, border: `2px solid ${C.fir}` }}>
-              <Eyebrow>What we hear most often</Eyebrow>
+              <Eyebrow>Sound familiar?</Eyebrow>
               <div className="mt-3 space-y-3">
                 {[
-                  "Because I'm just a one person show, sometimes I feel I run out of ideas.",
-                  "We don't have the capacity to produce the amount of content needed for small, hyper-personalized audiences.",
-                  "Is the juice worth the squeeze?",
+                  "We run out of ideas for what to personalize next.",
+                  "We do not have the capacity to produce content for small, sharp audiences.",
+                  "We are not sure the effort is worth it.",
                 ].map((q, i) => (
                   <p key={i} className="border-l-2 pl-3 text-sm italic leading-relaxed" style={{ borderColor: C.gtg, color: C.fir }}>“{q}”</p>
                 ))}
               </div>
               <p className="mt-4 text-xs leading-relaxed" style={{ color: `${C.fir}C0` }}>
-                If any of these sound like your team, you are in the majority rather than behind.
+                If any of these sound like your team, you are in the majority rather than behind. All three have a
+                specific answer further down this page.
               </p>
             </div>
           </div>
@@ -1025,8 +1027,8 @@ export default function PersonalizationMaturityClient() {
           {/* three patterns */}
           <h3 className="mt-10 text-xl font-extrabold" style={{ color: C.fir }}>Three ways a programme gets stuck</h3>
           <p className="mt-1 max-w-4xl text-sm" style={{ color: `${C.fir}B0` }}>
-            These came out of the research before this model existed — and each one turned out to be a specific level.
-            Recognising which one is yours is most of the work of choosing where to start.
+            Each one is a specific level, with a specific way out. Recognising which is yours is most of the work of
+            choosing where to start — select whichever is closest and the model will jump there.
           </p>
           <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
             {PATTERNS.map((x) => (

@@ -40,6 +40,7 @@ import P13nClientRealityBriefing from './P13nClientRealityBriefing.jsx';
 import PersonalizationStrategistRoadmap from './PersonalizationStrategistRoadmap.jsx';
 
 const AgenticPersonalizationMaturity = lazy(() => import('./AgenticPersonalizationMaturity.jsx'));
+const MaturityCurveCab = lazy(() => import('./MaturityCurveCab.jsx'));
 const PersonalizationMaturityClient = lazy(() => import('./PersonalizationMaturityClient.jsx'));
 const PersonalizationSelfAssessment = lazy(() => import('./PersonalizationSelfAssessment.jsx'));
 
@@ -1051,12 +1052,20 @@ function PortfolioApp() {
 }
 
 function App() {
+  const isMaturityCurveCabRoute = typeof window !== 'undefined' && window.location.pathname.includes('maturity-curve-cab');
   const isSelfAssessmentRoute = typeof window !== 'undefined' && window.location.pathname.includes('personalization-self-assessment');
   const isClientMaturityRoute = typeof window !== 'undefined' && window.location.pathname.includes('personalization-maturity-model-client-facing');
   const isMaturityModelRoute = typeof window !== 'undefined' && window.location.pathname.includes('personalization-maturity-model');
   const isRoadmapRoute = typeof window !== 'undefined' && window.location.pathname.includes('personalization-strategist-roadmap');
   const isPortfolioRoute = typeof window !== 'undefined' && window.location.pathname.includes('portfolio-story');
   const isCmabRoute = typeof window !== 'undefined' && window.location.pathname.includes('cmab-marketer-reframe');
+  if (isMaturityCurveCabRoute) {
+    return (
+      <Suspense fallback={<div className="min-h-screen bg-[#E4F0DA]" />}>
+        <MaturityCurveCab />
+      </Suspense>
+    );
+  }
   if (isSelfAssessmentRoute) {
     return (
       <Suspense fallback={<div className="min-h-screen bg-[#E4F0DA]" />}>

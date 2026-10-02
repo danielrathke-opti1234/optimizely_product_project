@@ -131,6 +131,12 @@ const LEVELS = [
         easy: "Define the audience once, use it in more than one place.",
         trust: "One definition means one answer. Three copies of an audience is how reporting stops being believable.",
       },
+      {
+        n: "Mark-assisted content variants",
+        d: "Removes the production ceiling on small, sharp audiences.",
+        easy: "Audience size stops being limited by how much content you can write.",
+        trust: "Drafted against your brand guidelines, reviewed by your team before anything goes live.",
+      },
     ],
     mark: {
       does:
@@ -165,7 +171,7 @@ const LEVELS = [
       what: "Recommendations, powered by real-time segments",
       why:
         "The ceiling at this level is almost never targeting. It is content. Recommendations break that ceiling by surfacing things you have already made instead of requiring a new variant per segment, which means relevance stops scaling with your production capacity. Pair them with real-time segments so someone qualifies mid-session rather than overnight.",
-      hero: "Content or Product Recommendations, plus ODP Real-Time Segments",
+      hero: "Recommendations and real-time segments, measured in your own warehouse",
     },
     features: [
       {
@@ -193,28 +199,22 @@ const LEVELS = [
         trust: "Your CRM stays the source of truth. Nothing is duplicated or quietly re-derived somewhere else.",
       },
       {
-        n: "Personalization Strategist",
-        d: "Reads your traffic, content and goals and hands back a ranked shortlist of where personalizing would actually change an outcome.",
-        easy: "Replaces staring at analytics hoping something jumps out. It starts from your site and gives you a starting position instead of a blank canvas.",
-        trust: "Every recommendation arrives with its reasoning — which pages, what traffic, what it noticed. And it tells you when you are not ready, before the sprint is spent.",
-      },
-      {
-        n: "Dynamic Experience",
-        d: "Experiences that compose rather than branching into rule sprawl.",
-        easy: "One experience that adapts, instead of twelve variants to maintain forever.",
-        trust: "Fewer moving parts means fewer places for an unintended combination to appear.",
+        n: "Contextual Multi-Armed Bandits (CMAB)",
+        d: "Learns which experience fits which visitor context.",
+        easy: "Removes the need to hand-write a rule for every audience and treatment combination — the work that grows forever.",
+        trust: "You see what it is weighing, which options are in play, and what it has learned so far. You set the options and the guardrails; it cannot go outside them.",
       },
       {
         n: "Autonomous Optimization",
-        d: "One switch on an experiment you already built. You chose the options and the metric; Mark decides the split.",
-        easy: "No weekly ritual of reading dashboards and manually shifting traffic toward whatever looks like it is winning.",
-        trust: "You built every option and named the metric, so Mark is optimising a decision you already made, not making a new one. You can pause or override at any point.",
+        d: "Keeps shifting traffic toward the metric you named, continuously, without a weekly manual check-in.",
+        easy: "No ritual of reading dashboards and reallocating traffic by hand every Monday.",
+        trust: "It optimises toward the metric you set, shows you what it has learned, and you can pause or override it at any point.",
       },
       {
-        n: "Mark-assisted content variants",
-        d: "Removes the production ceiling on small, sharp audiences.",
-        easy: "Audience size stops being limited by how much content you can write.",
-        trust: "Drafted against your brand guidelines, reviewed by your team before anything goes live.",
+        n: "Optimizely Analytics — warehouse-native",
+        d: "Connects directly to the data warehouse you already run — Snowflake, BigQuery, Databricks or Redshift — so personalization is measured against revenue, retention and the rest of your business data rather than on-site events alone.",
+        easy: "No migration and no manual exports. It queries your existing warehouse using the data models your team already built, and it can analyse experiments you ran outside Optimizely too.",
+        trust: "Your warehouse stays the single source of truth and your data never leaves it. Results reconcile with the numbers your finance team already uses — which is the difference between a personalization result you can defend and one you have to argue for.",
       },
     ],
     mark: {
@@ -250,33 +250,27 @@ const LEVELS = [
       what: "Contextual Multi-Armed Bandits (CMAB)",
       why:
         "The honest use case is simple. You have five to twenty good ideas and no way to know which works for which visitor. Instead of choosing a winner too early, or hand-writing a rule for every combination, the system learns while the campaign runs and shifts traffic toward what is working in each context. You define the options, the guardrails and the metric. It handles the allocation, and it shows you what it has learned.",
-      hero: "CMAB on one decision where you genuinely do not know the answer",
+      hero: "Dynamic Experience on your highest-maintenance set of variants",
     },
     features: [
-      {
-        n: "Contextual Multi-Armed Bandits (CMAB)",
-        d: "Learns which experience fits which visitor context.",
-        easy: "Removes the need to hand-write a rule for every audience and treatment combination — the work that grows forever.",
-        trust: "You see what it is weighing, which options are in play, and what it has learned so far. You set the options and the guardrails; it cannot go outside them.",
-      },
 
       {
-        n: "Limitless Personalization",
-        d: "Generates bespoke pages at scale across a universe of accounts or segments the human defined.",
-        easy: "The number of experiences you can run stops being a function of headcount.",
-        trust: "You define what may be assembled and from which approved components. Every page is inspectable after the fact, and nothing is generated outside the boundaries you set.",
+        n: "Personalization Strategist",
+        d: "Decides where to personalize next and which approach fits, then works the opportunity through to a recommendation you can act on.",
+        easy: "Covers the parts of the job nobody has time for — finding the opportunity, checking readiness, and deciding what happens next.",
+        trust: "Every recommendation arrives with its reasoning and the data behind it, and it tells you when you are not ready. You remain the one who decides.",
+      },
+      {
+        n: "Dynamic Experience",
+        d: "One experience that composes itself per visitor, instead of a branching tree of variants to maintain.",
+        easy: "Replaces twelve hand-built variants with a single experience that assembles the right combination. Far less to QA and far less to keep current.",
+        trust: "Fewer moving parts means fewer places for an unintended combination to reach a customer. You define the components; it cannot assemble anything you did not approve.",
       },
       {
         n: "Cross-channel orchestration",
         d: "Web, app and email as one journey rather than three islands.",
         easy: "One coordinated sequence instead of three teams guessing at each other's timing.",
         trust: "Frequency and suppression rules are yours to set, so a customer is never pursued across every channel at once.",
-      },
-      {
-        n: "Optimizely Analytics",
-        d: "One consolidated view of personalization results.",
-        easy: "The end of screenshotting four dashboards into one slide.",
-        trust: "One number, one methodology, one place. Results that reconcile are results people act on.",
       },
       {
         n: "Experimentation programme",
@@ -318,21 +312,21 @@ const LEVELS = [
       what: "One bounded use case, with a holdback",
       why:
         "Do not start everywhere. Choose one surface where individual relevance is obviously valuable, set an explicit boundary on what Mark may change, and hold back a portion of traffic so you can prove the effect. Measurement is genuinely harder at this level — when only one person sees their version there is no variant to compare against — so decide how you will judge it before you build it.",
-      hero: "Limitless Personalization or the Front-end Experience Agent, on one surface",
+      hero: "Limitless Personalization on one bounded surface, against a holdback",
     },
     features: [
 
+      {
+        n: "Limitless Personalization",
+        d: "Generates a genuinely bespoke experience for the individual — assembled in the moment from everything known about them, at a scale no team could ever staff.",
+        easy: "The number of distinct experiences you can run stops being a function of how many people you have to build them.",
+        trust: "You define what may be assembled and from which approved components. Every generated experience is inspectable after the fact, and nothing is produced outside the boundaries you set.",
+      },
       {
         n: "Front-end Experience Agent",
         d: "Finds the most relevant next thing before a returning visitor leaves.",
         easy: "Works from content you already have. No new production required to make it useful.",
         trust: "It surfaces your published content, within your rules. It does not invent things about your business.",
-      },
-      {
-        n: "Personalization Strategist, end to end",
-        d: "Works an opportunity through to the next decision, and at this level closes its own loop — measures, learns, and adjusts without being asked.",
-        easy: "The full cycle from opportunity to the next action runs without someone project-managing each step.",
-        trust: "Every action carries the reasoning behind it. The audit trail is always there and there is always a way back.",
       },
       {
         n: "Agentic-legible experiences",
@@ -390,7 +384,7 @@ const STAGES = [
     plays: [
       { lvl: 2, p: "Reorder navigation or featured content for known segments", f: "Personalization Campaigns, CMS Personalization" },
       { lvl: 3, p: "Surface the guide, tool or product that matches demonstrated interest", f: "Content and Product Recommendations, Behavior Targeting" },
-      { lvl: 4, p: "Learn which arrangement helps which kind of visitor find things faster", f: "CMAB, Dynamic Experience" },
+      { lvl: 3, p: "Learn which arrangement helps which kind of visitor find things faster", f: "CMAB" },
       { lvl: 5, p: "The whole library reordered around one person", f: "Limitless Personalization" },
     ],
     easy: false,
@@ -408,7 +402,7 @@ const STAGES = [
     plays: [
       { lvl: 2, p: "Bring the relevant proof point or reassurance forward for a known segment", f: "Personalization Campaigns, CMS Personalization" },
       { lvl: 3, p: "Match the proof to what they have actually been looking at", f: "Behavior Targeting, Content Recommendations" },
-      { lvl: 4, p: "Learn which reassurance resolves which hesitation, by context", f: "CMAB" },
+      { lvl: 3, p: "Learn which reassurance resolves which hesitation, by context", f: "CMAB" },
       { lvl: 5, p: "Assemble the case for this individual", f: "Limitless Personalization" },
     ],
     easy: true,
@@ -426,7 +420,7 @@ const STAGES = [
     plays: [
       { lvl: 2, p: "Adjust the call to action or remove a step for a known segment", f: "Personalization Campaigns, Feature Experimentation" },
       { lvl: 3, p: "Shortcut the flow for a recognised customer using what you already know", f: "ODP Real-Time Segments, CRM attributes" },
-      { lvl: 4, p: "Learn which framing, nudge or step order converts which context", f: "CMAB, Autonomous Optimization" },
+      { lvl: 3, p: "Learn which framing, nudge or step order converts which context", f: "CMAB" },
       { lvl: 5, p: "The flow adapts to the individual as they move through it", f: "Agentic personalization with Mark" },
     ],
     easy: false,
@@ -445,7 +439,7 @@ const STAGES = [
     plays: [
       { lvl: 2, p: "A welcome experience that reflects what they actually chose", f: "CMS Personalization, ODP segments" },
       { lvl: 3, p: "A next-best-action tile driven by what is still outstanding", f: "ODP Real-Time Segments, Content Recommendations" },
-      { lvl: 4, p: "Learn which prompt and which sequence gets which person to value fastest", f: "CMAB, cross-channel orchestration" },
+      { lvl: 4, p: "Coordinate the sequence across channels so it behaves as one conversation", f: "Cross-channel orchestration, Dynamic Experience" },
       { lvl: 5, p: "An onboarding path reasoned out for this individual", f: "Agentic personalization with Mark" },
     ],
     easy: true,
@@ -481,7 +475,7 @@ const STAGES = [
     plays: [
       { lvl: 2, p: "Suppress what they already have. The cheapest relevance win available", f: "ODP / CDP segments, CMS Personalization" },
       { lvl: 3, p: "Surface the adjacent thing based on what they actually hold", f: "CRM and CDP attributes, Recommendations" },
-      { lvl: 4, p: "Learn which next-best-offer fits which customer context", f: "CMAB, Autonomous Optimization" },
+      { lvl: 3, p: "Learn which next-best-offer fits which customer context", f: "CMAB" },
       { lvl: 5, p: "Reason about the right next step for this individual relationship", f: "Agentic personalization with Mark" },
     ],
     easy: true,
@@ -533,13 +527,13 @@ const MARK_JOBS = [
     job: "Deciding who sees what",
     without: "A human writes every rule, then writes more forever as the combinations multiply.",
     with: "Mark allocates by learning across context, inside the guardrails you set, and shows its working.",
-    lvl: 4,
+    lvl: 3,
   },
   {
     job: "Knowing what happened",
-    without: "Results sit in separate dashboards and someone assembles a slide from four screenshots.",
-    with: "One result, one place, with the justification attached to the campaign that produced it.",
-    lvl: 4,
+    without: "Results live apart from the revenue and retention data that would make them meaningful.",
+    with: "Measured in your own warehouse against real business outcomes, with the reasoning attached.",
+    lvl: 3,
   },
   {
     job: "Deciding what to do next",

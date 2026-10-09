@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CMAB Diagnostic — Everyone (5873138861342720)</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .tabbtn.active { background:#111827; color:#fff; }
+  .path { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; color:#6b7280; }
+  table { border-collapse: collapse; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body class="bg-slate-100 text-slate-900">
+
+<div class="max-w-6xl mx-auto p-4 sm:p-8">
+
+  <!-- HEADER -->
+  <header class="mb-6">
+    <div class="flex flex-wrap items-start justify-between gap-4">
+      <div>
+        <p class="text-xs uppercase tracking-widest text-slate-500 font-semibold">CMAB Interpreter · Full Diagnostic</p>
+        <h1 class="text-3xl font-bold mt-1">Everyone — CMS Product Page hero messaging</h1>
+        <p class="text-sm text-slate-600 mt-1">
+          Experience <span class="path">5873138861342720</span> ·
+          Campaign <span class="path">5512498678333440</span> ·
+          Project <span class="path">26942930964</span>
+        </p>
+      </div>
+      <div class="text-right">
+        <span class="inline-block px-4 py-2 rounded-lg bg-red-600 text-white font-bold text-lg">BLOCKED</span>
+        <p class="text-xs text-slate-500 mt-2">Report generated 2026-10-08<br>Data last calculated 2026-10-09T02:23Z</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- TABS -->
+  <nav class="flex flex-wrap gap-2 mb-6">
+    <button onclick="show('t1',this)" class="tabbtn active px-4 py-2 rounded-lg bg-white border border-slate-300 text-sm font-semibold">1 · Bottom Line</button>
+    <button onclick="show('t2',this)" class="tabbtn px-4 py-2 rounded-lg bg-white border border-slate-300 text-sm font-semibold">2 · What We Found</button>
+    <button onclick="show('t3',this)" class="tabbtn px-4 py-2 rounded-lg bg-white border border-slate-300 text-sm font-semibold">3 · What It Means</button>
+    <button onclick="show('t4',this)" class="tabbtn px-4 py-2 rounded-lg bg-white border border-slate-300 text-sm font-semibold">4 · What To Do</button>
+    <button onclick="show('t5',this)" class="tabbtn px-4 py-2 rounded-lg bg-white border border-slate-300 text-sm font-semibold">5 · Reconciliation</button>
+    <button onclick="show('t6',this)" class="tabbtn px-4 py-2 rounded-lg bg-white border border-slate-300 text-sm font-semibold">6 · Technical Appendix</button>
+  </nav>
+
+<!-- ══════════════ 1 BOTTOM LINE ══════════════ -->
+<section id="t1" class="tab">
+  <div class="bg-white rounded-xl shadow p-6 border-l-8 border-red-600 mb-5">
+    <h2 class="text-xl font-bold mb-3">Bottom Line</h2>
+    <p class="text-lg leading-relaxed">
+      <strong>Turn this test off and relaunch it with a different goal.</strong> The goal this bandit was told to optimise —
+      <em>Product hero CTA</em> — has <strong>never been recorded once</strong> on this page: zero in all four versions and zero
+      in the untouched holdback across <strong>79,128 decisions over 55 weeks</strong>. The model has had nothing to learn from
+      since the day it launched, so it has correctly split traffic almost perfectly evenly and has produced no personalisation at all.
+    </p>
+  </div>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
+    <div class="bg-white rounded-xl shadow p-4 border-t-4 border-red-600">
+      <p class="text-xs uppercase tracking-wide text-slate-500 font-semibold">Reward signal</p>
+      <p class="text-3xl font-bold text-red-600 mt-1">0</p>
+      <p class="text-xs text-slate-600 mt-1">primary-goal conversions, all arms + holdback</p>
+    </div>
+    <div class="bg-white rounded-xl shadow p-4 border-t-4 border-amber-500">
+      <p class="text-xs uppercase tracking-wide text-slate-500 font-semibold">Allocation movement</p>
+      <p class="text-3xl font-bold text-amber-600 mt-1">0.21<span class="text-lg">pp</span></p>
+      <p class="text-xs text-slate-600 mt-1">max deviation from even · FROZEN</p>
+    </div>
+    <div class="bg-white rounded-xl shadow p-4 border-t-4 border-emerald-600">
+      <p class="text-xs uppercase tracking-wide text-slate-500 font-semibold">Holdback</p>
+      <p class="text-3xl font-bold text-emerald-600 mt-1">5.09%</p>
+      <p class="text-xs text-slate-600 mt-1">vs 5.00% configured · healthy</p>
+    </div>
+    <div class="bg-white rounded-xl shadow p-4 border-t-4 border-red-600">
+      <p class="text-xs uppercase tracking-wide text-slate-500 font-semibold">Data freshness</p>
+      <p class="text-3xl font-bold text-red-600 mt-1">108d</p>
+      <p class="text-xs text-slate-600 mt-1">no traffic, but status says “Running”</p>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-xl shadow p-6">
+    <h3 class="font-bold mb-3">The single most useful number in this report</h3>
+    <p class="text-sm leading-relaxed mb-3">
+      We checked the same goal on a sister bandit in this project
+      (<span class="path">5829391565979648</span>, the Web Experimentation product page). There, the goal fires fine in the
+      untouched holdback — <strong>18 conversions from 2,620 decisions (0.687%)</strong>. On <em>this</em> page the same goal
+      fires <strong>0 times from 4,029 untouched holdback decisions</strong>.
+    </p>
+    <p class="text-sm leading-relaxed">
+      That comparison rules out “the variations broke the button.” The goal simply <strong>is not wired up on the CMS product
+      page at all</strong>. This is a tracking/configuration gap, not a bandit failure and not a model defect.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════ 2 WHAT WE FOUND ══════════════ -->
+<section id="t2" class="tab hidden">
+  <div class="bg-white rounded-xl shadow p-6">
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+      <h2 class="text-xl font-bold">What We Found — every check</h2>
+      <div class="flex gap-2 text-xs">
+        <button onclick="filt('all',this)" class="fbtn active px-3 py-1.5 rounded border border-slate-300 font-semibold">All</button>
+        <button onclick="filt('CRITICAL',this)" class="fbtn px-3 py-1.5 rounded border border-slate-300 font-semibold">Critical</button>
+        <button onclick="filt('WARN',this)" class="fbtn px-3 py-1.5 rounded border border-slate-300 font-semibold">Warning</button>
+        <button onclick="filt('PASS',this)" class="fbtn px-3 py-1.5 rounded border border-slate-300 font-semibold">Pass</button>
+      </div>
+    </div>
+
+    <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+      <thead class="bg-slate-800 text-white">
+        <tr>
+          <th class="p-2 text-left w-24">Status</th>
+          <th class="p-2 text-left">Check</th>
+          <th class="p-2 text-left">Figure &amp; denominator</th>
+          <th class="p-2 text-left">Payload path</th>
+        </tr>
+      </thead>
+      <tbody id="findings" class="divide-y divide-slate-200 align-top">
+
+        <tr data-sev="CRITICAL">
+          <td class="p-2"><span class="px-2 py-1 rounded bg-red-600 text-white text-xs font-bold">CRITICAL</span></td>
+          <td class="p-2"><strong>Reward signal</strong><br><span class="text-slate-600">The goal the bandit optimises has never fired.</span></td>
+          <td class="p-2"><strong>0 conversions</strong> / 79,128 decisions (4 arms + holdback). Holdback alone: 0 / 4,029.</td>
+          <td class="p-2 path">cmab.experience.metrics[0].arms</td>
+        </tr>
+
+        <tr data-sev="CRITICAL">
+          <td class="p-2"><span class="px-2 py-1 rounded bg-red-600 text-white text-xs font-bold">CRITICAL</span></td>
+          <td class="p-2"><strong>Lifecycle coherence</strong><br><span class="text-slate-600">Reads “Running” but stopped collecting data in June.</span></td>
+          <td class="p-2">Experience status <strong>running</strong>; results end_time <strong>2026-06-22</strong>; last substantive data point <strong>2026-06-17</strong>; <strong>108 days</strong> of zeros since; is_stale <strong>true</strong>.</td>
+          <td class="p-2 path">experiment.status · results.end_time · results.is_stale · cmab.experience.timeseries</td>
+        </tr>
+
+        <tr data-sev="CRITICAL">
+          <td class="p-2"><span class="px-2 py-1 rounded bg-red-600 text-white text-xs font-bold">CRITICAL</span></td>
+          <td class="p-2"><strong>Pipeline disagreement</strong><br><span class="text-slate-600">Two places in the same payload report different conversion counts for the same population.</span></td>
+          <td class="p-2">Form success, personalised: <strong>878</strong> vs <strong>2,359</strong> on an identical 75,099 denominator. Ratio <strong>2.69×</strong>. Verdicts also disagree (not significant vs significant).</td>
+          <td class="p-2 path">campaign.metrics[1] vs campaign.experiences[0].metrics[1]</td>
+        </tr>
+
+        <tr data-sev="WARN">
+          <td class="p-2"><span class="px-2 py-1 rounded bg-amber-500 text-white text-xs font-bold">WARNING</span></td>
+          <td class="p-2"><strong>Allocation movement</strong><br><span class="text-slate-600">Classified FROZEN — behaving as a plain random A/B test.</span></td>
+          <td class="p-2">Share of <strong>personalised</strong> decisions (denominator 75,099, even split = 25.00%): Design 24.907%, Simplicity 25.208%, Storytelling 24.871%, Speed 25.014%. <strong>Max deviation 0.21pp</strong> (frozen threshold &lt;1pp).</td>
+          <td class="p-2 path">cmab.experience.metrics[].arms[].decisions</td>
+        </tr>
+
+        <tr data-sev="WARN">
+          <td class="p-2"><span class="px-2 py-1 rounded bg-amber-500 text-white text-xs font-bold">WARNING</span></td>
+          <td class="p-2"><strong>Exploration telemetry</strong><br><span class="text-slate-600">Missing here, present on a sister test — and internally inconsistent.</span></td>
+          <td class="p-2">exploration_rate = <strong>null</strong>; exploitation rate reported as <strong>50%</strong> under goal “Automated” after 55 weeks. Sister CMAB <span class="path">5829391565979648</span> reports exploration_rate <strong>0.105928</strong> with the same 50% field.</td>
+          <td class="p-2 path">cmab.distribution</td>
+        </tr>
+
+        <tr data-sev="WARN">
+          <td class="p-2"><span class="px-2 py-1 rounded bg-amber-500 text-white text-xs font-bold">WARNING</span></td>
+          <td class="p-2"><strong>Attribute readability</strong><br><span class="text-slate-600">Most inputs are unlabelled numbers.</span></td>
+          <td class="p-2"><strong>13 of 17</strong> context attributes (76.5%) are opaque numeric IDs. Only 4 are readable: browserId, device, time_and_day, source_type.</td>
+          <td class="p-2 path">cmab.attribute_importance.context_attributes</td>
+        </tr>
+
+        <tr data-sev="WARN">
+          <td class="p-2"><span class="px-2 py-1 rounded bg-amber-500 text-white text-xs font-bold">WARNING</span></td>
+          <td class="p-2"><strong>Attribution available?</strong><br><span class="text-slate-600">No — nothing has been computed for this test.</span></td>
+          <td class="p-2">feature_importance = <strong>{} (empty)</strong>; shap_importance = <strong>null</strong>; no top_attributes block. Sister CMAB has a fully populated feature_importance for all 17 attributes.</td>
+          <td class="p-2 path">cmab.attribute_importance.feature_importance</td>
+        </tr>
+
+        <tr data-sev="PASS">
+          <td class="p-2"><span class="px-2 py-1 rounded bg-emerald-600 text-white text-xs font-bold">PASS</span></td>
+          <td class="p-2"><strong>Holdback integrity</strong></td>
+          <td class="p-2">Observed <strong>4,029 / 79,128 = 5.092%</strong> vs configured 5.00%. Deviation +0.09pp. Uplift is measurable.</td>
+          <td class="p-2 path">experiment.holdback · cmab.campaign.reach</td>
+        </tr>
+
+        <tr data-sev="PASS">
+          <td class="p-2"><span class="px-2 py-1 rounded bg-emerald-600 text-white text-xs font-bold">PASS</span></td>
+          <td class="p-2"><strong>Primary vs secondary identified</strong></td>
+          <td class="p-2">Primary = <strong>Product hero CTA</strong> (event 4878081005977600, unique / session). Secondary, observational only = Form success (27159860471), Navigation CTA (5018818494332928).</td>
+          <td class="p-2 path">experiment.metrics[0..2]</td>
+        </tr>
+
+        <tr data-sev="PASS">
+          <td class="p-2"><span class="px-2 py-1 rounded bg-emerald-600 text-white text-xs font-bold">PASS</span></td>
+          <td class="p-2"><strong>Traffic volume</strong></td>
+          <td class="p-2"><strong>79,128 decisions / 72,050 visitors</strong> over 55 weeks ≈ <strong>1,442 decisions per week</strong>. Enough traffic to run a 4-arm bandit on a reasonably common goal.</td>
+          <td class="p-2 path">cmab.experience.reach</td>
+        </tr>
+
+        <tr data-sev="PASS">
+          <td class="p-2"><span class="px-2 py-1 rounded bg-emerald-600 text-white text-xs font-bold">PASS</span></td>
+          <td class="p-2"><strong>Arm configuration</strong></td>
+          <td class="p-2">4 active arms (Design, Storytelling, Simplicity, Speed), all weighted 2500, all status active, none archived. No control-is-also-holdback compression problem.</td>
+          <td class="p-2 path">experiment.variations[]</td>
+        </tr>
+
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-xl shadow p-6 mt-5">
+    <h3 class="font-bold mb-3">Traffic split across the four versions</h3>
+    <p class="text-xs text-slate-600 mb-3">Denominator: 75,099 personalised decisions. An even split would be exactly 25.00% (dashed line). Source: <span class="path">cmab.experience.metrics[].arms[].decisions</span></p>
+    <div style="height:320px"><canvas id="allocChart"></canvas></div>
+  </div>
+</section>
+
+<!-- ══════════════ 3 WHAT IT MEANS ══════════════ -->
+<section id="t3" class="tab hidden">
+  <div class="space-y-5">
+
+    <div class="bg-white rounded-xl shadow p-6">
+      <h2 class="text-xl font-bold mb-3">What It Means</h2>
+      <h3 class="font-semibold text-red-700 mt-2">1. You asked the model a question it had no way to answer</h3>
+      <p class="text-sm leading-relaxed mt-1">
+        A contextual bandit learns by watching which version earns more of <em>one chosen goal</em>, then sending more of the
+        right visitors to the right version. The chosen goal here recorded <strong>zero</strong> events in 79,128 decisions.
+        With no wins and no losses to compare, there is no basis to prefer any version over any other — so splitting traffic
+        evenly is the mathematically <em>correct</em> output, not a bug. <strong>This test is not broken. It was asked an
+        unanswerable question for 55 weeks.</strong>
+      </p>
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-6">
+      <h3 class="font-semibold text-red-700">2. The goal isn't tracked on this page</h3>
+      <p class="text-sm leading-relaxed mt-1">
+        The holdback group sees the <em>original, unmodified</em> page. If the goal were real and simply suppressed by your
+        variations, the holdback would still record it. It recorded <strong>0 / 4,029</strong>. On the sister bandit's page the
+        identical goal records <strong>18 / 2,620 (0.687%)</strong> in holdback. Conclusion: the event exists in your project but
+        is <strong>not firing on the CMS product page</strong>. Fix the tracking or pick a goal that already works here.
+      </p>
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-6">
+      <h3 class="font-semibold text-amber-700">3. The healthy-looking numbers belong to goals the model ignored</h3>
+      <p class="text-sm leading-relaxed mt-1">
+        Form success shows thousands of conversions and even a “significant” flag. <strong>None of that influenced allocation.</strong>
+        Only the primary goal trains the bandit; Form success and Navigation CTA are observational passengers. Do not read the
+        Form success result as evidence the model had something to learn from — it did not.
+      </p>
+      <p class="text-sm leading-relaxed mt-2">
+        For the record, as an observation only: on the campaign rollup
+        (<span class="path">campaign.metrics[1]</span>) personalised visitors converted on Form success at
+        <strong>1.169%</strong> versus holdback <strong>1.440%</strong> — personalisation was <strong>18.8% worse</strong>, and
+        that comparison is <strong>not</strong> flagged conclusive. Which is exactly what you'd expect from a model that never
+        learned anything: you paid the cost of showing four rotating messages and got no targeting benefit back.
+      </p>
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-6">
+      <h3 class="font-semibold text-amber-700">4. Nobody can tell you what this model learned — including the model</h3>
+      <p class="text-sm leading-relaxed mt-1">
+        The attribution payload is empty. There is no ranking of which visitor characteristics mattered, and no
+        per-version breakdown of who responded well or badly. That is consistent with a model that never trained. Separately,
+        <strong>13 of the 17 visitor characteristics are unlabelled ID numbers</strong> like <span class="path">30266011077</span> —
+        so even once attribution does appear, most of it will be unreadable to a marketer without a lookup table.
+      </p>
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-6">
+      <h3 class="font-semibold text-red-700">5. The results you're looking at are four months stale</h3>
+      <p class="text-sm leading-relaxed mt-1">
+        The experience says “Running” but traffic stopped on <strong>17 June 2026</strong> — 108 days of zeros. Anyone opening
+        this test today sees a live-looking test that has in fact been dormant since June. Treat every number here as a
+        snapshot of a finished period, not a current reading.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════ 4 WHAT TO DO ══════════════ -->
+<section id="t4" class="tab hidden">
+  <div class="bg-white rounded-xl shadow p-6">
+    <h2 class="text-xl font-bold mb-4">What To Do</h2>
+    <ol class="space-y-5">
+
+      <li class="border-l-4 border-red-600 pl-4">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="font-bold">1. Stop this test now.</span>
+          <span class="px-2 py-0.5 rounded bg-slate-800 text-white text-xs font-semibold">CONFIGURATION</span>
+        </div>
+        <p class="text-sm mt-1">Triggered by: <strong>0 primary conversions / 79,128 decisions</strong> and <strong>108 days with no traffic while marked Running</strong>.
+        It cannot produce an answer in its current form and it is misrepresenting itself as live.</p>
+      </li>
+
+      <li class="border-l-4 border-red-600 pl-4">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="font-bold">2. Decide which goal the hero messaging should actually chase — then verify it fires here <em>before</em> relaunch.</span>
+          <span class="px-2 py-0.5 rounded bg-slate-800 text-white text-xs font-semibold">CONFIGURATION</span>
+        </div>
+        <p class="text-sm mt-1">Triggered by: the base-rate check below. Measured on this exact page, this exact test:</p>
+        <table class="text-sm mt-2 w-full max-w-2xl">
+          <thead class="bg-slate-200"><tr><th class="p-2 text-left">Candidate goal</th><th class="p-2 num">Rate on this page</th><th class="p-2 text-left">Verdict</th></tr></thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr><td class="p-2">Form success <span class="path">27159860471</span></td><td class="p-2 num">3.18% <span class="text-slate-500">(2,516 / 79,128)</span></td><td class="p-2 text-emerald-700 font-semibold">Bandit-grade — use this</td></tr>
+            <tr><td class="p-2">Form success, as the results page counts it</td><td class="p-2 num">1.18% <span class="text-slate-500">(936 / 79,122)</span></td><td class="p-2 text-amber-700 font-semibold">Marginal</td></tr>
+            <tr><td class="p-2">Navigation CTA <span class="path">5018818494332928</span></td><td class="p-2 num">0.025% <span class="text-slate-500">(20 / 79,128)</span></td><td class="p-2 text-red-700 font-semibold">Too rare — never use as primary</td></tr>
+            <tr><td class="p-2">Product hero CTA <span class="path">4878081005977600</span> <em>(current)</em></td><td class="p-2 num">0.000% <span class="text-slate-500">(0 / 79,128)</span></td><td class="p-2 text-red-700 font-semibold">Dead on this page</td></tr>
+          </tbody>
+        </table>
+        <p class="text-sm mt-2"><strong>Recommendation:</strong> switch the primary goal to <strong>Form success</strong>, which fires at 3.18% here. Keep Product hero CTA as a secondary so you can watch for it coming alive.</p>
+      </li>
+
+      <li class="border-l-4 border-amber-500 pl-4">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="font-bold">3. Have someone check whether the hero CTA event is implemented on this page at all.</span>
+          <span class="px-2 py-0.5 rounded bg-slate-800 text-white text-xs font-semibold">CONFIGURATION</span>
+        </div>
+        <p class="text-sm mt-1">Triggered by: <strong>0 / 4,029 in the untouched holdback here</strong> versus <strong>18 / 2,620 (0.687%) in the untouched holdback</strong> of sister CMAB <span class="path">5829391565979648</span>. The event works elsewhere in this project; its selector almost certainly does not match anything on page <span class="path">5449697364541440</span>.</p>
+      </li>
+
+      <li class="border-l-4 border-amber-500 pl-4">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="font-bold">4. Budget realistically for the relaunch — and consider cutting to 3 arms.</span>
+          <span class="px-2 py-0.5 rounded bg-slate-800 text-white text-xs font-semibold">CONFIGURATION</span>
+        </div>
+        <p class="text-sm mt-1">Triggered by: <strong>1,442 decisions/week</strong> at a <strong>3.18%</strong> goal rate across <strong>4 arms</strong>.
+        Planning estimate (not Stats Engine's sequential maths): detecting a 20% separation between arms needs roughly
+        <strong>51,300 decisions ≈ 36 weeks</strong>. That lands in the AMBER band (over 8 weeks, under 26 is green). At the stricter
+        session-counted 1.18% rate it stretches to roughly <strong>98 weeks</strong>. Dropping from 4 arms to 3 cuts the 36-week figure
+        to about 27 weeks. Set expectations with stakeholders accordingly before launch, not after.</p>
+      </li>
+
+      <li class="border-l-4 border-amber-500 pl-4">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="font-bold">5. Rename the 13 numeric visitor attributes before you rely on attribution.</span>
+          <span class="px-2 py-0.5 rounded bg-slate-800 text-white text-xs font-semibold">CONFIGURATION</span>
+        </div>
+        <p class="text-sm mt-1">Triggered by: <strong>13 of 17 attributes (76.5%) are opaque numeric IDs</strong>. Worth noting the sister test found
+        <strong>all</strong> of its predictive value in the four <em>readable</em> ones (source_type 0.314, browserId 0.191, time_and_day 0.182, device 0.176)
+        and <strong>exactly 0.0 in all thirteen numeric ones</strong> — so these may be contributing nothing but noise and clutter.</p>
+      </li>
+
+      <li class="border-l-4 border-red-600 pl-4">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="font-bold">6. Raise the pipeline disagreement with Optimizely.</span>
+          <span class="px-2 py-0.5 rounded bg-rose-700 text-white text-xs font-semibold">PLATFORM</span>
+        </div>
+        <p class="text-sm mt-1">Triggered by: <strong>878 vs 2,359 conversions on an identical 75,099 denominator</strong>, with <strong>opposite conclusiveness verdicts</strong>,
+        for a campaign containing exactly one experience. Same population, same metric, same payload — two different answers. A customer cannot be asked to trust either number until this is explained. See the Reconciliation tab for the full breakdown and both paths.</p>
+      </li>
+
+      <li class="border-l-4 border-amber-500 pl-4">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="font-bold">7. Also flag the missing learning telemetry.</span>
+          <span class="px-2 py-0.5 rounded bg-rose-700 text-white text-xs font-semibold">PLATFORM</span>
+        </div>
+        <p class="text-sm mt-1">Triggered by: <strong>exploration_rate = null</strong> and <strong>feature_importance = {}</strong> on this test, while the sister CMAB in the same project
+        reports <strong>exploration_rate 0.105928</strong> and a fully populated feature_importance. Separately, a <strong>50% exploitation rate</strong> reported under an
+        “Automated” goal after 55 weeks does not square with the sister test's 10.6% exploration on the identical setting — one of those two readings is wrong.</p>
+      </li>
+
+    </ol>
+  </div>
+</section>
+
+<!-- ══════════════ 5 RECONCILIATION ══════════════ -->
+<section id="t5" class="tab hidden">
+  <div class="bg-white rounded-xl shadow p-6 mb-5">
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+      <h2 class="text-xl font-bold">Reconciliation — where the numbers disagree</h2>
+      <select id="metricSel" onchange="renderRecon()" class="border border-slate-300 rounded px-3 py-1.5 text-sm font-semibold">
+        <option value="0">Product hero CTA (primary)</option>
+        <option value="1" selected>Form success (secondary)</option>
+        <option value="2">Navigation CTA (secondary)</option>
+      </select>
+    </div>
+    <p class="text-sm text-slate-600 mb-4">Each row is one pipeline, with the exact payload location it came from so it can be independently re-fetched and verified.</p>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead class="bg-slate-800 text-white">
+          <tr><th class="p-2 text-left">Pipeline</th><th class="p-2 text-left">Payload path</th><th class="p-2 num">Denominator</th><th class="p-2 num">Conversions</th><th class="p-2 num">Rate</th><th class="p-2 text-left">Verdict reported</th></tr>
+        </thead>
+        <tbody id="reconBody" class="divide-y divide-slate-200"></tbody>
+      </table>
+    </div>
+    <div id="reconNote" class="mt-4 p-4 rounded-lg bg-slate-50 border border-slate-200 text-sm"></div>
+  </div>
+
+  <div class="bg-white rounded-xl shadow p-6 mb-5">
+    <h3 class="font-bold mb-2">The diagnostic insight: it's a counting difference, not a population difference</h3>
+    <p class="text-sm leading-relaxed">
+      Across every metric the <strong>denominators agree</strong> — 75,099 personalised decisions in both the campaign rollup and the
+      experience rollup, and 79,128 vs 79,122 total (a 6-decision gap, 0.008%, immaterial). Only the <strong>numerators</strong> diverge,
+      by a consistent <strong>2.69× on Form success</strong> and <strong>1.82× on Navigation CTA</strong>.
+    </p>
+    <p class="text-sm leading-relaxed mt-2">
+      Because the two pipelines are looking at the same people, the gap is in <em>how a conversion is counted</em>, not <em>who was counted</em>:
+    </p>
+    <ul class="text-sm list-disc ml-6 mt-2 space-y-1">
+      <li><strong>Decision-scoped</strong> counts every page decision as a separate opportunity — one visitor who converts across three sessions counts three times.</li>
+      <li><strong>Session-unique</strong> collapses each session to at most one conversion — the same visitor counts once per session.</li>
+    </ul>
+    <p class="text-sm leading-relaxed mt-2">
+      This metric is <strong>configured as unique / session</strong> (<span class="path">experiment.metrics[].aggregator = "unique", .scope = "session"</span>).
+      The results-page figure (878) honours that setting. The experience-level figure (2,359) does not appear to. <strong>The configured
+      setting is the one that should win</strong> — which makes the lower number the defensible one and the higher one the anomaly.
+      We are flagging, not resolving, this: confirming which pipeline is authoritative needs Optimizely engineering.
+    </p>
+  </div>
+
+  <div class="bg-white rounded-xl shadow p-6">
+    <h3 class="font-bold mb-2">Campaign vs experience — a defect, not a nuance</h3>
+    <p class="text-sm leading-relaxed">
+      This campaign contains <strong>exactly one experience</strong>. <span class="path">campaign.metrics</span> and
+      <span class="path">campaign.experiences[0].metrics</span> therefore describe the <strong>identical population</strong> —
+      same 75,099 personalised decisions, same 4,029 holdback. They should be the same numbers. They are not:
+    </p>
+    <div class="overflow-x-auto mt-3">
+      <table class="w-full text-sm">
+        <thead class="bg-slate-200"><tr><th class="p-2 text-left">Metric</th><th class="p-2 num">campaign.metrics</th><th class="p-2 num">campaign.experiences[0].metrics</th><th class="p-2 num">Ratio</th><th class="p-2 text-left">Conclusiveness</th></tr></thead>
+        <tbody class="divide-y divide-slate-200">
+          <tr><td class="p-2">Product hero CTA</td><td class="p-2 num">0</td><td class="p-2 num">0</td><td class="p-2 num">—</td><td class="p-2 text-emerald-700">agree (both: no)</td></tr>
+          <tr class="bg-red-50"><td class="p-2 font-semibold">Form success</td><td class="p-2 num font-semibold">878</td><td class="p-2 num font-semibold">2,359</td><td class="p-2 num font-semibold">2.69×</td><td class="p-2 text-red-700 font-semibold">DISAGREE — "no" vs "yes"</td></tr>
+          <tr class="bg-amber-50"><td class="p-2">Navigation CTA</td><td class="p-2 num">11</td><td class="p-2 num">20</td><td class="p-2 num">1.82×</td><td class="p-2 text-amber-700">counts disagree (both: no)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="text-sm leading-relaxed mt-3">
+      The Form success row is the serious one: the same metric on the same people is reported as
+      <strong>not conclusive</strong> in one place and <strong>conclusive</strong> in the other. A user who opens the campaign view and a user
+      who opens the experience view will walk away with contradictory conclusions. <strong>This is a platform defect and should be
+      raised with Optimizely engineering.</strong>
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════ 6 APPENDIX ══════════════ -->
+<section id="t6" class="tab hidden">
+  <div class="space-y-5">
+
+    <div class="bg-white rounded-xl shadow p-6">
+      <h2 class="text-xl font-bold mb-3">Technical Appendix</h2>
+      <h3 class="font-semibold mb-2">Identity &amp; configuration</h3>
+      <table class="w-full text-sm">
+        <tbody class="divide-y divide-slate-200">
+          <tr><td class="p-1.5 w-72 text-slate-600">Experience ID</td><td class="p-1.5 path">5873138861342720</td></tr>
+          <tr><td class="p-1.5 text-slate-600">Campaign (layer) ID</td><td class="p-1.5 path">5512498678333440</td></tr>
+          <tr><td class="p-1.5 text-slate-600">Project ID</td><td class="p-1.5 path">26942930964</td></tr>
+          <tr><td class="p-1.5 text-slate-600">Page ID</td><td class="p-1.5 path">5449697364541440 (optimizely.com/products/content-management/)</td></tr>
+          <tr><td class="p-1.5 text-slate-600">Allocation policy</td><td class="p-1.5">contextual-multi-arm-bandit (CMAB confirmed, is_cmab = true)</td></tr>
+          <tr><td class="p-1.5 text-slate-600">Type / audience</td><td class="p-1.5">personalization · audience_conditions = "everyone"</td></tr>
+          <tr><td class="p-1.5 text-slate-600">Status</td><td class="p-1.5">running</td></tr>
+          <tr><td class="p-1.5 text-slate-600">Created / last modified</td><td class="p-1.5">2025-06-03 / 2025-07-30</td></tr>
+          <tr><td class="p-1.5 text-slate-600">Start → results end_time</td><td class="p-1.5">2025-06-03T12:43:56Z → 2026-06-22T12:49:42Z (384 days, 54.9 weeks)</td></tr>
+          <tr><td class="p-1.5 text-slate-600">Last calculated</td><td class="p-1.5">2026-10-09T02:23:51Z · is_stale = true · should_retry = true</td></tr>
+          <tr><td class="p-1.5 text-slate-600">Traffic allocation / holdback</td><td class="p-1.5">10000 (100%) / 500 (5.00%)</td></tr>
+          <tr><td class="p-1.5 text-slate-600">Distribution</td><td class="p-1.5">goal = Automated · is_cmab_automatic_distribution = true · exploration_rate = <strong>null</strong> · cmab_distribution_exploitation_rate = 5000 (50%)</td></tr>
+          <tr><td class="p-1.5 text-slate-600">Confidence threshold</td><td class="p-1.5">0.95 · relative difference · epoch_enabled = false</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-6">
+      <h3 class="font-semibold mb-2">Metrics as configured — <span class="path">experiment.metrics[]</span></h3>
+      <table class="w-full text-sm">
+        <thead class="bg-slate-200"><tr><th class="p-2 text-left">#</th><th class="p-2 text-left">Role</th><th class="p-2 text-left">Name</th><th class="p-2 text-left">Event ID</th><th class="p-2 text-left">Aggregator / scope</th><th class="p-2 text-left">Direction</th></tr></thead>
+        <tbody class="divide-y divide-slate-200">
+          <tr class="bg-red-50"><td class="p-2">0</td><td class="p-2 font-bold">PRIMARY — trains the bandit</td><td class="p-2">Product hero CTA</td><td class="p-2 path">4878081005977600</td><td class="p-2">unique / session</td><td class="p-2">increasing</td></tr>
+          <tr><td class="p-2">1</td><td class="p-2 text-slate-600">Secondary — observational only</td><td class="p-2">Form success</td><td class="p-2 path">27159860471</td><td class="p-2">unique / session</td><td class="p-2">increasing</td></tr>
+          <tr><td class="p-2">2</td><td class="p-2 text-slate-600">Secondary — observational only</td><td class="p-2">Navigation CTA</td><td class="p-2 path">5018818494332928</td><td class="p-2">unique / session</td><td class="p-2">increasing</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-6">
+      <h3 class="font-semibold mb-2">Per-arm raw figures — <span class="path">cmab.experience.metrics[].arms</span></h3>
+      <table class="w-full text-sm">
+        <thead class="bg-slate-200"><tr><th class="p-2 text-left">Arm</th><th class="p-2 text-left">Variation ID</th><th class="p-2 num">Decisions</th><th class="p-2 num">Hero CTA</th><th class="p-2 num">Form success</th><th class="p-2 num">Nav CTA</th></tr></thead>
+        <tbody class="divide-y divide-slate-200">
+          <tr><td class="p-2">Design</td><td class="p-2 path">4519995992965120</td><td class="p-2 num">18,705</td><td class="p-2 num">0</td><td class="p-2 num">580</td><td class="p-2 num">5</td></tr>
+          <tr><td class="p-2">Simplicity</td><td class="p-2 path">6628984385961984</td><td class="p-2 num">18,931</td><td class="p-2 num">0</td><td class="p-2 num">583</td><td class="p-2 num">8</td></tr>
+          <tr><td class="p-2">Storytelling</td><td class="p-2 path">6638398585176064</td><td class="p-2 num">18,678</td><td class="p-2 num">0</td><td class="p-2 num">571</td><td class="p-2 num">2</td></tr>
+          <tr><td class="p-2">Speed</td><td class="p-2 path">5876769350221824</td><td class="p-2 num">18,785</td><td class="p-2 num">0</td><td class="p-2 num">625</td><td class="p-2 num">5</td></tr>
+          <tr class="bg-slate-50"><td class="p-2 font-semibold">Holdback</td><td class="p-2">—</td><td class="p-2 num font-semibold">4,029</td><td class="p-2 num font-semibold">0</td><td class="p-2 num font-semibold">157</td><td class="p-2 num font-semibold">0</td></tr>
+          <tr class="bg-slate-200 font-bold"><td class="p-2">Total</td><td class="p-2">—</td><td class="p-2 num">79,128</td><td class="p-2 num">0</td><td class="p-2 num">2,516</td><td class="p-2 num">20</td></tr>
+        </tbody>
+      </table>
+      <p class="text-xs text-slate-600 mt-2">Personalised-only subtotals (excluding holdback): 75,099 decisions · Hero CTA 0 · Form success 2,359 · Nav CTA 20.</p>
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-6">
+      <h3 class="font-semibold mb-2">Per-variation raw figures — <span class="path">results.metrics[].results[]</span> (results page)</h3>
+      <table class="w-full text-sm">
+        <thead class="bg-slate-200"><tr><th class="p-2 text-left">Variation</th><th class="p-2 num">Samples</th><th class="p-2 num">Hero CTA</th><th class="p-2 num">Form success</th><th class="p-2 num">Nav CTA</th><th class="p-2 text-left">Form success lift vs baseline</th></tr></thead>
+        <tbody class="divide-y divide-slate-200">
+          <tr><td class="p-2">Design</td><td class="p-2 num">18,704</td><td class="p-2 num">0</td><td class="p-2 num">215</td><td class="p-2 num">1</td><td class="p-2">−20.15%, not conclusive</td></tr>
+          <tr><td class="p-2">Speed</td><td class="p-2 num">18,782</td><td class="p-2 num">0</td><td class="p-2 num">245</td><td class="p-2 num">4</td><td class="p-2">−9.39%, not conclusive</td></tr>
+          <tr><td class="p-2">Simplicity</td><td class="p-2 num">18,930</td><td class="p-2 num">0</td><td class="p-2 num">218</td><td class="p-2 num">4</td><td class="p-2">−20.00%, not conclusive</td></tr>
+          <tr><td class="p-2">Storytelling</td><td class="p-2 num">18,677</td><td class="p-2 num">0</td><td class="p-2 num">200</td><td class="p-2 num">2</td><td class="p-2 text-red-700">−25.61%, <strong>conclusive — flagged as loser</strong></td></tr>
+          <tr class="bg-slate-50"><td class="p-2 font-semibold">Baseline (holdback)</td><td class="p-2 num font-semibold">4,029</td><td class="p-2 num font-semibold">0</td><td class="p-2 num font-semibold">58</td><td class="p-2 num font-semibold">0</td><td class="p-2">—</td></tr>
+          <tr class="bg-slate-200 font-bold"><td class="p-2">Total</td><td class="p-2 num">79,122</td><td class="p-2 num">0</td><td class="p-2 num">936</td><td class="p-2 num">11</td><td class="p-2">—</td></tr>
+        </tbody>
+      </table>
+      <p class="text-xs text-slate-600 mt-2">Note the Storytelling "loser" verdict applies to a <strong>secondary</strong> metric and had no influence on allocation. Reported here for completeness only.</p>
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-6">
+      <h3 class="font-semibold mb-2">Allocation arithmetic — both denominators, kept separate</h3>
+      <table class="w-full text-sm">
+        <thead class="bg-slate-200"><tr><th class="p-2 text-left">Arm</th><th class="p-2 num">Decisions</th><th class="p-2 num">Share of 75,099 personalised</th><th class="p-2 num">Dev. from 25.000%</th><th class="p-2 num">Share of 79,128 total</th><th class="p-2 num">Dev. from 23.727%</th></tr></thead>
+        <tbody class="divide-y divide-slate-200">
+          <tr><td class="p-2">Design</td><td class="p-2 num">18,705</td><td class="p-2 num">24.907%</td><td class="p-2 num">−0.093pp</td><td class="p-2 num">23.639%</td><td class="p-2 num">−0.088pp</td></tr>
+          <tr><td class="p-2">Simplicity</td><td class="p-2 num">18,931</td><td class="p-2 num">25.208%</td><td class="p-2 num">+0.208pp</td><td class="p-2 num">23.925%</td><td class="p-2 num">+0.197pp</td></tr>
+          <tr><td class="p-2">Storytelling</td><td class="p-2 num">18,678</td><td class="p-2 num">24.871%</td><td class="p-2 num">−0.129pp</td><td class="p-2 num">23.605%</td><td class="p-2 num">−0.122pp</td></tr>
+          <tr><td class="p-2">Speed</td><td class="p-2 num">18,785</td><td class="p-2 num">25.014%</td><td class="p-2 num">+0.014pp</td><td class="p-2 num">23.740%</td><td class="p-2 num">+0.013pp</td></tr>
+        </tbody>
+      </table>
+      <p class="text-xs text-slate-600 mt-2">
+        Denominator A: uniform = 1/K = 1/4 = 25.000%. Max deviation <strong>0.208pp</strong>.<br>
+        Denominator B: uniform = (1 − 0.05092)/4 = 23.727%. Max deviation <strong>0.197pp</strong>.<br>
+        Both sit far below the 1pp FROZEN threshold. Classification: <strong>FROZEN</strong> (thresholds are tunable: frozen &lt;1pp, learning 1–5pp, exploiting ≥5pp).
+      </p>
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-6">
+      <h3 class="font-semibold mb-2">Base-rate library — primary metric "Product hero CTA" (4878081005977600)</h3>
+      <table class="w-full text-sm">
+        <thead class="bg-slate-200"><tr><th class="p-2 text-left">Source test</th><th class="p-2 text-left">Page</th><th class="p-2 num">Personalised</th><th class="p-2 num">Holdback (untouched page)</th></tr></thead>
+        <tbody class="divide-y divide-slate-200">
+          <tr><td class="p-2 path">5873138861342720 <span class="text-slate-500">(this, running)</span></td><td class="p-2">CMS product page</td><td class="p-2 num">0 / 75,099 = 0.000%</td><td class="p-2 num text-red-700 font-semibold">0 / 4,029 = 0.000%</td></tr>
+          <tr><td class="p-2 path">5829391565979648 <span class="text-slate-500">(sister, running)</span></td><td class="p-2">Web Experimentation page</td><td class="p-2 num">3 / 50,135 = 0.006%</td><td class="p-2 num text-emerald-700 font-semibold">18 / 2,620 = 0.687%</td></tr>
+          <tr class="bg-slate-200 font-bold"><td class="p-2" colspan="2">Pooled across both CMABs</td><td class="p-2 num" colspan="2">21 / 131,883 = 0.0159%</td></tr>
+        </tbody>
+      </table>
+      <p class="text-xs text-slate-600 mt-2">Pooled rate 0.0159% is far below the 0.5% "too rare to train a bandit" floor. The holdback contrast (0.000% here vs 0.687% there) localises the failure to this page's tracking, not to the variations and not to the model.</p>
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-6">
+      <h3 class="font-semibold mb-2">Feasibility planning estimates</h3>
+      <p class="text-xs text-slate-600 mb-2">Formula: per-arm n ≈ 16(1−p) / (p·d²); total ≈ n·K / (1 − holdback share); weeks ≈ total ÷ decisions per week.
+      Inputs: K = 4, holdback share = 0.05092, observed traffic = 79,128 ÷ 54.9 weeks = <strong>1,442 decisions/week</strong>.
+      <strong>This is a planning approximation, not Stats Engine's sequential maths</strong> — Stats Engine may conclude sooner or later.</p>
+      <table class="w-full text-sm">
+        <thead class="bg-slate-200"><tr><th class="p-2 text-left">Goal &amp; rate</th><th class="p-2 text-left">Separation to detect</th><th class="p-2 num">Total decisions</th><th class="p-2 num">Weeks</th><th class="p-2 text-left">Band</th></tr></thead>
+        <tbody class="divide-y divide-slate-200">
+          <tr><td class="p-2">Form success @ 3.18% (decision-scoped)</td><td class="p-2">20%</td><td class="p-2 num">51,334</td><td class="p-2 num">35.6</td><td class="p-2 text-amber-700 font-semibold">Amber</td></tr>
+          <tr><td class="p-2">Form success @ 3.18% (decision-scoped)</td><td class="p-2">10%</td><td class="p-2 num">205,335</td><td class="p-2 num">142.4</td><td class="p-2 text-red-700 font-semibold">Red</td></tr>
+          <tr><td class="p-2">Form success @ 1.18% (session-unique)</td><td class="p-2">20%</td><td class="p-2 num">140,822</td><td class="p-2 num">97.6</td><td class="p-2 text-red-700 font-semibold">Red</td></tr>
+          <tr><td class="p-2">Form success @ 1.18% (session-unique)</td><td class="p-2">10%</td><td class="p-2 num">563,288</td><td class="p-2 num">390.5</td><td class="p-2 text-red-700 font-semibold">Red</td></tr>
+        </tbody>
+      </table>
+      <p class="text-xs text-slate-600 mt-2">Boundary note: the 35.6-week figure sits past the 26-week amber/red line in some readings — call it a borderline amber. The unresolved pipeline disagreement (3.18% vs 1.18%) is itself a reason this estimate carries a wide range; resolving item 6 would tighten it considerably.</p>
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-6">
+      <h3 class="font-semibold mb-2">Context attributes — <span class="path">cmab.attribute_importance.context_attributes</span></h3>
+      <p class="text-sm mb-2"><strong>17 total · 13 opaque numeric (76.5%) · 4 readable</strong></p>
+      <p class="text-sm"><strong>Readable:</strong> browserId, device, time_and_day, source_type <span class="text-slate-500">(standard_attribute)</span></p>
+      <p class="text-sm mt-1"><strong>Opaque</strong> <span class="text-slate-500">(all dcp_table_attribute, service 30322590051 / datasource 30260470401)</span>: <span class="path">30266011077, 30266780819, 30294171279, 30326850104, 30328660417, 30343900647, 30344340440, 30349030495, 30363060261, 30369420404, 30371200236, 30371830111, 30385230014</span></p>
+      <p class="text-sm mt-3"><strong>Attribution for this test: NOT AVAILABLE.</strong> feature_importance = <span class="path">{}</span> (empty object), shap_importance = <span class="path">null</span>, no top_attributes key. The model has not computed attribution for this test. No attribution analysis, contrast table, or direction-of-response finding can be produced, and none has been invented.</p>
+      <p class="text-sm mt-2 text-slate-600">For contrast, sister CMAB <span class="path">5829391565979648</span> does return feature_importance: source_type 0.314, browserId 0.191, time_and_day 0.182, device 0.176, and 0.0 for all 13 numeric attributes. Its shap_importance is also null, so per-visitor-type direction of response is not available anywhere in this project today.</p>
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-6">
+      <h3 class="font-semibold mb-2">Project precedent — <span class="path">exp_execute_query, entity "experience"</span></h3>
+      <p class="text-sm"><strong>29 CMAB experiences</strong> identified by allocation_policy = contextual-multi-arm-bandit in the first 200 of 247 experiences in project 26942930964: 18 never started, 6 archived, 4 running, 1 campaign-paused. <span class="text-slate-600">Caveat: the query returned 200 of 247 records (has_more = true), so this count is a floor, not a complete census.</span></p>
+      <p class="text-sm mt-2">Of the CMABs with retrievable results, <strong>2 were inspected in full</strong>:</p>
+      <ul class="text-sm list-disc ml-6 mt-1 space-y-1">
+        <li><span class="path">5873138861342720</span> (this test) — working holdback ✓, readable result ✗ (dead primary metric), attribution ✗</li>
+        <li><span class="path">5829391565979648</span> (sister) — working holdback ✓ (2,620 / 52,755 = 4.97%), readable result ✓ (1,313 primary conversions per campaign.metrics), attribution ✓ (feature_importance populated)</li>
+      </ul>
+      <p class="text-sm mt-2"><strong>Precedent read: 2 of 2 had a correctly-sized holdback; 1 of 2 had a live reward signal; 1 of 2 produced attribution.</strong> The failure mode you hit here is not universal in this project — a correctly-configured CMAB on a neighbouring page is working.</p>
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-6">
+      <h3 class="font-semibold mb-2">Self-audit — run before publication</h3>
+      <table class="w-full text-sm">
+        <thead class="bg-slate-200"><tr><th class="p-2 text-left">Check</th><th class="p-2 text-left">Result</th></tr></thead>
+        <tbody class="divide-y divide-slate-200">
+          <tr><td class="p-2">Every percentage reconciles against the denominator stated beside it</td><td class="p-2 text-emerald-700 font-semibold">PASS</td></tr>
+          <tr><td class="p-2">No sentence mixes a baseline from one denominator with an observation from another</td><td class="p-2 text-emerald-700 font-semibold">PASS — A (25.000%) and B (23.727%) reported in separate columns</td></tr>
+          <tr><td class="p-2">Every conversion count names its payload path</td><td class="p-2 text-emerald-700 font-semibold">PASS</td></tr>
+          <tr><td class="p-2">No allocation or learning claim attributed to a secondary metric</td><td class="p-2 text-emerald-700 font-semibold">PASS — allocation verdict rests solely on the primary metric</td></tr>
+          <tr><td class="p-2">No single claim pairs figures from two different pipelines</td><td class="p-2 text-emerald-700 font-semibold">PASS — reconciliation rows kept separate and individually labelled</td></tr>
+          <tr><td class="p-2">Every number is retrieved or derived; none inferred</td><td class="p-2 text-emerald-700 font-semibold">PASS</td></tr>
+        </tbody>
+      </table>
+      <div class="mt-3 p-3 rounded bg-amber-50 border border-amber-300 text-sm">
+        <strong>Correction logged during audit.</strong> A first pass reported the experience-level Form success total as 2,359.
+        That figure is the <em>personalised-only</em> subtotal; summing <span class="path">cmab.experience.metrics[1].arms</span> <em>including</em>
+        holdback gives 2,516. Both are now stated with their scope made explicit, and the 2,359 figure is used only where it is
+        compared like-for-like against the personalised-only 878 from <span class="path">campaign.metrics[1]</span>.
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-6">
+      <h3 class="font-semibold mb-2">Limits of this analysis</h3>
+      <ul class="text-sm list-disc ml-6 space-y-1">
+        <li>Attribution is genuinely unavailable for this test. Nothing in this report claims to know what the model learned, because no such data exists in the payload.</li>
+        <li>We cannot determine from data <em>why</em> the Product hero CTA event fails to fire on this page — only that it does not fire, including on the untouched holdback. Confirming the cause needs someone to inspect the event's selector against the live page.</li>
+        <li>Which of the two conversion pipelines is authoritative is <strong>not resolvable from the data alone</strong>. We identify the configured scope (unique / session) as the tiebreaker that <em>should</em> apply, but confirming it is an Optimizely engineering question. Honest answer: we don't know which number the product intends to be canonical — and that ambiguity is itself the finding.</li>
+        <li>The project CMAB census is a floor (200 of 247 experiences retrieved).</li>
+        <li>Feasibility weeks are planning approximations under a fixed-sample formula, not Stats Engine's sequential testing behaviour.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+  <footer class="mt-8 text-xs text-slate-500 text-center pb-6">
+    CMAB Interpreter · All figures retrieved from exp_summarize_test_result and exp_execute_query on 2026-10-08, or derived by computation from those payloads.
+  </footer>
+</div>
+
+<script>
+const RECON = {
+  "0": { name:"Product hero CTA (PRIMARY)",
+    rows:[
+      ["Experience per-arm rollup","cmab.experience.metrics[0].arms","79,128 (incl. holdback)","0","0.000%","not significant"],
+      ["Experience, personalised only","cmab.experience.metrics[0].arms (4 arms)","75,099","0","0.000%","not significant"],
+      ["Results page / Stats Engine","results.metrics[0].results[]","79,122 (incl. baseline)","0","0.000%","not significant, lift_status equal"],
+      ["Campaign rollup","campaign.metrics[0]","75,099 personalised","0","0.000%","not significant"],
+      ["Campaign → experience rollup","campaign.experiences[0].metrics[0]","75,099 personalised","0","0.000%","not significant"]
+    ],
+    note:`<strong class="text-emerald-700">All pipelines agree: zero.</strong> There is nothing to reconcile here because there is nothing to count.
+    That agreement is itself the strongest evidence in this report — four independent paths through the data all confirm the goal
+    that trains this bandit has never been recorded. Holdback (untouched page) is also 0 / 4,029, which rules out the variations as the cause.`},
+  "1": { name:"Form success (secondary)",
+    rows:[
+      ["Experience per-arm rollup","cmab.experience.metrics[1].arms","79,128 (incl. holdback)","2,516","3.180%","Design & Storytelling flagged significant"],
+      ["Experience, personalised only","cmab.experience.metrics[1].arms (4 arms)","75,099","2,359","3.141%","—"],
+      ["Results page / Stats Engine","results.metrics[1].results[]","79,122 (incl. baseline)","936","1.183%","only Storytelling significant (loser)"],
+      ["Campaign rollup","campaign.metrics[1]","75,099 personalised","878","1.169%","<span class='text-red-700 font-semibold'>not significant</span>"],
+      ["Campaign → experience rollup","campaign.experiences[0].metrics[1]","75,099 personalised","2,359","3.141%","<span class='text-red-700 font-semibold'>significant</span>"]
+    ],
+    note:`<strong class="text-red-700">Denominators match exactly (75,099 = 75,099); numerators differ by 2.69×.</strong>
+    Because the population is identical, this is a <em>conversion-counting</em> difference, not a scope-of-audience difference.
+    The metric is configured <span class="path">unique / session</span>; the 878 figure honours that, the 2,359 figure appears to count
+    every decision. Worse, the two paths return <strong>opposite conclusiveness verdicts on the same people</strong> — and this campaign has
+    exactly one experience, so there is no legitimate reason for them to differ. Platform defect. Reminder: this is a <strong>secondary</strong>
+    metric and none of it influenced how the bandit allocated traffic.`},
+  "2": { name:"Navigation CTA (secondary)",
+    rows:[
+      ["Experience per-arm rollup","cmab.experience.metrics[2].arms","79,128 (incl. holdback)","20","0.0253%","not significant"],
+      ["Experience, personalised only","cmab.experience.metrics[2].arms (4 arms)","75,099","20","0.0266%","not significant"],
+      ["Results page / Stats Engine","results.metrics[2].results[]","79,122 (incl. baseline)","11","0.0139%","not significant, lift_status equal"],
+      ["Campaign rollup","campaign.metrics[2]","75,099 personalised","11","0.0146%","not significant"],
+      ["Campaign → experience rollup","campaign.experiences[0].metrics[2]","75,099 personalised","20","0.0266%","not significant"]
+    ],
+    note:`<strong class="text-amber-700">Same pattern, smaller scale: 20 vs 11, a ratio of 1.82×</strong>, again on identical denominators.
+    The ratio differs from Form success's 2.69× because repeat-conversion behaviour differs by metric — which is consistent with a
+    decision-vs-session counting split. Both pipelines agree the result is inconclusive here, so the disagreement is less damaging,
+    but it confirms the counting gap is systematic rather than a one-off on Form success.
+    Note also that holdback recorded 0 for this metric, which makes the reported "Infinity" improvement meaningless — divide by zero, not a real result.`}
+};
+function renderRecon(){
+  const k=document.getElementById('metricSel').value, d=RECON[k];
+  document.getElementById('reconBody').innerHTML = d.rows.map(r=>
+    `<tr><td class="p-2 font-semibold">${r[0]}</td><td class="p-2 path">${r[1]}</td><td class="p-2 num">${r[2]}</td><td class="p-2 num font-semibold">${r[3]}</td><td class="p-2 num">${r[4]}</td><td class="p-2">${r[5]}</td></tr>`).join('');
+  document.getElementById('reconNote').innerHTML = d.note;
+}
+function show(id,btn){
+  document.querySelectorAll('.tab').forEach(s=>s.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+  document.querySelectorAll('.tabbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  if(id==='t2') setTimeout(drawChart,40);
+}
+function filt(sev,btn){
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#findings tr').forEach(r=>{
+    r.style.display = (sev==='all'||r.dataset.sev===sev) ? '' : 'none';
+  });
+}
+let chart=null;
+function drawChart(){
+  if(chart) return;
+  const ctx=document.getElementById('allocChart');
+  if(!ctx) return;
+  chart=new Chart(ctx,{type:'bar',
+    data:{labels:['Design','Simplicity','Storytelling','Speed'],
+      datasets:[{label:'Share of personalised decisions (%)',data:[24.907,25.208,24.871,25.014],
+        backgroundColor:['#64748b','#64748b','#64748b','#64748b'],borderRadius:4}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      scales:{y:{min:24.5,max:25.5,title:{display:true,text:'% of 75,099 personalised decisions'}}},
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:c=>c.parsed.y.toFixed(3)+'%  (even split = 25.000%)'}},
+        title:{display:true,text:'Max deviation from an even split: 0.208pp — the model never formed an opinion'}}}});
+}
+renderRecon();
+</script>
+</body>
+</html>

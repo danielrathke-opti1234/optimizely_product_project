@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personalization Program Value Report</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+html, body { max-width: 100%; overflow-x: hidden; }
+details > summary { list-style: none; cursor: pointer; }
+details > summary::-webkit-details-marker { display: none; }
+.chev { transition: transform .2s ease; }
+details[open] > summary .chev { transform: rotate(180deg); }
+.chev-btn { display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; width:34px; height:34px; border-radius:9999px; background:#e8eeff; color:#0037ff; border:1.5px solid #c7d5ff; transition:background .15s ease, color .15s ease, box-shadow .15s ease; }
+.chev-btn .chev { width:22px; height:22px; stroke-width:2.75; }
+summary:hover .chev-btn { background:#0037ff; color:#fff; border-color:#0037ff; box-shadow:0 2px 6px rgba(0,55,255,.35); }
+summary:focus-visible { outline:3px solid #93b4ff; outline-offset:2px; }
+details[open] > summary .chev-btn { background:#0037ff; color:#fff; border-color:#0037ff; }
+.row-details[open] { background:#f5f8ff; box-shadow: inset 4px 0 0 #0037ff; border-radius:.5rem; }
+.sticky-col { position: sticky; left: 0; background: #fff; z-index: 1; box-shadow: 2px 0 0 #e3e7ef; }
+thead .sticky-col { background: #f1f4fa; }
+</style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 space-y-5">
+
+<!-- 1. HERO -->
+<header class="rounded-2xl bg-gradient-to-br from-[#0b1f4d] to-[#0037ff] text-white p-6 sm:p-8 shadow-lg">
+  <div class="text-xs uppercase tracking-widest text-blue-100 font-semibold">Optimizely Personalization · Program Value</div>
+  <h1 class="text-2xl sm:text-3xl font-extrabold mt-2">Personalization Program Value Report</h1>
+  <p class="text-blue-100 mt-1 text-sm">Project: Optimizely.com · Project ID 26942930964</p>
+  <div class="grid grid-cols-2 lg:grid-cols-5 gap-3 mt-6 text-sm">
+    <div class="rounded-lg bg-white/10 border border-white/20 p-3"><div class="text-[11px] uppercase text-blue-100">Timeframe</div><div class="font-bold mt-1">2025-10-01 – 2026-10-14</div></div>
+    <div class="rounded-lg bg-white/10 border border-white/20 p-3"><div class="text-[11px] uppercase text-blue-100">Business Value</div><div class="font-bold mt-1">Dollar Per Lead Conversion — $218.32 per lead</div></div>
+    <div class="rounded-lg bg-white/10 border border-white/20 p-3"><div class="text-[11px] uppercase text-blue-100">Eligible Campaigns</div><div class="font-bold mt-1">19</div></div>
+    <div class="rounded-lg bg-white/10 border border-white/20 p-3"><div class="text-[11px] uppercase text-blue-100">Financially Modeled</div><div class="font-bold mt-1">9 of 19</div></div>
+    <div class="rounded-lg bg-white/10 border border-white/20 p-3"><div class="text-[11px] uppercase text-blue-100">Valuation Basis</div><div class="font-bold mt-1">Holdback-measured, observed period</div></div>
+  </div>
+</header>
+
+<!-- 2. EXECUTIVE SUMMARY -->
+<section class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6">
+  <h2 class="text-lg font-bold text-[#0b1f4d]">Executive Summary</h2>
+  <ul class="mt-3 space-y-2 text-sm list-disc pl-5">
+    <li><strong>Tier A (headline):</strong> 4 campaigns delivered an <span class="text-green-700 font-semibold">Observed Positive Gain of $18,434.84</span> (≈84.4 incremental leads at $218.32 per lead). After the 25% Conservative Rollout Factor, <span class="text-teal-700 font-semibold">Realized Positive Gain is $4,608.71</span>.</li>
+    <li><strong>Downside Detected:</strong> 5 campaigns produced fewer leads than their holdbacks, totaling <span class="text-red-700 font-semibold">$75,525.67</span> (≈345.9 fewer leads). Most of it came from [250603 Felix CMAB] CMS hero ($44,321.40). This is shown separately and is not netted against gains.</li>
+    <li><strong>Cross-check:</strong> When all 9 modeled campaigns are pooled together, the combined lift is −5.12%, a <span class="text-red-700 font-semibold">Pooled Portfolio Estimate of −$81,481.24</span>. That gives a Realization Ratio of −174.11% against the $46,797.70 Sum of Individual Wins. Taken together, the evidence points to net downside, so the positive results should be treated as unconfirmed.</li>
+    <li><strong>Coverage:</strong> 9 of 19 eligible campaigns were financially modeled. 8 had no holdback (0%), and 2 tracked no lead or form-submission metric. None of the lead results was statistically significant at 95%. Three positive campaigns rest on holdbacks of 17–193 sessions with a single holdback lead, so their large lifts are fragile.</li>
+    <li><strong>Supporting signals:</strong> On three CMAB hero campaigns, hero CTA click metrics fell sharply (−96% to −99%), and one of those drops is significant. We recommend reviewing event tracking on the personalized hero variants.</li>
+  </ul>
+</section>
+
+<!-- 3. PROGRAM VALUE SUMMARY -->
+<section class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6">
+  <h2 class="text-lg font-bold text-[#0b1f4d]">Program Value Summary</h2>
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-4">
+    <div class="rounded-xl border border-slate-200 border-t-4 border-t-green-600 p-4"><div class="text-xs uppercase text-slate-500 font-semibold">Observed Positive Gain</div><div class="text-2xl font-extrabold text-green-700 mt-1">$18,434.84</div><div class="text-xs text-slate-500 mt-1">4 campaigns · ≈84.4 incremental leads</div></div>
+    <div class="rounded-xl border border-slate-200 border-t-4 border-t-teal-600 p-4"><div class="text-xs uppercase text-slate-500 font-semibold">Realized Positive Gain</div><div class="text-2xl font-extrabold text-teal-700 mt-1">$4,608.71</div><div class="text-xs text-slate-500 mt-1">× 25% rollout · ≈21.1 leads</div></div>
+    <div class="rounded-xl border border-slate-200 border-t-4 border-t-red-600 p-4"><div class="text-xs uppercase text-slate-500 font-semibold">Downside Detected</div><div class="text-2xl font-extrabold text-red-700 mt-1">$75,525.67</div><div class="text-xs text-slate-500 mt-1">5 harmful campaigns · ≈345.9 fewer leads</div></div>
+    <div class="rounded-xl border border-slate-200 border-t-4 border-t-blue-600 p-4"><div class="text-xs uppercase text-slate-500 font-semibold">Conservative Rollout Factor</div><div class="text-2xl font-extrabold text-blue-700 mt-1">25%</div><div class="text-xs text-slate-500 mt-1">User provided</div></div>
+  </div>
+  <div class="rounded-lg bg-[#0b1f4d] text-white text-center text-sm font-semibold px-4 py-3 mt-4">Campaign Value = Personalized Sessions × Relative Lift vs. Holdback × Value per Session</div>
+  <p class="text-xs text-slate-500 mt-2">Realized Positive Gain = Observed Positive Gain × Conservative Rollout Factor. Downside Detected is not reduced by rollout.</p>
+</section>
+
+<!-- 4. AGGREGATION VIEW -->
+<section class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6">
+  <h2 class="text-lg font-bold text-[#0b1f4d]">Aggregation View</h2>
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-4">
+    <div class="rounded-xl border border-slate-200 border-t-4 border-t-[#0b1f4d] bg-blue-50/50 p-4"><div class="text-xs uppercase text-slate-500 font-semibold">Tier A · Headline</div><div class="text-2xl font-extrabold text-green-700 mt-1">$18,434.84</div><div class="text-xs text-slate-500 mt-1">Holdback-measured Observed Positive Gain · $4,608.71 realized · $75,525.67 downside shown separately</div></div>
+    <div class="rounded-xl border border-slate-200 border-t-4 border-t-slate-400 p-4"><div class="text-xs uppercase text-slate-500 font-semibold">Tier B · Upper Bound</div><div class="text-2xl font-extrabold text-slate-700 mt-1">$46,797.70</div><div class="text-xs text-slate-500 mt-1">Upper Bound — Sum of Individual Wins (Not Added to Program Value)</div></div>
+    <div class="rounded-xl border border-slate-200 border-t-4 border-t-slate-400 p-4"><div class="text-xs uppercase text-slate-500 font-semibold">Tier C · Cross-Check</div><div class="text-2xl font-extrabold text-red-700 mt-1">−$81,481.24</div><div class="text-xs text-slate-500 mt-1">Pooled lift −5.12% across 9 campaigns · Pooled estimate indicates net downside</div></div>
+    <div class="rounded-xl border border-slate-200 border-t-4 border-t-slate-400 p-4"><div class="text-xs uppercase text-slate-500 font-semibold">Realization Ratio</div><div class="text-2xl font-extrabold text-red-700 mt-1">−174.11%</div><div class="text-xs text-slate-500 mt-1">Below 0%: pooled evidence indicates net downside</div></div>
+  </div>
+  <p class="text-sm text-slate-600 mt-3">All tiers use the same calculation. Only Tier A is reported as program value. Tiers B and C show how consistent the results are across campaigns, and the tiers are never added together.</p>
+</section>
+
+<!-- 5. CAMPAIGN VALUE ATTRIBUTION -->
+<section class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6">
+  <h2 class="text-lg font-bold text-[#0b1f4d]">Campaign Value Attribution</h2>
+  <p class="text-sm text-slate-600 mt-1">Lift metric: <strong>Form success</strong>, the share of sessions that completed a lead or form submission. Each row shows the key figures. Click a row or its arrow to see how its value was calculated.</p>
+
+  <div class="hidden md:grid grid-cols-12 gap-3 mt-5 px-4 pb-2 text-[11px] uppercase tracking-wide font-bold text-slate-500 border-b border-slate-200">
+    <div class="col-span-4">Campaign</div>
+    <div class="col-span-2 text-right">Sessions<div class="normal-case font-normal text-slate-400">personalized / holdback</div></div>
+    <div class="col-span-2 text-right">Lead Rate<div class="normal-case font-normal text-slate-400">holdback → personalized</div></div>
+    <div class="col-span-1 text-right">Lift</div>
+    <div class="col-span-2 text-right">Observed Value<div class="normal-case font-normal text-slate-400">realized</div></div>
+    <div class="col-span-1"></div>
+  </div>
+
+  <div class="divide-y divide-slate-100">
+
+  <!-- Row 1 -->
+  <details class="group row-details">
+    <summary class="grid grid-cols-2 md:grid-cols-12 gap-x-3 gap-y-1 px-4 py-4 hover:bg-slate-50 rounded-lg items-center text-sm">
+      <div class="col-span-2 md:col-span-4"><div class="font-semibold text-[#0b1f4d] leading-snug">[251104 Felix PERS] Get-started page: 6sense industry</div><div class="text-xs text-slate-500 mt-1 flex flex-wrap items-center gap-2">Archived · ID 6347198254809088 <span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-green-100 text-green-800">Positive Gain</span></div></div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Sessions</span>344 <span class='text-slate-400'>/ 19</span></div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Lead Rate</span>5.26% <span class='text-slate-400'>→</span> <strong>17.44%</strong></div>
+      <div class="md:col-span-1 md:text-right font-semibold text-green-700"><span class="md:hidden text-[11px] uppercase text-slate-500 block font-normal">Lift</span>+231.40%</div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Observed</span><strong>$9,146.46</strong><span class="block text-xs text-teal-700">$2,286.61 realized</span></div>
+      <div class="col-span-2 md:col-span-1 flex justify-end items-center"><span class="chev-btn" title="Show calculation details"><span class="sr-only">Show calculation details</span><svg class="chev" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></div>
+    </summary>
+    <div class="px-4 pb-5 pt-1 grid md:grid-cols-3 gap-3 text-sm">
+      <div class="rounded-lg bg-[#0b1f4d] text-white p-4 md:col-span-3"><div class="text-[11px] uppercase tracking-wide text-blue-200">How this value was calculated</div><div class="mt-1 font-semibold">344 personalized sessions × +231.40% lift × $11.49 value per session ≈ <span class="text-green-300">$9,146.46</span></div><div class="text-xs text-blue-100 mt-1">Value per session = holdback lead rate 5.26% × $218.32 · equal to ≈41.89 incremental leads × $218.32</div></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Measurement</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Lift metric</dt><dd>Form success</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Lift type</dt><dd>Conversion Lift (Lead)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Aggregation source</dt><dd>Campaign Summary</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Experiences</dt><dd>6</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Significance</dt><dd>Not significant (95%)</dd></div></dl></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Raw results</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Holdback</dt><dd>5.26% (1 / 19)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Personalized</dt><dd>17.44% (60 / 344)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Measured window</dt><dd>2025-11-04 → 2026-06-19 (227 days)</dd></div></dl></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Tiers &amp; rationale</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier A (headline)</dt><dd class="text-green-700 font-semibold">$9,146.46</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier B (upper bound)</dt><dd>$0.00</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier C (pooled)</dt><dd class="text-red-700">−$202.52</dd></div></dl><p class="text-xs text-slate-500 mt-2">Form success is the campaign's only metric and is a lead/form submission. The holdback recorded just 1 lead in 19 sessions.</p></div>
+    </div>
+  </details>
+
+  <!-- Row 2 -->
+  <details class="group row-details">
+    <summary class="grid grid-cols-2 md:grid-cols-12 gap-x-3 gap-y-1 px-4 py-4 hover:bg-slate-50 rounded-lg items-center text-sm">
+      <div class="col-span-2 md:col-span-4"><div class="font-semibold text-[#0b1f4d] leading-snug">[250603 Felix CMAB] CMP hero</div><div class="text-xs text-slate-500 mt-1 flex flex-wrap items-center gap-2">Archived · ID 5053997631930368 <span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-green-100 text-green-800">Positive Gain</span></div></div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Sessions</span>53,820 <span class='text-slate-400'>/ 2,858</span></div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Lead Rate</span>1.50% <span class='text-slate-400'>→</span> <strong>1.55%</strong></div>
+      <div class="md:col-span-1 md:text-right font-semibold text-green-700"><span class="md:hidden text-[11px] uppercase text-slate-500 block font-normal">Lift</span>+2.75%</div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Observed</span><strong>$4,858.04</strong><span class="block text-xs text-teal-700">$1,214.51 realized</span></div>
+      <div class="col-span-2 md:col-span-1 flex justify-end items-center"><span class="chev-btn" title="Show calculation details"><span class="sr-only">Show calculation details</span><svg class="chev" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></div>
+    </summary>
+    <div class="px-4 pb-5 pt-1 grid md:grid-cols-3 gap-3 text-sm">
+      <div class="rounded-lg bg-[#0b1f4d] text-white p-4 md:col-span-3"><div class="text-[11px] uppercase tracking-wide text-blue-200">How this value was calculated</div><div class="mt-1 font-semibold">53,820 personalized sessions × +2.75% lift × $3.28 value per session ≈ <span class="text-green-300">$4,858.04</span></div><div class="text-xs text-blue-100 mt-1">Value per session = holdback lead rate 1.50% × $218.32 · equal to ≈22.25 incremental leads × $218.32</div></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Measurement</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Lift metric</dt><dd>Form success</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Lift type</dt><dd>Conversion Lift (Lead)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Aggregation source</dt><dd>Campaign Summary</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Experiences</dt><dd>1</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Significance</dt><dd>Not significant · 95% CI −80.00% to +81.87%</dd></div></dl></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Raw results</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Holdback</dt><dd>1.50% (43 / 2,858)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Personalized</dt><dd>1.55% (832 / 53,820)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Measured window</dt><dd>2025-06-03 → 2026-06-22 (384 days)</dd></div></dl></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Tiers &amp; rationale</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier A (headline)</dt><dd class="text-green-700 font-semibold">$4,858.04</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier B (upper bound)</dt><dd>$4,858.04</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier C (pooled)</dt><dd class="text-red-700">−$9,057.49</dd></div></dl><p class="text-xs text-slate-500 mt-2">The primary metric (Get started hero CTA) is a click, not a lead. Form success is the first lead/form-submission metric (metric order 2).</p></div>
+    </div>
+  </details>
+
+  <!-- Row 3 -->
+  <details class="group row-details">
+    <summary class="grid grid-cols-2 md:grid-cols-12 gap-x-3 gap-y-1 px-4 py-4 hover:bg-slate-50 rounded-lg items-center text-sm">
+      <div class="col-span-2 md:col-span-4"><div class="font-semibold text-[#0b1f4d] leading-snug">[251102 Felix PERS] start page hero: 6sense industry</div><div class="text-xs text-slate-500 mt-1 flex flex-wrap items-center gap-2">Archived · ID 6300152927879168 <span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-green-100 text-green-800">Positive Gain</span></div></div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Sessions</span>3,917 <span class='text-slate-400'>/ 193</span></div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Lead Rate</span>0.52% <span class='text-slate-400'>→</span> <strong>0.97%</strong></div>
+      <div class="md:col-span-1 md:text-right font-semibold text-green-700"><span class="md:hidden text-[11px] uppercase text-slate-500 block font-normal">Lift</span>+87.24%</div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Observed</span><strong>$3,865.28</strong><span class="block text-xs text-teal-700">$966.32 realized</span></div>
+      <div class="col-span-2 md:col-span-1 flex justify-end items-center"><span class="chev-btn" title="Show calculation details"><span class="sr-only">Show calculation details</span><svg class="chev" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></div>
+    </summary>
+    <div class="px-4 pb-5 pt-1 grid md:grid-cols-3 gap-3 text-sm">
+      <div class="rounded-lg bg-[#0b1f4d] text-white p-4 md:col-span-3"><div class="text-[11px] uppercase tracking-wide text-blue-200">How this value was calculated</div><div class="mt-1 font-semibold">3,917 personalized sessions × +87.24% lift × $1.13 value per session ≈ <span class="text-green-300">$3,865.28</span></div><div class="text-xs text-blue-100 mt-1">Value per session = holdback lead rate 0.52% × $218.32 · equal to ≈17.70 incremental leads × $218.32</div></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Measurement</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Lift metric</dt><dd>Form success</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Lift type</dt><dd>Conversion Lift (Lead)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Aggregation source</dt><dd>Campaign Summary</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Experiences</dt><dd>6</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Significance</dt><dd>Not significant (95%)</dd></div></dl></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Raw results</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Holdback</dt><dd>0.52% (1 / 193)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Personalized</dt><dd>0.97% (38 / 3,917)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Measured window</dt><dd>2025-11-02 → 2026-06-21 (231 days)</dd></div></dl></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Tiers &amp; rationale</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier A (headline)</dt><dd class="text-green-700 font-semibold">$3,865.28</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier B (upper bound)</dt><dd>$0.00</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier C (pooled)</dt><dd class="text-red-700">−$227.01</dd></div></dl><p class="text-xs text-slate-500 mt-2">Form success is the campaign's only metric and is a lead/form submission. The holdback recorded 1 lead.</p></div>
+    </div>
+  </details>
+
+  <!-- Row 4 -->
+  <details class="group row-details">
+    <summary class="grid grid-cols-2 md:grid-cols-12 gap-x-3 gap-y-1 px-4 py-4 hover:bg-slate-50 rounded-lg items-center text-sm">
+      <div class="col-span-2 md:col-span-4"><div class="font-semibold text-[#0b1f4d] leading-snug">[251104 Felix PERS] Plans page: 6sense industry</div><div class="text-xs text-slate-500 mt-1 flex flex-wrap items-center gap-2">Archived · ID 6494924258934784 <span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-green-100 text-green-800">Positive Gain</span></div></div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Sessions</span>500 <span class='text-slate-400'>/ 17</span></div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Lead Rate</span>5.88% <span class='text-slate-400'>→</span> <strong>6.40%</strong></div>
+      <div class="md:col-span-1 md:text-right font-semibold text-green-700"><span class="md:hidden text-[11px] uppercase text-slate-500 block font-normal">Lift</span>+8.80%</div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Observed</span><strong>$565.06</strong><span class="block text-xs text-teal-700">$141.27 realized</span></div>
+      <div class="col-span-2 md:col-span-1 flex justify-end items-center"><span class="chev-btn" title="Show calculation details"><span class="sr-only">Show calculation details</span><svg class="chev" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></div>
+    </summary>
+    <div class="px-4 pb-5 pt-1 grid md:grid-cols-3 gap-3 text-sm">
+      <div class="rounded-lg bg-[#0b1f4d] text-white p-4 md:col-span-3"><div class="text-[11px] uppercase tracking-wide text-blue-200">How this value was calculated</div><div class="mt-1 font-semibold">500 personalized sessions × +8.80% lift × $12.84 value per session ≈ <span class="text-green-300">$565.06</span></div><div class="text-xs text-blue-100 mt-1">Value per session = holdback lead rate 5.88% × $218.32 · equal to ≈2.59 incremental leads × $218.32</div></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Measurement</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Lift metric</dt><dd>Form success</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Lift type</dt><dd>Conversion Lift (Lead)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Aggregation source</dt><dd>Campaign Summary</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Experiences</dt><dd>6</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Significance</dt><dd>Not significant (95%)</dd></div></dl></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Raw results</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Holdback</dt><dd>5.88% (1 / 17)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Personalized</dt><dd>6.40% (32 / 500)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Measured window</dt><dd>2025-11-04 → 2026-06-19 (227 days)</dd></div></dl></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Tiers &amp; rationale</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier A (headline)</dt><dd class="text-green-700 font-semibold">$565.06</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier B (upper bound)</dt><dd>$0.00</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier C (pooled)</dt><dd class="text-red-700">−$328.99</dd></div></dl><p class="text-xs text-slate-500 mt-2">Form success is the campaign's only metric and is a lead/form submission. The holdback recorded 1 lead in 17 sessions.</p></div>
+    </div>
+  </details>
+
+  <!-- Row 5 -->
+  <details class="group row-details">
+    <summary class="grid grid-cols-2 md:grid-cols-12 gap-x-3 gap-y-1 px-4 py-4 hover:bg-slate-50 rounded-lg items-center text-sm">
+      <div class="col-span-2 md:col-span-4"><div class="font-semibold text-[#0b1f4d] leading-snug">[250603 Felix CMAB] CMS hero</div><div class="text-xs text-slate-500 mt-1 flex flex-wrap items-center gap-2">Archived · ID 5512498678333440 <span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-red-100 text-red-800">Downside Detected</span></div></div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Sessions</span>75,093 <span class='text-slate-400'>/ 4,029</span></div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Lead Rate</span>1.44% <span class='text-slate-400'>→</span> <strong>1.17%</strong></div>
+      <div class="md:col-span-1 md:text-right font-semibold text-red-700"><span class="md:hidden text-[11px] uppercase text-slate-500 block font-normal">Lift</span>−18.78%</div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Observed</span><strong class="text-red-700">$44,321.40</strong><span class="block text-xs text-red-700">not reduced by rollout</span></div>
+      <div class="col-span-2 md:col-span-1 flex justify-end items-center"><span class="chev-btn" title="Show calculation details"><span class="sr-only">Show calculation details</span><svg class="chev" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></div>
+    </summary>
+    <div class="px-4 pb-5 pt-1 grid md:grid-cols-3 gap-3 text-sm">
+      <div class="rounded-lg bg-[#0b1f4d] text-white p-4 md:col-span-3"><div class="text-[11px] uppercase tracking-wide text-blue-200">How this value was calculated</div><div class="mt-1 font-semibold">75,093 personalized sessions × −18.78% lift × $3.14 value per session ≈ <span class="text-red-300">$44,321.40 downside</span></div><div class="text-xs text-blue-100 mt-1">Value per session = holdback lead rate 1.44% × $218.32 · equal to ≈203.01 fewer leads × $218.32</div></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Measurement</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Lift metric</dt><dd>Form success</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Lift type</dt><dd>Conversion Lift (Lead)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Aggregation source</dt><dd>Campaign Summary</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Experiences</dt><dd>1</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Significance</dt><dd>Not significant · 95% CI −66.75% to +7.08%</dd></div></dl></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Raw results</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Holdback</dt><dd>1.44% (58 / 4,029)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Personalized</dt><dd>1.17% (878 / 75,093)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Measured window</dt><dd>2025-06-03 → 2026-06-22 (384 days)</dd></div></dl></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Tiers &amp; rationale</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier A (headline)</dt><dd class="text-red-700 font-semibold">$44,321.40 downside</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier B (upper bound)</dt><dd>$0.00</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier C (pooled)</dt><dd class="text-red-700">−$12,091.72</dd></div></dl><p class="text-xs text-slate-500 mt-2">The primary metric (Product hero CTA) is a click. Form success is the only lead/form-submission metric.</p></div>
+    </div>
+  </details>
+
+  <!-- Row 6 -->
+  <details class="group row-details">
+    <summary class="grid grid-cols-2 md:grid-cols-12 gap-x-3 gap-y-1 px-4 py-4 hover:bg-slate-50 rounded-lg items-center text-sm">
+      <div class="col-span-2 md:col-span-4"><div class="font-semibold text-[#0b1f4d] leading-snug">[250627 Michiel PROMO] Opticon geo</div><div class="text-xs text-slate-500 mt-1 flex flex-wrap items-center gap-2">Archived · ID 6260471997661184 <span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-red-100 text-red-800">Downside Detected</span></div></div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Sessions</span>57,095 <span class='text-slate-400'>/ 3,012</span></div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Lead Rate</span>6.37% <span class='text-slate-400'>→</span> <strong>6.23%</strong></div>
+      <div class="md:col-span-1 md:text-right font-semibold text-red-700"><span class="md:hidden text-[11px] uppercase text-slate-500 block font-normal">Lift</span>−2.24%</div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Observed</span><strong class="text-red-700">$17,797.86</strong><span class="block text-xs text-red-700">not reduced by rollout</span></div>
+      <div class="col-span-2 md:col-span-1 flex justify-end items-center"><span class="chev-btn" title="Show calculation details"><span class="sr-only">Show calculation details</span><svg class="chev" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></div>
+    </summary>
+    <div class="px-4 pb-5 pt-1 grid md:grid-cols-3 gap-3 text-sm">
+      <div class="rounded-lg bg-[#0b1f4d] text-white p-4 md:col-span-3"><div class="text-[11px] uppercase tracking-wide text-blue-200">How this value was calculated</div><div class="mt-1 font-semibold">57,095 personalized sessions × −2.24% lift × $13.92 value per session ≈ <span class="text-red-300">$17,797.86 downside</span></div><div class="text-xs text-blue-100 mt-1">Value per session = holdback lead rate 6.37% × $218.32 · equal to ≈81.52 fewer leads × $218.32</div></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Measurement</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Lift metric</dt><dd>Form success</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Lift type</dt><dd>Conversion Lift (Lead)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Aggregation source</dt><dd>Campaign Summary</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Experiences</dt><dd>5</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Significance</dt><dd>Not significant · 95% CI −25.05% to +7.37%</dd></div></dl></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Raw results</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Holdback</dt><dd>6.37% (192 / 3,012)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Personalized</dt><dd>6.23% (3,558 / 57,095)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Measured window</dt><dd>2025-05-27 → 2025-10-01 (127 days)</dd></div></dl></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Tiers &amp; rationale</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier A (headline)</dt><dd class="text-red-700 font-semibold">$17,797.86 downside</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier B (upper bound)</dt><dd>$41,939.66</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier C (pooled)</dt><dd class="text-red-700">−$40,710.09</dd></div></dl><p class="text-xs text-slate-500 mt-2">Form success is the campaign's only metric and is a lead/form submission. The measured window ended on 2025-10-01, so nearly all of it falls before the selected timeframe.</p></div>
+    </div>
+  </details>
+
+  <!-- Row 7 -->
+  <details class="group row-details">
+    <summary class="grid grid-cols-2 md:grid-cols-12 gap-x-3 gap-y-1 px-4 py-4 hover:bg-slate-50 rounded-lg items-center text-sm">
+      <div class="col-span-2 md:col-span-4"><div class="font-semibold text-[#0b1f4d] leading-snug">[AOL v3.3 CMAB] Experimentation product page</div><div class="text-xs text-slate-500 mt-1 flex flex-wrap items-center gap-2">Paused · ID 6290327936434176 <span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-red-100 text-red-800">Downside Detected</span></div></div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Sessions</span>7,417 <span class='text-slate-400'>/ 345</span></div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Lead Rate</span>1.45% <span class='text-slate-400'>→</span> <strong>0.80%</strong></div>
+      <div class="md:col-span-1 md:text-right font-semibold text-red-700"><span class="md:hidden text-[11px] uppercase text-slate-500 block font-normal">Lift</span>−45.11%</div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Observed</span><strong class="text-red-700">$10,586.94</strong><span class="block text-xs text-red-700">not reduced by rollout</span></div>
+      <div class="col-span-2 md:col-span-1 flex justify-end items-center"><span class="chev-btn" title="Show calculation details"><span class="sr-only">Show calculation details</span><svg class="chev" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></div>
+    </summary>
+    <div class="px-4 pb-5 pt-1 grid md:grid-cols-3 gap-3 text-sm">
+      <div class="rounded-lg bg-[#0b1f4d] text-white p-4 md:col-span-3"><div class="text-[11px] uppercase tracking-wide text-blue-200">How this value was calculated</div><div class="mt-1 font-semibold">7,417 personalized sessions × −45.11% lift × $3.16 value per session ≈ <span class="text-red-300">$10,586.94 downside</span></div><div class="text-xs text-blue-100 mt-1">Value per session = holdback lead rate 1.45% × $218.32 · equal to ≈48.49 fewer leads × $218.32</div></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Measurement</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Lift metric</dt><dd>Form success</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Lift type</dt><dd>Conversion Lift (Lead)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Aggregation source</dt><dd>Campaign Summary</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Experiences</dt><dd>1</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Significance</dt><dd>Not significant (95%)</dd></div></dl></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Raw results</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Holdback</dt><dd>1.45% (5 / 345)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Personalized</dt><dd>0.80% (59 / 7,417)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Measured window</dt><dd>2026-08-13 → 2026-10-12 (60 days)</dd></div></dl></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Tiers &amp; rationale</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier A (headline)</dt><dd class="text-red-700 font-semibold">$10,586.94 downside</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier B (upper bound)</dt><dd>$0.00</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier C (pooled)</dt><dd class="text-red-700">−$1,202.37</dd></div></dl><p class="text-xs text-slate-500 mt-2">The primary metric is a CTA click. Get Started Form Submit recorded zero conversions in both groups, so it has no usable result. Form success is the next lead metric.</p></div>
+    </div>
+  </details>
+
+  <!-- Row 8 -->
+  <details class="group row-details">
+    <summary class="grid grid-cols-2 md:grid-cols-12 gap-x-3 gap-y-1 px-4 py-4 hover:bg-slate-50 rounded-lg items-center text-sm">
+      <div class="col-span-2 md:col-span-4"><div class="font-semibold text-[#0b1f4d] leading-snug">[250627 Michiel CMAB] WX hero</div><div class="text-xs text-slate-500 mt-1 flex flex-wrap items-center gap-2">Archived · ID 5092218277462016 <span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-red-100 text-red-800">Downside Detected</span></div></div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Sessions</span>50,133 <span class='text-slate-400'>/ 2,620</span></div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Lead Rate</span>2.63% <span class='text-slate-400'>→</span> <strong>2.62%</strong></div>
+      <div class="md:col-span-1 md:text-right font-semibold text-red-700"><span class="md:hidden text-[11px] uppercase text-slate-500 block font-normal">Lift</span>−0.55%</div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Observed</span><strong class="text-red-700">$1,592.99</strong><span class="block text-xs text-red-700">not reduced by rollout</span></div>
+      <div class="col-span-2 md:col-span-1 flex justify-end items-center"><span class="chev-btn" title="Show calculation details"><span class="sr-only">Show calculation details</span><svg class="chev" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></div>
+    </summary>
+    <div class="px-4 pb-5 pt-1 grid md:grid-cols-3 gap-3 text-sm">
+      <div class="rounded-lg bg-[#0b1f4d] text-white p-4 md:col-span-3"><div class="text-[11px] uppercase tracking-wide text-blue-200">How this value was calculated</div><div class="mt-1 font-semibold">50,133 personalized sessions × −0.55% lift × $5.75 value per session ≈ <span class="text-red-300">$1,592.99 downside</span></div><div class="text-xs text-blue-100 mt-1">Value per session = holdback lead rate 2.63% × $218.32 · equal to ≈7.30 fewer leads × $218.32</div></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Measurement</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Lift metric</dt><dd>Form success</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Lift type</dt><dd>Conversion Lift (Lead)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Aggregation source</dt><dd>Campaign Summary</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Experiences</dt><dd>1</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Significance</dt><dd>Not significant · 95% CI −49.14% to +31.40%</dd></div></dl></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Raw results</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Holdback</dt><dd>2.63% (69 / 2,620)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Personalized</dt><dd>2.62% (1,313 / 50,133)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Measured window</dt><dd>2025-05-27 → 2026-06-17 (386 days)</dd></div></dl></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Tiers &amp; rationale</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier A (headline)</dt><dd class="text-red-700 font-semibold">$1,592.99 downside</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier B (upper bound)</dt><dd>$0.00</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier C (pooled)</dt><dd class="text-red-700">−$14,768.26</dd></div></dl><p class="text-xs text-slate-500 mt-2">Form success is the primary metric and matches the lead basis.</p></div>
+    </div>
+  </details>
+
+  <!-- Row 9 -->
+  <details class="group row-details">
+    <summary class="grid grid-cols-2 md:grid-cols-12 gap-x-3 gap-y-1 px-4 py-4 hover:bg-slate-50 rounded-lg items-center text-sm">
+      <div class="col-span-2 md:col-span-4"><div class="font-semibold text-[#0b1f4d] leading-snug">[250603 Felix CMAB] Analytics hero</div><div class="text-xs text-slate-500 mt-1 flex flex-wrap items-center gap-2">Archived · ID 5712153655640064 <span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-red-100 text-red-800">Downside Detected</span></div></div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Sessions</span>20,769 <span class='text-slate-400'>/ 1,044</span></div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Lead Rate</span>1.25% <span class='text-slate-400'>→</span> <strong>1.22%</strong></div>
+      <div class="md:col-span-1 md:text-right font-semibold text-red-700"><span class="md:hidden text-[11px] uppercase text-slate-500 block font-normal">Lift</span>−2.17%</div>
+      <div class="md:col-span-2 md:text-right"><span class="md:hidden text-[11px] uppercase text-slate-500 block">Observed</span><strong class="text-red-700">$1,226.48</strong><span class="block text-xs text-red-700">not reduced by rollout</span></div>
+      <div class="col-span-2 md:col-span-1 flex justify-end items-center"><span class="chev-btn" title="Show calculation details"><span class="sr-only">Show calculation details</span><svg class="chev" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></div>
+    </summary>
+    <div class="px-4 pb-5 pt-1 grid md:grid-cols-3 gap-3 text-sm">
+      <div class="rounded-lg bg-[#0b1f4d] text-white p-4 md:col-span-3"><div class="text-[11px] uppercase tracking-wide text-blue-200">How this value was calculated</div><div class="mt-1 font-semibold">20,769 personalized sessions × −2.17% lift × $2.72 value per session ≈ <span class="text-red-300">$1,226.48 downside</span></div><div class="text-xs text-blue-100 mt-1">Value per session = holdback lead rate 1.25% × $218.32 · equal to ≈5.62 fewer leads × $218.32</div></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Measurement</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Lift metric</dt><dd>Form success</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Lift type</dt><dd>Conversion Lift (Lead)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Aggregation source</dt><dd>Campaign Summary</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Experiences</dt><dd>1</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Significance</dt><dd>Not significant (95%)</dd></div></dl></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Raw results</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Holdback</dt><dd>1.25% (13 / 1,044)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Personalized</dt><dd>1.22% (253 / 20,769)</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Measured window</dt><dd>2025-07-08 → 2026-06-22 (349 days)</dd></div></dl></div>
+      <div class="rounded-lg border border-slate-200 p-4"><div class="text-xs font-bold uppercase text-slate-500 mb-2">Tiers &amp; rationale</div><dl class="space-y-1 text-xs"><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier A (headline)</dt><dd class="text-red-700 font-semibold">$1,226.48 downside</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier B (upper bound)</dt><dd>$0.00</dd></div><div class="flex justify-between gap-2"><dt class="text-slate-500">Tier C (pooled)</dt><dd class="text-red-700">−$2,892.79</dd></div></dl><p class="text-xs text-slate-500 mt-2">The primary metric (Product hero click NEW) is a click. Form success is the only lead/form-submission metric.</p></div>
+    </div>
+  </details>
+  </div>
+
+  <div class="grid grid-cols-2 md:grid-cols-12 gap-3 px-4 py-3 mt-1 rounded-lg bg-slate-50 font-extrabold text-sm">
+    <div class="col-span-2 md:col-span-4 text-[#0b1f4d]">Program totals (Tier A)</div>
+    <div class="md:col-span-2 md:text-right">269,088 <span class="text-slate-400">/ 14,137</span></div>
+    <div class="md:col-span-2 md:text-right text-slate-400 font-normal">—</div>
+    <div class="md:col-span-1"></div>
+    <div class="col-span-2 md:col-span-3 md:text-right"><span class="text-green-700">$18,434.84</span> gain · <span class="text-teal-700">$4,608.71 realized</span><span class="block text-xs text-red-700">$75,525.67 downside (separate)</span></div>
+  </div>
+  <p class="text-xs text-slate-500 mt-2 px-1">Session totals are summed campaign sessions, not unique reach. None of the results was statistically significant at 95%.</p>
+
+  <div class="mt-5 flex flex-wrap gap-3 items-center">
+    <button type="button" onclick="downloadCsv()" class="rounded-lg border border-slate-300 bg-white hover:bg-slate-50 px-3 py-2 text-sm font-semibold text-[#0b1f4d]">⬇ Download all columns (CSV)</button>
+  </div>
+
+  <details class="mt-3 rounded-xl border border-slate-200">
+    <summary class="flex items-center justify-between gap-3 px-4 py-3"><span class="font-semibold text-[#0b1f4d] text-sm">Analyst view: full table with all 19 columns</span><span class="chev-btn" title="Open full table"><span class="sr-only">Open full table</span><svg class="chev" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+    <div class="px-4 pb-4">
+      <div class="rounded-lg bg-amber-50 border border-amber-200 text-amber-800 text-xs px-3 py-2 mb-3">↔ This table is wider than the screen. Scroll sideways to see every column. The campaign name stays pinned on the left.</div>
+      <div class="overflow-x-auto border border-slate-200 rounded-lg">
+        <table class="min-w-max text-xs">
+          <thead><tr class="text-left">
+            <th class="sticky-col bg-[#f1f4fa] px-3 py-2">Campaign</th><th class="bg-[#f1f4fa] px-3 py-2">Campaign ID</th><th class="bg-[#f1f4fa] px-3 py-2">Status</th><th class="bg-[#f1f4fa] px-3 py-2">Lift Metric</th><th class="bg-[#f1f4fa] px-3 py-2">Lift Type</th><th class="bg-[#f1f4fa] px-3 py-2">Aggregation</th><th class="bg-[#f1f4fa] px-3 py-2">Experiences</th><th class="bg-[#f1f4fa] px-3 py-2">Personalized Sessions</th><th class="bg-[#f1f4fa] px-3 py-2">Holdback Sessions</th><th class="bg-[#f1f4fa] px-3 py-2">Baseline</th><th class="bg-[#f1f4fa] px-3 py-2">Personalized</th><th class="bg-[#f1f4fa] px-3 py-2">Relative Lift</th><th class="bg-[#f1f4fa] px-3 py-2">Value / Session</th><th class="bg-[#f1f4fa] px-3 py-2">Result</th><th class="bg-[#f1f4fa] px-3 py-2">Observed (Tier A)</th><th class="bg-[#f1f4fa] px-3 py-2">Realized</th><th class="bg-[#f1f4fa] px-3 py-2">Tier B</th><th class="bg-[#f1f4fa] px-3 py-2">Tier C</th><th class="bg-[#f1f4fa] px-3 py-2">Rationale</th>
+          </tr></thead>
+          <tbody id="analyst-body" class="divide-y divide-slate-100"></tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+
+  <!-- NOT MODELED -->
+  <h3 class="text-base font-bold text-[#0b1f4d] mt-6">Eligible Campaigns Not Modeled (10)</h3>
+  <div class="grid sm:grid-cols-2 gap-3 mt-3">
+    <div class="rounded-xl border border-slate-200 p-4">
+      <div class="text-xs font-bold uppercase text-slate-500">No holdback (0%) · 8 campaigns</div>
+      <p class="text-xs text-slate-500 mt-1">All traffic saw the personalized experience, so there is no comparison group and lift cannot be measured. Sessions shown are personalized sessions.</p>
+      <ul class="mt-3 space-y-1 text-sm">
+        <li class="flex justify-between gap-2"><span>[251028 Felix CMAB] startpage hero per industry</span><span class="whitespace-nowrap text-slate-500">59,085</span></li>
+        <li class="flex justify-between gap-2"><span>New keywords: cms demo</span><span class="whitespace-nowrap text-slate-500">5,067</span></li>
+        <li class="flex justify-between gap-2"><span>[250709 Felix PERS] Product page industry</span><span class="whitespace-nowrap text-slate-500">593</span></li>
+        <li class="flex justify-between gap-2"><span>New keywords: cms product</span><span class="whitespace-nowrap text-slate-500">384</span></li>
+        <li class="flex justify-between gap-2"><span>[260609 Felix PERS] Opal U: Exitfive</span><span class="whitespace-nowrap text-slate-500">301</span></li>
+        <li class="flex justify-between gap-2"><span>Opticon 26 personalized sponsor pages</span><span class="whitespace-nowrap text-slate-500">196</span></li>
+        <li class="flex justify-between gap-2"><span>Configured commerce: electrical version</span><span class="whitespace-nowrap text-slate-500">8</span></li>
+        <li class="flex justify-between gap-2"><span>[251202 Felix PERS] startpage product interest</span><span class="whitespace-nowrap text-slate-500">0</span></li>
+      </ul>
+    </div>
+    <div class="rounded-xl border border-slate-200 p-4">
+      <div class="text-xs font-bold uppercase text-slate-500">Other reasons · 2 campaigns</div>
+      <p class="text-xs text-slate-500 mt-1">Lead values apply only to lead or form-submission conversions. These campaigns tracked only CTA clicks.</p>
+      <ul class="mt-3 space-y-3 text-sm">
+        <li><div class="flex justify-between gap-2"><span>[251031 Michiel PERS] Florida Siteswitch campaign</span><span class="whitespace-nowrap text-slate-500">1,027 / 57</span></div><div class="text-xs text-slate-500">Concluded · No lead metric (Hero banner CTA click only; holdback recorded 0 clicks)</div></li>
+        <li><div class="flex justify-between gap-2"><span>[2026-09-01 Opticon CMAB] CMS hero get-started clicks</span><span class="whitespace-nowrap text-slate-500">204 / 12</span></div><div class="text-xs text-slate-500">Paused · No lead metric (Get Started CTA click only; 0 conversions in either group)</div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 6. PORTFOLIO AGGREGATION DETAIL -->
+<section class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6">
+  <h2 class="text-lg font-bold text-[#0b1f4d]">Portfolio Aggregation Detail</h2>
+  <table class="w-full text-xs sm:text-sm mt-4">
+    <thead><tr class="text-left bg-[#f1f4fa] text-slate-600"><th class="px-3 py-2">Group</th><th class="px-3 py-2 text-right">Campaigns</th><th class="px-3 py-2">Weighting</th><th class="px-3 py-2 text-right">Pooled Lift</th><th class="px-3 py-2 text-right">Tier C Value</th><th class="px-3 py-2">Status</th></tr></thead>
+    <tbody><tr class="border-b border-slate-100">
+      <td class="px-3 py-2">Conversion Lift — Lead (Form success)</td>
+      <td class="px-3 py-2 text-right">9<div class="text-[11px] text-slate-500">4 positive · 5 downside · 0 neutral</div></td>
+      <td class="px-3 py-2">Effective sample size<div class="text-[11px] text-slate-500">Confidence intervals not available for every campaign</div></td>
+      <td class="px-3 py-2 text-right text-red-700 font-semibold">−5.12%</td>
+      <td class="px-3 py-2 text-right text-red-700 font-semibold">−$81,481.24</td>
+      <td class="px-3 py-2"><span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-red-100 text-red-800">Qualified · net downside</span></td>
+    </tr></tbody>
+  </table>
+  <p class="text-xs text-slate-500 mt-2">The pooled lift is applied only to each campaign's own personalized sessions and value per session. Large, long-running campaigns with modest declines (CMS hero, Opticon geo, WX hero) carry most of the weight. The positive campaigns have very small holdbacks and carry little weight.</p>
+</section>
+
+<!-- 7. EXPERIENCE-LEVEL EVIDENCE -->
+<section class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6">
+  <h2 class="text-lg font-bold text-[#0b1f4d]">Experience-Level Evidence (Tier B Input)</h2>
+  <p class="text-sm text-slate-600 mt-1">Grouped by campaign and collapsed by default. Click a campaign or its arrow to see its experiences.</p>
+  <div class="space-y-3 mt-4">
+
+    <details class="rounded-xl border border-slate-200">
+      <summary class="flex items-center justify-between gap-3 px-4 py-3"><div><div class="font-bold text-[#0b1f4d] text-sm">[250627 Michiel PROMO] Opticon geo</div><div class="text-xs text-slate-500">5 experiences · 3 measurable (2 positive, 1 negative) · 2 no traffic · Tier B $41,939.66</div></div><span class="chev-btn" title="Show experiences"><span class="sr-only">Show experiences</span><svg class="chev" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+      <div class="px-4 pb-4">
+        <table class="w-full text-xs sm:text-sm"><thead><tr class="text-left text-slate-500 border-b border-slate-200"><th class="py-2 pr-2">Experience</th><th class="py-2 pr-2 text-right">Sessions (P / H)</th><th class="py-2 pr-2 text-right">Lead Rate (H → P)</th><th class="py-2 pr-2 text-right">Lift</th><th class="py-2">Status</th></tr></thead><tbody class="divide-y divide-slate-100">
+          <tr><td class="py-2 pr-2">Everyone</td><td class="py-2 pr-2 text-right">14,897 / 799</td><td class="py-2 pr-2 text-right">5.51% → 6.68%</td><td class="py-2 pr-2 text-right text-green-700">+21.29%</td><td class="py-2"><span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-green-100 text-green-800">Positive · $38,127.31</span></td></tr>
+          <tr><td class="py-2 pr-2">UKI</td><td class="py-2 pr-2 text-right">9,113 / 476</td><td class="py-2 pr-2 text-right">10.92% → 11.12%</td><td class="py-2 pr-2 text-right text-green-700">+1.75%</td><td class="py-2"><span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-green-100 text-green-800">Positive · $3,812.35</span></td></tr>
+          <tr><td class="py-2 pr-2">NA</td><td class="py-2 pr-2 text-right">33,085 / 1,737</td><td class="py-2 pr-2 text-right">5.53% → 4.68%</td><td class="py-2 pr-2 text-right text-red-700">−15.23%</td><td class="py-2"><span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-red-100 text-red-800">Negative</span></td></tr>
+          <tr><td class="py-2 pr-2">Copy of UKI (5954175532531712)</td><td class="py-2 pr-2 text-right">0 / 0</td><td class="py-2 pr-2 text-right">—</td><td class="py-2 pr-2 text-right">—</td><td class="py-2"><span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-slate-100 text-slate-600">No traffic</span></td></tr>
+          <tr><td class="py-2 pr-2">Copy of UKI (6719730149490688)</td><td class="py-2 pr-2 text-right">0 / 0</td><td class="py-2 pr-2 text-right">—</td><td class="py-2 pr-2 text-right">—</td><td class="py-2"><span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-slate-100 text-slate-600">No traffic</span></td></tr>
+        </tbody></table>
+        <div class="rounded-lg border-l-4 border-amber-500 bg-amber-50 px-4 py-3 text-sm mt-3">Two experiences beat their own holdbacks, so the Sum of Individual Wins is $41,939.66. The NA experience carries the most traffic, though, and its 15% decline outweighs those gains once all experiences are combined against the campaign holdback. This is a clear example of how summing only the wins overstates impact.</div>
+      </div>
+    </details>
+
+    <details class="rounded-xl border border-slate-200">
+      <summary class="flex items-center justify-between gap-3 px-4 py-3"><div><div class="font-bold text-[#0b1f4d] text-sm">[251102 Felix PERS] start page hero: 6sense industry</div><div class="text-xs text-slate-500">6 experiences · 1 measurable (negative) · 3 zero-baseline · 1 no holdback · 1 no traffic · Tier B $0.00</div></div><span class="chev-btn" title="Show experiences"><span class="sr-only">Show experiences</span><svg class="chev" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+      <div class="px-4 pb-4">
+        <table class="w-full text-xs sm:text-sm"><thead><tr class="text-left text-slate-500 border-b border-slate-200"><th class="py-2 pr-2">Experience</th><th class="py-2 pr-2 text-right">Sessions (P / H)</th><th class="py-2 pr-2 text-right">Lead Rate (H → P)</th><th class="py-2 pr-2 text-right">Lift</th><th class="py-2">Status</th></tr></thead><tbody class="divide-y divide-slate-100">
+          <tr><td class="py-2 pr-2">Media &amp; Entertainment</td><td class="py-2 pr-2 text-right">2,585 / 128</td><td class="py-2 pr-2 text-right">0.78% → 0.70%</td><td class="py-2 pr-2 text-right text-red-700">−10.87%</td><td class="py-2"><span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-red-100 text-red-800">Negative</span></td></tr>
+          <tr><td class="py-2 pr-2">Financial Services</td><td class="py-2 pr-2 text-right">790 / 30</td><td class="py-2 pr-2 text-right">0.00% → 1.52%</td><td class="py-2 pr-2 text-right">—</td><td class="py-2"><span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-amber-100 text-amber-800">Zero holdback baseline</span></td></tr>
+          <tr><td class="py-2 pr-2">Retail and Distribution</td><td class="py-2 pr-2 text-right">421 / 34</td><td class="py-2 pr-2 text-right">0.00% → 1.19%</td><td class="py-2 pr-2 text-right">—</td><td class="py-2"><span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-amber-100 text-amber-800">Zero holdback baseline</span></td></tr>
+          <tr><td class="py-2 pr-2">Manufacturing</td><td class="py-2 pr-2 text-right">94 / 1</td><td class="py-2 pr-2 text-right">0.00% → 2.13%</td><td class="py-2 pr-2 text-right">—</td><td class="py-2"><span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-amber-100 text-amber-800">Zero holdback baseline</span></td></tr>
+          <tr><td class="py-2 pr-2">Healthcare</td><td class="py-2 pr-2 text-right">27 / 0</td><td class="py-2 pr-2 text-right">— → 3.70%</td><td class="py-2 pr-2 text-right">—</td><td class="py-2"><span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-amber-100 text-amber-800">No holdback sessions</span></td></tr>
+          <tr><td class="py-2 pr-2">Consumer goods</td><td class="py-2 pr-2 text-right">0 / 0</td><td class="py-2 pr-2 text-right">—</td><td class="py-2 pr-2 text-right">—</td><td class="py-2"><span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-slate-100 text-slate-600">No traffic</span></td></tr>
+        </tbody></table>
+        <div class="rounded-lg border-l-4 border-amber-500 bg-amber-50 px-4 py-3 text-sm mt-3">The campaign-level gain only appears when experiences are combined. Three experiences had zero holdback leads (lift undefined), one had no holdback sessions, and the only measurable experience was negative. No individual win can be measured, so Tier B is $0.00.</div>
+      </div>
+    </details>
+
+    <details class="rounded-xl border border-slate-200">
+      <summary class="flex items-center justify-between gap-3 px-4 py-3"><div><div class="font-bold text-[#0b1f4d] text-sm">[251104 Felix PERS] Get-started page: 6sense industry</div><div class="text-xs text-slate-500">6 experiences · 1 measurable (negative) · 3 zero-baseline · 1 no holdback · 1 no traffic · Tier B $0.00</div></div><span class="chev-btn" title="Show experiences"><span class="sr-only">Show experiences</span><svg class="chev" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+      <div class="px-4 pb-4">
+        <table class="w-full text-xs sm:text-sm"><thead><tr class="text-left text-slate-500 border-b border-slate-200"><th class="py-2 pr-2">Experience</th><th class="py-2 pr-2 text-right">Sessions (P / H)</th><th class="py-2 pr-2 text-right">Lead Rate (H → P)</th><th class="py-2 pr-2 text-right">Lift</th><th class="py-2">Status</th></tr></thead><tbody class="divide-y divide-slate-100">
+          <tr><td class="py-2 pr-2">Financial Services</td><td class="py-2 pr-2 text-right">116 / 3</td><td class="py-2 pr-2 text-right">33.33% → 23.28%</td><td class="py-2 pr-2 text-right text-red-700">−30.17%</td><td class="py-2"><span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-red-100 text-red-800">Negative</span></td></tr>
+          <tr><td class="py-2 pr-2">Media &amp; Entertainment</td><td class="py-2 pr-2 text-right">166 / 12</td><td class="py-2 pr-2 text-right">0.00% → 14.46%</td><td class="py-2 pr-2 text-right">—</td><td class="py-2"><span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-amber-100 text-amber-800">Zero holdback baseline</span></td></tr>
+          <tr><td class="py-2 pr-2">Retail and Distribution</td><td class="py-2 pr-2 text-right">44 / 2</td><td class="py-2 pr-2 text-right">0.00% → 11.36%</td><td class="py-2 pr-2 text-right">—</td><td class="py-2"><span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-amber-100 text-amber-800">Zero holdback baseline</span></td></tr>
+          <tr><td class="py-2 pr-2">Manufacturing</td><td class="py-2 pr-2 text-right">13 / 2</td><td class="py-2 pr-2 text-right">0.00% → 23.08%</td><td class="py-2 pr-2 text-right">—</td><td class="py-2"><span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-amber-100 text-amber-800">Zero holdback baseline</span></td></tr>
+          <tr><td class="py-2 pr-2">Healthcare</td><td class="py-2 pr-2 text-right">5 / 0</td><td class="py-2 pr-2 text-right">— → 20.00%</td><td class="py-2 pr-2 text-right">—</td><td class="py-2"><span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-amber-100 text-amber-800">No holdback sessions</span></td></tr>
+          <tr><td class="py-2 pr-2">Consumer goods</td><td class="py-2 pr-2 text-right">0 / 0</td><td class="py-2 pr-2 text-right">—</td><td class="py-2 pr-2 text-right">—</td><td class="py-2"><span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-slate-100 text-slate-600">No traffic</span></td></tr>
+        </tbody></table>
+        <div class="rounded-lg border-l-4 border-amber-500 bg-amber-50 px-4 py-3 text-sm mt-3">The campaign holdback has only 19 sessions and 1 lead, and that single lead sits in the Financial Services experience, which was negative on its own. The large campaign-level lift therefore depends on one holdback conversion and should be read with caution. Tier B is $0.00.</div>
+      </div>
+    </details>
+
+    <details class="rounded-xl border border-slate-200">
+      <summary class="flex items-center justify-between gap-3 px-4 py-3"><div><div class="font-bold text-[#0b1f4d] text-sm">[251104 Felix PERS] Plans page: 6sense industry</div><div class="text-xs text-slate-500">6 experiences · 1 measurable (negative) · 2 zero-baseline · 2 no holdback · 1 no traffic · Tier B $0.00</div></div><span class="chev-btn" title="Show experiences"><span class="sr-only">Show experiences</span><svg class="chev" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+      <div class="px-4 pb-4">
+        <table class="w-full text-xs sm:text-sm"><thead><tr class="text-left text-slate-500 border-b border-slate-200"><th class="py-2 pr-2">Experience</th><th class="py-2 pr-2 text-right">Sessions (P / H)</th><th class="py-2 pr-2 text-right">Lead Rate (H → P)</th><th class="py-2 pr-2 text-right">Lift</th><th class="py-2">Status</th></tr></thead><tbody class="divide-y divide-slate-100">
+          <tr><td class="py-2 pr-2">Financial Services</td><td class="py-2 pr-2 text-right">141 / 5</td><td class="py-2 pr-2 text-right">20.00% → 7.09%</td><td class="py-2 pr-2 text-right text-red-700">−64.54%</td><td class="py-2"><span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-red-100 text-red-800">Negative</span></td></tr>
+          <tr><td class="py-2 pr-2">Media &amp; Entertainment</td><td class="py-2 pr-2 text-right">294 / 11</td><td class="py-2 pr-2 text-right">0.00% → 5.78%</td><td class="py-2 pr-2 text-right">—</td><td class="py-2"><span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-amber-100 text-amber-800">Zero holdback baseline</span></td></tr>
+          <tr><td class="py-2 pr-2">Retail and Distribution</td><td class="py-2 pr-2 text-right">55 / 1</td><td class="py-2 pr-2 text-right">0.00% → 7.27%</td><td class="py-2 pr-2 text-right">—</td><td class="py-2"><span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-amber-100 text-amber-800">Zero holdback baseline</span></td></tr>
+          <tr><td class="py-2 pr-2">Manufacturing</td><td class="py-2 pr-2 text-right">7 / 0</td><td class="py-2 pr-2 text-right">— → 14.29%</td><td class="py-2 pr-2 text-right">—</td><td class="py-2"><span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-amber-100 text-amber-800">No holdback sessions</span></td></tr>
+          <tr><td class="py-2 pr-2">Healthcare</td><td class="py-2 pr-2 text-right">3 / 0</td><td class="py-2 pr-2 text-right">— → 0.00%</td><td class="py-2 pr-2 text-right">—</td><td class="py-2"><span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-amber-100 text-amber-800">No holdback sessions</span></td></tr>
+          <tr><td class="py-2 pr-2">Consumer goods</td><td class="py-2 pr-2 text-right">0 / 0</td><td class="py-2 pr-2 text-right">—</td><td class="py-2 pr-2 text-right">—</td><td class="py-2"><span class="rounded-full text-[11px] font-bold px-2 py-0.5 bg-slate-100 text-slate-600">No traffic</span></td></tr>
+        </tbody></table>
+        <div class="rounded-lg border-l-4 border-amber-500 bg-amber-50 px-4 py-3 text-sm mt-3">The only experience with a measurable lift was negative. The others had no holdback leads or no holdback sessions, so Tier B is $0.00 even though the combined campaign shows a small gain.</div>
+      </div>
+    </details>
+  </div>
+  <p class="text-xs text-slate-500 mt-3">The other 5 modeled campaigns (CMP hero, CMS hero, WX hero, Analytics hero, AOL v3.3 CMAB) each deliver a single experience. For these, the experience result is the campaign result, so Tier B equals the Tier A positive gain ($4,858.04 for CMP hero; $0.00 for the four downside campaigns).</p>
+</section>
+
+<!-- 8. PURCHASE & REVENUE SIGNALS -->
+<section class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6">
+  <h2 class="text-lg font-bold text-[#0b1f4d]">Purchase &amp; Revenue Signals</h2>
+  <div class="text-xs font-semibold uppercase text-slate-500 mt-1">Supporting Financial Evidence — Not Added to Campaign Value</div>
+  <p class="text-sm text-slate-600 mt-2">None of the modeled campaigns tracked a purchase, order, or revenue metric with results, so there is no supporting financial evidence to show.</p>
+</section>
+
+<!-- 9. SUPPORTING SIGNALS -->
+<section class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6">
+  <h2 class="text-lg font-bold text-[#0b1f4d]">Supporting Personalization Signals</h2>
+  <div class="text-xs font-semibold uppercase text-slate-500 mt-1">Supporting Signal — Not Monetized</div>
+  <table class="w-full text-xs sm:text-sm mt-4">
+    <thead><tr class="text-left bg-[#f1f4fa] text-slate-600"><th class="px-3 py-2">Campaign · Metric</th><th class="px-3 py-2 text-right">Holdback</th><th class="px-3 py-2 text-right">Personalized</th><th class="px-3 py-2 text-right">Movement</th><th class="px-3 py-2">Direction</th></tr></thead>
+    <tbody class="divide-y divide-slate-100">
+      <tr><td class="px-3 py-2">CMP hero · Get started hero CTA</td><td class="px-3 py-2 text-right">3.64%</td><td class="px-3 py-2 text-right">0.12%</td><td class="px-3 py-2 text-right text-red-700">−96.63% (significant)</td><td class="px-3 py-2 text-red-700">Harmful</td></tr>
+      <tr><td class="px-3 py-2">CMP hero · Navigation CTA</td><td class="px-3 py-2 text-right">0.035%</td><td class="px-3 py-2 text-right">0.035%</td><td class="px-3 py-2 text-right">+0.90%</td><td class="px-3 py-2 text-slate-500">Flat</td></tr>
+      <tr><td class="px-3 py-2">CMP hero · Product hero CTA</td><td class="px-3 py-2 text-right">0.00%</td><td class="px-3 py-2 text-right">0.00%</td><td class="px-3 py-2 text-right text-slate-500">No conversions</td><td class="px-3 py-2 text-slate-500">—</td></tr>
+      <tr><td class="px-3 py-2">WX hero · Product hero CTA</td><td class="px-3 py-2 text-right">0.65%</td><td class="px-3 py-2 text-right">0.006%</td><td class="px-3 py-2 text-right text-red-700">−99.08%</td><td class="px-3 py-2 text-red-700">Harmful</td></tr>
+      <tr><td class="px-3 py-2">WX hero · Navigation CTA</td><td class="px-3 py-2 text-right">0.95%</td><td class="px-3 py-2 text-right">1.07%</td><td class="px-3 py-2 text-right text-green-700">+11.63%</td><td class="px-3 py-2 text-green-700">Beneficial</td></tr>
+      <tr><td class="px-3 py-2">Analytics hero · Product hero click NEW</td><td class="px-3 py-2 text-right">4.02%</td><td class="px-3 py-2 text-right">0.03%</td><td class="px-3 py-2 text-right text-red-700">−99.28%</td><td class="px-3 py-2 text-red-700">Harmful</td></tr>
+      <tr><td class="px-3 py-2">Analytics hero · Navigation CTA</td><td class="px-3 py-2 text-right">0.00%</td><td class="px-3 py-2 text-right">0.04%</td><td class="px-3 py-2 text-right text-slate-500">Undefined (zero baseline)</td><td class="px-3 py-2 text-slate-500">—</td></tr>
+      <tr><td class="px-3 py-2">CMS hero · Navigation CTA</td><td class="px-3 py-2 text-right">0.00%</td><td class="px-3 py-2 text-right">0.015%</td><td class="px-3 py-2 text-right text-slate-500">Undefined (zero baseline)</td><td class="px-3 py-2 text-slate-500">—</td></tr>
+      <tr><td class="px-3 py-2">CMS hero · Product hero CTA</td><td class="px-3 py-2 text-right">0.00%</td><td class="px-3 py-2 text-right">0.00%</td><td class="px-3 py-2 text-right text-slate-500">No conversions</td><td class="px-3 py-2 text-slate-500">—</td></tr>
+      <tr><td class="px-3 py-2">AOL v3.3 CMAB · [click] [product: exp] Get Started</td><td class="px-3 py-2 text-right">3.77%</td><td class="px-3 py-2 text-right">3.92%</td><td class="px-3 py-2 text-right text-green-700">+4.12%</td><td class="px-3 py-2 text-green-700">Beneficial</td></tr>
+      <tr><td class="px-3 py-2">AOL v3.3 CMAB · Get Started Form Submit</td><td class="px-3 py-2 text-right">0.00%</td><td class="px-3 py-2 text-right">0.00%</td><td class="px-3 py-2 text-right text-slate-500">Unable to model — no conversions recorded</td><td class="px-3 py-2 text-slate-500">—</td></tr>
+      <tr><td class="px-3 py-2">AOL v3.3 CMAB · Bounce Rate</td><td class="px-3 py-2 text-right">0.00%</td><td class="px-3 py-2 text-right">0.00%</td><td class="px-3 py-2 text-right text-slate-500">No data recorded</td><td class="px-3 py-2 text-slate-500">—</td></tr>
+      <tr><td class="px-3 py-2">Florida Siteswitch (not modeled) · Hero banner CTA</td><td class="px-3 py-2 text-right">0.00%</td><td class="px-3 py-2 text-right">0.58%</td><td class="px-3 py-2 text-right text-slate-500">Undefined (zero baseline)</td><td class="px-3 py-2 text-slate-500">—</td></tr>
+      <tr><td class="px-3 py-2">CMS hero get-started clicks (not modeled) · Get Started CTA</td><td class="px-3 py-2 text-right">0.00%</td><td class="px-3 py-2 text-right">0.00%</td><td class="px-3 py-2 text-right text-slate-500">No conversions</td><td class="px-3 py-2 text-slate-500">—</td></tr>
+    </tbody>
+  </table>
+  <p class="text-xs text-slate-500 mt-2">Near-total drops in hero CTA clicks (−96% to −99%) can mean the personalized variant changed or replaced the tracked element. Check event tracking on these variants before reading the drops as user behavior.</p>
+</section>
+
+<!-- 10. METHODOLOGY -->
+<section class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6">
+  <details open>
+    <summary class="flex items-center justify-between gap-3"><h2 class="text-lg font-bold text-[#0b1f4d]">Methodology, Caveats &amp; Reconciliation</h2><span class="chev-btn" title="Collapse methodology"><span class="sr-only">Collapse methodology</span><svg class="chev" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+    <div class="mt-4 space-y-4 text-sm text-slate-700">
+      <ul class="list-disc pl-5 space-y-1.5">
+        <li><strong>Scope:</strong> Only Optimizely Personalization campaigns with status Paused, Concluded, or Archived are included, and only if their activity window overlaps 2025-10-01 to 2026-10-14. Running, Not Started, and other statuses are excluded. Campaign names containing "(QA Cookie)", "SP Test", or "Temporary Hide" are also excluded (none matched). Campaign and experience types were confirmed as Personalization from platform metadata.</li>
+        <li><strong>One calculation for every campaign and every tier:</strong> Personalized Sessions × Relative Lift vs. Holdback × Value per Session.</li>
+        <li><strong>Business Value basis:</strong> "Dollar Per Lead Conversion" at $218.32 is a value per outcome, specifically a lead. Value per Session = holdback lead rate × $218.32, which equals incremental leads × $218.32. This single basis applies to every campaign. For revenue-per-visitor or revenue-per-session bases, the entered amount would be used directly as the value of a personalized session. RPV is treated as revenue per personalized session because Personalization measures reach and results by session.</li>
+        <li><strong>Matching outcome only:</strong> The lead value applies only to lead or form-submission conversions. In this project that is <em>Form success</em>, plus <em>Get Started Form Submit</em> where it recorded results. CTA clicks, navigation clicks, scroll, and bounce metrics are not leads and are never monetized.</li>
+        <li><strong>One metric, one value per campaign:</strong> All primary and secondary metrics were evaluated. Each campaign uses the first lead metric that has results (primary first, then lowest metric order) and contributes one value. Other metrics appear as supporting signals only.</li>
+        <li><strong>Campaign-level aggregation:</strong> Each campaign is valued from Optimizely's campaign summary, which combines all experiences and compares them with the campaign holdback. Experience rates are never averaged, and experience lifts are never summed.</li>
+        <li><strong>Three tiers:</strong> Tier A is the headline value. Tier B is the upper bound from summing individual winning experiences against their own holdbacks. Tier C pools all comparable campaigns, including wins, losses, and neutral results, to check consistency. Summing only wins tends to overstate combined impact because favorable noise is more likely to look like a win. Tier C and the Realization Ratio show how much that may apply here. Tier C requires at least 5 comparable campaigns and applies the pooled lift only to each campaign's own sessions. The Realization Ratio is a consistency diagnostic, not a confidence score.</li>
+        <li><strong>Observed period, not annualized:</strong> Values reflect each campaign's measured results window as reported by Optimizely. Campaign results cover the full campaign lifetime and cannot be sliced by date. Five modeled campaigns started before 2025-10-01, and Opticon geo's window ended on 2025-10-01. Nothing is projected to 365 days.</li>
+        <li><strong>Conservative Rollout Factor (25%, user provided):</strong> This applies only to Tier A Positive Gain. Downside Detected is reported at full value, and Tiers B and C are not reduced. The factor is a realization assumption, not statistical confidence.</li>
+        <li><strong>Statistical caveats:</strong> No lead result reached significance at 95%. Several holdbacks are very small (17–193 sessions) and contain a single lead, so large lifts in those campaigns are highly uncertain.</li>
+        <li><strong>Modeled estimates, not ROI:</strong> Costs are not included. Campaign audiences may overlap, so summed campaign sessions are not unique program reach.</li>
+        <li><strong>Data sources:</strong> Optimizely Personalization campaign and experience results, plus campaign metadata, for project 26942930964. Personalization campaigns are not part of the A/B Program Reporting dataset.</li>
+      </ul>
+      <div class="grid md:grid-cols-2 gap-4">
+        <table class="w-full text-xs sm:text-sm"><thead><tr class="text-left bg-[#f1f4fa] text-slate-600"><th class="px-3 py-2">Campaign eligibility</th><th class="px-3 py-2 text-right">Count</th></tr></thead><tbody class="divide-y divide-slate-100">
+          <tr><td class="px-3 py-2">Campaign entities discovered</td><td class="px-3 py-2 text-right">115</td></tr>
+          <tr><td class="px-3 py-2">Excluded — non-Personalization type</td><td class="px-3 py-2 text-right">0</td></tr>
+          <tr><td class="px-3 py-2">Excluded — type unverified</td><td class="px-3 py-2 text-right">0</td></tr>
+          <tr><td class="px-3 py-2">Excluded — Running / Active</td><td class="px-3 py-2 text-right">2</td></tr>
+          <tr><td class="px-3 py-2">Excluded — Not Started (other ineligible status)</td><td class="px-3 py-2 text-right">16</td></tr>
+          <tr><td class="px-3 py-2">Excluded — QA / Test / Temporary name pattern</td><td class="px-3 py-2 text-right">0</td></tr>
+          <tr><td class="px-3 py-2">Status-eligible but no activity in timeframe (incl. never activated)</td><td class="px-3 py-2 text-right">78</td></tr>
+          <tr><td class="px-3 py-2">Eligible — Paused</td><td class="px-3 py-2 text-right">2</td></tr>
+          <tr><td class="px-3 py-2">Eligible — Concluded</td><td class="px-3 py-2 text-right">1</td></tr>
+          <tr><td class="px-3 py-2">Eligible — Archived</td><td class="px-3 py-2 text-right">16</td></tr>
+          <tr class="font-bold"><td class="px-3 py-2">Total eligible campaigns</td><td class="px-3 py-2 text-right">19</td></tr>
+        </tbody></table>
+        <table class="w-full text-xs sm:text-sm"><thead><tr class="text-left bg-[#f1f4fa] text-slate-600"><th class="px-3 py-2">Modeling &amp; aggregation coverage</th><th class="px-3 py-2 text-right">Count</th></tr></thead><tbody class="divide-y divide-slate-100">
+          <tr><td class="px-3 py-2">Eligible with multiple result-bearing metrics</td><td class="px-3 py-2 text-right">6</td></tr>
+          <tr><td class="px-3 py-2">Financially modeled</td><td class="px-3 py-2 text-right">9</td></tr>
+          <tr><td class="px-3 py-2">Using Conversion Lift (Lead) / Revenue Lift</td><td class="px-3 py-2 text-right">9 / 0</td></tr>
+          <tr><td class="px-3 py-2">Using visitor population (sessions unavailable)</td><td class="px-3 py-2 text-right">0</td></tr>
+          <tr><td class="px-3 py-2">Not modeled — no holdback (0%)</td><td class="px-3 py-2 text-right">8</td></tr>
+          <tr><td class="px-3 py-2">Not modeled — no lead metric</td><td class="px-3 py-2 text-right">2</td></tr>
+          <tr><td class="px-3 py-2">Positive Gain / Downside / Neutral</td><td class="px-3 py-2 text-right">4 / 5 / 0</td></tr>
+          <tr><td class="px-3 py-2">Aggregated from Campaign Summary / pooled experiences</td><td class="px-3 py-2 text-right">9 / 0</td></tr>
+          <tr><td class="px-3 py-2">Multi-experience data used for Tier B</td><td class="px-3 py-2 text-right">4</td></tr>
+          <tr><td class="px-3 py-2">Single-experience (Tier B = Tier A gain)</td><td class="px-3 py-2 text-right">5</td></tr>
+          <tr><td class="px-3 py-2">Tier C campaigns (Lead group) / groups not pooled / excluded</td><td class="px-3 py-2 text-right">9 / 0 / 0</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+  </details>
+</section>
+
+<footer class="text-xs text-slate-500 text-center pb-4">Data source: Optimizely Personalization campaign &amp; experience results · Project Optimizely.com (26942930964) · Run date 2026-10-15 · Currency USD · Observed period only</footer>
+</div>
+
+<script>
+const COLS = ["Campaign","Campaign ID","Status","Lift Metric","Lift Type","Aggregation","Experiences","Personalized Sessions","Holdback Sessions","Baseline","Personalized","Relative Lift","Value / Session","Result","Observed (Tier A)","Realized","Tier B","Tier C","Rationale"];
+const ROWS = [
+ ["[251104 Felix PERS] Get-started page: 6sense industry","6347198254809088","Archived","Form success","Conversion Lift (Lead)","Campaign Summary","6","344","19","5.26% (1/19)","17.44% (60/344)","+231.40%","$11.49","Positive Gain","$9,146.46","$2,286.61","$0.00","-$202.52","Only metric; lead/form submission."],
+ ["[250603 Felix CMAB] CMP hero","5053997631930368","Archived","Form success","Conversion Lift (Lead)","Campaign Summary","1","53,820","2,858","1.50% (43/2858)","1.55% (832/53820)","+2.75%","$3.28","Positive Gain","$4,858.04","$1,214.51","$4,858.04","-$9,057.49","Primary metric is a CTA click; Form success is first lead metric (order 2)."],
+ ["[251102 Felix PERS] start page hero: 6sense industry","6300152927879168","Archived","Form success","Conversion Lift (Lead)","Campaign Summary","6","3,917","193","0.52% (1/193)","0.97% (38/3917)","+87.24%","$1.13","Positive Gain","$3,865.28","$966.32","$0.00","-$227.01","Only metric; lead/form submission."],
+ ["[251104 Felix PERS] Plans page: 6sense industry","6494924258934784","Archived","Form success","Conversion Lift (Lead)","Campaign Summary","6","500","17","5.88% (1/17)","6.40% (32/500)","+8.80%","$12.84","Positive Gain","$565.06","$141.27","$0.00","-$328.99","Only metric; lead/form submission."],
+ ["[250603 Felix CMAB] CMS hero","5512498678333440","Archived","Form success","Conversion Lift (Lead)","Campaign Summary","1","75,093","4,029","1.44% (58/4029)","1.17% (878/75093)","-18.78%","$3.14","Downside Detected","$44,321.40","—","$0.00","-$12,091.72","Primary metric is a click; Form success is the only lead metric."],
+ ["[250627 Michiel PROMO] Opticon geo","6260471997661184","Archived","Form success","Conversion Lift (Lead)","Campaign Summary","5","57,095","3,012","6.37% (192/3012)","6.23% (3558/57095)","-2.24%","$13.92","Downside Detected","$17,797.86","—","$41,939.66","-$40,710.09","Only metric; lead/form submission. Window ended 2025-10-01."],
+ ["[AOL v3.3 CMAB] Experimentation product page","6290327936434176","Paused","Form success","Conversion Lift (Lead)","Campaign Summary","1","7,417","345","1.45% (5/345)","0.80% (59/7417)","-45.11%","$3.16","Downside Detected","$10,586.94","—","$0.00","-$1,202.37","Primary is a click; Get Started Form Submit had zero conversions in both groups; Form success is next lead metric."],
+ ["[250627 Michiel CMAB] WX hero","5092218277462016","Archived","Form success","Conversion Lift (Lead)","Campaign Summary","1","50,133","2,620","2.63% (69/2620)","2.62% (1313/50133)","-0.55%","$5.75","Downside Detected","$1,592.99","—","$0.00","-$14,768.26","Primary metric; matches lead basis."],
+ ["[250603 Felix CMAB] Analytics hero","5712153655640064","Archived","Form success","Conversion Lift (Lead)","Campaign Summary","1","20,769","1,044","1.25% (13/1044)","1.22% (253/20769)","-2.17%","$2.72","Downside Detected","$1,226.48","—","$0.00","-$2,892.79","Primary metric is a click; Form success is the only lead metric."]
+];
+(function(){
+  const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+  const tb = document.getElementById("analyst-body");
+  if (tb) tb.innerHTML = ROWS.map(r => "<tr>" + r.map((c,i) => i===0 ? "<td class='sticky-col px-3 py-2 font-semibold text-[#0b1f4d]'>"+esc(c)+"</td>" : "<td class='px-3 py-2 whitespace-nowrap'>"+esc(c)+"</td>").join("") + "</tr>").join("");
+})();
+function downloadCsv(){
+  const q = v => { v = String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g,'""') + '"' : v; };
+  const csv = [COLS.map(q).join(",")].concat(ROWS.map(r => r.map(q).join(","))).join("\n");
+  const a = document.createElement("a");
+  a.href = "data:text/csv;charset=utf-8," + encodeURIComponent("\uFEFF" + csv);
+  a.download = "personalization_campaign_value_attribution.csv";
+  document.body.appendChild(a); a.click(); a.remove();
+}
+</script>
+</body>
+</html>
